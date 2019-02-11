@@ -17,28 +17,6 @@ module.exports = {
       state: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    }).then(() => {
-      return queryInterface.addColumn(
-        'purchase_items',
-        'product_id',
-        {
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'products',
-            key: 'id'
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL'
-        }
-      )
     });
   },
   down: function(queryInterface, Sequelize) {

@@ -15,6 +15,7 @@ const port = 3000;
 
 app.listen(port, () => console.log(`Express, listening on port ${port}!`));
 
+/* RE IMPLEMENTING PREVIOUS ENDPOINTS USING SEQUELIZE */
 // Testing Users using model
 app.get('/users', (req, res) => {
 	models.users.findAll({}).then(function(users) {
@@ -53,7 +54,12 @@ app.get('/products/:id', (req, res) => {
 
 // Get the purchases
 app.get('/purchases', (req, res) => {
-	models.purchase_items.findAll({}).then(function(purchase_items) {
+	models.purchases.findAll({
+		include: [
+			{model:models.users},
+			{model:models.purchase_items}
+		]
+	}).then(function(purchase_items) {
 		res.send(purchase_items);
 	})
 })

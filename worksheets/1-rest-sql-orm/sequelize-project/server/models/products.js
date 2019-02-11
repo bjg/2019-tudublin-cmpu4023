@@ -12,5 +12,12 @@ module.exports = function(sequelize, DataTypes) {
   }, {
       timestamps: false
   });
+
+  products.associate = models => {
+    products.hasMany(models.purchase_items, {
+      foreignKey: 'product_id'
+    })
+  }
+
   return products;
 };

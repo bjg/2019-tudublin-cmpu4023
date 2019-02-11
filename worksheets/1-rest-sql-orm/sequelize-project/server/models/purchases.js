@@ -18,5 +18,17 @@ module.exports = function(sequelize, DataTypes) {
     },
     timestamps: false
   });
+
+  purchases.associate = models => {
+    // Set an association between the purchases table and the user_id table
+    purchases.belongsTo(models.users, {
+      foreignKey: 'user_id',
+    });
+
+    purchases.hasMany(models.purchase_items, {
+      foreignKey: 'purchase_id',
+    });
+  }
+
   return purchases;
 };
