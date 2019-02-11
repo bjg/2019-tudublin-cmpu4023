@@ -1,0 +1,21 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "This is lab1 for the EAD module 2019. C15708709",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Eric Strong",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "express": "^4.16.4",
+    "hjs": "0.0.6",
+    "hogan-middleware": "^0.2.2",
+    "massive": "^5.7.4",
+    "pg": "^7.8.0",
+    "pg-monitor": "^1.1.0"
+  }
+}
