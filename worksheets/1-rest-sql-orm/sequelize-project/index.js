@@ -1,9 +1,14 @@
 const express = require('express');
 const sequelize = require('sequelize');
 const models = require('./server/models/index');
+const bodyParser = require('body-parser');
 
 const app = express();
 const db = new sequelize('postgres://markbarrett:password@127.0.0.1:5432/lab1');
+
+// Tell Express to use BodyParser
+app.use(express.json());
+app.use(express.urlencoded());
 
 // Test the sequelize connection
 db.authenticate().then(() => {
@@ -15,7 +20,7 @@ const port = 3000;
 
 app.listen(port, () => console.log(`Express, listening on port ${port}!`));
 
-/* RE IMPLEMENTING PREVIOUS ENDPOINTS USING SEQUELIZE */
+/* RE IMPLEMENTING SOME OF THE PREVIOUS ENDPOINTS AND SOME NEW ONES! */
 // Testing Users using model
 app.get('/users', (req, res) => {
 	models.users.findAll({}).then(function(users) {
@@ -36,9 +41,19 @@ app.get('/users/:id', (req, res) => {
 
 // Get products
 app.get('/products', (req, res) => {
-	models.products.findAll({}).then(function(products) {
-		res.send(products);
-	}); 
+	if(req.query.name) {
+		models.products.findAll({
+			where: {
+				title: req.query.name
+			}
+		}).then(function (products) {
+			res.send(products);
+		}); 
+	} else {
+		models.products.findAll({}).then(function (products) {
+			res.send(products);
+		}); 
+	}
 })
 
 // Get the products by id
@@ -50,6 +65,31 @@ app.get('/products/:id', (req, res) => {
 	}).then(function (products) {
 		res.send(products);
 	});
+})
+
+// POST for creating a new product instance
+app.post('/products', (req, res) => {
+	// Check to make sure the required things are valid
+	if(req.body.hasOwnProperty('title') && req.body.hasOwnProperty('price') && req.body.hasOwnProperty('tags')) {
+		// Now create the product
+		var product = models.products.build({
+			title: req.body.title,
+			price: req.body.price,
+			// Split the tags into an array from a string sent as a parameter
+			tags: req.body.tags.split(','),
+			created_at: new Date(Date.now()).toISOString()
+		});
+		
+		// If successful then say so, if not return the error
+		product.save().then(() => {
+			res.send('[SUCCESS]: Product created successfully.');
+		}).catch(error => {
+			res.send('[ERROR]: '+error);
+		})
+	} else {
+		// The right parameters weren't sent.
+		res.send('[ERROR]: To create a product, there must be a title, price and tags.');
+	}
 })
 
 // Get the purchases

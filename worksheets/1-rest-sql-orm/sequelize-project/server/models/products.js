@@ -4,11 +4,14 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      unique: true
+      unique: true,
+      allowNull: false,
+      autoIncrement: true
     },
     title: DataTypes.STRING,
     price: DataTypes.DECIMAL,
-    tags: DataTypes.JSON
+    tags: DataTypes.ARRAY(DataTypes.STRING),
+    created_at: DataTypes.DATE
   }, {
       timestamps: false
   });
