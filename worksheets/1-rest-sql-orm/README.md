@@ -37,7 +37,7 @@ For this, I created a new project named sequelize-project, this was to distingui
 Created matching models using the Sequelize CLI, edited them so they were correct and then migrating the changes. Sequelize provides an index file which basically gets all of the models and then returns them so that they can be used throughout the project. A SequelizeMeta table is added to (I assume) hold the internal meta data linked to Sequelize.
 
 ### Part 5:
-**Note done yet**
+**Not done yet**
 
 ### Part 6:
 For this part I took a similar approach to part 1. I created the required Express endpoints but used models instead. To list all products you can use /products or give a query string to filter them by that name. Like part 1 you can also access products by ID.
