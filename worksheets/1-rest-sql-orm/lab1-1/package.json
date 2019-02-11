@@ -1,0 +1,15 @@
+{
+  "name": "lab1-2",
+  "version": "1.0.0",
+  "description": "Express and massive.js worksheet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Salaheldin Akl",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.4"
+  }
+}
