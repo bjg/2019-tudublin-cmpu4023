@@ -52,10 +52,11 @@ massive({
     ).then(purchases => res.send(purchases))
   });
 
-  //Part 2:
+  // Part 2:
   app.get ('/products', (req, res) => {
     if (req.query.title != null) {
       instance.query(
+        // using "+ req.query.title" leaves query susceptible to injection attack
         "select * from products where title = " + req.query.title
       ).then(products => res.send(products))
     }
