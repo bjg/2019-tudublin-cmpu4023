@@ -1,0 +1,14 @@
+node_modules/.bin/sequelize model:create --name Todo --attributes "title:string, complete:boolean,UserId:integer"
+
+// Users Command
+node_modules/.bin/sequelize model:create --name users --attributes "email:string, password:string, details:json, created_at:date, deleted_at:date"
+
+// Product Command
+node_modules/.bin/sequelize model:create --name products --attributes "title:string, price:decimal, tags:json"
+
+// Purchases Command
+node_modules/.bin/sequelize model:create --name purchases --attributes "name:string, address:string, state:string, zipcode:integer"
+
+// Purchase Items
+node_modules/.bin/sequelize model:create --name purchases --attributes "price:decimal, quantity:integer, state:string"
+
