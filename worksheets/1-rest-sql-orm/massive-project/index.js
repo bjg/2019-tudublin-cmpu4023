@@ -51,7 +51,7 @@ app.get('/users/:id', (req, res) => {
 	Extending the product as part 2 here.Allowing for the name to be passed in as an option.
 	Using "product-unsafe" as an indicator of this route being unsafe. There is a safe one following this.
  */
-app.get('/products-unsafe/:name?', (req, res) => {
+app.get('/products-unsafe', (req, res) => {
 
 	/*  Part 2:
 		The following solution is an insecure implementation of the filtering of the product by name.
@@ -65,9 +65,8 @@ app.get('/products-unsafe/:name?', (req, res) => {
 
 		These can be replaced with any values.
 	*/
-
 	// Check if the name is set
-	if(req.params.name == undefined) {
+	if(req.query.name == undefined) {
 		// If not then just return all of the products
 		app.get('db').products.find({}, {}).then(products => {
 			// Return the data
@@ -76,7 +75,7 @@ app.get('/products-unsafe/:name?', (req, res) => {
 	} else {
 		// Basic, bad query
 		app.get('db').query(
-			"SELECT * FROM products WHERE title='"+req.params.name+"'"
+			"SELECT * FROM products WHERE title='"+req.query.name+"'"
 		).then(purchases => {
 			res.send(purchases);
 		})
@@ -88,18 +87,18 @@ app.get('/products-unsafe/:name?', (req, res) => {
 	Extending the product as part 2 here.Allowing for the name to be passed in as an option.
 	Using "product-safe" as an indicator of this route being safe. There is a unsafe one above.
  */
-app.get('/products-safe/:name?', (req, res) => {
+app.get('/products-safe', (req, res) => {
 	/*
 		Exercise 3:
 		The following will check to see if the name value is given, if it is not then just return all products,
 		if it is then use a prepared WHERE query to access the data.
 
 		In contrast to the above, if this was run it would not work:
-		http://localhost:3000/products/Python Book'; DELETE FROM purchase_items WHERE product_id = 2; DELETE FROM products WHERE title = 'Python Book
+		http://localhost:3000/products/Python Book'; DELETE FROM purchase_items WHERE product_id = 2; DELETE FROM products WHERE title = 'Python Book;
 	*/
 
 	// Check if the name is set
-	if(req.params.name == undefined) {
+	if(req.query.name == undefined) {
 		// If not then just return all of the products
 		app.get('db').products.find({}, {}).then(products => {
 			// Return the data
@@ -109,7 +108,7 @@ app.get('/products-safe/:name?', (req, res) => {
 		// Prepared query whic protects against injection.
 		app.get('db').products.where(
 			'title IN (SELECT title FROM products WHERE title = ${title})',
-			{title: req.params.name}
+			{title: req.query.name}
 		).then(products => {
 			res.send(products);
 		})
