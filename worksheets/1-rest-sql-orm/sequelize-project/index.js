@@ -92,6 +92,68 @@ app.post('/products', (req, res) => {
 	}
 })
 
+// Put to update product model instance
+app.put('/products/:id', (req, res) => {
+	// Check the id
+	if(req.params.id) {
+		// Find the product
+		models.products.find({
+			where: {
+				id: req.params.id
+			}
+		}).then((product) => {
+			// Found the product, check to see if each key is in the sent param, if so then update that value.
+			if(req.body.hasOwnProperty('title')) {
+				product.update({
+					title: req.body.title
+				}).then(() => {
+					res.send('[SUCCESS]: Product updated successfully.')
+				})
+			}
+			if(req.body.hasOwnProperty('price')) {
+				product.update({
+					price: req.body.price
+				}).then(() => {
+					res.send('[SUCCESS]: Product updated successfully.')
+				})
+			}
+			if(req.body.hasOwnProperty('tags')) {
+				product.update({
+					tags: req.body.tags.split(','),
+				}).then(() => {
+					res.send('[SUCCESS]: Product updated successfully.')
+				})
+			}
+
+		}).catch((error) => {
+			res.send('[ERROR]: '+error);
+		})
+	} else {
+		res.send('[ERROR]: ID of product needed to PUT.')
+	}
+});
+
+app.delete('/products/:id', (req, res) => {
+	// Get the product
+	models.products.find({
+		where: {
+			id: req.params.id
+		}
+	}).then((product) => {
+		// If its found, destroy it
+		product.destroy().then(() => {
+			// If destroyed then return success
+			res.send('Product deleted successfully!');
+		}).catch((error) => {
+			// If failed then return that
+			res.send('[ERROR]: '+error);
+		})
+	}).catch((error) => {
+		// If the product cannot be found.
+		res.send('[ERROR]: '+error);
+	})
+});
+
 // Get the purchases
 app.get('/purchases', (req, res) => {
 	models.purchases.findAll({
