@@ -56,7 +56,7 @@ massive({
   app.get ('/products', (req, res) => {
     if (req.query.title != null) {
       instance.query(
-        "select * from products where title = $1", [req.query.title]
+        "select * from products where title = " + req.query.title
       ).then(products => res.send(products))
     }
     else {
