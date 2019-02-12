@@ -1,0 +1,19 @@
+{
+  "name": "lab-1",
+  "version": "1.0.0",
+  "description": "worksheet 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Labwork"
+  ],
+  "author": "Dimiter Dinkov",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.5",
+    "nodemon": "^1.18.10"
+  }
+}
