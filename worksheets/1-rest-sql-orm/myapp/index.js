@@ -9,7 +9,7 @@ massive({
   port: 5432,
   database: 'postgres',
   user: 'postgres',
-  password: 'just2Brothers'
+  password: 'password'
 }).then(instance => {
   app.set('db', instance);
 
@@ -17,6 +17,7 @@ massive({
       res.send("Lab 1 Enterprise Application Develpment");
   });
 
+  // Part 1:
   app.get('/users', (req, res) => {
     instance.query(
         "select email, details from users order by created_at desc"
@@ -53,11 +54,26 @@ massive({
   });
 
   // Part 2:
+  // app.get ('/products', (req, res) => {
+  //   if (req.query.title != null) {
+  //     instance.query(
+  //       // using "+ req.query.title" leaves query susceptible to injection attack
+  //       "select * from products where title = " + req.query.title
+  //     ).then(products => res.send(products))
+  //   }
+  //   else {
+  //     instance.query(
+  //       "select * from products"
+  //     ).then(products => res.send(products))
+  //   }
+  // });
+
+  // Part 3:
+  // Parameterised query
   app.get ('/products', (req, res) => {
     if (req.query.title != null) {
       instance.query(
-        // using "+ req.query.title" leaves query susceptible to injection attack
-        "select * from products where title = " + req.query.title
+        "select * from products where title = $1", [req.query.title]
       ).then(products => res.send(products))
     }
     else {
