@@ -1,5 +1,5 @@
-const { app, port } = require('./initApp.js')
-const { Product, sequelize } = require('./initDB')
+const { app, portNumber } = require('./initApp.js')
+const { Products, sequelize } = require('./initDB')
 
 sequelize.authenticate()
     .then(() => {
@@ -7,27 +7,27 @@ sequelize.authenticate()
 
         app.get('/products', async (req, res) => {
             const search = req.query.name ? { where: { title: req.query.name } } : {}
-            res.json(await Product.findAll(search))
+            res.json(await Products.findAll(search))
         })
 
         app.get('/products/:id', async (req, res) => {
-            const product = await Product.findOne({
+            const products = await Products.findOne({
                 where: {
                     id: req.params.id,
                 },
             })
 
-            if (!product) {
+            if (!products) {
                 res.statusCode = 404
-                res.send('Product does not exist')
+                res.send('That is not a product')
             }
 
-            res.json(product)
+            res.json(products)
         })
 
         app.post('/products', (req, res) => {
-            const product = Product.build(req.body) 
-            product.save()
+            const products = Products.build(req.body) 
+            products.save()
                 .then(response => { res.json(response) })
                 .catch(err => {
                     res.statusCode = 400
@@ -37,18 +37,18 @@ sequelize.authenticate()
         })
 
         app.put('/products/:id', async (req, res) => {
-            const product = await Product.findOne({
+            const products = await Products.findOne({
                 where: {
                     id: req.params.id,
                 },
             })
 
-            if (!product) {
+            if (!products) {
                 res.statusCode = 404
                 res.send('Product does not exist')
             }
 
-            product.update(req.body)
+            products.update(req.body)
                 .then(result => res.json(result))
                 .catch(err => {
                     res.statusCode = 400
@@ -58,22 +58,22 @@ sequelize.authenticate()
         })
 
         app.delete('/products/:id', async (req, res) => {
-            const product = await Product.findOne({
+            const products = await Products.findOne({
                 where: {
                     id: req.params.id,
                 },
             })
 
-            if (!product) {
+            if (!products) {
                 res.statusCode = 404
                 res.send('Product does not exist')
             }
 
-            product.destroy()
+            products.destroy()
             res.end()
         })
 
-        app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+        app.listen(port, () => console.log(`application is listening on port number ${portNumber}!`))
     })
     .catch((err) => {
         console.log('Failed', err)
