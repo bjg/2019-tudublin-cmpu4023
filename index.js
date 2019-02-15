@@ -34,7 +34,35 @@ massive({
 
     // List all products in ascending order of price
     app.get('/products', (req,res) => {
-        instance.query('select * from products order by (price) asc').then(users => res.send(users))       
+        if(req.query.name == null)
+        {
+            instance.query('select * from products order by (price) asc').then(users => res.send(users)) 
+        }      
+        // ------- Part 2 --------------------------------------------
+        // Extend the product indexing endpoint to allow the filtering of products by name
+
+        // Query to add temporary value to delete
+        // Baby Book'; insert into products (id, title, price) values (210, 'Baby Book', '15.95'); --
+        
+        // Query to remove temporary value
+        // Baby Book'; delete from products where id = 210; --
+        
+        /*
+        else
+        {
+            instance.query(`select * from products where title = '${req.query.name}' order by (price) asc`).then(users => res.send(users))
+        }
+        */
+
+        
+        // ------- Part 3 --------------------------------------------
+        // Provide two solutions to eliminate the security hole in your approach from the previous section
+        
+        // Parameterised query
+        else
+        {
+            instance.query('select * from products where title = $1 order by (price) asc', [`${req.query.name}`]).then(users => res.send(users))
+        }
     });
 
     // Show details of the specified products
