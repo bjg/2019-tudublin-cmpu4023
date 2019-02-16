@@ -1,6 +1,6 @@
 <a name="top"><h1>REST API, SQL and ORM</h1></a>
 
-### Lab Contents
+### Contents
 - Create a simple HTTP endpoint in NodeJS
 - Interface between Node and Postgres using Massive JS
 - Execute simple Postgres queries using SQL and exposed those using an HTTP API
