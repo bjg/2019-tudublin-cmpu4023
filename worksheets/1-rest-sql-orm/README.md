@@ -2,7 +2,7 @@
 
 ### 1.1 GET /users
 
-```
+```javascript
 /* 
 List all users email and sex in order of most recently created. 
 Do not include password hash in your output.
@@ -34,7 +34,7 @@ app.get('/users', (req, res) => {
 
 
 ### 1.2 GET /users/:id
-```
+```javascript
 /* 
 List specified user's email and sex. 
 Do not include password hash in your output.
@@ -66,7 +66,7 @@ app.get('/users/:id', (req, res) => {
 ```
 
 ### 1.3 GET /products
-```
+```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
 */
@@ -93,7 +93,7 @@ app.get('/products', (req, res) => {
 ```
 
 ### 1.4 GET /products/:id
-```
+```javascript
 /* 
 Show details of the specified product.
 */
@@ -120,7 +120,7 @@ app.get('/products/:id', (req, res) => {
 
 ### 1.5 GET /purchases
 
-```
+```javascript
 /*
 List purchase items to include:
 > receiver’s name
@@ -146,7 +146,7 @@ app.get('/purchases', (req, res) => {
 # Part 2: Extend the '/products' Endpoint to <style color=red">Allow</style> SQL Injection
 
 ### GET /products[?name=string] - Possible SQL Injection
-```
+```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
 */
@@ -189,7 +189,7 @@ app.get('/products', (req, res) => {
 # Part 3: Extend /products Endpoint to Prevent SQL Injection
 
 ### GET /products[?name=string] - Parameterised Query
-```
+```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
 */
@@ -231,7 +231,7 @@ app.get('/products', (req, res) => {
 ```
 
 ### GET /products[?name=string] - Stored Procedure
-```
+```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
 */
@@ -274,7 +274,7 @@ app.get('/products', (req, res) => {
 # Part 4: Model Database and Migrate using Sequelize ORM
 
 ### Model Users Table
-```
+```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var users = sequelize.define('users', {
@@ -305,7 +305,7 @@ module.exports = function(sequelize, DataTypes) {
 
 ```
 ### Migrate Users Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -340,7 +340,7 @@ module.exports = {
 ```
 
 ### Model Products Table
-```
+```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var products = sequelize.define('products', {
@@ -370,7 +370,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 ### Migrate Products Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -405,7 +405,7 @@ module.exports = {
 ```
 
 ### Model Purchases Table
-```
+```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var purchases = sequelize.define('purchases', {
@@ -432,7 +432,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 ### Migrate Purchases Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -461,7 +461,7 @@ module.exports = {
 ```
 
 ### Model Purchase_Items Table
-```
+```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var purchase_items = sequelize.define('purchase_items', {
@@ -485,7 +485,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 ### Migrate Purchase_Items Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
@@ -523,7 +523,7 @@ db:seed:undo:all
 ```
 
 ### Seed Files for Users Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -556,7 +556,7 @@ module.exports = {
 
 
 ### Seed Files for Products Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -588,7 +588,7 @@ down: (queryInterface, Sequelize) =>{
 ```
 
 ### Seed Files for Purchases Table
-```
+```javascript
 'use strict';
 module.exports = {
     up: (queryInterface, Sequelize) => {
@@ -623,7 +623,7 @@ module.exports = {
 ```
 
 ### Seed Files for Purchase_Items Table
-```
+```javascript
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -657,7 +657,7 @@ down: (queryInterface, Sequelize) =>{
 # Part 6: Reimplemented RESTful API using Sequelize and Express
 
 ### GET /products
-```
+```javascript
 /*
 List all products.
 CURL COMMAND: curl http://127.0.0.1:3000/products
@@ -671,7 +671,7 @@ router.get('/products', (req, res) =>{
 ```
 
 ### GET /products/:id
-```
+```javascript
 /* 
 Show details of the specified product.
 CURL COMMAND: curl http://127.0.0.1:3000/products/:11
@@ -700,7 +700,7 @@ router.get('/products/:id', (req, res) =>{
 ```
 
 ### POST /products
-```
+```javascript
 /*
 Create a new product instance
 CURL COMMAND: curl --data "title=Doll&price=11.99&tags=Toy&tags=Children" http://127.0.0.1:3000/products
@@ -721,7 +721,7 @@ router.post('/products', (req, res) => {
 ```
 
 ### PUT /products/:id
-```
+```javascript
 /*
 Update an existing product.
 CURL COMMAND: curl -X PUT --data "title=Dictionary&price=\
@@ -755,7 +755,7 @@ router.put('/products/:id', (req, res) =>{
 ```
 
 ### DELETE /products/:id
-```
+```javascript
 /*
 Remove an existing product.
 CURL COMMAND: curl -X DELETE http://127.0.0.1:3000/products/:44
