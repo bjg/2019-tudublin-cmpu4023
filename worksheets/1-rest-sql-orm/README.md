@@ -6,11 +6,21 @@
 - [Part 1.5: List all purchase items](#part1.5)
 
 [<b>Part 2:</b> Extend the '/products' Endpoint to **_Allow_** SQL Injection](#part2)<br><br>
+
 [<b>Part 3:</b> Extend the '/products' Endpoint to **_Prevent_** SQL Injection](#part3)
 - [GET /products[?name=string] - Parameterised Query](#part3.1)
 - [GET /products[?name=string] - Stored Procedure](#part3.2)
 
 [<b>Part 4:</b> Model Database and Migrate using Sequelize ORM](#part4)
+- [Part 4.1: Model Users Table](#part4.1)
+- [Part 4.2: Migrate Users Table](#part4.2)
+- [Part 4.3: Model Products Table](#part4.3)
+- [Part 4.4: Migrate Products Table](#part4.4)
+- [Part 4.5: Model Purchases Table](#part4.5)
+- [Part 4.6: Migrate Purchases Table](#part4.6)
+- [Part 4.7: Model Purchase_Items Table](#part4.7)
+- [Part 4.8: Migrate Purchase_Items Table](#part4.8)
+
 [<b>Part 5:</b> Using Models and JS to Perform Bulk Inserts](#part5)
 [<b>Part 6:</b> Reimplemented RESTful API using Sequelize and Express](#part6)
 
@@ -323,8 +333,8 @@ app.get('/products', (req, res) => {
 ```
 
 <a name="part4"><h3>Part 4: Model Database and Migrate using Sequelize ORM</h3></a>
+<a name="part4.1"><h5>Model Users Table</h5></a>
 
-### Model Users Table
 ```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -355,7 +365,8 @@ module.exports = function(sequelize, DataTypes) {
 };
 
 ```
-### Migrate Users Table
+<a name="part4.2"><h5>Migrate Users Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -389,8 +400,8 @@ module.exports = {
   }
 };
 ```
+<a name="part4.3"><h5>Model Products Table</h5></a>
 
-### Model Products Table
 ```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -420,7 +431,8 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-### Migrate Products Table
+<a name="part4.4"><h5>Migrate Products Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -455,7 +467,8 @@ module.exports = {
 };
 ```
 
-### Model Purchases Table
+<a name="part4.5"><h5>Model Purchases Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -482,7 +495,8 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-### Migrate Purchases Table
+<a name="part4.6"><h5>Migrate Purchases Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -511,7 +525,8 @@ module.exports = {
 };
 ```
 
-### Model Purchase_Items Table
+<a name="part4.7"><h5>Model Purchase_Items Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = function(sequelize, DataTypes) {
@@ -535,7 +550,8 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-### Migrate Purchase_Items Table
+<a name="part4.8"><h5>Migrate Purchase_Items Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
