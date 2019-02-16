@@ -1,18 +1,18 @@
-# Part 1: Using Node, Express and Massive to create API endpoints:
+# Part 1: Using Node, Express and Massive to create API endpoints
 
-### GET /users
-![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
+### 1.1 GET /users
+![alt text](2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
 
-### GET /users/:id
+### 1.2 GET /users/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.2_displaySpecificUserInfoByID.PNG  "1.2_displaySpecificUserInfoByID")
 
-### GET /products
+### 1.3 GET /products
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.3_allProductsDESC.PNG  "1.3_allProductsDESC")
 
-### GET /products/:id
+### 1.4 GET /products/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.4_displaySpecificProductByID.PNG  "1.4_displaySpecificProductByID")
 
-### GET /purchases
+### 1.5 GET /purchases
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.5_displayAllPurchaseItems.PNG  "1.5_displayAllPurchaseItems")
 
 # Part 2: Extend the '/products' Endpoint to Allow SQL Injection
