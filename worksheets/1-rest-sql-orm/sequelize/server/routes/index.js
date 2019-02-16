@@ -23,7 +23,7 @@ router.get('/products', (req, res) =>{
 
 /* 
 Show details of the specified product.
-CURL COMMAND: curl http://127.0.0.1:3000/products/:11
+CURL COMMAND: curl http://127.0.0.1:3000/products/:5
 */
 router.get('/products/:id', (req, res) =>{
   // parse input to get the user ID value on its own

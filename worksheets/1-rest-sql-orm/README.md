@@ -849,7 +849,7 @@ router.get('/products', (req, res) =>{
 [Back to Top](#top)
 <a name="part6.3"><h3>6.3 GET /products/:id</h3></a>
 ```
-curl http://127.0.0.1:3000/products/:11
+curl http://127.0.0.1:3000/products/:5
 ```
 
 ```javascript
@@ -956,7 +956,7 @@ router.put('/products/:id', (req, res) =>{
 [Back to Top](#top)
 <a name="part6.6"><h3>6.6 DELETE /products/:id</h3></a>
 ```
-curl -X DELETE http://127.0.0.1:3000/products/:44
+curl -X DELETE http://127.0.0.1:3000/products/:49
 ```
 
 ```javascript
@@ -985,3 +985,9 @@ router.delete('/products/:id', (req, res) =>{
   });
 });
 ```
+
+<h3>Results:</h3>
+
+![sequelize_product_delete1](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete1.png "http://localhost:3000/sequelize_product_delete1")
+
+![sequelize_product_delete2](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete2.png "http://localhost:3000/sequelize_product_delete2")
