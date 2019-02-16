@@ -143,10 +143,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-## Part 2: Extend the '/products' Endpoint to 
-```diff
--Allow
-``` SQL Injection
+## Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection
 
 ### GET /products[?name=string] - Possible SQL Injection
 ```javascript
@@ -189,7 +186,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-## Part 3: Extend /products Endpoint to Prevent SQL Injection
+## Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection
 
 ### GET /products[?name=string] - Parameterised Query
 ```javascript
