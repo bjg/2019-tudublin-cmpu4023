@@ -154,20 +154,22 @@ app.get('/products', (req, res) => {
                 // SQL INJECTION STRING
                 //Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--
                 
-               // UNSAFE
-               db.query("SELECT * FROM PRODUCTS WHERE TITLE = '" + req.query.name + "';")
-               .then(items => {
-                       res.json(items);
-               });
-       
                 /*
+                // UNSAFE
+                db.query("SELECT * FROM PRODUCTS WHERE TITLE = '" + req.query.name + "';")
+                .then(items => {
+                        res.json(items);
+                });
+                */
+
+                
                 // PARAMETERISED QUERY                
                 const query = "SELECT * FROM PRODUCTS WHERE INITCAP(TITLE) = INITCAP($1)"; 
                 db.query(query, req.query.name)
                         .then(items => {
                                 res.json(items);
                         });
-                */
+                
                
                 /*
                 // STORED PROCEDURE

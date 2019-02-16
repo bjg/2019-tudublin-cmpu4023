@@ -292,7 +292,7 @@ app.get('/products', (req, res) => {
 
 <h3>Results:</h3>
 
-![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--")
+![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products_sql_injection")
 
 [Back to Top](#top)
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
@@ -300,7 +300,7 @@ app.get('/products', (req, res) => {
 
 ```javascript
 /* 
-List all products in ascending order of price OR Display specific Item - SQL Injection.
+List all products in ascending order of price OR Display specific Item - Parameterised Query.
 */
 app.get('/products', (req, res) => {
         if(req.query.name == undefined)
@@ -339,12 +339,17 @@ app.get('/products', (req, res) => {
 });
 ```
 
+<h3>Results:</h3>
+
+![massive_parameterised_query](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_parameterised_query.png "http://localhost:3000/products_parameterised_query")
+
+
 [Back to Top](#top)
 <a name="part3.2"><h3>3.2 GET /products[?name=string] - Stored Procedure</h3></a>
 
 ```javascript
 /* 
-List all products in ascending order of price OR Display specific Item - SQL Injection.
+List all products in ascending order of price OR Display specific Item - Stored Procedure.
 */
 app.get('/products', (req, res) => {
         if(req.query.name == undefined)
@@ -381,6 +386,10 @@ app.get('/products', (req, res) => {
         }
 });
 ```
+
+<h3>Results:</h3>
+
+![massive_stored_procedure](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_stored_procedure.png "http://localhost:3000/products_stored_procedure")
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
@@ -646,9 +655,17 @@ module.exports = {
 
 Inserts and Delete of bulk data were performed using seeder files and seed commands: 
 ```
-db:seed:all             // to seed all inserts
-db:seed:undo:all        // to deseed/delete all inserts
+node_modules/.bin/sequelize db:seed              // to seed all inserts
+node_modules/.bin/sequelize db:seed:undo:all     // to deseed/delete all inserts
 ```
+
+<h3>Console: Seed</h3>
+
+![sequelize_db_seed](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed.png "http://localhost:3000/sequelize_db_seed")
+
+<h3>Console: De-seed</h3>
+
+![sequelize_db_seed_undo](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed_undo.png "http://localhost:3000/sequelize_db_seed_undo")
 
 <a name="part5.1"><h3>5.1 Seed File for Users Table</h3></a>
 
@@ -807,7 +824,6 @@ _PUT /products/:id_
 _DELETE /products/:id_
 <br>Remove an existing product. 
 
-
 [Back to Top](#top)
 <a name="part6.2"><h3>6.2 GET /products</h3></a>
 ```
@@ -825,6 +841,10 @@ router.get('/products', (req, res) =>{
   });
 });
 ```
+
+<h3>Results:</h3>
+
+![sequelize_products](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_products.png "http://localhost:3000/sequelize_products")
 
 [Back to Top](#top)
 <a name="part6.3"><h3>6.3 GET /products/:id</h3></a>
@@ -859,6 +879,10 @@ router.get('/products/:id', (req, res) =>{
 });
 ```
 
+<h3>Results:</h3>
+
+![sequelize_product_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_id.png "http://localhost:3000/sequelize_product_id")
+
 [Back to Top](#top)
 <a name="part6.4"><h3>6.4 POST /products</h3></a>
 ```
@@ -884,10 +908,14 @@ router.post('/products', (req, res) => {
 });
 ```
 
+<h3>Results:</h3>
+
+![sequelize_product_insert](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_insert.png "http://localhost:3000/sequelize_product_insert")
+
 [Back to Top](#top)
 <a name="part6.5"><h3>6.5 PUT /products/:id</h3></a>
 ```
-curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
+curl -X PUT --data "title=Dictionary&price=222.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
 ```
 
 ```javascript
@@ -920,6 +948,10 @@ router.put('/products/:id', (req, res) =>{
   });
 });
 ```
+
+<h3>Results:</h3>
+
+![sequelize_product_update](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_update.png "http://localhost:3000/sequelize_product_update")
 
 [Back to Top](#top)
 <a name="part6.6"><h3>6.6 DELETE /products/:id</h3></a>
