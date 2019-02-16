@@ -6,16 +6,17 @@
 - Execute simple Postgres queries using SQL and exposed those using an HTTP API
 - Demonstrate how SQL injection can be performed on a badly implemented RDMBS backend interface
 - Implement SQL-injection proofing in your implementation
-- Implemented an API model layer using the Sequelize object relational mapper
-- Implemented API in Express using an ORM-based model layer
+- Implement an API model layer using the Sequelize object relational mapper
+- Implement API in Express using an ORM-based model layer
 ---
 
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
-- [Part 1.1: List all users email and sex in order of most recently created](#part1.1)
-- [Part 1.2: List specified user's email and sex](#part1.2)
-- [Part 1.3: List all products in ascending order of price](#part1.3)
-- [Part 1.4: Show details of the specified product](#part1.4)
-- [Part 1.5: List all purchase items](#part1.5)
+- [Part 1.1: List all available endpoints](#part1.1)
+- [Part 1.2: List all users email and sex in order of most recently created](#part1.2)
+- [Part 1.3: List specified user's email and sex](#part1.3)
+- [Part 1.4: List all products in ascending order of price](#part1.4)
+- [Part 1.5: Show details of the specified product](#part1.5)
+- [Part 1.6: List all purchase items](#part1.6)
 
 [**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
 - [Part 2.1: GET /products[?name=string] - Possible SQL Injection](#part2.1)
@@ -50,8 +51,7 @@
 [Back to Top](#top)
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
-
-### Available Endpoints:
+<a name="part1.1"><h3>Available Endpoints:</h3></a>
 
 _/users_
 <br>List all users email and sex in order of most recently created.
@@ -78,12 +78,11 @@ _/products?name=title_
 
 [Back to Top](#top)
 
-<a name="part1.1"><h3>1.1 GET /users</h3></a>
+<a name="part1.2"><h3>1.2 GET /users</h3></a>
 
 ```javascript
 /* 
 List all users email and sex in order of most recently created. 
-Do not include password hash in your output.
 */
 app.get('/users', (req, res) => {
         db.users.find({}, {
@@ -110,7 +109,7 @@ app.get('/users', (req, res) => {
 });
 ```
 [Back to Top](#top)
-<a name="part1.2"><h3>1.2 GET /users/:id</h3></a>
+<a name="part1.3"><h3>1.3 GET /users/:id</h3></a>
 
 ```javascript
 /* 
@@ -143,7 +142,7 @@ app.get('/users/:id', (req, res) => {
 });
 ```
 [Back to Top](#top)
-<a name="part1.3"><h3>1.3 GET /products</h3></a>
+<a name="part1.4"><h3>1.4 GET /products</h3></a>
 
 ```javascript
 /* 
@@ -171,7 +170,7 @@ app.get('/products', (req, res) => {
 });
 ```
 [Back to Top](#top)
-<a name="part1.4"><h3>1.4 GET /products/:id</h3></a>
+<a name="part1.5"><h3>1.5 GET /products/:id</h3></a>
 
 ```javascript
 /* 
@@ -197,7 +196,7 @@ app.get('/products/:id', (req, res) => {
 });
 ```
 [Back to Top](#top)
-<a name="part1.5"><h3>1.5 GET /purchases</h3></a>
+<a name="part1.6"><h3>1.6 GET /purchases</h3></a>
 
 ```javascript
 /*
