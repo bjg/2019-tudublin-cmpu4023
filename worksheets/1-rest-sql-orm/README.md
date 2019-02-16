@@ -730,10 +730,8 @@ down: (queryInterface, Sequelize) =>{
 ```
 
 <a name="part6"><h3>Part 6: Reimplemented RESTful API using Sequelize and Express</h3></a>
-
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 
-### GET /products
 ```javascript
 /*
 List all products.
