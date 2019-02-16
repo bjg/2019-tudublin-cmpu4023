@@ -168,30 +168,6 @@ massive({
         res.send(db.listTables());
     });
 
-        //SQL injection
-    app.get('/products_unsafe/:title', (req,res) => {
-        let userString = req.params.title;
-        //0 OR 1=1 selects everything
-        const sql = `SELECT * FROM products WHERE id = ${userString}`
-
-       let obj_arr = []
-
-        db.query(
-            sql
-        ).then(products => {
-            for(i = 0; i < products.length;i++){
-                //console.log(products[i]);
-                var obj = new Object();
-                obj.title = products[i].title;
-                obj.price = products[i].price;
-                obj.tags = products[i].tags;
-                
-                obj_arr.push(obj);
-            }
-        res.json(obj_arr);
-        })
-    });
-
     //SQL injection prevention
     app.get('/products_safe/:title', (req,res) => {
         let userString = req.params.title;
@@ -206,6 +182,24 @@ massive({
           }).catch((err) => {
               res.send(err);
           });;
+    });
+
+    //SQL injection prevention stored procedure
+    app.get('/products_safe_two/:title', (req,res) => {
+        let userString = req.params.title;
+        
+        /*
+        //This isnt working. Error: attempt to overwrite function at get_safe is not allowed
+        db.get_safe(userString).then(result =>{
+            for(i = 0; i < result.length;i++)
+            {
+                console.log(result[i])
+            }
+            res.send(result);
+        }).catch(error =>{
+            res.send(error);
+        })
+        */
     });
 
 });
