@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "nicola",
-    "password": "Password",
+    "password": "********",
     "database": "pgguide",
     "host": "127.0.0.1",
     "port": "5432",
@@ -9,14 +9,14 @@
   },
   "test": {
     "username": "nicola",
-    "password": "Password",
+    "password": "********",
     "database": "pgguide",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "nicola",
-    "password": "Password",
+    "password": "********",
     "database": "pgguide",
     "host": "127.0.0.1",
     "dialect": "postgres"
