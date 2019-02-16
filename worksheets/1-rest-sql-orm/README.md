@@ -109,7 +109,7 @@ app.get('/users', (req, res) => {
         });
 });
 ```
-Results
+<h3>Results:</h3>
 
 ![massive_users](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_users.png "http://localhost:3000/users")
 
