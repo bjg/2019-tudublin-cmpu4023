@@ -211,6 +211,11 @@ app.get('/products/:id', (req, res) => {
         
 });
 ```
+
+<h3>Results:</h3>
+
+![massive_product_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_product_id.png "http://localhost:3000/products/:3")
+
 [Back to Top](#top)
 <a name="part1.6"><h3>1.6 GET /purchases</h3></a>
 
@@ -236,6 +241,11 @@ app.get('/purchases', (req, res) => {
         });
 });
 ```
+
+<h3>Results:</h3>
+
+![massive_purchases](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_purchases.png "http://localhost:3000/purchases")
+
 [Back to Top](#top)
 <a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
 <a name="part2.1"><h3>2.1 GET /products[?name=string] - Possible SQL Injection</h3></a>
@@ -279,6 +289,11 @@ app.get('/products', (req, res) => {
         }
 });
 ```
+
+<h3>Results:</h3>
+
+![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--")
+
 [Back to Top](#top)
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
 <a name="part3.1"><h3>3.1 GET /products[?name=string] - Parameterised Query</h3></a>
