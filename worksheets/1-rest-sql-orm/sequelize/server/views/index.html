@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}{% endblock %}
+
+
+{% block content %}
+
+  <div class="container">
+
+    <h1>{{ title }}</h1>
+    <p>Welcome to {{ title }}</p>
+    
+    <br><br>
+    <h3>Available Endpoints:</h3>
+                <br>
+                <ul>
+                        <b><i>GET &nbsp;&nbsp;&nbsp;/products </i></b>
+                        <br>List all products.
+                </ul>
+                <br>
+                <ul>
+                        <b><i>GET &nbsp;&nbsp;&nbsp;/products/:id </i></b>
+                        <br>Show details of the specified product.
+                </ul>
+                <br>
+                <ul>
+                        <b><i>POST &nbsp;&nbsp;&nbsp;/products </i></b>
+                        <br>Create a new product instance.
+                </ul>
+                <br>
+                <ul>
+                        <b><i>PUT &nbsp;&nbsp;&nbsp;/products/:id </i></b>
+                        <br>Update an existing product.
+                </ul>
+                <br>
+                <ul>
+                        <b><i>DELETE &nbsp;&nbsp;&nbsp;/products/:id </i></b>
+                        <br>Remove an existing product.
+                </ul>
+
+  </div>
+
+{% endblock %}
