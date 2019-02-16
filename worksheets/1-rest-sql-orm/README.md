@@ -956,7 +956,7 @@ router.put('/products/:id', (req, res) =>{
 [Back to Top](#top)
 <a name="part6.6"><h3>6.6 DELETE /products/:id</h3></a>
 ```
-curl -X DELETE http://127.0.0.1:3000/products/:49
+curl -X DELETE http://127.0.0.1:3000/products/:50
 ```
 
 ```javascript
