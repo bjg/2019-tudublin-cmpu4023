@@ -1,4 +1,4 @@
-#REST API, SQL and ORM
+# REST API, SQL and ORM
 [](#top)
 
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
