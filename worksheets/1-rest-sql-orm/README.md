@@ -109,6 +109,10 @@ app.get('/users', (req, res) => {
         });
 });
 ```
+Results
+
+![massive_users](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "http://localhost:3000/users")
+
 [Back to Top](#top)
 <a name="part1.3"><h3>1.3 GET /users/:id</h3></a>
 
