@@ -1,9 +1,9 @@
 [Part 1: Using Node, Express and Massive to create API endpoints](#part1)<br>
-[Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
-[Part 1.2: List specified user's email and sex](#part1.2)<br>
-[Part 1.3: List all products in ascending order of price](#part1.3)<br>
-[Part 1.4: Show details of the specified product](#part1.4)<br>
-[Part 1.5: List all purchase items](#part1.5)<br>
+- [Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
+- [Part 1.2: List specified user's email and sex](#part1.2)<br>
+- [Part 1.3: List all products in ascending order of price](#part1.3)<br>
+- [Part 1.4: Show details of the specified product](#part1.4)<br>
+- [Part 1.5: List all purchase items](#part1.5)<br>
 
 
 <a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
