@@ -42,11 +42,12 @@
 - [Part 5.4: Seed File for Purchase_Items Table](#part5.4)
 
 [**Part 6: Reimplemented RESTful API using Sequelize and Express**](#part6)
-- [Part 6.1: List all products](#part6.1)
-- [Part 6.2: Show details of the specified product](#part6.2)
-- [Part 6.3: Create a new product instance](#part6.3)
-- [Part 6.4: Update an existing product](#part6.4)
-- [Part 6.5: Remove an existing product](#part6.5)
+- [Part 6.1: List all available endpoints](#part6.1)
+- [Part 6.2: List all products](#part6.2)
+- [Part 6.3: Show details of the specified product](#part6.3)
+- [Part 6.4: Create a new product instance](#part6.4)
+- [Part 6.5: Update an existing product](#part6.5)
+- [Part 6.6: Remove an existing product](#part6.6)
 
 [Back to Top](#top)
 
@@ -759,8 +760,7 @@ down: (queryInterface, Sequelize) =>{
 
 [Back to Top](#top)
 <a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
-
-### Available Endpoints:
+<a name="part6.1"><h3>Available Endpoints:</h3></a>
 
 _GET /products_
 <br>List all products.
@@ -779,7 +779,7 @@ _DELETE /products/:id_
 
 
 [Back to Top](#top)
-<a name="part6.1"><h3>6.1 GET /products</h3></a>
+<a name="part6.2"><h3>6.2 GET /products</h3></a>
 ```
 curl http://127.0.0.1:3000/products
 ```
@@ -797,7 +797,7 @@ router.get('/products', (req, res) =>{
 ```
 
 [Back to Top](#top)
-<a name="part6.2"><h3>6.2 GET /products/:id</h3></a>
+<a name="part6.3"><h3>6.3 GET /products/:id</h3></a>
 ```
 curl http://127.0.0.1:3000/products/:11
 ```
@@ -830,7 +830,7 @@ router.get('/products/:id', (req, res) =>{
 ```
 
 [Back to Top](#top)
-<a name="part6.3"><h3>6.3 POST /products</h3></a>
+<a name="part6.4"><h3>6.4 POST /products</h3></a>
 ```
 curl --data "title=Doll&price=11.99&tags=Toy&tags=Children" http://127.0.0.1:3000/products
 ```
@@ -855,7 +855,7 @@ router.post('/products', (req, res) => {
 ```
 
 [Back to Top](#top)
-<a name="part6.4"><h3>6.4 PUT /products/:id</h3></a>
+<a name="part6.5"><h3>6.5 PUT /products/:id</h3></a>
 ```
 curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
 ```
@@ -892,7 +892,7 @@ router.put('/products/:id', (req, res) =>{
 ```
 
 [Back to Top](#top)
-<a name="part6.5"><h3>6.5 DELETE /products/:id</h3></a>
+<a name="part6.6"><h3>6.6 DELETE /products/:id</h3></a>
 ```
 curl -X DELETE http://127.0.0.1:3000/products/:44
 ```
