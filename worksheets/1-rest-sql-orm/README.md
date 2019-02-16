@@ -5,7 +5,7 @@
 - [Part 1.4: Show details of the specified product**](#part1.4)
 - [Part 1.5: List all purchase items**](#part1.5)
 
-[**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)<br><br>
+[**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
 
 [**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**](#part3)
 - [GET /products[?name=string] - Parameterised Query**](#part3.1)
