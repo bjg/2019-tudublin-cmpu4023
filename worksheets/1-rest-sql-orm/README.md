@@ -1,10 +1,12 @@
-[Take me there](#there_you_go)
-[Take me where](#here)
+[Part 1](#part1)
+[Part 1.1](#part1.1)
+[Part 2](#part2)
+
+<a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
 
 
-## Part 1: Using Node, Express and Massive to create API endpoints
-
-### 1.1 GET /users
+//### 1.1 GET /users
+<a name="part1.1"><h3>1.1 GET /users</h3></a>
 
 ```javascript
 /* 
@@ -36,7 +38,7 @@ app.get('/users', (req, res) => {
 });
 ```
 
-<a name="there_you_go"></a>Take me there
+<a name="part1"></a>.
 ### 1.2 GET /users/:id
 ```javascript
 /* 
