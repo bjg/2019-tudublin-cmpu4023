@@ -1,3 +1,6 @@
+# REST API, SQL and ORM
+Author: Nicola Mahon C15755031
+
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)
 - [Part 1.2: List specified user's email and sex](#part1.2)
