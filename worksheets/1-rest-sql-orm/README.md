@@ -1,4 +1,4 @@
-# REST API, SQL and ORM
+[<h1>REST API, SQL and ORM</h1>](#top)
 
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)
@@ -37,6 +37,7 @@
 - [Part 6.4: Update an existing product](#part6.4)
 - [Part 6.5: Remove an existing product](#part6.5)
 
+<a name="top"><h2>Back To Top</h2></a>
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
 
@@ -65,6 +66,7 @@ _/purchases_
 _/products?name=title_
 <br>Display products by a given title i.e. Action, Dictionary, Pop CD.
 
+<a name="top"><h2>Back To Top</h2></a>
 
 <a name="part1.1"><h3>1.1 GET /users</h3></a>
 
@@ -97,7 +99,7 @@ app.get('/users', (req, res) => {
         });
 });
 ```
-
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part1.2"><h3>1.2 GET /users/:id</h3></a>
 
 ```javascript
@@ -130,7 +132,7 @@ app.get('/users/:id', (req, res) => {
         });
 });
 ```
-
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part1.3"><h3>1.3 GET /products</h3></a>
 
 ```javascript
@@ -158,7 +160,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
-
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part1.4"><h3>1.4 GET /products/:id</h3></a>
 
 ```javascript
@@ -184,7 +186,7 @@ app.get('/products/:id', (req, res) => {
         
 });
 ```
-
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part1.5"><h3>1.5 GET /purchases</h3></a>
 
 ```javascript
@@ -209,7 +211,7 @@ app.get('/purchases', (req, res) => {
         });
 });
 ```
-
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
 <a name="part2.1"><h3>GET /products[?name=string] - Possible SQL Injection</h3></a>
 
@@ -252,6 +254,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
 <a name="part3.1"><h3>GET /products[?name=string] - Parameterised Query</h3></a>
 
@@ -295,6 +298,8 @@ app.get('/products', (req, res) => {
         }
 });
 ```
+
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part3.2"><h3>GET /products[?name=string] - Stored Procedure</h3></a>
 
 ```javascript
@@ -337,6 +342,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
 <a name="part4.1"><h3>Model Users Table</h3></a>
 
@@ -370,6 +376,8 @@ module.exports = function(sequelize, DataTypes) {
 };
 
 ```
+
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.2"><h3>Migrate Users Table</h3></a>
 
 ```javascript
@@ -405,6 +413,8 @@ module.exports = {
   }
 };
 ```
+
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.3"><h3>Model Products Table</h3></a>
 
 ```javascript
@@ -436,6 +446,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.4"><h3>Migrate Products Table</h3></a>
 
 ```javascript
@@ -472,6 +483,7 @@ module.exports = {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.5"><h3>Model Purchases Table</h3></a>
 
 ```javascript
@@ -500,6 +512,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.6"><h3>Migrate Purchases Table</h3></a>
 
 ```javascript
@@ -530,6 +543,7 @@ module.exports = {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.7"><h3>Model Purchase_Items Table</h3></a>
 
 ```javascript
@@ -555,6 +569,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part4.8"><h3>Migrate Purchase_Items Table</h3></a>
 
 ```javascript
@@ -586,6 +601,7 @@ module.exports = {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part5"><h2>Part 5: Using Models and JS to Perform Bulk Inserts</h2></a>
 
 Inserts and Delete of bulk data were performed using seeder files and seed commands: 
@@ -627,6 +643,7 @@ module.exports = {
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part5.2"><h3>Seed File for Products Table</h3></a>
 
 ```javascript
@@ -660,6 +677,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part5.3"><h3>Seed File for Purchases Table</h3></a>
 
 ```javascript
@@ -696,6 +714,7 @@ module.exports = {
 }};
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part5.4"><h3>Seed File for Purchase_Items Table</h3></a>
 
 ```javascript
@@ -729,6 +748,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
 
 ### Available Endpoints:
@@ -749,6 +769,7 @@ _DELETE /products/:id_
 <br>Remove an existing product. 
 
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 ```
 curl http://127.0.0.1:3000/products
@@ -766,6 +787,7 @@ router.get('/products', (req, res) =>{
 });
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6.2"><h3>6.2 GET /products/:id</h3></a>
 ```
 curl http://127.0.0.1:3000/products/:11
@@ -798,6 +820,7 @@ router.get('/products/:id', (req, res) =>{
 });
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6.3"><h3>6.3 POST /products</h3></a>
 ```
 curl --data "title=Doll&price=11.99&tags=Toy&tags=Children" http://127.0.0.1:3000/products
@@ -822,6 +845,7 @@ router.post('/products', (req, res) => {
 });
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6.4"><h3>6.4 PUT /products/:id</h3></a>
 ```
 curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
@@ -858,6 +882,7 @@ router.put('/products/:id', (req, res) =>{
 });
 ```
 
+<a name="top"><h2>Back To Top</h2></a>
 <a name="part6.5"><h3>6.5 DELETE /products/:id</h3></a>
 ```
 curl -X DELETE http://127.0.0.1:3000/products/:44
