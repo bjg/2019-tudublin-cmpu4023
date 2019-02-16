@@ -51,7 +51,7 @@
 [Back to Top](#top)
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
-<a name="part1.1"><h3>Available Endpoints:</h3></a>
+<a name="part1.1"></a>
 
 _/users_
 <br>List all users email and sex in order of most recently created.
