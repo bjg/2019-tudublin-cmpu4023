@@ -37,8 +37,8 @@
 - [Part 6.4: Update an existing product](#part6.4)
 - [Part 6.5: Remove an existing product](#part6.5)
 
-// jhjhjg
-<a name="part1">**Part 1: Using Node, Express and Massive to create API endpoints**</a>
+
+<a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
 
 ### Available Endpoints:
 
@@ -210,7 +210,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-<a name="part2">**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**</a>
+<a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
 <a name="part2.1"><h5>GET /products[?name=string] - Possible SQL Injection</h5></a>
 
 ```javascript
@@ -252,7 +252,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
-<a name="part3">**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**</a>
+<a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
 <a name="part3.1"><h5>GET /products[?name=string] - Parameterised Query</h5></a>
 
 ```javascript
@@ -337,7 +337,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-<a name="part4">**Part 4: Model Database and Migrate using Sequelize ORM**</a>
+<a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
 <a name="part4.1"><h5>Model Users Table</h5></a>
 
 ```javascript
@@ -586,7 +586,7 @@ module.exports = {
 };
 ```
 
-<a name="part5">**Part 5: Using Models and JS to Perform Bulk Inserts**</a>
+<a name="part5"><h2>Part 5: Using Models and JS to Perform Bulk Inserts</h2></a>
 
 Inserts and Delete of bulk data were performed using seeder files and seed commands: 
 ```
@@ -729,7 +729,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-<a name="part6">**Part 6: Reimplemented RESTful API using Sequelize and Express**</a>
+<a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 
 ```javascript
