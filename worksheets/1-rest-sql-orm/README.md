@@ -7,10 +7,12 @@
 
 [<b>Part 2:</b> Extend the '/products' Endpoint to **_Allow_** SQL Injection](#part2)<br><br>
 [<b>Part 3:</b> Extend the '/products' Endpoint to **_Prevent_** SQL Injection](#part3)
-- [GET /products[?name=string] - Parameterised Query](#part3.1)<br>
-- [GET /products[?name=string] - Stored Procedure](#part3.2)<br>
+- [GET /products[?name=string] - Parameterised Query](#part3.1)
+- [GET /products[?name=string] - Stored Procedure](#part3.2)
 
-
+[<b>Part 4:</b> Model Database and Migrate using Sequelize ORM](#part4)
+[<b>Part 5:</b> Using Models and JS to Perform Bulk Inserts](#part5)
+[<b>Part 6:</b> Reimplemented RESTful API using Sequelize and Express](#part6)
 
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
 - [Part 1.2: List specified user's email and sex](#part1.2)<br>
@@ -320,7 +322,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-## Part 4: Model Database and Migrate using Sequelize ORM
+<a name="part4"><h3>Part 4: Model Database and Migrate using Sequelize ORM</h3></a>
 
 ### Model Users Table
 ```javascript
@@ -563,7 +565,7 @@ module.exports = {
 };
 ```
 
-## Part 5: Using Models and JS to Perform Bulk Inserts
+<a name="part5"><h3>Part 5: Using Models and JS to Perform Bulk Inserts</h3></a>
 
 Inserts and Delete of bulk data were performed using seeder files and seed commands: 
 ```
@@ -703,7 +705,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-## Part 6: Reimplemented RESTful API using Sequelize and Express
+<a name="part5"><h3>Part 6: Reimplemented RESTful API using Sequelize and Express</h3></a>
 
 ### GET /products
 ```javascript
