@@ -6,11 +6,16 @@
 - [Part 1.5: List all purchase items](#part1.5)<br>
 
 [Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection](#part2)
+[Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection](#part3)
+
+
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
 - [Part 1.2: List specified user's email and sex](#part1.2)<br>
 - [Part 1.3: List all products in ascending order of price](#part1.3)<br>
 - [Part 1.4: Show details of the specified product](#part1.4)<br>
 - [Part 1.5: List all purchase items](#part1.5)<br>
+
+
 
 
 <a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
@@ -185,7 +190,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-## Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection
+<a name="part2"><h3>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h3></a>
 
 ### GET /products[?name=string] - Possible SQL Injection
 ```javascript
@@ -227,8 +232,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
-
-## Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection
+<a name="part3"><h3>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h3></a>
 
 ### GET /products[?name=string] - Parameterised Query
 ```javascript
