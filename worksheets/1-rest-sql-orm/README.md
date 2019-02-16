@@ -8,7 +8,7 @@
 - [Part 1.5: List all purchase items](#part1.5)
 
 [**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
-- [GET /products[?name=string] - Possible SQL Injection**](#part2.1)
+- [GET /products[?name=string] - Possible SQL Injection](#part2.1)
 
 [**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**](#part3)
 - [GET /products[?name=string] - Parameterised Query](#part3.1)
@@ -730,6 +730,24 @@ down: (queryInterface, Sequelize) =>{
 ```
 
 <a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
+
+### Available Endpoints:
+
+_GET /products_
+<br>List all products.
+
+_GET /products/:id_
+<br>Show detials of the specified product.
+
+_POST /products_
+<br>Create a new product instance.
+
+_PUT /products/:id_
+<br>Update an existing product.
+
+_DELETE /products/:id_
+<br>Remove an existing product. 
+
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 
 ```javascript
