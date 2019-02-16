@@ -213,7 +213,7 @@ app.get('/purchases', (req, res) => {
 ```
 [Back to Top](#top)
 <a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
-<a name="part2.1"><h3>GET /products[?name=string] - Possible SQL Injection</h3></a>
+<a name="part2.1"><h3>2.1 GET /products[?name=string] - Possible SQL Injection</h3></a>
 
 ```javascript
 /* 
@@ -256,7 +256,7 @@ app.get('/products', (req, res) => {
 ```
 [Back to Top](#top)
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
-<a name="part3.1"><h3>GET /products[?name=string] - Parameterised Query</h3></a>
+<a name="part3.1"><h3>3.1 GET /products[?name=string] - Parameterised Query</h3></a>
 
 ```javascript
 /* 
@@ -300,7 +300,7 @@ app.get('/products', (req, res) => {
 ```
 
 [Back to Top](#top)
-<a name="part3.2"><h3>GET /products[?name=string] - Stored Procedure</h3></a>
+<a name="part3.2"><h3>3.2 GET /products[?name=string] - Stored Procedure</h3></a>
 
 ```javascript
 /* 
@@ -344,7 +344,7 @@ app.get('/products', (req, res) => {
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
-<a name="part4.1"><h3>Model Users Table</h3></a>
+<a name="part4.1"><h3>4.1 Model Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -378,7 +378,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 [Back to Top](#top)
-<a name="part4.2"><h3>Migrate Users Table</h3></a>
+<a name="part4.2"><h3>4.2 Migrate Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -415,7 +415,7 @@ module.exports = {
 ```
 
 [Back to Top](#top)
-<a name="part4.3"><h3>Model Products Table</h3></a>
+<a name="part4.3"><h3>4.3 Model Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -447,7 +447,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 [Back to Top](#top)
-<a name="part4.4"><h3>Migrate Products Table</h3></a>
+<a name="part4.4"><h3>4.4 Migrate Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -484,7 +484,7 @@ module.exports = {
 ```
 
 [Back to Top](#top)
-<a name="part4.5"><h3>Model Purchases Table</h3></a>
+<a name="part4.5"><h3>4.5 Model Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -513,7 +513,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 [Back to Top](#top)
-<a name="part4.6"><h3>Migrate Purchases Table</h3></a>
+<a name="part4.6"><h3>4.6 Migrate Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -544,7 +544,7 @@ module.exports = {
 ```
 
 [Back to Top](#top)
-<a name="part4.7"><h3>Model Purchase_Items Table</h3></a>
+<a name="part4.7"><h3>4.7 Model Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
@@ -570,7 +570,7 @@ module.exports = function(sequelize, DataTypes) {
 ```
 
 [Back to Top](#top)
-<a name="part4.8"><h3>Migrate Purchase_Items Table</h3></a>
+<a name="part4.8"><h3>4.8 Migrate Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
@@ -610,7 +610,7 @@ db:seed:all             // to seed all inserts
 db:seed:undo:all        // to deseed/delete all inserts
 ```
 
-<a name="part5.1"><h3>Seed File for Users Table</h3></a>
+<a name="part5.1"><h3>5.1 Seed File for Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -644,7 +644,7 @@ module.exports = {
 ```
 
 [Back to Top](#top)
-<a name="part5.2"><h3>Seed File for Products Table</h3></a>
+<a name="part5.2"><h3>5.2 Seed File for Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -678,7 +678,7 @@ down: (queryInterface, Sequelize) =>{
 ```
 
 [Back to Top](#top)
-<a name="part5.3"><h3>Seed File for Purchases Table</h3></a>
+<a name="part5.3"><h3>5.3 Seed File for Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -715,7 +715,7 @@ module.exports = {
 ```
 
 [Back to Top](#top)
-<a name="part5.4"><h3>Seed File for Purchase_Items Table</h3></a>
+<a name="part5.4"><h3>5.4 Seed File for Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
