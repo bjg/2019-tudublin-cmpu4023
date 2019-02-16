@@ -751,7 +751,7 @@ _DELETE /products/:id_
 
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 ```
-CURL COMMAND: curl http://127.0.0.1:3000/products
+curl http://127.0.0.1:3000/products
 ```
 
 ```javascript
@@ -768,7 +768,7 @@ router.get('/products', (req, res) =>{
 
 <a name="part6.2"><h3>6.2 GET /products/:id</h3></a>
 ```
-CURL COMMAND: curl http://127.0.0.1:3000/products/:11
+curl http://127.0.0.1:3000/products/:11
 ```
 
 ```javascript
@@ -800,7 +800,7 @@ router.get('/products/:id', (req, res) =>{
 
 <a name="part6.3"><h3>6.3 POST /products</h3></a>
 ```
-CURL COMMAND: curl --data "title=Doll&price=11.99&tags=Toy&tags=Children" http://127.0.0.1:3000/products
+curl --data "title=Doll&price=11.99&tags=Toy&tags=Children" http://127.0.0.1:3000/products
 ```
 
 ```javascript
@@ -824,7 +824,7 @@ router.post('/products', (req, res) => {
 
 <a name="part6.4"><h3>6.4 PUT /products/:id</h3></a>
 ```
-CURL COMMAND: curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
+curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
 ```
 
 ```javascript
@@ -860,7 +860,7 @@ router.put('/products/:id', (req, res) =>{
 
 <a name="part6.5"><h3>6.5 DELETE /products/:id</h3></a>
 ```
-CURL COMMAND: curl -X DELETE http://127.0.0.1:3000/products/:44
+curl -X DELETE http://127.0.0.1:3000/products/:44
 ```
 
 ```javascript
