@@ -12,32 +12,32 @@
 
 
 _/users_
-<br>List all users email and sex in order of most recently created.
+List all users email and sex in order of most recently created.
 
 
 _/users/:id_
-<br>List specified user's email and sex.
+List specified user's email and sex.
 
 
 _/products_
-<br>List all products in ascending order of price.
+List all products in ascending order of price.
 
 
 _/products/:id_
-<br>Show details of the specified product.
+Show details of the specified product.
 
 
 _/purchases_
-<br>List purchase items details by price in descending order, including:
-        - Receiver's name and address.
-        - Purchaser's email address.
-        - Price
-        - Quantity
-        - Delivery Status
+List purchase items details by price in descending order, including:
+- Receiver's name and address.
+- Purchaser's email address.
+- Price
+- Quantity
+- Delivery Status
 
 
 _/products?name=title_
-<br>Display products by a given title i.e. Action, Dictionary, Pop CD.
+Display products by a given title i.e. Action, Dictionary, Pop CD.
 
 
 <a name="part1.1"><h3>1.1 GET /users</h3></a>
