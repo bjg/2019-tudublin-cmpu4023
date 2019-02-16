@@ -1,10 +1,7 @@
-# Part 1
-
-## Using Node, Express and Massive to create API endpoints:
+# Part 1: Using Node, Express and Massive to create API endpoints:
 
 ### GET /users
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
-
 
 ### GET /users/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.2_displaySpecificUserInfoByID.PNG  "1.2_displaySpecificUserInfoByID")
@@ -18,16 +15,12 @@
 ### GET /purchases
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.5_displayAllPurchaseItems.PNG  "1.5_displayAllPurchaseItems")
 
-# Part 2
-
-## Extend /products Endpoint to Allow SQL Injection
+# Part 2: Extend the '/products' Endpoint to Allow SQL Injection
 
 ### GET /products[?name=string] - Possible SQL Injection
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/2_getProductByID_SQLinjection.PNG  "2_getProductByID_SQLinjection")
 
-# Part 3
-
-## Extend /products Endpoint to Prevent SQL Injection
+# Part 3: Extend /products Endpoint to Prevent SQL Injection
 
 ### GET /products[?name=string] - Parameterised Query
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/3.1_parameterisedQuery.PNG  "3.1_parameterisedQuery")
@@ -35,9 +28,7 @@
 ### GET /products[?name=string] - Stored Procedure
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/3.2_storedProcedure.PNG  "3.2_storedProcedure")
 
-# Part 4 
-
-## Model Database and Migrate using Sequelize ORM
+# Part 4: Model Database and Migrate using Sequelize ORM
 
 ### Model and Migrate Users Table
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/4_modelUsers.PNG  "4_modelUsers")
@@ -58,13 +49,9 @@
 
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/4_migratePurchaseItems.PNG  "4_migratePurchaseItems")
 
-# Part 5
+# Part 5: Using Models and JS to Perform Bulk Inserts
 
-## Using Models and JS to Perform Bulk Inserts
-
-### Inserts and Delete of bulk data were performed using seeder files. 
-
-Seed Commands
+### Inserts and Delete of bulk data were performed using seeder files and see commands: 
 ```
 db:seed:all
 db:seed:undo:all
@@ -82,9 +69,7 @@ db:seed:undo:all
 ### Seed Files for Purchase_Items Table
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/5_bulkInsertsPurchaseItems.PNG  "5_bulkInsertsPurchaseItems")
 
-# Part 6
-
-## Reimplemented RESTful API using Sequelize and Express
+# Part 6: Reimplemented RESTful API using Sequelize and Express
 
 ### GET /products
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/6.1_listAllProducts.PNG  "6.1_listAllProducts")
@@ -98,6 +83,5 @@ db:seed:undo:all
 ### POST /products/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/6.4_updateExistingProduct.PNG  "6.4_updateExistingProduct")
 
-### Remove an existing product
 ### DELETE /products/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/6.5_deleteExistingProduct.PNG  "6.5_deleteExistingProduct")
