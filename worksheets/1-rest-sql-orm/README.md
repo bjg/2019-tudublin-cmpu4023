@@ -1,11 +1,14 @@
-[Part 1](#part1)
-[Part 1.1](#part1.1)
-[Part 2](#part2)
+[Part 1](#part1)<br>
+[Part 1.1](#part1.1)<br>
+[Part 1.2](#part1.2)<br>
+[Part 1.3](#part1.3)<br>
+[Part 1.4](#part1.4)<br>
+[Part 1.5](#part1.5)<br>
+
 
 <a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
 
 
-//### 1.1 GET /users
 <a name="part1.1"><h3>1.1 GET /users</h3></a>
 
 ```javascript
@@ -38,8 +41,8 @@ app.get('/users', (req, res) => {
 });
 ```
 
-<a name="part1"></a>.
-### 1.2 GET /users/:id
+<a name="part1.2"><h3>1.2 GET /users/:id</h3></a>
+
 ```javascript
 /* 
 List specified user's email and sex. 
@@ -70,8 +73,9 @@ app.get('/users/:id', (req, res) => {
         });
 });
 ```
-<a name="here"></a>Take me where
-### 1.3 GET /products
+
+<a name="part1.3"><h3>1.3 GET /products</h3></a>
+
 ```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
@@ -98,7 +102,8 @@ app.get('/products', (req, res) => {
 });
 ```
 
-### 1.4 GET /products/:id
+<a name="part1.4"><h3>1.4 GET /products/:id</h3></a>
+
 ```javascript
 /* 
 Show details of the specified product.
@@ -123,8 +128,7 @@ app.get('/products/:id', (req, res) => {
 });
 ```
 
-
-### 1.5 GET /purchases
+<a name="part1.5"><h3>1.5 GET /purchases</h3></a>
 
 ```javascript
 /*
