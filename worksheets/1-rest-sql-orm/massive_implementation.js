@@ -14,10 +14,30 @@ massive({
 
     app.set('db', instance);
 
-    // endpoint for users email and sex
+    /* endpoint for all users email and sex */
     app.get('/users', (req, res) => {
         req.app.get('db').users.find(
             {/* find all */},
+            {
+                fields: ['email', 'created_at'],
+                exprs: {
+                    sex: "details::json->>'sex'"
+                },
+                order: [{
+                    field: 'created_at',
+                    direction: 'desc'
+                }]
+            }
+        ).then(items => {
+            res.json(items);
+        });
+    });
+
+    /* endpoint for a specific users email and sex */
+    app.get('/users/:id', (req, res) => {
+        const id = req.params.id;
+        req.app.get('db').users.findOne(
+            id,
             {
                 fields: ['email', 'created_at'],
                 exprs: {
