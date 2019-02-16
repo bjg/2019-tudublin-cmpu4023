@@ -166,6 +166,7 @@ I also edited products.js, purchases.js and users.js in the models directory to 
 ![alt text][users_model]
 
 To help further maintain referential integrity I also made some changes in 20190213174246-create-purchase-items.js and 20190213173902-create-purchases in the migration directory. These changes, seen below, where to ensure that the foregin keys where pointed at the right table and column.
+
 Purchases:
 ```javascript
 user_id: {
@@ -208,7 +209,7 @@ When I queried the database the SequelizeMeta table existed and all the tables w
 
 ### Part 5:Populating the database
 
-To populate the database with my own test data I used bulk inserts and seed files. I generted the seed files using:
+To populate the database with my own test data I used bulk inserts and seed files. I generated the seed files using:
 ```
 sequelize seed:generate --name <name_of_file>
 ```
@@ -219,7 +220,7 @@ Then I edited each one to insert some test data screenshots of the inserts are s
 ![alt text][purchases_inserts]
 ![alt text][products_inserts]
 
-To insert the data the below command was run. It is important to note that the order in which they run is important as it is with most SQL to maintain referentail integritity
+To insert the data the below command was run. **It is important to note that the order in which they run is important as it is with most SQL to maintain referentail integritity**
 ```
 sequelize db:seed:all
 ```
@@ -238,6 +239,7 @@ Show details of the specified products
 ```
 curl http://localhost:3000/products/24
 ```
+In the images below you can see that I tested a few id's and got some null results that was done for testing purposes
 ![alt text][curl_prod_id]
 
 3. POST /products
@@ -251,6 +253,7 @@ curl --data "title=Greatest%20Pop%20Songs&price=19.00&tags=Music,Pop"  http://lo
 4. PUT /products/:id
 
 Update an existing product
+
 Before curl:
 ![alt text][curl_update]
 
@@ -267,7 +270,7 @@ Remove an existing product
 ```
 curl -X DELETE http://localhost:3000/products/48
 ```
-In the below screenshot you can see the number 1 wa returned which means one record was deleted
+In the below screenshot you can see that 1 was returned from the curl command this indicates one record was deleted
 ![alt text][del_curl]
 ![alt text][del_after]
 
