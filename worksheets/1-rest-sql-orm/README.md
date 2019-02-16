@@ -1,4 +1,5 @@
-[<h1>REST API, SQL and ORM</h1>](#top)
+#REST API, SQL and ORM
+[](#top)
 
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)
