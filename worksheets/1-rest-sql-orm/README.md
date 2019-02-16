@@ -516,13 +516,13 @@ module.exports = {
 
 ## Part 5: Using Models and JS to Perform Bulk Inserts
 
-### Inserts and Delete of bulk data were performed using seeder files and see commands: 
+Inserts and Delete of bulk data were performed using seeder files and seed commands: 
 ```
-db:seed:all
-db:seed:undo:all
+db:seed:all             // to seed all inserts
+db:seed:undo:all        // to deseed/delete all inserts
 ```
 
-### Seed Files for Users Table
+### Seed File for Users Table
 ```javascript
 'use strict';
 module.exports = {
@@ -555,7 +555,7 @@ module.exports = {
 ```
 
 
-### Seed Files for Products Table
+### Seed File for Products Table
 ```javascript
 'use strict';
 module.exports = {
@@ -587,7 +587,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-### Seed Files for Purchases Table
+### Seed File for Purchases Table
 ```javascript
 'use strict';
 module.exports = {
@@ -622,7 +622,7 @@ module.exports = {
 }};
 ```
 
-### Seed Files for Purchase_Items Table
+### Seed File for Purchase_Items Table
 ```javascript
 'use strict';
 module.exports = {
@@ -724,8 +724,7 @@ router.post('/products', (req, res) => {
 ```javascript
 /*
 Update an existing product.
-CURL COMMAND: curl -X PUT --data "title=Dictionary&price=\
-22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
+CURL COMMAND: curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
 */
 router.put('/products/:id', (req, res) =>{
   // parse input to get the product ID value on its own
