@@ -8,11 +8,11 @@
 - [Part 1.5: List all purchase items](#part1.5)
 
 [**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
-- [GET /products[?name=string] - Possible SQL Injection](#part2.1)
+- [Part 2.1: GET /products[?name=string] - Possible SQL Injection](#part2.1)
 
 [**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**](#part3)
-- [GET /products[?name=string] - Parameterised Query](#part3.1)
-- [GET /products[?name=string] - Stored Procedure](#part3.2)
+- [Part 3.1: GET /products[?name=string] - Parameterised Query](#part3.1)
+- [Part 3.2: GET /products[?name=string] - Stored Procedure](#part3.2)
 
 [**Part 4: Model Database and Migrate using Sequelize ORM**](#part4)
 - [Part 4.1: Model Users Table](#part4.1)
