@@ -9,36 +9,36 @@
 <a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
 
 ### Available Endpoints:
-<h3>Available Endpoints:</h3>
-<ul>
-        <i>/users </i>
-        <br>List all users email and sex in order of most recently created.
-</ul>
-<ul>
-        <i>/users/:id </i>
-        <br>List specified user's email and sex.
-</ul>
-<ul>
-        <i>/products </i>
-        <br>List all products in ascending order of price.
-</ul>
-<ul>
-        <i>/products/:id </i>
-        <br>Show details of the specified product.
-</ul>
-<ul>
-        <i>/purchases </i>
-        <br>List purchase items details by price in descending order, including:
-                <ul>> Receiver's name and address.</ul>
-                <ul>> Purchaser's email address.</ul>
-                <ul>> Price</ul>
-                <ul>> Quantity</ul>
-                <ul>> Delivery Status</ul>
-</ul>
-<ul>
-        <i>/products?name=title </i>
-        <br>Display products by a given title i.e. Action, Dictionary, Pop CD.
-</ul>
+
+
+_/users_
+<br>List all users email and sex in order of most recently created.
+
+
+_/users/:id_
+<br>List specified user's email and sex.
+
+
+_/products_
+<br>List all products in ascending order of price.
+
+
+_/products/:id_
+<br>Show details of the specified product.
+
+
+_/purchases_
+<br>List purchase items details by price in descending order, including:
+        > Receiver's name and address.
+        > Purchaser's email address.
+        > Price
+        > Quantity
+        > Delivery Status
+
+
+_/products?name=title_
+<br>Display products by a given title i.e. Action, Dictionary, Pop CD.
+
 
 <a name="part1.1"><h3>1.1 GET /users</h3></a>
 
