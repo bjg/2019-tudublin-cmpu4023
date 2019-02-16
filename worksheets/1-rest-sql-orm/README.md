@@ -6,6 +6,7 @@
 - [Part 1.5: List all purchase items**](#part1.5)
 
 [**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
+- [GET /products[?name=string] - Possible SQL Injection**](#part2.1)
 
 [**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**](#part3)
 - [GET /products[?name=string] - Parameterised Query**](#part3.1)
@@ -210,8 +211,8 @@ app.get('/purchases', (req, res) => {
 ```
 
 <a name="part2"><h3>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h3></a>
+<a name="part2.1"><h5>GET /products[?name=string] - Possible SQL Injection</h5></a>
 
-##### GET /products[?name=string] - Possible SQL Injection
 ```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
