@@ -68,9 +68,11 @@ massive({
         });
     });
 
-    app.get('/products:id', (req, res) => {
+    /* endpoint for retreiving a specfic product by id */
+    app.get('/products/:id', (req, res) => {
+        const id = req.params.id;
         req.app.get('db').products.findOne(
-
+            id
         ).then(items => {
             res.json(items);
         });
