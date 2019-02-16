@@ -1,5 +1,7 @@
 [Part 1](###part1-using-node-express-and-massive-to-create-api-endpoints)
 
+[test](###-12-get-users-id)
+
 ## Part 1 Using Node Express and Massive to create API endpoints
 
 ### 1.1 GET /users
@@ -35,7 +37,8 @@ app.get('/users', (req, res) => {
 ```
 
 
-### 1.2 GET /users/:id
+//### 12 GET /users/:id
+//### 12 GET users id
 ```javascript
 /* 
 List specified user's email and sex. 
