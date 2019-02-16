@@ -29,11 +29,11 @@ _/products/:id_
 
 _/purchases_
 <br>List purchase items details by price in descending order, including:
-        > Receiver's name and address.
-        > Purchaser's email address.
-        > Price
-        > Quantity
-        > Delivery Status
+        - Receiver's name and address.
+        - Purchaser's email address.
+        - Price
+        - Quantity
+        - Delivery Status
 
 
 _/products?name=title_
