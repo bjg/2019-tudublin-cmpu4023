@@ -1,6 +1,6 @@
-[Part 1](###Part1:-Using Node,-Express-and-Massive-to-create-API-endpoints)
+[Part 1](###part1-using-node-express-and-massive-to-create-api-endpoints)
 
-## Part 1: Using Node, Express and Massive to create API endpoints
+## Part 1 Using Node Express and Massive to create API endpoints
 
 ### 1.1 GET /users
 
