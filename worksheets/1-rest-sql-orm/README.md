@@ -1,4 +1,9 @@
-![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo" | height=250 width=250)
+#Alt-H3 Using Node, Express and Massive to create API endpoints:
+
+#H4 GET /users
+
+![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
+
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.2_displaySpecificUserInfoByID.PNG  "1.2_displaySpecificUserInfoByID")
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.3_allProductsDESC.PNG  "1.3_allProductsDESC")
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.4_displaySpecificProductByID.PNG  "1.4_displaySpecificProductByID")
