@@ -1,4 +1,4 @@
-# Part 1: Using Node, Express and Massive to create API endpoints
+## Part 1: Using Node, Express and Massive to create API endpoints
 
 ### 1.1 GET /users
 
@@ -143,7 +143,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-# Part 2: Extend the '/products' Endpoint to <style color=red">Allow</style> SQL Injection
+## Part 2: Extend the '/products' Endpoint to <style color=red">Allow</style> SQL Injection
 
 ### GET /products[?name=string] - Possible SQL Injection
 ```javascript
@@ -186,7 +186,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-# Part 3: Extend /products Endpoint to Prevent SQL Injection
+## Part 3: Extend /products Endpoint to Prevent SQL Injection
 
 ### GET /products[?name=string] - Parameterised Query
 ```javascript
@@ -271,7 +271,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-# Part 4: Model Database and Migrate using Sequelize ORM
+## Part 4: Model Database and Migrate using Sequelize ORM
 
 ### Model Users Table
 ```javascript
@@ -514,7 +514,7 @@ module.exports = {
 };
 ```
 
-# Part 5: Using Models and JS to Perform Bulk Inserts
+## Part 5: Using Models and JS to Perform Bulk Inserts
 
 ### Inserts and Delete of bulk data were performed using seeder files and see commands: 
 ```
@@ -654,7 +654,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-# Part 6: Reimplemented RESTful API using Sequelize and Express
+## Part 6: Reimplemented RESTful API using Sequelize and Express
 
 ### GET /products
 ```javascript
