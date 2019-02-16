@@ -1,6 +1,36 @@
 # Part 1: Using Node, Express and Massive to create API endpoints
 
 ### 1.1 GET /users
+'''
+/* 
+List all users email and sex in order of most recently created. 
+Do not include password hash in your output.
+*/
+app.get('/users', (req, res) => {
+        db.users.find({}, {
+                // filter results
+                fields: 
+                [
+                        "email",
+                        "details::json"
+                ],
+                // order results
+                order: 
+                [
+                      {
+                        field: 'created_at',
+                        direction: 'desc',
+                        nulls: 'first'
+                      }  
+                ]
+        })
+        // convert results to JSON for the response 
+        .then(items => {
+                res.json(items);
+        });
+});
+'''
+
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
 
 ### 1.2 GET /users/:id
