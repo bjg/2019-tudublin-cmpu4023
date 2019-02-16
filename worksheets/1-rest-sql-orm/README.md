@@ -10,34 +10,28 @@
 
 ### Available Endpoints:
 
-
 _/users_
-List all users email and sex in order of most recently created.
-
+<br>List all users email and sex in order of most recently created.
 
 _/users/:id_
-List specified user's email and sex.
-
+<br>List specified user's email and sex.
 
 _/products_
-List all products in ascending order of price.
-
+<br>List all products in ascending order of price.
 
 _/products/:id_
-Show details of the specified product.
-
+<br>Show details of the specified product.
 
 _/purchases_
-List purchase items details by price in descending order, including:
+<br>List purchase items details by price in descending order, including:
 - Receiver's name and address.
 - Purchaser's email address.
 - Price
 - Quantity
 - Delivery Status
 
-
 _/products?name=title_
-Display products by a given title i.e. Action, Dictionary, Pop CD.
+<br>Display products by a given title i.e. Action, Dictionary, Pop CD.
 
 
 <a name="part1.1"><h3>1.1 GET /users</h3></a>
