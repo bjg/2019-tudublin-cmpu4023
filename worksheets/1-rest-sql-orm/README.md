@@ -52,7 +52,7 @@
 [Back to Top](#top)
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
-<a name="part1.1"><h3>Available Endpoints:</h3></a>
+<a name="part1.1"><h3>Part 1.1: Available Endpoints:</h3></a>
 
 _/users_
 <br>List all users email and sex in order of most recently created.
@@ -760,7 +760,7 @@ down: (queryInterface, Sequelize) =>{
 
 [Back to Top](#top)
 <a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
-<a name="part6.1"><h3>Available Endpoints:</h3></a>
+<a name="part6.1"><h3>Part 6.1: Available Endpoints:</h3></a>
 
 _GET /products_
 <br>List all products.
