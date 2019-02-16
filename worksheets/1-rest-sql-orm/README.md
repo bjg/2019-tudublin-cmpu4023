@@ -5,9 +5,12 @@
 - [Part 1.4: Show details of the specified product](#part1.4)<br>
 - [Part 1.5: List all purchase items](#part1.5)<br>
 
-[Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection](#part2)
+[Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection](#part2)<br>
 [Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection](#part3)
 
+### GET /products[?name=string] - Parameterised Query
+- [GET /products[?name=string] - Parameterised Query](#part3.1)<br>
+- [GET /products[?name=string] - Stored Procedure](#part3.2)<br>
 
 - [Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
 - [Part 1.2: List specified user's email and sex](#part1.2)<br>
@@ -233,8 +236,8 @@ app.get('/products', (req, res) => {
 });
 ```
 <a name="part3"><h3>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h3></a>
+<a name="part3.1"><h5>GET /products[?name=string] - Parameterised Query</h5></a>
 
-### GET /products[?name=string] - Parameterised Query
 ```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
@@ -275,8 +278,8 @@ app.get('/products', (req, res) => {
         }
 });
 ```
+<a name="part3.2"><h5>GET /products[?name=string] - Stored Procedure</h5></a>
 
-### GET /products[?name=string] - Stored Procedure
 ```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
