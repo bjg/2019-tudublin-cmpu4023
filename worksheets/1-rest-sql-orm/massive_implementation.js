@@ -53,9 +53,17 @@ massive({
         });
     });
 
+    /* endpoint for products in asc order of price */
     app.get('/products', (req, res) => {
-        req.app.get('db').products.find({
-        }).then(items => {
+        req.app.get('db').products.find(
+            {/* find all */},
+            {
+                order: [{
+                    field: 'price',
+                    direction: 'asc'
+                }]
+            }
+        ).then(items => {
             res.json(items);
         });
     });
