@@ -66,7 +66,7 @@ _/products?name=title_
 <br>Display products by a given title i.e. Action, Dictionary, Pop CD.
 
 
-<a name="part1.1">**1.1 GET /users**</a>
+<a name="part1.1"><h3>1.1 GET /users</h3></a>
 
 ```javascript
 /* 
@@ -98,7 +98,7 @@ app.get('/users', (req, res) => {
 });
 ```
 
-<a name="part1.2">**1.2 GET /users/:id**</a>
+<a name="part1.2"><h3>1.2 GET /users/:id</h3></a>
 
 ```javascript
 /* 
@@ -131,7 +131,7 @@ app.get('/users/:id', (req, res) => {
 });
 ```
 
-<a name="part1.3">**1.3 GET /products**</a>
+<a name="part1.3"><h3>1.3 GET /products</h3></a>
 
 ```javascript
 /* 
@@ -159,7 +159,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-<a name="part1.4">**1.4 GET /products/:id**</a>
+<a name="part1.4"><h3>1.4 GET /products/:id</h3></a>
 
 ```javascript
 /* 
@@ -185,7 +185,7 @@ app.get('/products/:id', (req, res) => {
 });
 ```
 
-<a name="part1.5">**1.5 GET /purchases**</a>
+<a name="part1.5"><h3>1.5 GET /purchases</h3></a>
 
 ```javascript
 /*
@@ -211,7 +211,7 @@ app.get('/purchases', (req, res) => {
 ```
 
 <a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
-<a name="part2.1"><h5>GET /products[?name=string] - Possible SQL Injection</h5></a>
+<a name="part2.1"><h3>GET /products[?name=string] - Possible SQL Injection</h3></a>
 
 ```javascript
 /* 
@@ -253,7 +253,7 @@ app.get('/products', (req, res) => {
 });
 ```
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
-<a name="part3.1"><h5>GET /products[?name=string] - Parameterised Query</h5></a>
+<a name="part3.1"><h3>GET /products[?name=string] - Parameterised Query</h3></a>
 
 ```javascript
 /* 
@@ -295,7 +295,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
-<a name="part3.2"><h5>GET /products[?name=string] - Stored Procedure</h5></a>
+<a name="part3.2"><h3>GET /products[?name=string] - Stored Procedure</h3></a>
 
 ```javascript
 /* 
@@ -338,7 +338,7 @@ app.get('/products', (req, res) => {
 ```
 
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
-<a name="part4.1"><h5>Model Users Table</h5></a>
+<a name="part4.1"><h3>Model Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -370,7 +370,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 
 ```
-<a name="part4.2"><h5>Migrate Users Table</h5></a>
+<a name="part4.2"><h3>Migrate Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -405,7 +405,7 @@ module.exports = {
   }
 };
 ```
-<a name="part4.3"><h5>Model Products Table</h5></a>
+<a name="part4.3"><h3>Model Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -436,7 +436,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-<a name="part4.4"><h5>Migrate Products Table</h5></a>
+<a name="part4.4"><h3>Migrate Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -472,7 +472,7 @@ module.exports = {
 };
 ```
 
-<a name="part4.5"><h5>Model Purchases Table</h5></a>
+<a name="part4.5"><h3>Model Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -500,7 +500,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-<a name="part4.6"><h5>Migrate Purchases Table</h5></a>
+<a name="part4.6"><h3>Migrate Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -530,7 +530,7 @@ module.exports = {
 };
 ```
 
-<a name="part4.7"><h5>Model Purchase_Items Table</h5></a>
+<a name="part4.7"><h3>Model Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
@@ -555,7 +555,7 @@ module.exports = function(sequelize, DataTypes) {
 };
 ```
 
-<a name="part4.8"><h5>Migrate Purchase_Items Table</h5></a>
+<a name="part4.8"><h3>Migrate Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
@@ -594,7 +594,7 @@ db:seed:all             // to seed all inserts
 db:seed:undo:all        // to deseed/delete all inserts
 ```
 
-<a name="part5.1"><h5>Seed File for Users Table</h5></a>
+<a name="part5.1"><h3>Seed File for Users Table</h3></a>
 
 ```javascript
 'use strict';
@@ -627,7 +627,7 @@ module.exports = {
 };
 ```
 
-<a name="part5.2"><h5>Seed File for Products Table</h5></a>
+<a name="part5.2"><h3>Seed File for Products Table</h3></a>
 
 ```javascript
 'use strict';
@@ -660,7 +660,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-<a name="part5.3"><h5>Seed File for Purchases Table</h5></a>
+<a name="part5.3"><h3>Seed File for Purchases Table</h3></a>
 
 ```javascript
 'use strict';
@@ -696,7 +696,7 @@ module.exports = {
 }};
 ```
 
-<a name="part5.4"><h5>Seed File for Purchase_Items Table</h5></a>
+<a name="part5.4"><h3>Seed File for Purchase_Items Table</h3></a>
 
 ```javascript
 'use strict';
