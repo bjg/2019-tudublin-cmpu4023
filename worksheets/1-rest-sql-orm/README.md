@@ -22,13 +22,17 @@
 - [Part 4.8: Migrate Purchase_Items Table](#part4.8)
 
 [<b>Part 5:</b> Using Models and JS to Perform Bulk Inserts](#part5)
-[<b>Part 6:</b> Reimplemented RESTful API using Sequelize and Express](#part6)
+- [Part 5.1: Seed File for Users Table](#part5.1)
+- [Part 5.2: Seed File for Products Table](#part5.2)
+- [Part 5.3: Seed File for Purchases Table](#part5.3)
+- [Part 5.4: Seed File for Purchase_Items Table](#part5.4)
 
-- [Part 1.1: List all users email and sex in order of most recently created](#part1.1)<br>
-- [Part 1.2: List specified user's email and sex](#part1.2)<br>
-- [Part 1.3: List all products in ascending order of price](#part1.3)<br>
-- [Part 1.4: Show details of the specified product](#part1.4)<br>
-- [Part 1.5: List all purchase items](#part1.5)<br>
+[<b>Part 6:</b> Reimplemented RESTful API using Sequelize and Express](#part6)
+- [Part 6.1: List all products](#part6.1)
+- [Part 6.2: Show details of the specified product](#part6.2)
+- [Part 6.3: Create a new product instance](#part6.3)
+- [Part 6.4: Update an existing product](#part6.4)
+- [Part 6.5: Remove an existing product](#part6.5)
 
 
 
@@ -589,7 +593,8 @@ db:seed:all             // to seed all inserts
 db:seed:undo:all        // to deseed/delete all inserts
 ```
 
-### Seed File for Users Table
+<a name="part5.1"><h5>Seed File for Users Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -621,8 +626,8 @@ module.exports = {
 };
 ```
 
+<a name="part5.2"><h5>Seed File for Products Table</h5></a>
 
-### Seed File for Products Table
 ```javascript
 'use strict';
 module.exports = {
@@ -654,7 +659,8 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-### Seed File for Purchases Table
+<a name="part5.3"><h5>Seed File for Purchases Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -689,7 +695,8 @@ module.exports = {
 }};
 ```
 
-### Seed File for Purchase_Items Table
+<a name="part5.4"><h5>Seed File for Purchase_Items Table</h5></a>
+
 ```javascript
 'use strict';
 module.exports = {
@@ -721,7 +728,9 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-<a name="part5"><h3>Part 6: Reimplemented RESTful API using Sequelize and Express</h3></a>
+<a name="part6"><h3>Part 6: Reimplemented RESTful API using Sequelize and Express</h3></a>
+
+<a name="part6.1"><h3>6.1 GET /products</h3></a>
 
 ### GET /products
 ```javascript
@@ -737,7 +746,8 @@ router.get('/products', (req, res) =>{
 });
 ```
 
-### GET /products/:id
+<a name="part6.2"><h3>6.2 GET /products/:id</h3></a>
+
 ```javascript
 /* 
 Show details of the specified product.
@@ -766,7 +776,8 @@ router.get('/products/:id', (req, res) =>{
 });
 ```
 
-### POST /products
+<a name="part6.3"><h3>6.3 POST /products</h3></a>
+
 ```javascript
 /*
 Create a new product instance
@@ -787,7 +798,8 @@ router.post('/products', (req, res) => {
 });
 ```
 
-### PUT /products/:id
+<a name="part6.4"><h3>6.4 PUT /products/:id</h3></a>
+
 ```javascript
 /*
 Update an existing product.
@@ -820,7 +832,8 @@ router.put('/products/:id', (req, res) =>{
 });
 ```
 
-### DELETE /products/:id
+<a name="part6.5"><h3>6.5 DELETE /products/:id</h3></a>
+
 ```javascript
 /*
 Remove an existing product.
