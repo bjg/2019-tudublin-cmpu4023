@@ -195,7 +195,7 @@ app.get('/purchases', (req, res) => {
 
 <a name="part2"><h3>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h3></a>
 
-#### GET /products[?name=string] - Possible SQL Injection
+##### GET /products[?name=string] - Possible SQL Injection
 ```javascript
 /* 
 List all products in ascending order of price OR Display specific Item - SQL Injection.
