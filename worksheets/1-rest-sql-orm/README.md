@@ -41,7 +41,7 @@ Author: Nicola Mahon C15755031
 
 
 
-<a name="part1"><h3>Part 1: Using Node, Express and Massive to create API endpoints</h3></a>
+<a name="part1">**Part 1: Using Node, Express and Massive to create API endpoints**</a>
 
 ### Available Endpoints:
 
@@ -69,7 +69,7 @@ _/products?name=title_
 <br>Display products by a given title i.e. Action, Dictionary, Pop CD.
 
 
-<a name="part1.1"><h3>1.1 GET /users</h3></a>
+<a name="part1.1">**1.1 GET /users**</a>
 
 ```javascript
 /* 
@@ -101,7 +101,7 @@ app.get('/users', (req, res) => {
 });
 ```
 
-<a name="part1.2"><h3>1.2 GET /users/:id</h3></a>
+<a name="part1.2">**1.2 GET /users/:id**</a>
 
 ```javascript
 /* 
@@ -134,7 +134,7 @@ app.get('/users/:id', (req, res) => {
 });
 ```
 
-<a name="part1.3"><h3>1.3 GET /products</h3></a>
+<a name="part1.3">**1.3 GET /products**</a>
 
 ```javascript
 /* 
@@ -162,7 +162,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-<a name="part1.4"><h3>1.4 GET /products/:id</h3></a>
+<a name="part1.4">**1.4 GET /products/:id**</a>
 
 ```javascript
 /* 
@@ -188,7 +188,7 @@ app.get('/products/:id', (req, res) => {
 });
 ```
 
-<a name="part1.5"><h3>1.5 GET /purchases</h3></a>
+<a name="part1.5">**1.5 GET /purchases**</a>
 
 ```javascript
 /*
@@ -213,7 +213,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-<a name="part2"><h3>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h3></a>
+<a name="part2">**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**</a>
 <a name="part2.1"><h5>GET /products[?name=string] - Possible SQL Injection</h5></a>
 
 ```javascript
@@ -255,7 +255,7 @@ app.get('/products', (req, res) => {
         }
 });
 ```
-<a name="part3"><h3>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h3></a>
+<a name="part3">**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**</a>
 <a name="part3.1"><h5>GET /products[?name=string] - Parameterised Query</h5></a>
 
 ```javascript
@@ -340,7 +340,7 @@ app.get('/products', (req, res) => {
 });
 ```
 
-<a name="part4"><h3>Part 4: Model Database and Migrate using Sequelize ORM</h3></a>
+<a name="part4">**Part 4: Model Database and Migrate using Sequelize ORM**</a>
 <a name="part4.1"><h5>Model Users Table</h5></a>
 
 ```javascript
@@ -589,7 +589,7 @@ module.exports = {
 };
 ```
 
-<a name="part5"><h3>Part 5: Using Models and JS to Perform Bulk Inserts</h3></a>
+<a name="part5">**Part 5: Using Models and JS to Perform Bulk Inserts**</a>
 
 Inserts and Delete of bulk data were performed using seeder files and seed commands: 
 ```
@@ -732,7 +732,7 @@ down: (queryInterface, Sequelize) =>{
 };
 ```
 
-<a name="part6"><h3>Part 6: Reimplemented RESTful API using Sequelize and Express</h3></a>
+<a name="part6">**Part 6: Reimplemented RESTful API using Sequelize and Express**</a>
 <a name="part6.1"><h3>6.1 GET /products</h3></a>
 
 ```javascript
