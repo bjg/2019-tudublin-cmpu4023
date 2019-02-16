@@ -51,7 +51,7 @@
 [Back to Top](#top)
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
-<a name="part1.1">![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_endpoints.PNG "Available Endpoints - Massive")</a>
+<a name="part1.1"><h3>Available Endpoints:</h3></a>
 
 _/users_
 <br>List all users email and sex in order of most recently created.
