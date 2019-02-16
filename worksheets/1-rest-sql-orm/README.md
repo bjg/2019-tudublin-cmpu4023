@@ -143,7 +143,7 @@ app.get('/purchases', (req, res) => {
 });
 ```
 
-# Part 2: Extend the '/products' Endpoint to Allow SQL Injection
+# Part 2: Extend the '/products' Endpoint to <style color=red">Allow</style> SQL Injection
 
 ### GET /products[?name=string] - Possible SQL Injection
 ```
