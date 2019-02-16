@@ -112,6 +112,7 @@ app.get('/users/:id', (req, res) => {
                 // filter results
                 fields: 
                 [
+                        "id",
                         "email",
                         "details::json"
                 ]
