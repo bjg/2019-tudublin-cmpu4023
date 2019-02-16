@@ -28,7 +28,7 @@
 - [Part 5.3: Seed File for Purchases Table](#part5.3)
 - [Part 5.4: Seed File for Purchase_Items Table](#part5.4)
 
-[Part 6:** Reimplemented RESTful API using Sequelize and Express**](#part6)
+[**Part 6: Reimplemented RESTful API using Sequelize and Express**](#part6)
 - [Part 6.1: List all products](#part6.1)
 - [Part 6.2: Show details of the specified product](#part6.2)
 - [Part 6.3: Create a new product instance](#part6.3)
