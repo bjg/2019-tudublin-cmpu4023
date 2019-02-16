@@ -1,7 +1,7 @@
 # Part 1: Using Node, Express and Massive to create API endpoints
 
 ### 1.1 GET /users
-![alt text](2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
+![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.1_displayUsersInfo.PNG "1.1_displayUsersInfo")
 
 ### 1.2 GET /users/:id
 ![alt text](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/1.2_displaySpecificUserInfoByID.PNG  "1.2_displaySpecificUserInfoByID")

@@ -27,23 +27,23 @@ massive({
 
 // String to display available endpoints
 let info = "<h3>Available Endpoints:</h3>\
-                <br><ul>\
+                <ul>\
                         <i>/users </i>\
                         <br>List all users email and sex in order of most recently created.\
                 </ul>\
-                <br><ul>\
+                <ul>\
                         <i>/users/:id </i>\
                         <br>List specified user's email and sex.\
                 </ul>\
-                <br><ul>\
+                <ul>\
                         <i>/products </i>\
                         <br>List all products in ascending order of price.\
                 </ul>\
-                <br><ul>\
+                <ul>\
                         <i>/products/:id </i>\
                         <br>Show details of the specified product.\
                 </ul>\
-                <br><ul>\
+                <ul>\
                         <i>/purchases </i>\
                         <br>List purchase items details by price in descending order, including:\
                                 <ul>> Receiver's name and address.</ul>\
@@ -52,7 +52,7 @@ let info = "<h3>Available Endpoints:</h3>\
                                 <ul>> Quantity</ul>\
                                 <ul>> Delivery Status</ul>\
                 </ul>\
-                <br><ul>\
+                <ul>\
                         <i>/products?name=title </i>\
                         <br>Display products by a given title i.e. Action, Dictionary, Pop CD.\
                 </ul>";
