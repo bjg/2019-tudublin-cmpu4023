@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     details: DataTypes.JSON,
     created_at: DataTypes.DATE,
     deleted_at: DataTypes.DATE
-  }, {});
+  }, {
+    timestamps: false
+  });
   SeqUsers.associate = function(models) {
   };
   return SeqUsers;

@@ -12,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     created_at: DataTypes.DATE,
     deleted_at: DataTypes.DATE,
     tags: DataTypes.ARRAY(DataTypes.STRING)
-  }, {});
+  }, {
+    timestamps: false
+  });
   SeqProducts.associate = function(models) {
     
   };

@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.CHAR(2),
     zipcode: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER
-  }, {});
+  }, {
+    timestamps: false
+  });
   SeqPurchases.associate = function(models) {
     SeqPurchases.belongsTo(models.SeqUsers, {
       foreignKey: 'user_id'

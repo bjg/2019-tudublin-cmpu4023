@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      primaryKey: true,
       autoIncrement: true
     },
     purchase_id: DataTypes.INTEGER,
@@ -11,7 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL,
     quantity: DataTypes.INTEGER,
     state: DataTypes.STRING
-  }, {});
+  }, {
+    timestamps: false
+  });
   SeqPurchaseItems.associate = function(models) {
     SeqPurchaseItems.belongsTo(models.SeqPurchases, {
       foreignKey: 'purchase_id'
