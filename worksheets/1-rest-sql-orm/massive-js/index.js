@@ -133,7 +133,7 @@ app.get('/products/:id', (req, res) => {
 
 app.get('/purchases', (req, res) => {
 		
-	app.get("db").query("select p.id, p.created_at, p.name, p.address, u.email, pi.price, pi.quantity, pi.state from purchases p inner join purchase_items pi on pi.purchase_id = p.id inner join users u on u.id = p.user_id")
+	app.get("db").query("select p.id, p.name, p.address, u.email, pi.price, pi.quantity, pi.state from purchases p inner join purchase_items pi on pi.purchase_id = p.id inner join users u on u.id = p.user_id")
 	.then(result => {res.json(result);})
 	.catch(err => {res.status(500);res.send("\"error\":\"Purchases not Found\"")});
 });

@@ -97,7 +97,7 @@ app.delete('/products/:id', (req, res) => {
 
 app.get('/users/:id', (req, res) => {
 
-		Model.users.findOne({where:{id:req.params.id}})
+		Model.users.findOne({attributes:["email", [sequelize.literal("details::json->>'sex'"), "sex"]], where:{id:req.params.id}})
 		.then(results => {
 			res.json(results);
 		})
@@ -107,7 +107,7 @@ app.get('/users/:id', (req, res) => {
 
 app.get('/users', (req, res) => {
 
-		Model.users.findAll({})
+		Model.users.findAll({attributes:["email", [sequelize.literal("details::json->>'sex'"), "sex"]]})
 		.then(results => {
 			res.json(results);
 		})
@@ -118,8 +118,9 @@ app.get('/users', (req, res) => {
 
 app.get('/purchases', (req, res) => {
 		
-		//Sequelize Randomly changes the aliases of some fields making projection annoying
-		Model.purchases.findAll({include:[{model:Model.users, required:true}, {model:Model.purchase_items, required:true}]})
+		//Sequelize Randomly changes the aliases of some fields making projection/column selecting annoying
+		//an example would be aliasing 'users' as 'user'
+		Model.purchases.findAll({attributes:["name", "address"], include:[{attributes:["email"], model:Model.users, required:true}, {attributes:["price", "quantity", "state"], model:Model.purchase_items, required:true}]})
 		.then(results => {
 			res.json(results);
 		})
@@ -132,3 +133,24 @@ app.get('/purchases', (req, res) => {
 })
 
 app.listen(port, () => console.log('Example app listening on port 3000!'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
