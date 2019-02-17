@@ -1,6 +1,7 @@
-this readme contains 2 pieces of information
+# Contents
+This readme contains 2 pieces of information
 * question 1 briefing
-* screenshots for all routes
+* screenshots for all routes from question 1 to 3
 
 ## Question 1: "briefly show how you did this"
 
@@ -82,4 +83,38 @@ app.get('/products/:id', (req, res) => {
     }).catch(err => res.status(403).send(err));
 });
 ```
+
+## Screenshots for all the routes
+
+### /users
+
+<img width="947" alt="users" src="https://user-images.githubusercontent.com/23337553/52916507-48f74480-32d8-11e9-9875-bd472566ab71.png">
+
+### /users/:id
+
+<img width="960" alt="users-id" src="https://user-images.githubusercontent.com/23337553/52916511-557b9d00-32d8-11e9-9393-138bacc9a80d.png">
+
+### /products
+
+<img width="939" alt="products" src="https://user-images.githubusercontent.com/23337553/52916515-60363200-32d8-11e9-929c-dd6a884f23fd.png">
+
+### /products/:id
+
+<img width="948" alt="products-id" src="https://user-images.githubusercontent.com/23337553/52916517-6d532100-32d8-11e9-8bc6-edcbbba0927e.png">
+
+### /products_parameterised
+
+<img width="943" alt="products_parameterised" src="https://user-images.githubusercontent.com/23337553/52916523-80fe8780-32d8-11e9-9986-a89fb1e8da09.png">
+
+### /products_stored
+
+<img width="946" alt="products_stored" src="https://user-images.githubusercontent.com/23337553/52916526-91aefd80-32d8-11e9-81ef-0be176f933f5.png">
+
+### /purchases
+
+<img width="940" alt="purchases" src="https://user-images.githubusercontent.com/23337553/52916531-9d9abf80-32d8-11e9-8049-c2e6288e2a7a.png">
+
+
+
+
 
