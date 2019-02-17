@@ -11,48 +11,48 @@
 ---
 
 [**Part 1: Using Node, Express and Massive to create API endpoints**](#part1)
-- [Part 1.1: List all available endpoints](#part1.1)
-- [Part 1.2: List all users email and sex in order of most recently created](#part1.2)
-- [Part 1.3: List specified user's email and sex](#part1.3)
-- [Part 1.4: List all products in ascending order of price](#part1.4)
-- [Part 1.5: Show details of the specified product](#part1.5)
-- [Part 1.6: List all purchase items](#part1.6)
+- [ 1.1: List all available endpoints](#part1.1)
+- [ 1.2: List all users email and sex in order of most recently created](#part1.2)
+- [ 1.3: List specified user's email and sex](#part1.3)
+- [ 1.4: List all products in ascending order of price](#part1.4)
+- [ 1.5: Show details of the specified product](#part1.5)
+- [ 1.6: List all purchase items](#part1.6)
 
 [**Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection**](#part2)
-- [Part 2.1: GET /products[?name=string] - Possible SQL Injection](#part2.1)
+- [ 2.1: GET /products[?name=string] - Possible SQL Injection](#part2.1)
 
 [**Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection**](#part3)
-- [Part 3.1: GET /products[?name=string] - Parameterised Query](#part3.1)
-- [Part 3.2: GET /products[?name=string] - Stored Procedure](#part3.2)
+- [ 3.1: GET /products[?name=string] - Parameterised Query](#part3.1)
+- [ 3.2: GET /products[?name=string] - Stored Procedure](#part3.2)
 
 [**Part 4: Model Database and Migrate using Sequelize ORM**](#part4)
-- [Part 4.1: Model Users Table](#part4.1)
-- [Part 4.2: Migrate Users Table](#part4.2)
-- [Part 4.3: Model Products Table](#part4.3)
-- [Part 4.4: Migrate Products Table](#part4.4)
-- [Part 4.5: Model Purchases Table](#part4.5)
-- [Part 4.6: Migrate Purchases Table](#part4.6)
-- [Part 4.7: Model Purchase_Items Table](#part4.7)
-- [Part 4.8: Migrate Purchase_Items Table](#part4.8)
+- [ 4.1: Model Users Table](#part4.1)
+- [ 4.2: Migrate Users Table](#part4.2)
+- [ 4.3: Model Products Table](#part4.3)
+- [ 4.4: Migrate Products Table](#part4.4)
+- [ 4.5: Model Purchases Table](#part4.5)
+- [ 4.6: Migrate Purchases Table](#part4.6)
+- [ 4.7: Model Purchase_Items Table](#part4.7)
+- [ 4.8: Migrate Purchase_Items Table](#part4.8)
 
 [**Part 5: Using Models and JS to Perform Bulk Inserts**](#part5)
-- [Part 5.1: Seed File for Users Table](#part5.1)
-- [Part 5.2: Seed File for Products Table](#part5.2)
-- [Part 5.3: Seed File for Purchases Table](#part5.3)
-- [Part 5.4: Seed File for Purchase_Items Table](#part5.4)
+- [ 5.1: Seed File for Users Table](#part5.1)
+- [ 5.2: Seed File for Products Table](#part5.2)
+- [ 5.3: Seed File for Purchases Table](#part5.3)
+- [ 5.4: Seed File for Purchase_Items Table](#part5.4)
 
 [**Part 6: Reimplemented RESTful API using Sequelize and Express**](#part6)
-- [Part 6.1: List all available endpoints](#part6.1)
-- [Part 6.2: List all products](#part6.2)
-- [Part 6.3: Show details of the specified product](#part6.3)
-- [Part 6.4: Create a new product instance](#part6.4)
-- [Part 6.5: Update an existing product](#part6.5)
-- [Part 6.6: Remove an existing product](#part6.6)
+- [ 6.1: List all available endpoints](#part6.1)
+- [ 6.2: List all products](#part6.2)
+- [ 6.3: Show details of the specified product](#part6.3)
+- [ 6.4: Create a new product instance](#part6.4)
+- [ 6.5: Update an existing product](#part6.5)
+- [ 6.6: Remove an existing product](#part6.6)
 
 [Back to Top](#top)
 
 <a name="part1"><h2>Part 1: Using Node, Express and Massive to create API endpoints</h2></a>
-<a name="part1.1"><h3>Part 1.1: Available Endpoints:</h3></a>
+<a name="part1.1"><h3> 1.1: Available Endpoints:</h3></a>
 
 _/users_
 <br>List all users email and sex in order of most recently created.
@@ -855,7 +855,7 @@ down: (queryInterface, Sequelize) =>{
 
 [Back to Top](#top)
 <a name="part6"><h2>Part 6: Reimplemented RESTful API using Sequelize and Express</h2></a>
-<a name="part6.1"><h3>Part 6.1: Available Endpoints:</h3></a>
+<a name="part6.1"><h3> 6.1: Available Endpoints:</h3></a>
 
 _GET /products_
 <br>List all products.
