@@ -1,0 +1,29 @@
+{
+  "name": "lab-1",
+  "version": "1.0.0",
+  "description": "Submission for labratory 1 as per EAD module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start_postgres": "node index.js",
+    "start_seq": "node sequelize"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ciaran-OBrien/Enterprise-Application-Development.git"
+  },
+  "author": "Ciaran OBrien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ciaran-OBrien/Enterprise-Application-Development/issues"
+  },
+  "homepage": "https://github.com/Ciaran-OBrien/Enterprise-Application-Development#readme",
+  "dependencies": {
+    "chance": "^1.0.18",
+    "express": "^4.16.4",
+    "massive": "^5.7.4",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0"
+  }
+}
