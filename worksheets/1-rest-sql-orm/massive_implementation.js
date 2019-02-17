@@ -55,7 +55,19 @@ massive({
 
     // http://localhost:3000/products?name=;DELETE FROM products WHERE title='Laptop Computer'
     /* endpoint for products in asc order of price */
-    app.get('/products', (req, res) => {
+    app.get('/products?name=string', (req, res) => {
+
+        const query = "SELECT * \
+                       FROM products \
+                       ORDER BY price ASC"
+
+        req.app.get('db').query(
+            query
+        ).then(items => {
+            res.json(items);
+        });
+
+        /*
         req.app.get('db').products.find(
             {},
             {
@@ -67,6 +79,7 @@ massive({
         ).then(items => {
             res.json(items);
         });
+        */
     });
 
     /* endpoint for retreiving a specfic product by id */
