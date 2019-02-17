@@ -1,0 +1,23 @@
+<h1>Purchase List</h1>
+<table style="width: 1200px">
+<tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Buyer Name</th>
+    <th>Buyer Email</th>
+    <th>Buyer Address</th>
+    <th>Purchase State</th>
+</tr>
+{{#each root}}
+    <tr>
+        <td>{{this.title}}</td>
+        <td>{{this.price}}</td>
+        <td>{{this.quantity}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{this.address}}</td>
+        <td>{{this.state}}</td>
+    <tr/>
+{{/each}}
+</table>
