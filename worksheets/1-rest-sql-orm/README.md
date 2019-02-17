@@ -68,6 +68,14 @@ node index2.js
 
 ### Q2
 ```
+  app.get('/productspoor',async(req, res) => {
+    //const name = req.query.name;
+	  const result = await req.app.get('db').query("select * from products where title='" + req.query.name + "'");
+	  res.json(result);
+  });
+```
+
+```
 http://localhost:3000/productspoor?name=Pop CD
 ```
 ![capture5](https://user-images.githubusercontent.com/23324954/52915934-cff4ee80-32d1-11e9-8c94-54abfd4280cf.PNG)
@@ -78,21 +86,150 @@ We check the file POP CD still exists
 
 To delete
 ```
-http://localhost:3000/productsfix?name=Pop CD'; DELETE FROM purchase_items WHERE product_id = 14; DELETE FROM products WHERE title = 'Pop CD';
+http://localhost:3000/productspoor?name=Pop CD'; DELETE FROM purchase_items WHERE product_id = 14; DELETE FROM products WHERE title = 'Pop CD';
 ```
 POP CD is deleted
 ![capture7](https://user-images.githubusercontent.com/23324954/52915990-5b6e7f80-32d2-11e9-995c-2e7ff8abde7b.PNG)
 
 ### Q3
-No need for screenshots
-## Sequelize + Stored Procedure
+## Stored Procedure
+```
+app.get('/productsfix',async(req, res) => {
+    const result = await req.app.get('db').query('select * from products where title = ${name}' ,{name : req.query.name});
+    res.json(result);
+  });
+  
+ //To delete
+ http://localhost:3000/productsfix?name=Pop CD'; DELETE FROM purchase_items WHERE product_id = 14; DELETE FROM products WHERE title = 'Pop CD';
+
+```
+## Stored Procedure
+```
+app.get('/productstored',(req, res) => {
+    //const result = await req.app.get('db').get_products(req.query.name);
+    //res.json(result);
+    app.get('db').get_products(req.query.name).then(product => {
+      res.json(product);
+      }).catch(error => {console.log("Error")});
+  });
+  
+  
+//in get_products.sql
+CREATE OR REPLACE FUNCTION get_products(_title text)
+    RETURNS SETOF PRODUCTS
+    AS $$ 
+    	SELECT * FROM products p 
+    	WHERE p.title = _title;
+    	$$ LANGUAGE SQL STRICT IMMUTABLE;
+    	#No delete or update can occur
+	
+//TO run
+http://localhost:3000/productstored?name=Pop CD'; DELETE FROM purchase_items WHERE product_id = 14; DELETE FROM products WHERE title = 'Pop CD';
+```
+
+Since there was no change I did not put a screenshot
 
 When attempting to delete there was no change
 
 ### Q4
 
-Few set ups were done, no need for screenshots but used this website to set up
+Few set ups were done, no need for screenshots since this is a set up and this website was used to set up
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
+
+```
+sequelize model:create --name users --attributes "id:Integer,email:string, password:string, details:string"
+
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const users = sequelize.define('users', {
+    id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		unique: true
+	},
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    details: DataTypes.STRING
+  }, {timestamps: false});
+  users.associate = function(models) {
+    // associations can be defined here
+  };
+  return users;
+};
+
+sequelize model:create --name products --attributes "id:Integer,title:string, price:decimal, tags:String"
+
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const products = sequelize.define('products', {
+    id: 
+	{
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		unique: true,
+		allowNull: false,
+		autoIncrement: true
+	},
+    title: DataTypes.STRING,
+    price: DataTypes.DECIMAL,
+    tags: DataTypes.ARRAY(DataTypes.STRING),
+	created_at: DataTypes.DATE
+  }, {timestamps: false}, {
+    classMethods: {
+      associate: function(models) {
+        purchases.belongsTo(models.users, {foreignKey: 'user_id'});
+      }
+    }
+  });
+  return products;
+};
+
+sequelize model:create --name purchases --attributes "id:Integer,name:string, address:string, state:string, zipcode:integer"
+
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const purchases = sequelize.define('purchases', {
+    id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		unique: true
+	},
+    name: DataTypes.STRING,
+    address: DataTypes.STRING,
+    state: DataTypes.STRING,
+    zipcode: DataTypes.INTEGER
+    //user_id: DataTypes.INTEGER
+  }, {timestamps: false});
+  return purchases;
+};
+
+sequelize model:create --name purchase_items --attributes "id:Integer,purchase_id:Integer,product_id:Integer,price:numeric, quantity:integer, state:string"
+
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const purchase_items = sequelize.define('purchase_items', {
+    id: {
+		type: DataTypes.INTEGER,
+		primaryKey: true,
+		unique: true
+	},
+	purchase_id:DataTypes.INTEGER,
+	product_id:DataTypes.INTEGER,
+    price: DataTypes.NUMERIC,
+    quantity: DataTypes.INTEGER,
+    state: DataTypes.STRING
+  }, {timestamps: false},
+	  {
+    classMethods: {
+      associate: function(models) {
+        purchase_items.belongsTo(models.purchases, {foreignKey: 'purchase_id'});
+        purchase_items.belongsTo(models.products, {foreignKey: 'product_id'});
+      }
+    }
+  });
+  return purchase_items;
+};
+```
 
 ### Q5
 
@@ -114,6 +251,173 @@ sequelize db:seed:all
 
 This shows that it worked
 ### Q6
+
+```
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('pgguide', 'erika', '12ambionG', {
+    host: 'localhost',
+    dialect: 'postgres',
+  
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 10000
+    },
+});
+
+const models = require('./models/index');
+const express = require('express');
+const app = express();
+const port = 3000;
+const Users = require('./models').users;
+const Products = require('./models').products;
+
+// Or you can simply use a connection uri
+//const sequelize = new Sequelize('postgres://user:pass@example.com:5432/dbname');
+
+//Check connection
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+/*
+Setting For Part 1
+*/
+
+//Get users
+app.get('/users', async (req, res) => {
+  Users.findAll({ all: true, nested: true }).then(function (users) {
+  res.json(users);
+})
+});
+
+//Get users id
+// Get the products by id
+app.get('/users/:id', async (req, res) => {
+  Users.findOne({
+    where: 
+    {
+      id: req.params.id
+    }
+  }).then(function (users) {
+    res.json(users);
+  });
+})
+
+//Get products
+app.get('/products', async (req, res) => {
+    Products.findAll({ all: true, nested: true }).then(function (products) {
+      res.json(products);
+})
+});
+
+//GET /products[?name=string]
+app.get('/productss', async (req, res) => {
+  Products.findOne({
+      where: 
+      {
+        title: req.query.name
+      }
+    }).then(function (products) {
+      res.json(products);
+    }); 
+});
+
+// Get the products by id
+app.get('/products/:id', async (req, res) => {
+  Products.findOne({
+    where: 
+    {
+      id: req.params.id
+    }
+  }).then(function (products) {
+    res.json(products);
+  });
+})
+
+//
+
+//Get purchases
+// app.get('/purchases', async (req, res) => {
+//     models.purchases.findAll({ all: true, nested: true }).then(function (purchases) {
+//       res.json(purchases);
+// })
+// });
+
+/*
+Setting for the one that was not added
+*/
+
+// BodyParser used for postman
+app.use(express.urlencoded());
+
+// POST for new product
+app.post('/products', async (req, res) => {
+  if((req.body.hasOwnProperty('title')&req.body.hasOwnProperty('price')&req.body.hasOwnProperty('tags')))
+  {
+    //Product is created
+    //http://docs.sequelizejs.com/manual/tutorial/instances.html#building-a-non-persistent-instance
+    const products = Products.build({
+      title: req.body.title,
+      price: req.body.price,
+      tags: req.body.tags.split(','),
+      created_at: new Date(Date.now()).toISOString()
+    });
+    products.save()
+  }
+  else
+  {
+    console.log("Title, Price and Tags are needed")
+  }
+});
+
+// Update product
+app.put('/products/:id', (req, res) => {
+  // Find product id
+  Products.find({
+    where: 
+    {
+      id: req.params.id
+    }
+  }).then((product) => {
+    if(req.body.hasOwnProperty('title')) {
+      product.update({
+        title: req.body.title
+      })
+    }
+    if(req.body.hasOwnProperty('price')) {
+      product.update({
+        price: req.body.price
+      })
+    }
+    if(req.body.hasOwnProperty('tags')) {
+      product.update({
+        tags: req.body.tags.split(','),
+      })
+    }
+  })
+});
+
+//Delete product
+app.delete('/products/:id', async (req, res) => 
+{
+  Products.findOne({
+    where: 
+    {
+      id: req.params.id
+    }
+  }).then((product) => {
+    product.destroy()
+  })
+});
+
+app.listen(port, () => console.log('Example app listening on port ${port}!'));
+```
 #### app.get Get
 GET /products[?name=string]
 ```
