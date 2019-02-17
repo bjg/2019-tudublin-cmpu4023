@@ -84,7 +84,8 @@ _/products?name=title_
 ```javascript
 /* 
 List all users email and sex in order of most recently created. 
-Do not include password hash in your output.
+This code allows for a situation where no SEX value is included, but 
+where other DETAILS (i.e. STATE) may have been supplied
 */
 app.get('/users', (req, res) => {
   db.users.find({}, {
@@ -108,20 +109,22 @@ app.get('/users', (req, res) => {
       let user_info = [];
 
       items.forEach(element => {
-              if(element['details'] != null)
-              {
-                      user_info.push({
-                              "email": element['email'],
-                              "sex": element['details']['sex']
-                      });
-              }
-              else
-              {
-                      user_info.push({
-                              "email": element['email'],
-                              "sex": "Undisclosed"
-                      });
-              }
+          if(element['details'] != null)
+          {
+            user_info.push({
+                    "email": element['email'],
+                    // if the DETAILS are not null, but no SEX value was disclosed i.e. just the STATE is disclosed
+                    // then the SEX value should also be "Undisclosed"
+                    "sex": (element['details']['sex']) ? element['details']['sex'] : "Undisclosed"
+            });
+          }
+          else
+          {
+            user_info.push({
+                    "email": element['email'],
+                    "sex": "Undisclosed"
+            });
+          }
       });
       res.json(user_info);
   });
@@ -151,22 +154,24 @@ app.get('/users/:id', (req, res) => {
 
     // use clean ID value to get the user from DB
     db.users.find({'id = ' : userID}, {
-            // filter results
-            fields: 
-            [
-                    "id",
-                    "email",
-                    "details::json"
-            ]
+        // filter results
+        fields: 
+        [
+                "id",
+                "email",
+                "details::json"
+        ]
     })
     // convert results to JSON for the response 
     .then(items => {
-          let user = {
-                  "id": items[0].id,
-                  "email": items[0].email,
-                  "sex": items[0].details.sex
-          };
-          res.json(user);
+        let user = {
+                "id": items[0].id,
+                "email": items[0].email,
+                // if no SEX value is defined, then output is "Undisclosed"
+                "sex": items[0].details.sex ? items[0].details.sex : "Undisclosed"
+        };
+
+        res.json(user);
     });
 });
 ```
@@ -188,14 +193,14 @@ app.get('/products', (req, res) => {
         {       // undefined if no name set, just return ALL products
                 console.log("params are undefined"); 
                 db.products.find({}, {
-                        // order results
-                        order: [
-                                {
-                                        field: 'price',
-                                        direction: 'asc',
-                                        nulls: 'first'
-                                }  
-                        ]
+                    // order results
+                    order: [
+                            {
+                                    field: 'price',
+                                    direction: 'asc',
+                                    nulls: 'first'
+                            }  
+                    ]
                 })
                 // convert results to JSON for the response 
                 .then(items => {

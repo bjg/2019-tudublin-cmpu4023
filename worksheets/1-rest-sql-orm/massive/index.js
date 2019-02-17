@@ -67,7 +67,8 @@ app.get('/', (req, res) => {
 
 /* 
 List all users email and sex in order of most recently created. 
-Do not include password hash in your output.
+This code allows for a situation where no SEX value is included, but 
+where other DETAILS (i.e. STATE) may have been supplied
 */
 app.get('/users', (req, res) => {
         db.users.find({}, {
@@ -95,7 +96,9 @@ app.get('/users', (req, res) => {
                         {
                                 user_info.push({
                                         "email": element['email'],
-                                        "sex": element['details']['sex']
+                                        // if the DETAILS are not null, but no SEX value was disclosed i.e. just the STATE is disclosed
+                                        // then the SEX value should also be "Undisclosed"
+                                        "sex": (element['details']['sex']) ? element['details']['sex'] : "aaaaaaa"
                                 });
                         }
                         else
@@ -139,9 +142,9 @@ app.get('/users/:id', (req, res) => {
                 let user = {
                         "id": items[0].id,
                         "email": items[0].email,
-                        "sex": items[0].details.sex
+                        // if no SEX value is defined, then output is "Undisclosed"
+                        "sex": items[0].details.sex ? items[0].details.sex : "Undisclosed"
                 };
-
                 res.json(user);
         });
 });
