@@ -586,8 +586,8 @@ module.exports = {
       address: {type: Sequelize.STRING},
       state: {type: Sequelize.STRING},
       zipcode: {type: Sequelize.STRING},
-      user_id: {type: Sequelize.INTEGER, // foreignKey
-        references: {model : "users", key   : "id"}, // ensures referential integrity
+      user_id: {type: Sequelize.INTEGER,                // foreignKey
+        references: {model : "users", key   : "id"},    // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
@@ -596,7 +596,7 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('purchases'); // ensures referential integrity
+    return queryInterface.dropTable('purchases');       // ensures referential integrity
   }
 };
 ```
@@ -608,8 +608,8 @@ module.exports = {
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var purchase_items = sequelize.define('purchase_items', {
-    purchase_id: DataTypes.INTEGER, // foreignKey
-    product_id: DataTypes.INTEGER, //foreignKey
+    purchase_id: DataTypes.INTEGER,                     // foreignKey
+    product_id: DataTypes.INTEGER,                      //foreignKey
     price: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     state: DataTypes.STRING
@@ -636,13 +636,13 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('purchase_items', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
-      purchase_id: {type: Sequelize.INTEGER,    // foreignKey
-        references : { model : "purchases", key : "id"},  // ensures referential integrity
+      purchase_id: {type: Sequelize.INTEGER,                    // foreignKey
+        references : { model : "purchases", key : "id"},        // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
-      product_id: {type: Sequelize.INTEGER,     // foreignKey
-        references : { model : "products", key : "id"}, // ensures referential integrity
+      product_id: {type: Sequelize.INTEGER,                     // foreignKey
+        references : { model : "products", key : "id"},         // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
@@ -662,7 +662,7 @@ module.exports = {
 [Back to Top](#top)
 <a name="part5"><h2>Part 5: Using Models and JS to Perform Bulk Inserts</h2></a>
 
-Inserts and Delete of bulk data were performed using seeder files _(up/down functions)_ and seed commands: 
+Inserts and Delete of bulk data were performed using seeder files _(up/down functions)_ and seed commands. Seed files were created in a specific order _(users > products > purchases > purchase_items)_ and timestamped so they could be called without conflicts through referential constraints.  
 ```
 node_modules/.bin/sequelize db:seed              // to seed all inserts
 node_modules/.bin/sequelize db:seed:undo:all     // to deseed/delete all inserts
