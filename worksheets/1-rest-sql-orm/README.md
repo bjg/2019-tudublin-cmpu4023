@@ -4,7 +4,7 @@
 #### - List all users email and sex in order of most recently created. Do not include password hash in your output
 ![](./images/1a_1.png)
 
-The route will find all the users email and details, in a JSON format so we can parse the sex out later. When the items are returned we create an empty array to store the output, and loop over the items. We check if the details are null, if not then we push an object with the email, and the sex from the details JSON. If the user details were null then we push an object with the email and the sex will be marked “Not Disclosed”. 
+The route will find all the users email and details, in a JSON format so we can parse the sex out later. When the items are returned we create an empty array to store the output, and loop over the items. We use an inline if statement to check if details is and sex are available, if so then we push an object made up of the email and the sex, or "Not Disclosed" of details and or sex is not available
 
 When requested from the browser, the output was as follows.
 
