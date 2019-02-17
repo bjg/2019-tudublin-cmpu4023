@@ -404,7 +404,7 @@ By using a _stored procedure_ it was not possible to inject values into the data
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
-Referential Integrity is ensured through the use of _foreignKeys_ and _associations_. 
+Model files were created using Sequelize for each of the tables in the database. Once created, Sequelize also auto-generated migration files to map the _pgguide_ database. _Referential Integrity_ is ensured through the use of _primaryKeys_, _foreignKeys_ and _associations_ as highlighted in the code snippets that follow. 
 
 <a name="part4.1"><h3>4.1 Model Users Table</h3></a>
 
