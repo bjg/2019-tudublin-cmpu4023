@@ -662,7 +662,7 @@ module.exports = {
 [Back to Top](#top)
 <a name="part5"><h2>Part 5: Using Models and JS to Perform Bulk Inserts</h2></a>
 
-Inserts and Delete of bulk data were performed using seeder files _(up/down functions)_ and seed commands. Seed files were created in a specific order _(users > products > purchases > purchase_items)_ and timestamped so they could be called without conflicts through referential constraints.  
+Inserts and Deletes of bulk data were performed using seeder files _(up/down functions)_ and seed commands. Seed files were created in a specific order _(users > products > purchases > purchase_items)_ and timestamped so they could be called without conflicts through referential constraints.  
 ```
 node_modules/.bin/sequelize db:seed              // to seed all inserts
 node_modules/.bin/sequelize db:seed:undo:all     // to deseed/delete all inserts
