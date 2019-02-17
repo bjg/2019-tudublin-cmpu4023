@@ -11,6 +11,9 @@
   "dependencies": {
     "express": "^4.16.4",
     "massive": "^5.7.5",
-    "sequelize": "^4.42.0"
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
   }
 }
