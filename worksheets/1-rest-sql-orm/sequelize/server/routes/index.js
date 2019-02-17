@@ -67,8 +67,7 @@ router.post('/products', (req, res) => {
 
 /*
 Update an existing product.
-CURL COMMAND: curl -X PUT --data "title=Dictionary&price=\
-22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
+CURL COMMAND: curl -X PUT --data "title=Dictionary&price=22.99&tags=Book&tags=Reference" http://127.0.0.1:3000/products/:1
 */
 router.put('/products/:id', (req, res) =>{
   // parse input to get the product ID value on its own
@@ -98,7 +97,7 @@ router.put('/products/:id', (req, res) =>{
 
 /*
 Remove an existing product.
-CURL COMMAND: curl -X DELETE http://127.0.0.1:3000/products/:44
+CURL COMMAND: curl -X DELETE http://127.0.0.1:3000/products/:51
 */
 router.delete('/products/:id', (req, res) =>{
   // parse input to get the product ID value on its own

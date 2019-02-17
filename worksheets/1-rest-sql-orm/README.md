@@ -393,6 +393,8 @@ app.get('/products', (req, res) => {
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
+Referential Integrity is ensured through the use of foreignKeys and associations. 
+
 <a name="part4.1"><h3>4.1 Model Users Table</h3></a>
 
 ```javascript
@@ -417,7 +419,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        //users.hasMany(models.purchases);
       }
     }
   });
@@ -543,7 +544,7 @@ module.exports = function(sequelize, DataTypes) {
     address: DataTypes.STRING,
     state: DataTypes.STRING, 
     zipcode: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER, 
+    user_id: DataTypes.INTEGER, // foreignKey
     createdAt: {
       type: DataTypes.DATE,
       field: "created_at"
@@ -553,7 +554,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        purchases.belongsTo(models.users, {foreignKey: 'user_id'});
+        purchases.belongsTo(models.users, {foreignKey: 'user_id'}); // ensures referential integrity
       }
     }
   });
@@ -574,11 +575,8 @@ module.exports = {
       address: {type: Sequelize.STRING},
       state: {type: Sequelize.STRING},
       zipcode: {type: Sequelize.STRING},
-      user_id: {type: Sequelize.INTEGER,
-        references: {
-          model : "users",
-          key   : "id"
-        },
+      user_id: {type: Sequelize.INTEGER, // foreignKey
+        references: {model : "users", key   : "id"}, // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
@@ -587,7 +585,7 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('purchases');
+    return queryInterface.dropTable('purchases'); // ensures referential integrity
   }
 };
 ```
@@ -599,8 +597,8 @@ module.exports = {
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var purchase_items = sequelize.define('purchase_items', {
-    purchase_id: DataTypes.INTEGER,
-    product_id: DataTypes.INTEGER,
+    purchase_id: DataTypes.INTEGER, // foreignKey
+    product_id: DataTypes.INTEGER, //foreignKey
     price: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER,
     state: DataTypes.STRING
@@ -609,8 +607,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        purchase_items.belongsTo(models.purchases, {foreignKey: 'purchase_id'});
-        purchase_items.belongsTo(models.products, {foreignKey: 'product_id'});
+        purchase_items.belongsTo(models.purchases, {foreignKey: 'purchase_id'}); // ensures referential integrity
+        purchase_items.belongsTo(models.products, {foreignKey: 'product_id'});   // ensures referential integrity
       }
     }
   });
@@ -627,13 +625,13 @@ module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('purchase_items', {
       id: {allowNull: false, autoIncrement: true, primaryKey: true, type: Sequelize.INTEGER},
-      purchase_id: {type: Sequelize.INTEGER,
-        references : { model : "purchases", key : "id"},
+      purchase_id: {type: Sequelize.INTEGER,    // foreignKey
+        references : { model : "purchases", key : "id"},  // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
-      product_id: {type: Sequelize.INTEGER,
-        references : { model : "products", key : "id"},
+      product_id: {type: Sequelize.INTEGER,     // foreignKey
+        references : { model : "products", key : "id"}, // ensures referential integrity
         onUpdate: 'cascade',
         onDelete: 'cascade'
       },
@@ -653,7 +651,7 @@ module.exports = {
 [Back to Top](#top)
 <a name="part5"><h2>Part 5: Using Models and JS to Perform Bulk Inserts</h2></a>
 
-Inserts and Delete of bulk data were performed using seeder files and seed commands: 
+Inserts and Delete of bulk data were performed using seeder files _(up/down functions)_ and seed commands: 
 ```
 node_modules/.bin/sequelize db:seed              // to seed all inserts
 node_modules/.bin/sequelize db:seed:undo:all     // to deseed/delete all inserts
