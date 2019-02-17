@@ -153,7 +153,7 @@ app.get("/products", (req, res) => {
 		});
 	}
 	else {
-		req.app.get("db").products.findOne({
+		req.app.get("db").products.findAll({
 			attributes: ["title", "price", "tags"],
 			where: {
 				title: req.query.name
