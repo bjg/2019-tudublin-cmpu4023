@@ -87,7 +87,7 @@ path: worksheets/1-rest-sql-orm/part2/populate.js
 
 ## Part 6
 
-## GET /products[?name=string] - List all products
+### GET /products[?name=string] - List all products
 
 Call API endpoint to request all products:
 curl -X GET \
