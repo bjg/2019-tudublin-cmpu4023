@@ -555,7 +555,7 @@ module.exports = function(sequelize, DataTypes) {
     address: DataTypes.STRING,
     state: DataTypes.STRING, 
     zipcode: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER, // foreignKey
+    user_id: DataTypes.INTEGER,                 // foreignKey
     createdAt: {
       type: DataTypes.DATE,
       field: "created_at"
@@ -565,7 +565,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        purchases.belongsTo(models.users, {foreignKey: 'user_id'}); // ensures referential integrity
+        purchases.belongsTo(models.users, {foreignKey: 'user_id'});     // ensures referential integrity
       }
     }
   });
