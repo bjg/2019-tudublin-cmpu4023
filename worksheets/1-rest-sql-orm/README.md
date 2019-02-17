@@ -1,11 +1,11 @@
-### part 1
+## part 1
 
-#GET /users
+### GET /users
 
 curl http://localhost:3000/users
 Using Massive, I queried that data with the following query ""'select email, details -> \'sex\' as sex from users"
 
-##GET /users/:id
+### GET /users/:id
 
 curl http://localhost:3000/users/2
 An API end point was created to query a product by id using. Using Massive, I queried that data with the following query ""'select email, details -> \'sex\' as sex from users WHERE id='  + req.params.id"
@@ -13,14 +13,12 @@ The req.params returns the parameters in the matched route. Using that I am able
 If data is returned from database, it is returned as a response otherwise, a message saying 'No user with that id' will be sent as a response.
 
 
-##GET /products
+###GET /products
 
 curl http://localhost:3000/products
 Using Massive, I queried that data with the following query 'select * from products ORDER BY price ASC;"
 
-
-
-##GET /products/:id
+###GET /products/:id
 
 Show details of the specified products
 
@@ -29,7 +27,7 @@ Using Massive, I queried that data with the following query "'select * from prod
 The req.params returns the parameters in the matched route. Using that I am able to retrieve the product id.
 
 
-##GET /purchases
+###GET /purchases
 
 curl http://localhost:3000/purchases
 The API endpoint simply uses MassiveJS to perform an SQL query and return the output.
@@ -39,10 +37,10 @@ select price, purchase_items.state, purchase_id, name, address, email from purch
 join purchases on purchase_items.purchase_id = purchases.id
 join users on users.id = purchases.user_id
 ORDER BY price DESC
-###
 
-### Part 2
-GET /products[?name=string]
+## Part 2
+
+###GET /products[?name=string]
 
 curl http://localhost:3000/products?name=Romantic
 The API from part one was extending by checking if a query parameter with the key name was included, if it was we would perform a different SQL query where we filter for the name
@@ -54,7 +52,7 @@ The query above is badly implemented and can be injected with the following quer
 ?name='; delete from purchase_items where product_id=12; DELETE FROM products where id=12 or title='
 
 
-### part 3
+## part 3
 -parameterised query
 The /productsInjectionSafe1 endpoint using the parameterised query
 The following query is performed which no longer allows for the sql injection demonstrated in the previous part
@@ -77,7 +75,17 @@ With these two methods the SQL injection shown in part 3 no longer works.
 
 
 
-### Part 6
+## part 4
+Models have been created for all tables (products, purchases, purchase_items, users)
+appropriate associations and referential integrity have been set up in the models.
+
+All models can be found in the directory: worksheets/1-rest-sql-orm/part2/models/
+
+## part 5
+The models have been populated with dummy data
+path: worksheets/1-rest-sql-orm/part2/populate.js
+
+## Part 6
 
 ##GET /products[?name=string] - List all products
 
