@@ -17,8 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER
   }, {});
   purchases.associate = function(models) {
-    // associations can be defined here
-    purchases.hasOne(models.Sequelized_users)
+    
   };
   return purchases;
 };

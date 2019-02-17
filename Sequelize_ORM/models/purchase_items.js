@@ -19,9 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING
   }, {});
   purchase_items.associate = function(models) {
-    // associations can be defined here
-    //purchase_items.hasOne(models.Sequelized_products)
-    //purchase_items.hasOne(models.Sequelized_purchases)
+    
   };
   return purchase_items;
 };

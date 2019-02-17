@@ -43,20 +43,28 @@ massive({
 
         // Query to add temporary value to delete => Baby Book'; insert into products (id, title, price) values (210, 'Baby Book', '15.95'); --
         // Query to remove temporary value => Baby Book'; delete from products where id = 210; --        
-        /*else
+        else
         {
-            instance.query(`select * from products where title = '${req.query.name}' order by (price) asc`).then(users => res.send(users))
-        }*/        
+            instance.query(`select * from products where title = '${req.query.name}' order by (price) asc`).then(products => res.send(products))
+        }        
 
         
         // ------- Part 3 --------------------------------------------
         // Provide two solutions to eliminate the security hole in your approach from the previous section
         
         // Parameterised query
-        else
+        /*else
         {
-            instance.query('select * from products where title = $1 order by (price) asc', [`${req.query.name}`]).then(users => res.send(users))
-        }
+            instance.query('select * from products where title = $1 order by (price) asc', [`${req.query.name}`]).then(products => res.send(products))
+        }*/
+
+        // SQL query
+        /*else
+        {
+            instance.getProductByName(req.query.name).then(result => {
+                    return res.json(result)
+              });
+        }*/
     });
 
     // Show details of the specified products
