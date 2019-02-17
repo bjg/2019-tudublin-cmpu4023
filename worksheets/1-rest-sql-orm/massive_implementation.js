@@ -55,31 +55,34 @@ massive({
 
     // http://localhost:3000/products?name=;DELETE FROM products WHERE title='Laptop Computer'
     /* endpoint for products in asc order of price */
-    app.get('/products?name=string', (req, res) => {
+    app.get('/products', (req, res) => {
 
-        const query = "SELECT * \
-                       FROM products \
-                       ORDER BY price ASC"
+        const name = req.query.name;
 
-        req.app.get('db').query(
-            query
-        ).then(items => {
-            res.json(items);
-        });
+        let query = "";
 
-        /*
-        req.app.get('db').products.find(
-            {},
-            {
-                order: [{
-                    field: 'price',
-                    direction: 'asc'
-                }]
-            }
-        ).then(items => {
-            res.json(items);
-        });
-        */
+        if (name == null) {
+            query = "SELECT * \
+                    FROM products \
+                    ORDER BY price ASC"
+
+            req.app.get('db').query(
+                query
+            ).then(items => {
+                res.json(items);
+            });
+        } else {
+
+            /* parameterised query to prevent sql injection */
+
+            req.app.get('db').query(
+                "SELECT * FROM products WHERE title=$1",
+                [name]
+            ).then(items => {
+                res.json(items);
+            });
+        }
+
     });
 
     /* endpoint for retreiving a specfic product by id */
