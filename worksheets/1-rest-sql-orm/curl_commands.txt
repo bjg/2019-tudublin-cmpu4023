@@ -1,0 +1,80 @@
+CURL COMMANDS
+
+***** part 1 of Lab ******
+**************************************************
+
+** users**
+curl -X GET \
+http://localhost:3000/users \
+curl localhost:3000/users
+
+**users/id**
+curl -X GET \
+http://localhost:3000/users/3 \
+curl localhost:3000/users/3
+
+**products**
+curl -X GET \
+http://localhost:3000/products \
+curl localhost:3000/products
+
+**products/id**
+curl -X GET \
+http://localhost:3000/products/11 \
+curl localhost:3000/products/11
+
+**purchases**
+curl -X GET \
+http://localhost:3000/purchases
+curl localhost:3000/purchases
+
+
+***** part 2 of Lab ******
+**************************************************
+//note it is now possible to alter the data ie. update price as seen above
+curl -X GET \
+  'http://localhost:3000/products/Dictionary';UPDATE%productsSETprice=719.99WHEREtitleDictionary;--' \
+ curl localhost:3000/products/Dictionary';SET PRICE=719.99 WHERE title='Dictionary';--
+
+ //now the data can be tampered with
+ curl -X GET \
+ 'http://localhost:3000/products/Dictionary';UPDATE%productsSETprice=719.99WHEREtitleDictionary;--' \
+ curl localhost:3000/products/Dictionary';SET PRICE=719.99 WHERE title='Dictionary';--
+
+
+***** SEQUELIZE PROJECT CURL COMMANDS******
+**************************************************
+
+** show all products**
+curl -X GET \
+  http://localhost:3000/products \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Postman-Token: 9c9dc6a5-90ba-4008-bf50-7049e1ec7180' \
+  -H 'cache-control: no-cache' \
+  -d 'id=29&title=photo&price=80.00&tags=house&undefined='
+ curl localhost:3000/products
+
+** product/3 **
+curl -X GET \
+http://localhost:3000/products/3 \
+curl localhost:3000/products/3
+
+** POST PRODUCT**
+curl -X POST \
+  http://localhost:3000/products \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Postman-Token: ed9f511c-479f-4b52-a150-b5caa887bdca' \
+  -H 'cache-control: no-cache' \
+  -d 'id=40&title=photos&price=800.00&tags=house'
+curl http://localhost:3000/products 
+
+** PUT PRODUCTS/ID **
+curl -X PUT \
+  http://localhost:3000/products/11 \
+curl http://localhost:3000/products/11 \
+
+** DELETE PRODUCTS/ID **
+curl -X DELETE \
+  http://localhost:3000/products/29 \
+curl http://localhost:3000/products/29 \
+
