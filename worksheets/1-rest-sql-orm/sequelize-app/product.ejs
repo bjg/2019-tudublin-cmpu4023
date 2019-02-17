@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Product</title>
+</head>
+<body>
+    <div><%= product.id %></div>
+    <div><%= product.title %></div>
+    <div><%= product.price %></div>
+    <form id="deleteProduct" action='/products/<%= product.id %>' method="delete">
+      <input type="submit" value="Delete"></input>
+    </form>
+</body>
+</html>
