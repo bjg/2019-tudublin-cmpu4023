@@ -11,6 +11,8 @@
   "dependencies": {
     "express": "^4.16.4",
     "massive": "^5.7.5",
-    "nodemon": "^1.18.10"
+    "mysql2": "^1.6.5",
+    "nodemon": "^1.18.10",
+    "sequelize": "^4.42.0"
   }
 }
