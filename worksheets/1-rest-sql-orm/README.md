@@ -66,10 +66,10 @@ curl -i -H "Accept: application/json" -X GET http://localhost:3000/products/1
 
 ## /products injection statement
 
-Book';delete from products where id = 300;--
+Book';delete from products where id = 21;--
 
 ```bash
-curl -i -H "Accept: application/json" -X GET http://localhost:3000/dodgy-products?name=Book%27%3Bdelete%20from%20products%20where%20id%20%3D%20300%3B--
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/dodgy-products?name=Book%27%3Bdelete%20from%20products%20where%20id%20%3D%2021%3B--
 ```
 
 	HTTP/1.1 200 OK
@@ -82,12 +82,26 @@ curl -i -H "Accept: application/json" -X GET http://localhost:3000/dodgy-product
 
 	[]
 
-As we can see no error occured so the injection was successful, a request for the record with id 300 will now return a blank
+As we can see no error occured so the injection was successful, a request for the record with id 21 will now return a blank
+
+```bash
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/products/21
+```
+
+	HTTP/1.1 200 OK
+	X-Powered-By: Express
+	Content-Type: application/json; charset=utf-8
+	Content-Length: 2
+	ETag: W/"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w"
+	Date: Sun, 17 Feb 2019 19:02:54 GMT
+	Connection: keep-alive
+
+	[]
 
 ## /products with function
 
 ```bash
-curl -i -H "Accept: application/json" -X GET http://localhost:3000/function-products?name=Python
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/function-products?name=Book%27%3Bdelete%20from%20products%20where%20id%20%3D%2021%3B--
 ```
 
 	HTTP/1.1 200 OK
@@ -100,10 +114,27 @@ curl -i -H "Accept: application/json" -X GET http://localhost:3000/function-prod
 
 	[{"id":2,"title":"Python Book","price":"29.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Python"]}]
 	
+The function is expecting a parameter of type VARCHAR and so will prevent the sql injection
+	
+```bash
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/products/21
+```
+
+	HTTP/1.1 200 OK
+	X-Powered-By: Express
+	Content-Type: application/json; charset=utf-8
+	Content-Length: 100
+	ETag: W/"64-jEU0hulUoHJD9XHzQ8ooHyIHj/w"
+	Date: Sun, 17 Feb 2019 19:09:01 GMT
+	Connection: keep-alive
+
+	[{"id":21,"title":"please delete me","price":"300","created_at":null,"deleted_at":null,"tags":null}]
+
+	
 ## /products with paramterised query
 
 ```bash
-curl -i -H "Accept: application/json" -X GET http://localhost:3000/products?name=Python
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/products?name=Book%27%3Bdelete%20from%20products%20where%20id%20%3D%2021%3B--
 ```
 
 	HTTP/1.1 200 OK
@@ -115,6 +146,39 @@ curl -i -H "Accept: application/json" -X GET http://localhost:3000/products?name
 	Connection: keep-alive
 
 	[{"id":4,"title":"Baby Book","price":"7.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Children","Baby"]}]
+	
+The paramterised query is will escape any input to prevent it being interpreted as sql.
+The record will still be present.
+	
+```bash
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/products/21
+```
+
+	HTTP/1.1 200 OK
+	X-Powered-By: Express
+	Content-Type: application/json; charset=utf-8
+	Content-Length: 100
+	ETag: W/"64-jEU0hulUoHJD9XHzQ8ooHyIHj/w"
+	Date: Sun, 17 Feb 2019 19:12:48 GMT
+	Connection: keep-alive
+
+	[{"id":21,"title":"please delete me","price":"300","created_at":null,"deleted_at":null,"tags":null}]
+	
+## /products?name=Python
+
+```bash
+curl -i -H "Accept: application/json" -X GET http://localhost:3000/products?name=Python
+```
+
+	HTTP/1.1 200 OK
+	X-Powered-By: Express
+	Content-Type: application/json; charset=utf-8
+	Content-Length: 145
+	ETag: W/"91-+r6lbxHrmF8rL4172Kmm7aUSWGM"
+	Date: Sun, 17 Feb 2019 19:13:24 GMT
+	Connection: keep-alive
+
+	[{"id":2,"title":"Python Book","price":"29.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Python"]}]
 	
 ## /purchases
 
@@ -147,7 +211,7 @@ curl --data "id=600&title=New%20Book&price=200&tags=Book%20New" http://localhost
 curl -X PUT -d "price=600" http://localhost:3000/products/600
 ```
 
-	{"id":600,"title":"New Book","price":"500","created_at":"2019-02-17T15:27:15.633Z","deleted_at":null,"tags":["Book)New"]}
+	{"id":600,"title":"New Book","price":"600","created_at":"2019-02-17T15:42:04.607Z","deleted_at":null,"tags":["Book","New"]}
 	
 ## DELETE /products/id
 
@@ -156,3 +220,9 @@ curl -X DELETE http://localhost:3000/products/600
 ```
 
 Deletes the record
+
+```bash
+curl -X GET http://localhost:3000/products/600
+```
+
+	null
