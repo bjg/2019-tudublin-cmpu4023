@@ -1,0 +1,23 @@
+{
+  "name": "2019-tudublin-cmpu4023",
+  "version": "1.0.0",
+  "description": "Official module repo for CMPU4023 (2019)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FinnMcLaughlin/2019-tudublin-cmpu4023.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FinnMcLaughlin/2019-tudublin-cmpu4023/issues"
+  },
+  "homepage": "https://github.com/FinnMcLaughlin/2019-tudublin-cmpu4023#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.5"
+  }
+}

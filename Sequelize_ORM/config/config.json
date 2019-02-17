@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "Kevisarat",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "define": {
+      "timestamps": false
+    },
+    "omitNull": true
+  },
+  "test": {
+    "username": "postgres",
+    "password": "Kevisarat",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "omitNull": true
+  },
+  "production": {
+    "username": "postgres",
+    "password": "Kevisarat",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "omitNull": true
+  }
+}
