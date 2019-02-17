@@ -84,29 +84,47 @@ _/products?name=title_
 ```javascript
 /* 
 List all users email and sex in order of most recently created. 
+Do not include password hash in your output.
 */
 app.get('/users', (req, res) => {
-        db.users.find({}, {
-                // filter results
-                fields: 
-                [
-                        "email",
-                        "details::json"
-                ],
-                // order results
-                order: 
-                [
-                      {
-                        field: 'created_at',
-                        direction: 'desc',
-                        nulls: 'first'
-                      }  
-                ]
-        })
-        // convert results to JSON for the response 
-        .then(items => {
-                res.json(items);
-        });
+  db.users.find({}, {
+      // filter results
+      fields: 
+      [
+              "email",
+              "details::json"
+      ],
+      // order results
+      order: 
+      [
+            {
+              field: 'created_at',
+              direction: 'desc'
+            }  
+      ]
+  })
+  // convert results to JSON for the response 
+  .then(items => {
+      let user_info = [];
+
+      items.forEach(element => {
+              if(element['details'] != null)
+              {
+                      user_info.push({
+                              "email": element['email'],
+                              "sex": element['details']['sex']
+                      });
+              }
+              else
+              {
+                      user_info.push({
+                              "email": element['email'],
+                              "sex": "Undisclosed"
+                      });
+              }
+      });
+      res.json(user_info);
+  });
 });
 ```
 <h3>Results:</h3>
@@ -122,28 +140,35 @@ List specified user's email and sex.
 Do not include password hash in your output.
 */
 app.get('/users/:id', (req, res) => {
-        // parse input to get the user ID value in its own
-        console.log("req.params.id = " + req.params.id);
-        // get the request parameters
-        let id = req.params.id;
-        // split on the colon (:)
-        let userID = id.split(':')[1];
-        // check output 
-        console.log("clean string " + userID);
+    // parse input to get the user ID value in its own
+    console.log("req.params.id = " + req.params.id);
+    // get the request parameters
+    let id = req.params.id;
+    // split on the colon (:)
+    let userID = id.split(':')[1];
+    // check output 
+    console.log("clean string " + userID);
 
-        // use clean ID value to get the user from DB
-        db.users.find({'id = ' : userID}, {
-                // filter results
-                fields: 
-                [
-                        "email",
-                        "details::json"
-                ]
-        })
-        // convert results to JSON for the response 
-        .then(items => {
-                res.json(items);
-        });
+    // use clean ID value to get the user from DB
+    db.users.find({'id = ' : userID}, {
+            // filter results
+            fields: 
+            [
+                    "id",
+                    "email",
+                    "details::json"
+            ]
+    })
+    // convert results to JSON for the response 
+    .then(items => {
+            let user = {
+                    "id": items[0].id,
+                    "email": items[0].email,
+                    "sex": items[0].details.sex
+            };
+
+            res.json(user);
+    });
 });
 ```
 

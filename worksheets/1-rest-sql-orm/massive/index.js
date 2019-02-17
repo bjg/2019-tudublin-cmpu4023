@@ -82,14 +82,31 @@ app.get('/users', (req, res) => {
                 [
                       {
                         field: 'created_at',
-                        direction: 'desc',
-                        nulls: 'first'
+                        direction: 'desc'
                       }  
                 ]
         })
         // convert results to JSON for the response 
         .then(items => {
-                res.json(items);
+                let user_info = [];
+
+                items.forEach(element => {
+                        if(element['details'] != null)
+                        {
+                                user_info.push({
+                                        "email": element['email'],
+                                        "sex": element['details']['sex']
+                                });
+                        }
+                        else
+                        {
+                                user_info.push({
+                                        "email": element['email'],
+                                        "sex": "Undisclosed"
+                                });
+                        }
+                });
+                res.json(user_info);
         });
 });
 
@@ -119,7 +136,13 @@ app.get('/users/:id', (req, res) => {
         })
         // convert results to JSON for the response 
         .then(items => {
-                res.json(items);
+                let user = {
+                        "id": items[0].id,
+                        "email": items[0].email,
+                        "sex": items[0].details.sex
+                };
+
+                res.json(user);
         });
 });
 
