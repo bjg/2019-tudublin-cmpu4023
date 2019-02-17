@@ -1,0 +1,28 @@
+  <h3>Product(s)</h3>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const render = (body, product) => {
+        const section = document.createElement('section');
+        section.innerHTML = `<p>
+            Title: ${product.title}
+          </p>
+          <p>
+            Price:${product.price}
+          </p>`;
+        body.appendChild(section);
+      };
+
+      const productsfetch = fetch("/products").then((response) => response.json());
+
+      const body = document.body;
+      Promise.all([productsfetch])
+        .then(([products]) => {
+          products.forEach((product,index) => {
+            if(products[index]) {
+            	render(body, products[index]);
+            }
+
+          })
+	}).catch((e) => console.error(e));
+    });
+  </script>
