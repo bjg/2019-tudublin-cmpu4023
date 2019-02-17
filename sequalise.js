@@ -3,7 +3,7 @@ const Sequelize = require('sequelize')
 
 const app = express()
 
-var sequelize = new Sequelize('postgres', 'postgres', 'doyler1995', {
+var sequelize = new Sequelize('postgres', 'postgres', 'password123', {
   host: 'localhost',
   dialect: 'postgres',
 

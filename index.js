@@ -9,7 +9,7 @@ massive({
   port: 5432,
   database: 'postgres',
   user: 'postgres',
-  password: 'doyler1995',
+  password: 'password123',
   ssl: false,
   poolSize: 10
 }).then(instance => {
