@@ -1,0 +1,61 @@
+Part 1: These are some Curl commands for the endpoints created.
+--------------------------------------------------------------
+GET /users
+curl localhost:3000/users
+
+GET /users/:id
+curl localhost:3000/users/1
+
+GET /products
+Can be unsafe or safe (prepared for the prepared/parameterised example or stored for stored procedure)
+curl localhost:3000/products-unsafe
+curl localhost:3000/products-safe/prepared
+curl localhost:3000/products-safe/stored
+
+GET /products/:id
+curl localhost:3000/products/1
+
+GET /purcahses
+curl localhost:3000/purchases
+
+Part 6: These are some Curl commands for the endpoints created.
+--------------------------------------------------------------
+
+GET /products
+curl localhost:3000/products
+
+GET /products[?name=string]
+curl localhost:3000/products?name=[Dictionary]
+
+GET /products/:id
+curl localhost:3000/products/27
+
+POST /products
+curl -X POST \
+  http://localhost:3000/products \
+  -H 'Authorization: Basic cmJfbXN0cl9rZXlfQkhWNlZVWVg5VVpHTERIWVFRNTE0WkJOUDFJTUMwOEU6' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Postman-Token: 03db4a06-92f1-409a-ad33-ab166ff21d80' \
+  -H 'RESTBroker-Resource: Profile' \
+  -H 'cache-control: no-cache' \
+  -d 'title=Mac%20Book%20Pro&price=1499.00&tags=Technology&undefined='
+
+PUT /products/:id
+curl -X PUT \
+  http://localhost:3000/products/27 \
+  -H 'Authorization: Basic cmJfbXN0cl9rZXlfQkhWNlZVWVg5VVpHTERIWVFRNTE0WkJOUDFJTUMwOEU6' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Postman-Token: ab0b8522-e3b8-450a-b22e-00183c1bad2f' \
+  -H 'RESTBroker-Resource: Profile' \
+  -H 'cache-control: no-cache' \
+  -d 'price=2199.00&undefined='
+
+DELETE /products/:id
+curl -X DELETE \
+  http://localhost:3000/products/27 \
+  -H 'Authorization: Basic cmJfbXN0cl9rZXlfQkhWNlZVWVg5VVpHTERIWVFRNTE0WkJOUDFJTUMwOEU6' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Postman-Token: bed10e92-f167-4b64-b153-8b8203b1abc8' \
+  -H 'RESTBroker-Resource: Profile' \
+  -H 'cache-control: no-cache' \
+  -d undefined=

@@ -1,0 +1,5 @@
+Start Postgres:
+brew services start postgresql
+
+Open Postgres Database:
+psql --dbname lab1
