@@ -14,8 +14,9 @@
 
 
 ## Sequelize
-### PostgreSQL database models
+#### PostgreSQL database models
 ![alt text](https://github.com/yitchee98/2019-tudublin-cmpu4023/blob/C15390501-wks-1/worksheets/1-rest-sql-orm/images/sequelize1.png "models")
 ![alt text](https://github.com/yitchee98/2019-tudublin-cmpu4023/blob/C15390501-wks-1/worksheets/1-rest-sql-orm/images/sequelize2.png "models2")
 
+#### Inserting test data
 ![alt text](https://github.com/yitchee98/2019-tudublin-cmpu4023/blob/C15390501-wks-1/worksheets/1-rest-sql-orm/images/sequelize3.png "insert test data")
