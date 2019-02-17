@@ -3,8 +3,6 @@ const massive = require("massive");
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => res.send("Hello World!"));
-
 app.listen(port, () => console.log(`Massive app listening on port ${port}!`));
 
 massive ({
@@ -17,6 +15,8 @@ massive ({
 	app.set("db", instance)
 });
 
+// GET /users
+// List users' email and sex, most recently created first.
 app.get("/users", (req, res) => {
 	req.app.get("db").users.find({}, {
 		fields: ["email"],
@@ -32,6 +32,8 @@ app.get("/users", (req, res) => {
 	});
 });
 
+// GET /users/:id
+// Return a specific user's email and sex by id.
 app.get("/users/:id", (req, res) => {
 	req.app.get("db").users.findOne({
 		id: req.params.id
@@ -45,7 +47,9 @@ app.get("/users/:id", (req, res) => {
 	});
 });
 
-// URL that deletes the row with id 3 in purchase_items:
+// GET /products-inject[?name=string]
+// A bad implementation that allows sql injection.
+// The following URL uses sql injection to delete the row with id 3 in purchase_items:
 // http://localhost:3000/products-inject?name=Book%27;delete%20from%20purchase_items%20where%20id=3;--
 app.get("/products-inject", (req, res) => {
 	var query = "select * from products where title like '%" + String(req.query.name) + "%'";
@@ -55,9 +59,10 @@ app.get("/products-inject", (req, res) => {
 		res.json(products);
 	});
 });
-
-// Protected from injection using parameterised query.
-// The above URL will not result in a row being deleted from the database.
+ 
+// GET /products[?name=string]
+// List all products, with optional searching by title using a query string.
+// This implementation is protected from sql injection using a parameterised query.
 app.get("/products", (req, res) => {
 	name = req.query.name || "";
 	req.app.get("db").products.find({
@@ -74,8 +79,8 @@ app.get("/products", (req, res) => {
 	});
 });
 
-// Protected from injection using a PLPGSQL function.
-// The above URL will not result in a row being deleted from the database.
+// GET /products-function[?name=string]
+// Same as the above endpoint, but uses a PLPGSQL function to protect against injection instead.
 app.get("/products-function", (req, res) => {
 	console.log(req.query.name);
 	req.app.get("db").query(
@@ -86,6 +91,8 @@ app.get("/products-function", (req, res) => {
 	}).catch(err => res.send("Error"));
 });
 
+// GET /products/:id
+// Get a specific product by id.
 app.get("/products/:id", (req, res) => {
 	req.app.get("db").products.findOne({
 		id: req.params.id
@@ -94,6 +101,8 @@ app.get("/products/:id", (req, res) => {
 	});
 });
 
+// GET /purchases
+// Lists specific info for a purchase, ordered by price descending.
 app.get("/purchases", (req, res) => {
 	req.app.get("db").query(
 	`	select P.name, P.address, U.email, PI.price, PI.quantity, PI.state
@@ -105,18 +114,3 @@ app.get("/purchases", (req, res) => {
 		res.json(purchases);
 	});
 });
-
-// app.get("/purchases", (req, res) => {
-	// req.app.get("db").query(
-	// `	select name, address, email, price, quantity, state
-		// from purchase_items
-		// join purchases on purchases.id = purchase_items.purchase_id);`
-	// ).then(purchases => {
-		// res.json(purchases);
-	// });
-// });
-
-// app.get("db").listTables();
-// db = app.get("db");
-// db.listTables();
-// req.app.get("db").users

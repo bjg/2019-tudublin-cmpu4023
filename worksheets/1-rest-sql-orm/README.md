@@ -6,9 +6,25 @@ This lab is split into two main sections, massive and sequelize. These are locat
 
 ### Part 1: Massive endpoints
 
+For this part, several rest endpoints were implemented. Example output from these can be found in [massive/endpoints-curl-output.txt](massive/endpoints-curl-output.txt).
+
 ### Part 2: Query string and SQL injection
 
+The products endpoint was updated to allow for searching using a query string. By poorly implementing it such that the query string is placed directly into the sql query, an sql injection attack can be performed on it. This endpoint can be found at /products-injection.
+
+The URL I used to perform this attack is: http://localhost:3000/products-inject?name=Book%27;delete%20from%20purchase_items%20where%20id=3;--
+
+Full output from this can be found in [massive/sql-injection.txt](massive/sql-injection.txt).
+
 ### Part 3: Protecting against SQL injection
+ 
+I implemented two separate endpoints showing strategies to avoid this attack.
+
+/products uses a parameterised query.
+
+/products-function uses an SQL function.
+
+The output from these can also be found in [massive/sql-injection.txt](massive/sql-injection.txt).
 
 ## Section 2: Sequelize
 

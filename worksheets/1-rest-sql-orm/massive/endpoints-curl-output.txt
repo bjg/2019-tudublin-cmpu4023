@@ -40,16 +40,6 @@ curl -X GET \
 Response:
 {"id":1,"title":"Dictionary","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book"]}
 
-## GET /products[?name=string]
-
-Command:
-curl -X GET \
-  'http://localhost:3000/products?name=Book' \
-  -H 'cache-control: no-cache'
-
-Response:
-[{"id":5,"title":"Coloring Book","price":"5.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Children"]},{"id":4,"title":"Baby Book","price":"7.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Children","Baby"]},{"id":3,"title":"Ruby Book","price":"27.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Ruby"]},{"id":2,"title":"Python Book","price":"29.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Python"]}]
-
 ## GET /purchases
 
 Command:
