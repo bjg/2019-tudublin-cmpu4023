@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c41cc1eb-8aac-4945-9157-b0a6e7aab78c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Massive.js/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Massive.js/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Massive.js/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Massive.js/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Massive.js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Massive.js/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Lab_Report.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Lab_Report.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../README" beforeDir="false" afterPath="$PROJECT_DIR$/../../README" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,7 +18,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
+            <state relative-caret-position="47">
               <caret line="86" column="21" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
             </state>
           </provider>
@@ -92,7 +86,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Massive.js" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -127,16 +121,16 @@
       <workItem from="1550417190368" duration="3206000" />
       <workItem from="1550422705602" duration="9000" />
       <workItem from="1550427864189" duration="2942000" />
-      <workItem from="1550431007714" duration="233000" />
+      <workItem from="1550431007714" duration="452000" />
+      <workItem from="1550431714195" duration="8000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27011000" />
+    <option name="totallyTimeSpent" value="27238000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="840" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21546596" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -282,8 +276,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
+        <state relative-caret-position="47">
           <caret line="86" column="21" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="21" />
+          <folding>
+            <element signature="e#2351#2554#0" />
+            <element signature="e#2705#2921#0" />
+          </folding>
         </state>
       </provider>
     </entry>
