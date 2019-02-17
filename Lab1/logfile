@@ -1,0 +1,2 @@
+postgres: could not access directory "C:/Program Files/Git/usr/local/pgsql/data": No such file or directory
+Run initdb or pg_basebackup to initialize a PostgreSQL data directory.
