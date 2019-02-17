@@ -18,7 +18,7 @@
 			GET /purchases
 			GET /products[?name=string]
 
-		PART 2
+		PART 6
 			GET /products[?name=string]
 			GET /products/:id
 			POST /products
