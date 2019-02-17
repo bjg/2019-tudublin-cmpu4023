@@ -33,18 +33,10 @@ app.get('/users', (req, res) => {
     let info = [];
 
     items.forEach(function(entry) {
-      if (entry['details'] != null){
-        info.push({
-          "email": entry['email'],
-          "sex": entry['details']['sex']
-        });
-      }
-      else {
-        info.push({
-          "email": entry['email'],
-          "sex": "Not Discolsed"
-        });
-      }
+      info.push({
+        "email": entry['email'],
+        "sex": entry['details'] && entry['details']['sex'] ? entry['details']['sex'] : "Not Discolsed"
+      });
     });
 
     res.json(info);
@@ -52,38 +44,21 @@ app.get('/users', (req, res) => {
 });
 
 app.get('/users/:id', (req, res) => {
-  db.users.find({
+  db.users.findOne({
     id: req.params.id
   },{
     fields: [
       "email",
       "details::json"
-    ],
-    order: [
-      {
-        field: 'created_at',
-        direction: 'desc',
-      }
     ]
-  }).then(items => {
-    let info = [];
+  }).then(entry => {
 
-    items.forEach(function(entry) {
-      if (entry['details'] != null){
-        info.push({
-          "email": entry['email'],
-          "sex": entry['details']['sex']
-        });
-      }
-      else {
-        info.push({
-          "email": entry['email'],
-          "sex": "Not Discolsed"
-        });
-      }
-    });
+    let user = {
+      "email": entry['email'],
+      "sex": entry['details'] && entry['details']['sex'] ? entry['details']['sex'] : "Not Discolsed"
+    };
 
-    res.json(info);
+    res.json(user);
   });
 });
 
