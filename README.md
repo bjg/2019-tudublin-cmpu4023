@@ -1,26 +1,39 @@
 # Massive Index
 
 massive GET /users
+
 massive GET /users/:id
+
 massive GET /products
+
 massive GET /products/:id
+
 massive GET /purchases
 
 massive GET /products_unsafe[?name=string]      -- Injection (Unsafe)
+
 massive GET /products[?name=string]             -- Parameterised Query
+
 massive GET /products_function[?name=string]    -- DB function call
 
 # Sequelize Index
 
 sequelize GET /users
+
 sequelize GET /users/:id
+
 sequelize GET /products
+
 sequelize GET /purchases
+
 sequelize GET /products/:id
+
 sequelize GET /products[?name=string]
 
 sequelize POST /products
+
 sequelize PUT /products/:id
+
 sequelize DELETE /products/:id
 
 # Massive Endpoints
