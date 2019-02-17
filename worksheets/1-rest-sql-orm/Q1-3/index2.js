@@ -65,5 +65,13 @@ massive({
     res.json(result);
   });
   
+  app.get('/productstored',async(req, res) => {
+    //const result = await req.app.get('db').get_products(req.query.name);
+    //res.json(result);
+    app.get('db').get_products(req.query.name).then(product => {
+      res.send(product);
+      })
+  });
+
   app.listen(port, () => console.log('Example app listening on port ${port}!'));
 });

@@ -13,11 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL,
     tags: DataTypes.ARRAY(DataTypes.STRING),
 	created_at: DataTypes.DATE
-  }, {timestamps: false});
-  products.associate = models => {
-    products.hasMany(models.purchase_items, {
-      foreignKey: 'product_id'
-    })
-  };
+  }, {timestamps: false}, {
+    classMethods: {
+      associate: function(models) {
+        purchases.belongsTo(models.users, {foreignKey: 'user_id'});
+      }
+    }
+  });
   return products;
 };

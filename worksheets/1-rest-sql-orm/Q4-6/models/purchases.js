@@ -12,18 +12,5 @@ module.exports = (sequelize, DataTypes) => {
     zipcode: DataTypes.INTEGER
     //user_id: DataTypes.INTEGER
   }, {timestamps: false});
-  purchases.associate = function(models) {
-    // associations can be defined here
-  };
-  
-  purchases.associate = models => {
-    purchases.belongsTo(models.users, {
-      foreignKey: 'user_id',
-    });
-
-    purchases.hasMany(models.purchase_items, {
-      foreignKey: 'purchase_id',
-    });
-  }
   return purchases;
 };
