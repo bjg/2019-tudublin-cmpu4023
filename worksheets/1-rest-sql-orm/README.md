@@ -292,7 +292,7 @@ app.get('/products', (req, res) => {
 
 <h3>Results:</h3>
 
-Using _simple SQL query_ syntax it was possible to add a new user to the database. The user inputted SQL query was simply concatenated to the SQL code in the main javascript file and called without any safety checks. 
+Using _simple SQL query_ syntax it was possible to add a new user to the database. The user-inputted SQL query was simply concatenated to the SQL code in the main javascript file and called without any safety checks. 
 
 This was performed by entering the following into the browser address bar:
 localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--
@@ -404,7 +404,7 @@ By using a _stored procedure_ it was not possible to inject values into the data
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
-Referential Integrity is ensured through the use of foreignKeys and associations. 
+Referential Integrity is ensured through the use of _foreignKeys_ and _associations_. 
 
 <a name="part4.1"><h3>4.1 Model Users Table</h3></a>
 
