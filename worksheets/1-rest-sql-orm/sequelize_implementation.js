@@ -13,6 +13,8 @@ const sequelize = new Sequelize('postgres:localhost:5432/db_dev');
 const Product = ProductModel(sequelize, Sequelize);
 
 var bodyParser = require('body-parser');
+var multer = require('multer'); // v1.0.5
+var upload = multer(); // for parsing multipart/form-data
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -40,6 +42,30 @@ sequelize.authenticate()
         }).then(product => {
             res.json(product);
         })
+    });
+
+    app.put('/products/:id', (req, res) => {
+        const newData = {
+            tags: req.body.tags
+        }
+
+        console.log(newData);
+
+        Product.update(
+            newData, 
+            {where: {id: req.params.id}}
+        ).then(product => {
+            res.json(product)
+        });
+
+    });
+
+    app.delete('/products/:id', (req, res) => {
+        Product.destroy({
+            where: {id: req.params.id}
+        }).then(deleted => {
+            res.json(deleted);
+        });
     });
 
 })
