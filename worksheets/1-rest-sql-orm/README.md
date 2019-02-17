@@ -248,6 +248,8 @@ app.get('/purchases', (req, res) => {
 
 [Back to Top](#top)
 <a name="part2"><h2>Part 2: Extend the '/products' Endpoint to **_Allow_** SQL Injection</h2></a>
+The purpose of this excercise is to extend the _/products_ endpoint to allow the user to search for a product by title, but implemented in a securely poor manner, so as to allow the user to inject SQL into the database and give the user unpermissioned access.
+
 <a name="part2.1"><h3>2.1 GET /products[?name=string] - Possible SQL Injection</h3></a>
 
 ```javascript
@@ -303,6 +305,10 @@ The -- at the end of the query comments out any SQL syntax that comes after it a
 
 [Back to Top](#top)
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
+In this section, the previous poor security implementation of the _/products_ endpoint is remedied using two solutions: 
+- _parameterised query_
+- _stored procedure_
+
 <a name="part3.1"><h3>3.1 GET /products[?name=string] - Parameterised Query</h3></a>
 
 ```javascript
