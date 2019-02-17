@@ -138,10 +138,10 @@ Same as in massive-js
 ## POST /products
 
 ```bash
-curl --data "id=600&title=New%20Book&price=200&tags=Book%29New" http://localhost:3000/products
+curl --data "id=600&title=New%20Book&price=200&tags=Book%20New" http://localhost:3000/products
 ```
 
-	{"id":600,"title":"New Book","price":"200","created_at":"2019-02-17T15:27:15.633Z","tags":["Book)New"],"deleted_at":null}
+	{"id":600,"title":"New Book","price":"200","created_at":"2019-02-17T15:42:04.607Z","tags":["Book","New"],"deleted_at":null}
 
 ## PUT /products/id
 
