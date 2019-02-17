@@ -107,8 +107,7 @@ app.get('/products_parameterised', (req, res) => {
     if(!isEmpty(req.query)){
         massive.then(db => {
             db.query(
-                `select * from products where title = ${title}
-                ORDER BY PRICE ASC`,
+                "select * from products where title = ${title} ORDER BY PRICE ASC",
                 {title: req.query.title}
             ).then(product => product.length == 0 ? res.status(204).send(product) : res.status(200).send(product))
             .catch(err => res.status(503).send(err));
