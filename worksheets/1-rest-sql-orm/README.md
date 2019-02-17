@@ -140,7 +140,7 @@ app.get('/users', (req, res) => {
 ```javascript
 /* 
 List specified user's email and sex. 
-Do not include password hash in your output.
+If details.sex are not supplied but details.sex are supplied then sex returns as "Undisclosed"
 */
 app.get('/users/:id', (req, res) => {
     // parse input to get the user ID value in its own
