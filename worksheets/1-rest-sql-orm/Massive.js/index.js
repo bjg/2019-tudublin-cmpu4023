@@ -99,7 +99,12 @@ massive({
     /*Store procedure query*/
     app.get('/products-stored-procedure',(req,res)=>{
         if(Object.keys(req.query).length !==0){
-
+            instance.query("Select * from products where title = $1",[req.query.title])
+                .then(product =>{
+                    res.send(product);
+                }).catch(error =>{
+                console.log(error);
+            });
         }else{
             res.send("empty query string");
         }

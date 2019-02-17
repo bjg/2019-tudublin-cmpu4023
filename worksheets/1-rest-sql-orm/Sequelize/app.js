@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const models = require("./server/models/index");
 const bodyParser = require("body-parser");
+// create application/json parser
+var jsonParser = bodyParser.json();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 app.get("/", (req, res) => {
     res.send("Home route");
@@ -43,28 +48,27 @@ app.get("/products/:id", (req, res) => {
 
 //add a product using a post
 //product data being added through the body of the post request
-app.post("/products", (req, res) => {
+app.post("/products",urlencodedParser, (req, res) => {
     //check if there is data being passed in the body of the request object
     //
-    if (req.body.constructor === Object && Object.keys(req.body) === 0) {
-        res.send("Error ,Nothing is being posted in the body");
-    } else {
+    if(!req.body){
+        res.sendStatus(404);
+    }else {
         models.seqProduct.create({
             title: req.body.title,
-            price: req.body.price,
-            quantity: req.body.quantity,
-            tags: req.body.tags
+            price: req.body.price
         }).then(product => {
             console.log(`Product: ${product.title} was added to the database with an id of ${product.id}`);
             res.json(product);
         });
     }
+
 });
 
 //Update a product using its id..
 //Data to be updated is passed through the body
-//for this route We assume that we are only going to be updating the price of the product and the quantity
-app.put("/products/:id",(req,res) => {
+//for this route We assume that we are only going to be updating the price of the product
+app.put("/products/:id",urlencodedParser,(req,res) => {
     models.seqProduct.find({
         where:{
             id : req.params.id
@@ -72,7 +76,6 @@ app.put("/products/:id",(req,res) => {
     }).then(product =>{
         product.update({
             price: req.body.price,
-            quantity: req.body.quantity
         }).then(product =>{
             res.json(product);
         })
@@ -81,18 +84,15 @@ app.put("/products/:id",(req,res) => {
 
 //deleting a product from an id
 //
-app.delete("/deleteProducts/:id",(req,res) =>{
-    models.seqProduct.find({
+app.delete("/products/:id",(req,res) =>{
+    models.seqProduct.destroy({
         where:{
             id : req.params.id
         }
-    }).then(product => {
-        product.destroy()
-            .then(() => {
-                res.send("Record deleted successfully");
-            }).catch(error => {
-                res.send("There was an error when deleting a record");
-        });
+    }).then(() => {
+        res.sendStatus(200);
+        res.send("Record deleted successfully");
+        res.end();
     });
 });
 
