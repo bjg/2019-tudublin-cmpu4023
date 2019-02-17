@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING
   }, {});
   purchase_items.associate = function(models) {
-    // associations can be defined here
+    purchase_items.belongsTo(models.purchase)
   };
   return purchase_items;
 };

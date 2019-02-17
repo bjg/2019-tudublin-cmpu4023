@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     deleted_at: DataTypes.DATE
   }, {});
   user.associate = function(models) {
-    // associations can be defined here
+    user.belongsTo(models.purchases)
   };
   return user;
 };

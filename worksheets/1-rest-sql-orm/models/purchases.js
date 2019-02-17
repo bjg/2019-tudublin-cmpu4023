@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER
   }, {});
   purchases.associate = function(models) {
-    // associations can be defined here
+    purchases.belongsTo(models.purchase_items)
   };
   return purchases;
 };
