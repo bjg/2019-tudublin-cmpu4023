@@ -1,0 +1,80 @@
+***
+curl -X GET \
+  http://localhost:3000/products \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 0364af14-edfe-4769-a7c3-75382736424c' \
+  -H 'cache-control: no-cache'
+
+output:
+[{"id":2,"title":"Python Book","price":"29.99","tags":["Book","Programming","Python"]},{"id":3,"title":"Ruby Book","price":"27.99","tags":["Book","Programming","Ruby"]},{"id":6,"title":"Desktop Computer","price":"499.99","tags":["Technology"]},{"id":7,"title":"Laptop Computer","price":"899.99","tags":["Technology"]},{"id":8,"title":"MP3 Player","price":"108.00","tags":["Technology","Music"]},{"id":9,"title":"42\" LCD TV","price":"499.00","tags":["Technology","TV"]},{"id":10,"title":"42\" Plasma TV","price":"529.00","tags":["Technology","TV"]},{"id":13,"title":"Country CD","price":"9.99","tags":["Music"]},{"id":14,"title":"Pop CD","price":"9.99","tags":["Music"]},{"id":15,"title":"Electronic CD","price":"9.99","tags":["Music"]},{"id":16,"title":"Comedy Movie","price":"14.99","tags":["Movie","Comedy"]},{"id":17,"title":"Documentary","price":"14.99","tags":["Movie"]},{"id":18,"title":"Romantic","price":"14.99","tags":["Movie"]},{"id":19,"title":"Drama","price":"14.99","tags":["Movie"]},{"id":20,"title":"Action","price":"14.99","tags":["Movie"]},{"id":21,"title":null,"price":null,"tags":null},{"id":24,"title":"test","price":"23","tags":["2222","teesdd"]},{"id":1,"title":"new name","price":"266","tags":["Book"]},{"id":22,"title":"new name","price":"266","tags":["2222","teesdd"]},{"id":27,"title":"test11111","price":"222","tags":["hello","world"]},{"id":28,"title":"test11111","price":"222","tags":["hello","world"]},{"id":29,"title":"test1212","price":"222","tags":["hello","world"]},{"id":31,"title":"test1212","price":"222","tags":["hello","world"]},{"id":32,"title":"hello","price":"11111","tags":["11111111111","22","wo","javascript","javascript"]},{"id":33,"title":"yoyoyoyoyo","price":"11111","tags":["javascript"]},{"id":34,"title":"yoyoyoyoyo","price":"11111","tags":["javascript"]},{"id":35,"title":"yoyoyoyoyo","price":"11111","tags":["javascript"]},{"id":38,"title":"yoyoyoyoyo","price":"11111","tags":["javascript"]},{"id":39,"title":"yoyoyoyoyo","price":"11111","tags":["javascript"]},{"id":40,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":41,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":42,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":43,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":44,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":46,"title":"dummy title","price":"23","tags":["dummy","dummy"]},{"id":47,"title":"example post","price":"100","tags":["tag1","tsg2","tag3"]}]
+
+
+
+***
+ curl -X GET \
+   'http://localhost:3000/products?name=Romantic' \
+   -H 'Content-Type: application/json' \
+   -H 'Postman-Token: bad535e6-053d-45b7-a3dc-6a82cb524494' \
+   -H 'cache-control: no-cache'
+
+output:
+{"id":18,"title":"Romantic","price":"14.99","tags":["Movie"]}
+
+
+***
+curl -X GET \
+  http://localhost:3000/products/2 \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: c47a5da4-8393-4e5c-a946-65b30c2801c2' \
+  -H 'cache-control: no-cache'
+
+output:
+{"id":2,"title":"Python Book","price":"29.99","tags":["Book","Programming","Python"]}
+
+***
+curl -X POST \
+  http://localhost:3000/products \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 9a9f7ab9-24bb-4f95-b426-d34a0baf8081' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"title": "example post",
+	"price": 100,
+	"tags": ["tag1", "tsg2", "tag3"]
+}'
+
+output:
+Created a new user with the id: 48
+
+
+***
+curl -X GET \
+  http://localhost:3000/products/48 \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: e5ff3d5d-6831-46d5-a377-ec8398abf5b6' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"title": "example post",
+	"price": 100,
+	"tags": ["tag1", "tsg2", "tag3"]
+}'
+
+output:
+{"id":48,"title":"example post","price":"100","tags":["tag1","tsg2","tag3"]}
+
+
+
+***
+curl -X DELETE \
+  http://localhost:3000/products/48 \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: dd4f2c59-4d73-4cc7-b0ad-e307cf674248' \
+  -H 'cache-control: no-cache' \
+  -d '{
+	"title": "example post",
+	"price": 100,
+	"tags": ["tag1", "tsg2", "tag3"]
+}'
+
+output:
+Deleted
