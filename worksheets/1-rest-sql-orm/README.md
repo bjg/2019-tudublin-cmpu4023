@@ -85,10 +85,9 @@ POP CD is deleted
 
 ### Q3
 No need for screenshots
-## Sequelize
-When aatempting to delete there was no change
+## Sequelize + Stored Procedure
 
-## Stored Procedure
+When attempting to delete there was no change
 
 ### Q4
 
