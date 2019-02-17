@@ -20,6 +20,8 @@ const port = 3000;
 
 app.listen(port, () => console.log(`Express, listening on port ${port}!`));
 
+/* PART 5 !!: I used seeds to create test data which are all applied through the CLI */
+
 /* RE IMPLEMENTING SOME OF THE PREVIOUS ENDPOINTS AND SOME NEW ONES! */
 // Testing Users using model
 app.get('/users', (req, res) => {

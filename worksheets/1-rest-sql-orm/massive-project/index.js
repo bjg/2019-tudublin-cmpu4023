@@ -10,6 +10,7 @@ massive({
 	database: 'lab1',
 	user: 'markbarrett',
 	password: 'password',
+	enhancedFunctions: true
 }).then(db => {
 	// Set the express db instance
 	app.set('db', db);
@@ -84,10 +85,10 @@ app.get('/products-unsafe', (req, res) => {
 
 // GET /products
 /* 
-	Extending the product as part 2 here.Allowing for the name to be passed in as an option.
+	Extending the product as part 2 here. Allowing for the name to be passed in as an option.
 	Using "product-safe" as an indicator of this route being safe. There is a unsafe one above.
  */
-app.get('/products-safe', (req, res) => {
+app.get('/products-safe/prepared', (req, res) => {
 	/*
 		Exercise 3:
 		The following will check to see if the name value is given, if it is not then just return all products,
@@ -105,15 +106,32 @@ app.get('/products-safe', (req, res) => {
 			res.send(products);
 		})
 	} else {
-		// Prepared query whic protects against injection.
+		// Prepared query which protects against injection.
 		app.get('db').products.where(
 			'title IN (SELECT title FROM products WHERE title = ${title})',
 			{title: req.query.name}
-		).then(products => {
-			res.send(products);
+		).then(product => {
+			res.send(product);
 		})
 	}
-})
+});
+
+// The following route is a stored procedure which is safe
+app.get('/products-safe/stored', (req, res) => {
+	// Check if the name is set
+	if (req.query.name == undefined) {
+		// If not then just return all of the products
+		app.get('db').products.find({}, {}).then(products => {
+			// Return the data
+			res.send(products);
+		})
+	} else {
+		// The stored procedure
+		app.get('db').get_product(req.query.name).then(product => {
+			res.send(product);
+		})
+	}
+});
 
 // GET /products/:id
 app.get('/products/:id', (req, res) => {

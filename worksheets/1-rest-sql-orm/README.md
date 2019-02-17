@@ -17,19 +17,18 @@ This takes the query parameter and uses it to filter the results. By doing that,
 
 The URL that can be entered in order to causes problems that I came up with is:
 
-http://localhost:3000/products/Python Book'; DELETE FROM purchase_items WHERE product_id = 2; DELETE FROM products WHERE title = 'Python Book';
+http://localhost:3000/products-unsafe?name=Python Book'; DELETE FROM purchase_items WHERE product_id = 2; DELETE FROM products WHERE title = 'Python Book';
 
 This removes foreign key dependencies and removes the book. By appending a '; to the end of the search string, literally any SQL query can then be made.
 
 ### Part 3:
 The above solution is a badly designed one that allows for SQL injection. To prevent this, Massive.js was used and a parameterised query was used. To distinguish between the two endpoints with safe and unsafe implementations, I created:
 
-/products-unsafe?name:string    (with the above implementation)
-/products-safe?name:string      (with the next implementation)
+/products-unsafe?name:string                (with the above implementation)
+/products-safe/prepared?name:string         (with the paramaterised/prepared query)
+/products-safe/stored?name:string           (with the stored procedure found in stored_procedure.sql which is saved to PSQL through the command line.)
 
-The safe endpoint uses a parameterised query or a stored procedure. Both are there.
-
-**Do stored procedure**
+The prepared safe endpoint uses a parameterised query and the stored safe endpoint uses a stored procedure found in stored_proecedure.sql
 
 ### Part 4:
 For this, I created a new project named sequelize-project, this was to distinguish it from massive-project. I was unsure as to if new data was needed to be used so I could use singular names for my models, i.e Product, PurchaseItem, User etc, but to keep the original data I did the following:
@@ -37,7 +36,8 @@ For this, I created a new project named sequelize-project, this was to distingui
 Created matching models using the Sequelize CLI, edited them so they were correct and then migrating the changes. Sequelize provides an index file which basically gets all of the models and then returns them so that they can be used throughout the project. A SequelizeMeta table is added to (I assume) hold the internal meta data linked to Sequelize.
 
 ### Part 5:
-**Not done yet**
+To generate data I used the seed feature in Sequelize that allows me to bulk upload data using JavaScript seed files. To apply seeds, simply run:
+node_modules/.bin/sequelize db:seed
 
 ### Part 6:
 For this part I took a similar approach to part 1. I created the required Express endpoints but used models instead. To list all products you can use /products or give a query string to filter them by that name. Like part 1 you can also access products by ID.
@@ -49,3 +49,6 @@ The required parameters are checked for by checking if the req.body object has e
 The PUT endpoint again is implemented with Express and is approached using Postman like above. Each parameter is checked for so that the user can change each individual parameter or all at once. Once updated a success message is returned.
 
 The DELETE endpoint will use the ID and find the product, if it finds it, there will be an attempt to destroy it, if not an error is returned. It is then destroyed and if successful a success message will be returned, if not then an error will be returned.
+
+### Curl Commands/Testing
+For Parts 1 and Part 6, there is a curl-test-commands.txt file that shows all of the curl commands that can be used to test the created endpoints.
