@@ -216,7 +216,7 @@ app.get('/products', (req, res) => {
 
 <h3>Results:</h3>
 
-![massive_products](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_products.png "http://localhost:3000/products")
+![massive_products](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_products.png "http://localhost:3000/products/:3")
 
 [Back to Top](#top)
 <a name="part1.5"><h3>1.5 GET /products/:id</h3></a>
