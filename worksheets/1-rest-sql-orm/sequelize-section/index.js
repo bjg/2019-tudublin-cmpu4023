@@ -4,6 +4,9 @@
 
 	This file includes parts 4 and 6 of the lab brief
 
+	Testing can be found in the projects root README
+	or within the "curl_test_commands.txt" file
+
 	The following script is a host of functions that
 	expose endpoints to allow a client to make 
 	various forms of requests to retreive and alter
