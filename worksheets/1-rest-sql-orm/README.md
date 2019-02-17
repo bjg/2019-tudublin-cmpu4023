@@ -180,7 +180,7 @@ app.get('/users/:id', (req, res) => {
 
 | Disclosed | Undisclosed |
 | :-------: | :----------:|
-| ![massive_user_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_user_id.png "http://localhost:3000/users/:11")| ![massive_user_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_user_id.png "http://localhost:3000/users/:1") |
+| ![massive_user_id_disclosed](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_user_id_disclosed.png "http://localhost:3000/users/:11")| ![massive_user_id_undisclosed](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_user_id_undisclosed.png "http://localhost:3000/users/:1") |
 
 
 
