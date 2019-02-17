@@ -1,5 +1,7 @@
 ## part 1
 
+curl output for this part is at: worksheets/1-rest-sql-orm/part1/curl_output
+
 ### GET /users
 
 curl http://localhost:3000/users
@@ -86,6 +88,8 @@ The models have been populated with dummy data
 path: worksheets/1-rest-sql-orm/part2/populate.js
 
 ## Part 6
+
+curl output for this part is at: worksheets/1-rest-sql-orm/part2/curl_output
 
 ### GET /products[?name=string] - List all products
 
