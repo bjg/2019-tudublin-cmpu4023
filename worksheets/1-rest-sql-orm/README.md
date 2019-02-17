@@ -1,4 +1,4 @@
-#Enterprise Application Development - Lab 1
+# Enterprise Application Development - Lab 1
 
 **Student Name**: Keith Chambers
 **Student ID**: C15324461
@@ -14,7 +14,7 @@ Below are the credential used for accessing the database.
 	const dbHost = 'localhost';
 	const dbDialect = 'postgres';
 
-##Part 1
+## Part 1
 
 For the setup I used the express generator to create a skeleton project, as shown below:
 
@@ -70,7 +70,7 @@ Inside I defined sub routes, for example the base URL and the base URL with an i
 	
 As you can see, the urls **localhost:3000/products** and **localhost:3000/products/111** are handled differently due to the applications routing policy.
 
-###Test Screenshots
+### Test Screenshots
 
 **User by ID**
 ![User By ID](images/p1_IdUser.png  "User By ID")
@@ -88,7 +88,7 @@ As you can see, the urls **localhost:3000/products** and **localhost:3000/produc
 ![All Purchases](images/p1_allPurchases.png  "All Purchases")
 
 
-##Part 2
+## Part 2
 
 Code with SQL Injection vulnerability
 
@@ -109,7 +109,7 @@ This works because the URL closes the string after Dictionary and then opens ano
 
 ## Part 3
 
-###Solution 1
+### Solution 1
 
 The first solution is to use a parameterised query, code for which is shown below:
 
@@ -131,7 +131,7 @@ The first solution is to use a parameterised query, code for which is shown belo
 
 This binds the data passed in from the client to the title field on the database. Regardless of what the client passes in, it will only ever me matched to title since it is not embedded inside a string anymore.
 
-###Solution 2
+### Solution 2
 
 The second solution is using a stored procedure. For this, you need to write a stored procedure to get the data you want and then call it from Massive.js.
 
@@ -155,14 +155,14 @@ And the code that invokes it...
 		    res.send(JSON.stringify(products, null, 2));
 	    });
 
-####Test Screenshot
+#### Test Screenshot
 
 **SQL Injection Exploit Fix**
 ![SQL Injection Exploit Fix](images/p3_exploitFix.png  "SQL Injection Exploit Fix")
 
 Now an empty JSON array is returned as no data was matched.
 
-##Part 4
+## Part 4
 
 To configure the project for Sequelize, I first created config.js in the root directory and put in the following code
 
@@ -287,7 +287,7 @@ The last thing was to specify associations between entities to ensure database i
 
 In the options parameter, I specify the foreignKey(The name of the key that references another table) and the targetKey(The name of the key that is referenced in another table).
 
-##Part 5
+## Part 5
 
 For this I just implemented the POST method for the entity to allow for new instances to be created. Product shown below as an example.
 
@@ -318,7 +318,7 @@ For this I just implemented the POST method for the entity to allow for new inst
 		})
 	};
 
-###Test Screenshots
+### Test Screenshots
 
 **Create Product**
 ![Create Product](images/p5_createProduct.png  "Create Product")
@@ -326,7 +326,7 @@ For this I just implemented the POST method for the entity to allow for new inst
 **Create User**
 ![Create User](images/p5_createUser.png  "Create User")
 
-##Part 6
+## Part 6
 
 Below is the code for **PUT /products/:id** and **DELETE /products/:id** since the rest has already been covered.
 
@@ -362,7 +362,7 @@ Below is the code for **PUT /products/:id** and **DELETE /products/:id** since t
 	    })
 	};
 
-###cURL Commands for testing
+### cURL Commands for testing
 
 GET /products[?name=string] 
 
