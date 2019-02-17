@@ -1,7 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const purchase_items = sequelize.define('purchase_items', {
-    id: DataTypes.INTEGER,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     purchase_id: DataTypes.INTEGER,
     product_id: DataTypes.INTEGER,
     price: DataTypes.FLOAT,

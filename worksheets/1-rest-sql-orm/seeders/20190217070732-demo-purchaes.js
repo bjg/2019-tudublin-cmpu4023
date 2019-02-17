@@ -4,7 +4,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
       return queryInterface.bulkInsert('purchases', [
         {
-          id: 1,
           name: 'Clark Kent',
           address: 'Kent Farm',
           state: 'Kansas',
@@ -15,7 +14,6 @@ module.exports = {
           updatedAt: '2009-03-08 03:06:00+00'
         },
         {
-          id: 2,
           name: 'Bruce Wayne',
           address: 'The Palisades',
           state: 'Gotham',
@@ -26,7 +24,6 @@ module.exports = {
           updatedAt: '2010-11-12 21:27:00+00'
         },
         {
-          id: 3,
           name: 'Diana Prince',
           address: 'Themyscira',
           state: 'Somewhere',
