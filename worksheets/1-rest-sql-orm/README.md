@@ -140,7 +140,7 @@ app.get('/users', (req, res) => {
 ```javascript
 /* 
 List specified user's email and sex. 
-If details.sex are not supplied but details.sex are supplied then sex returns as "Undisclosed"
+If details=>sex are not supplied but details=>state are supplied then sex returns as "Undisclosed"
 */
 app.get('/users/:id', (req, res) => {
     // parse input to get the user ID value in its own
