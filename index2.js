@@ -126,12 +126,12 @@ app.get('/products/:id', (req, res, next) => {
 
 // Create new product
 app.post('/products', (req, res, next) => {
-    const booty = req.body;
+    const body = req.body;
     Products.create({
         id: sequelize.literal('DEFAULT'),
-        title: booty.title,
-        price: booty.price,
-        tags: booty.tags,
+        title: body.title,
+        price: body.price,
+        tags: body.tags,
         created_at: sequelize.literal('CURRENT_TIMESTAMP')
     }).then((product) => {
         res.json(product);
@@ -142,11 +142,11 @@ app.post('/products', (req, res, next) => {
 // Update product
 app.put('/products/:id', (req, res, next) => {
     const id = req.params.id;
-    const bdy = req.body;
+    const body = req.body;
     Products.update({
-        title: bdy.title,
-        price: bdy.price,
-        tags: bdy.tags
+        title: body.title,
+        price: body.price,
+        tags: body.tags
     }, {
         where: {
             id: {
