@@ -22,7 +22,7 @@ I implemented two separate endpoints showing strategies to avoid this attack.
 
 /products uses a parameterised query.
 
-/products-function uses an SQL function.
+/products-function uses an SQL function, [massive/productfunction.sql](massive/productfunction.sql).
 
 The output from these can also be found in [massive/sql-injection.txt](massive/sql-injection.txt).
 
