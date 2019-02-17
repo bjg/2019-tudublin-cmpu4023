@@ -292,6 +292,13 @@ app.get('/products', (req, res) => {
 
 <h3>Results:</h3>
 
+Using _simple SQL query_ syntax it was possible to add a new user to the database. The user inputted SQL query was simply concatenated to the SQL code in the main javascript file and called without any safety checks. 
+
+This was performed by entering the following into the browser address bar:
+localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--
+
+The -- at the end of the query comments out any SQL syntax that comes after it and the illegal user is added to the database. 
+
 ![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products_sql_injection")
 
 [Back to Top](#top)
@@ -341,6 +348,8 @@ app.get('/products', (req, res) => {
 
 <h3>Results:</h3>
 
+By using a _parameterised query_ it was not possible to inject values into the database. The use of _$1_ as a variable placeholder prevented the injection occuring.  A parameterised query allows for the construction of a _query plan_ on the server _before_ the query is executed with parameter values.
+
 ![massive_parameterised_query](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_parameterised_query.png "http://localhost:3000/products_parameterised_query")
 
 
@@ -388,6 +397,8 @@ app.get('/products', (req, res) => {
 ```
 
 <h3>Results:</h3>
+
+By using a _stored procedure_ it was not possible to inject values into the database. With a stored procedure there exists an execution plan for the SELECT query on the server before the query is executed. The plan only allows the original query to be executed. Parameter values (even if they are injected SQL) won’t be executed because they are not part of the execution plan. Any input will be treated as user input, not SQL code and will not execute unexpected SQL code that is not part of the execution plan.
 
 ![massive_stored_procedure](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_stored_procedure.png "http://localhost:3000/products_stored_procedure")
 
