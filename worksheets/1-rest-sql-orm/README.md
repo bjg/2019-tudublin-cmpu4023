@@ -127,6 +127,3 @@ To delete a product, you select a product then use the destroy method to delete 
 Using the ID 20 (Action), the result is as follows:
 ![](./images/4e_2.png)
 ![](./images/4e_3.png)
-
-The result is as follows if searched in the browser:
-![](./images/4e_4.png)
