@@ -34,6 +34,11 @@ massive({
         });
         res.json(result);
     });
+	
+    app.get('/sqlProtected2/products', async (req, res) => {
+        const products2 = await req.app.get('db')selectProduct(req.query.name);
+        res.json(products2);
+    });
 
 	/* example of vunerable URL is http://localhost:3000/products?name=Ruby%20Book%27;delete%20from%20purchase_items%20where%20product_id%20=%204;delete%20from%20products%20where%20id%20=%204;%20select%20*%20from%20products%20where%20title=%27Ruby%20Book
 	*/
