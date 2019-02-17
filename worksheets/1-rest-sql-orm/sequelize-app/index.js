@@ -23,12 +23,14 @@ const sequelize = new Sequelize('pgguide', 'ycc', 'toor1234', {
 	}
 });
 
+//Checking connection
 sequelize.authenticate().then(() => {
 		console.log('Connection has been established successfully.');
 	}).catch(err => {
 		console.error('Unable to connect to the database:', err);
 	});
 
+//Creating models
 const User = sequelize.define('user', {
 	id: {
 		type: Sequelize.INTEGER,
@@ -122,6 +124,7 @@ const Purchase_item = sequelize.define('purchase_item', {
 });
 
 setTimeout(function () {
+//////// Inserting test data
 	// User.build({
 	// 	name: 'Jane',
 	// 	gender: 'Female',
@@ -185,7 +188,7 @@ app.get('/', (req, res) => res.send('RESTful API - Express & Sequelize<br>\
 	'
 ));
 
-
+// show products
 app.get('/products', (req, res) => {
 	if(Object.keys(req.query).length === 0 && req.query.constructor === Object) {
 		res.sendFile(path.join(__dirname+'/create_product.html'));
@@ -203,6 +206,7 @@ app.get('/products', (req, res) => {
 	}
 });
 
+// Add product
 app.post('/products', urlencodedParser, (req, res) => {
 	Product.build({
 			title: req.body.title,
@@ -219,8 +223,8 @@ app.post('/products', urlencodedParser, (req, res) => {
 	res.redirect('/products')
 });
 
+// Delete product
 app.delete('/products/:id', urlencodedParser, (req, res) => {
-
 	console.log("DELETE CALLED")
 	Product.destroy({
 		where: {
@@ -243,6 +247,7 @@ app.get('/products/:id', (req, res) => {
 	})
 });
 
+//Update product
 app.put('/products/:id', (req, res) => {
 
 });
