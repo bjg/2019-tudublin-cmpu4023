@@ -3,9 +3,9 @@
 ### Contents
 - Create a simple HTTP endpoint in NodeJS
 - Interface between Node and Postgres using Massive JS
-- Execute simple Postgres queries using SQL and exposed those using an HTTP API
+- Execute simple Postgres queries using SQL and expose those using an HTTP API
 - Demonstrate how SQL injection can be performed on a badly implemented RDMBS backend interface
-- Implement SQL-injection proofing in your implementation
+- Implement SQL-injection proofing in the implementation
 - Implement an API model layer using the Sequelize object relational mapper
 - Implement API in Express using an ORM-based model layer
 ---
