@@ -1,6 +1,6 @@
 # Lab 1: REST API, SQL and ORM
 
-This lab is split into two main sections, massive and sequelize. These are located in their respective directories.
+This lab is split into two main sections, massive and sequelize. The files for each are located in their respective directories.
 
 ## Section 1: Massive
 
@@ -10,7 +10,7 @@ For this part, several rest endpoints were implemented. Example output from thes
 
 ### Part 2: Query string and SQL injection
 
-The products endpoint was updated to allow for searching using a query string. By poorly implementing it such that the query string is placed directly into the sql query, an sql injection attack can be performed on it. This endpoint can be found at /products-injection.
+I updated the products endpoint to allow for searching using a query string. By poorly implementing it such that the query string is placed directly into the sql query, an sql injection attack can be performed on it. This endpoint can be found at /products-injection.
 
 The URL I used to perform this attack is: http://localhost:3000/products-inject?name=Book%27;delete%20from%20purchase_items%20where%20id=3;--
 
@@ -44,5 +44,7 @@ To apply these, run the command `./node_modules/.bin/sequelize db:seed:all`
 
 ### Part 6: Sequelize endpoints
 
-I re-implemented the endpoints from the massive section, as well as adding the 3 new endpoints for modifying products (adding/updating/deleting).
+I re-implemented the endpoints from the massive section, as well as adding the 3 new endpoints for modifying products (adding/updating/deleting). These new endpoints return 200 on success, or 400 on error.
+
+Output from these endpoints can be found in [sequelize/endpoints-curl-output.txt](sequelize/endpoints-curl-output.txt).
 
