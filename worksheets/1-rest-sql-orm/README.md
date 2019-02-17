@@ -161,13 +161,12 @@ app.get('/users/:id', (req, res) => {
     })
     // convert results to JSON for the response 
     .then(items => {
-            let user = {
-                    "id": items[0].id,
-                    "email": items[0].email,
-                    "sex": items[0].details.sex
-            };
-
-            res.json(user);
+          let user = {
+                  "id": items[0].id,
+                  "email": items[0].email,
+                  "sex": items[0].details.sex
+          };
+          res.json(user);
     });
 });
 ```
