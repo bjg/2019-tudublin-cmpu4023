@@ -36,7 +36,7 @@ app.get('/users', (req, res) => {
 		direction: "asc"
 	}]})
 	.then(result => {res.json(result);})
-	.catch(err => {res.send("\"error\":\"User not Found\"")})
+	.catch(err => {res.status(500); res.send("\"error\":\"User not Found\"")})
 });
 
 app.get('/users/:id', (req, res) => {
@@ -49,7 +49,7 @@ app.get('/users/:id', (req, res) => {
 		direction: "asc"
 	}]})
 	.then(result => {res.json(result);})
-	.catch(err => {res.send("\"error\":\"User not Found\"")})});
+	.catch(err => {res.status(404); res.send("\"error\":\"User not Found\"")})});
 	
 /*
 INJECTION: Book';delete from products where id = 300;--
@@ -62,7 +62,7 @@ app.get('/dodgy-products', (req, res) => {
 		//VUNERABLE VERSION
 		app.get("db").query("select id, title, created_at, deleted_at, tags from products where title like \'%" + req.query.name + "%\' order by price asc")
 		.then(result => {res.json(result);})
-		.catch(err => {res.send("\"error\":\"Products not Found\"");console.log(err);})		
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"");console.log(err);})		
 	}
 	else{
 		
@@ -71,7 +71,7 @@ app.get('/dodgy-products', (req, res) => {
 			direction: "asc"}]
 		})
 		.then(result => {res.json(result);})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})
 		
 	}
 });
@@ -82,7 +82,7 @@ app.get('/function-products', (req, res) => {
 		//SAFE ALTERNATIVE USING STORED PROCEDURE
 		app.get("db").get_products_by_title(req.query.name)
 		.then(result => {res.json(result);})
-		.catch(err => {res.send("\"error\":\"No Purchase with this name\"")})
+		.catch(err => {res.status(404);res.send("\"error\":\"No Product with this name\"")})
 		
 	}
 	else{
@@ -92,7 +92,7 @@ app.get('/function-products', (req, res) => {
 			direction: "asc"}]
 		})
 		.then(result => {res.json(result);})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})
+		.catch(err => {res.status(404); res.send("\"error\":\"Products not Found\"")})
 		
 	}
 });
@@ -107,7 +107,7 @@ app.get('/products', (req, res) => {
 		direction: "asc"}]
 	})
 	.then(result => {res.json(result);})
-	.catch(err => {res.send("\"error\":\"Products not Found\"")})
+	.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})
 	}
 	else{
 		
@@ -116,7 +116,7 @@ app.get('/products', (req, res) => {
 			direction: "asc"}]
 		})
 		.then(result => {res.json(result);})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})
 		
 	}
 });
@@ -127,7 +127,7 @@ app.get('/products/:id', (req, res) => {
 			direction: "asc"}]
 	})
 	.then(result => {res.json(result);})
-	.catch(err => {res.send("\"error\":\"Product not Found\"")})
+	.catch(err => {res.status(404);res.send("\"error\":\"Product not Found\"")})
 });
 
 
@@ -135,7 +135,7 @@ app.get('/purchases', (req, res) => {
 		
 	app.get("db").query("select p.id, p.created_at, p.name, p.address, u.email, pi.price, pi.quantity, pi.state from purchases p inner join purchase_items pi on pi.purchase_id = p.id inner join users u on u.id = p.user_id")
 	.then(result => {res.json(result);})
-	.catch(err => {res.send("\"error\":\"Purchases not Found\"")});
+	.catch(err => {res.status(500);res.send("\"error\":\"Purchases not Found\"")});
 });
 
 app.listen(port, () => console.log('Example app listening on port 3000!'));

@@ -28,7 +28,7 @@ app.get('/products/:id', (req, res) => {
 		.then(results => {
 			res.json(results);
 		})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})	
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})	
 })
 
 
@@ -38,14 +38,14 @@ app.get('/products', (req, res) => {
 		.then(results => {
 			res.json(results);
 		})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})
 	}
 	else{
 		Model.products.findAll({})
 		.then(results => {
 			res.json(results);
 		})
-		.catch(err => {res.send("\"error\":\"Products not Found\"")})
+		.catch(err => {res.status(404);res.send("\"error\":\"Products not Found\"")})
 	}
 	
 })
@@ -56,9 +56,10 @@ app.post('/products', (req, res) => {
 	prod = Model.products.build({id:req.body.id, title:req.body.title, price:req.body.price, created_at:new Date(Date.now()), tags: tags});
 	prod.save()
 	.then(() => {
+		res.status(201)
 		res.json(prod.get({plain:true}));
 	})
-	.catch(err => {res.send("\"error\":\"Product already exists\"")});
+	.catch(err => {res.status(403);res.send("\"error\":\"Product already exists\"")});
 		
 })
 
@@ -73,9 +74,9 @@ app.put('/products/:id', (req, res) => {
 		.then(() => {
 			res.json(product.get({plain:true}));
 		})
-		.catch(err => {res.send("\"error\":\"Update Failed\"")});
+		.catch(err => {res.status(500); res.send("\"error\":\"Update Failed\"")});
 	})
-	.catch(err => {res.send("\"error\":\"Instance Not Found\"")});
+	.catch(err => {res.status(404);res.send("\"error\":\"Instance Not Found\"")});
 	
 })
 
@@ -87,9 +88,9 @@ app.delete('/products/:id', (req, res) => {
 			.then(() => {
 				res.json(product.get({plain:true}));
 			})
-		.	catch(err => {res.send("\"error\":\"Delete Failed\"")});
+		.	catch(err => {res.status(500); res.send("\"error\":\"Delete Failed\"")});
 		})
-		.catch(err => {res.send("\"error\":\"Instance Not Found\"")});
+		.catch(err => {res.status(404);res.send("\"error\":\"Instance Not Found\"")});
 
 		
 })
@@ -100,7 +101,7 @@ app.get('/users/:id', (req, res) => {
 		.then(results => {
 			res.json(results);
 		})
-		.catch(err => {res.send("\"error\":\"User not Found\"")})	
+		.catch(err => {res.status(404);res.send("\"error\":\"User not Found\"")})	
 })
 
 
@@ -110,7 +111,7 @@ app.get('/users', (req, res) => {
 		.then(results => {
 			res.json(results);
 		})
-		.catch(err => {res.send("\"error\":\"Error fetching users\"")})
+		.catch(err => {res.status(500);res.send("\"error\":\"Error fetching users\"")})
 	
 })
 
@@ -123,6 +124,7 @@ app.get('/purchases', (req, res) => {
 			res.json(results);
 		})
 		.catch(err => {
+			res.status(500)
 			res.send("\"error\":\"Purchases not Found\"");
 			console.log(err);
 		})
