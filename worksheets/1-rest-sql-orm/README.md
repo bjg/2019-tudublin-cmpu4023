@@ -71,8 +71,11 @@ node index2.js
 http://localhost:3000/productspoor?name=Pop CD
 ```
 ![capture5](https://user-images.githubusercontent.com/23324954/52915934-cff4ee80-32d1-11e9-8c94-54abfd4280cf.PNG)
+
 We check the file POP CD still exists
+
 ![capture6](https://user-images.githubusercontent.com/23324954/52915961-0af72200-32d2-11e9-9ec1-c4bb357b26cf.PNG)
+
 To delete
 ```
 http://localhost:3000/productsfix?name=Pop CD'; DELETE FROM purchase_items WHERE product_id = 14; DELETE FROM products WHERE title = 'Pop CD';
@@ -93,7 +96,9 @@ Few set ups were done, no need for screenshots but used this website to set up
 http://docs.sequelizejs.com/manual/tutorial/migrations.html
 
 ### Q5
+
 I will only give an example for products as it will be the same for the rest of the files
+
 ![screenshot 541](https://user-images.githubusercontent.com/23324954/52915696-1c8afa80-32cf-11e9-9c68-07bcb2c8bd43.png)
 
 I would need to generate the seed file, for products I will be using this
@@ -101,10 +106,40 @@ I would need to generate the seed file, for products I will be using this
 sequelize seed:generate --name products
 ```
 ![screenshot 542](https://user-images.githubusercontent.com/23324954/52915697-1e54be00-32cf-11e9-9dcf-a9cb970f4a00.png)
+
 To populate i would need to use this command
 ```
 sequelize db:seed:all
 ```
 ![screenshot 543](https://user-images.githubusercontent.com/23324954/52915702-20b71800-32cf-11e9-946d-62c86deabcd2.png)
+
 This shows that it worked
 ### Q6
+#### app.get Get
+GET /products[?name=string]
+```
+http://localhost:3000/productss?name=Ukulele
+```
+![capture11](https://user-images.githubusercontent.com/23324954/52917583-1bfd5e80-32e5-11e9-801f-d87614a7c68d.PNG)
+
+GET /products/:id
+```
+http://localhost:3000/products/17
+```
+![capture12](https://user-images.githubusercontent.com/23324954/52917601-6088fa00-32e5-11e9-81dd-086109785ecd.PNG)
+
+#### app.post Post
+```
+http://localhost:3000/products?title=T-Shirt&price=15&tags=Clothes
+```
+![capture8](https://user-images.githubusercontent.com/23324954/52917527-70eca500-32e4-11e9-814e-ebe5c0c883bf.PNG)
+#### app.put Update
+```
+http://localhost:3000/products/36?price=8&tags=childrens
+```
+![capture9](https://user-images.githubusercontent.com/23324954/52917526-70eca500-32e4-11e9-89f2-78795a198317.PNG)
+#### app.delete Delete
+```
+http://localhost:3000/products/36
+```
+![capture10](https://user-images.githubusercontent.com/23324954/52917541-9aa5cc00-32e4-11e9-8f59-4d089291392b.PNG)
