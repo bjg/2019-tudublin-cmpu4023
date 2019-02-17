@@ -13,12 +13,12 @@ The req.params returns the parameters in the matched route. Using that I am able
 If data is returned from database, it is returned as a response otherwise, a message saying 'No user with that id' will be sent as a response.
 
 
-###GET /products
+### GET /products
 
 curl http://localhost:3000/products
 Using Massive, I queried that data with the following query 'select * from products ORDER BY price ASC;"
 
-###GET /products/:id
+### GET /products/:id
 
 Show details of the specified products
 
@@ -27,7 +27,7 @@ Using Massive, I queried that data with the following query "'select * from prod
 The req.params returns the parameters in the matched route. Using that I am able to retrieve the product id.
 
 
-###GET /purchases
+### GET /purchases
 
 curl http://localhost:3000/purchases
 The API endpoint simply uses MassiveJS to perform an SQL query and return the output.
@@ -40,7 +40,7 @@ ORDER BY price DESC
 
 ## Part 2
 
-###GET /products[?name=string]
+### GET /products[?name=string]
 
 curl http://localhost:3000/products?name=Romantic
 The API from part one was extending by checking if a query parameter with the key name was included, if it was we would perform a different SQL query where we filter for the name
@@ -87,7 +87,7 @@ path: worksheets/1-rest-sql-orm/part2/populate.js
 
 ## Part 6
 
-##GET /products[?name=string] - List all products
+## GET /products[?name=string] - List all products
 
 Call API endpoint to request all products:
 curl -X GET \
@@ -106,7 +106,7 @@ Calling API endpoint for a specific product name:
 
 
 
-## GET /products/:id - Show details of the specified products
+### GET /products/:id - Show details of the specified products
 
 curl -X GET \
   http://localhost:3000/products/2 \
@@ -115,7 +115,7 @@ curl -X GET \
   -H 'cache-control: no-cache'
 
 
-## POST /products - Create a new product instance
+### POST /products - Create a new product instance
 
 curl -X POST \
   http://localhost:3000/products \
@@ -129,7 +129,7 @@ curl -X POST \
 }'
 
 
-## PUT /products/:id - Update an existing product
+### PUT /products/:id - Update an existing product
 
 curl -X GET \
   http://localhost:3000/products/45 \
@@ -143,7 +143,7 @@ curl -X GET \
 }'
 
 
-## DELETE /products/:id - Remove an existing product
+### DELETE /products/:id - Remove an existing product
 
 curl -X DELETE \
   http://localhost:3000/products/45 \
