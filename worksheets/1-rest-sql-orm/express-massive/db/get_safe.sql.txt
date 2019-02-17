@@ -1,0 +1,4 @@
+CREATE OR REPLACE function get_safe(input VARCHAR(70)) 
+RETURNS SETOF products AS $$
+SELECT * FROM products WHERE id = input;
+$$ LANGUAGE plpgsql;
