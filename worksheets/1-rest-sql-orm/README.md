@@ -334,7 +334,7 @@ localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES
 
 The -- at the end of the query comments out any SQL syntax that comes after it and the illegal user is added to the database. 
 
-![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products_sql_injection")
+![massive_sql_injection](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_sql_injection.png "http://localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--")
 
 [Back to Top](#top)
 <a name="part3"><h2>Part 3: Extend the '/products' Endpoint to **_Prevent_** SQL Injection</h2></a>
@@ -389,7 +389,7 @@ app.get('/products', (req, res) => {
 
 By using a _parameterised query_ it was not possible to inject values into the database. The use of _$1_ as a variable placeholder prevented the injection occuring.  A parameterised query allows for the construction of a _query plan_ on the server _before_ the query is executed with parameter values.
 
-![massive_parameterised_query](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_parameterised_query.png "http://localhost:3000/products_parameterised_query")
+![massive_parameterised_query](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_parameterised_query.png "http://localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--")
 
 
 [Back to Top](#top)
@@ -439,7 +439,7 @@ app.get('/products', (req, res) => {
 
 By using a _stored procedure_ it was not possible to inject values into the database. With a stored procedure there exists an execution plan for the SELECT query on the server before the query is executed. The plan only allows the original query to be executed. Parameter values (even if they are injected SQL) won’t be executed because they are not part of the execution plan. Any input will be treated as user input, not SQL code and will not execute unexpected SQL code that is not part of the execution plan.
 
-![massive_stored_procedure](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_stored_procedure.png "http://localhost:3000/products_stored_procedure")
+![massive_stored_procedure](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/massive_stored_procedure.png "http://localhost:3000/products?name=Action'; INSERT INTO USERS (email, password) VALUES ('hello', 'world');--")
 
 [Back to Top](#top)
 <a name="part4"><h2>Part 4: Model Database and Migrate using Sequelize ORM</h2></a>
@@ -709,11 +709,11 @@ node_modules/.bin/sequelize db:seed:undo:all     // to deseed/delete all inserts
 
 <h3>Console: Seed</h3>
 
-![sequelize_db_seed](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed.png "http://localhost:3000/sequelize_db_seed")
+![sequelize_db_seed](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed.png "Console Command")
 
 <h3>Console: De-seed</h3>
 
-![sequelize_db_seed_undo](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed_undo.png "http://localhost:3000/sequelize_db_seed_undo")
+![sequelize_db_seed_undo](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_db_seed_undo.png "Console Command")
 
 <a name="part5.1"><h3>5.1 Seed File for Users Table</h3></a>
 
@@ -892,7 +892,7 @@ router.get('/products', (req, res) =>{
 
 <h3>Results:</h3>
 
-![sequelize_products](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_products.png "http://localhost:3000/sequelize_products")
+![sequelize_products](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_products.png "http://localhost:3000/products")
 
 [Back to Top](#top)
 <a name="part6.3"><h3>6.3 GET /products/:id</h3></a>
@@ -929,7 +929,7 @@ router.get('/products/:id', (req, res) =>{
 
 <h3>Results:</h3>
 
-![sequelize_product_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_id.png "http://localhost:3000/sequelize_product_id")
+![sequelize_product_id](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_id.png "http://localhost:3000/products/:5")
 
 [Back to Top](#top)
 <a name="part6.4"><h3>6.4 POST /products</h3></a>
@@ -1036,6 +1036,6 @@ router.delete('/products/:id', (req, res) =>{
 
 <h3>Results:</h3>
 
-![sequelize_product_delete1](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete1.png "http://localhost:3000/sequelize_product_delete1")
-
-![sequelize_product_delete2](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete2.png "http://localhost:3000/sequelize_product_delete2")
+| Before Delete | After Delete |
+| :-----------: | :-----------:|
+| ![sequelize_product_delete1](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete1.png "http://localhost:3000/sequelize_product_delete1") | ![sequelize_product_delete2](https://github.com/nicolamahon/2019-tudublin-cmpu4023/blob/C15755031-wks-1/worksheets/1-rest-sql-orm/screenshots/sequelize_product_delete2.png "http://localhost:3000/sequelize_product_delete2") |
