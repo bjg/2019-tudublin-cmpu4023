@@ -496,6 +496,21 @@ curl http://localhost:3000/products/4
     ]
 }
 
+curl http://localhost:3000/products?name=Dictionary
+
+[
+    {
+        "id": 1,
+        "title": "Dictionary",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book"
+        ]
+    }
+]
+
 curl http://localhost:3000/purchases
 
 [
