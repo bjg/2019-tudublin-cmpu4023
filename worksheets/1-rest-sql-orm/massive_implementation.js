@@ -17,7 +17,7 @@ massive({
     /* endpoint for all users email and sex */
     app.get('/users', (req, res) => {
         req.app.get('db').users.find(
-            {/* find all */},
+            {/* find all */ },
             {
                 fields: ['email', 'created_at'],
                 exprs: {
@@ -53,10 +53,11 @@ massive({
         });
     });
 
+    // http://localhost:3000/products?name=;DELETE FROM products WHERE title='Laptop Computer'
     /* endpoint for products in asc order of price */
     app.get('/products', (req, res) => {
         req.app.get('db').products.find(
-            {/* find all */},
+            {},
             {
                 order: [{
                     field: 'price',
@@ -70,17 +71,22 @@ massive({
 
     /* endpoint for retreiving a specfic product by id */
     app.get('/products/:id', (req, res) => {
-        const id = req.params.id;
         req.app.get('db').products.findOne(
-            id
+            req.params.id
         ).then(items => {
             res.json(items);
         });
     });
 
+    /* endpoint for purchases */
     app.get('/purchases', (req, res) => {
-        req.app.get('db').purchases.find({
-        }).then(items => {
+        req.app.get('db').query(
+            "SELECT name, address, email, price, quantity, purchase_items.state \
+            FROM purchases \
+            INNER JOIN users ON purchases.user_id=users.id \
+            INNER JOIN purchase_items on purchases.id=purchase_items.purchase_id \
+            ORDER BY price DESC"
+        ).then(items => {
             res.json(items);
         });
     });
