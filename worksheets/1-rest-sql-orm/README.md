@@ -30,6 +30,19 @@ The output from these can also be found in [massive/sql-injection.txt](massive/s
 
 ### Part 4: Sequelize setup
 
+I made use of sequelize-auto to automatically generate the model files. I also added `underscored: true` and `timestamps: false` to each model to deal with errors relating to camel case and the timestamp columns respectively.
+
+The model files can be found in [sequelize/server/models](sequelize/server/models).
+
+To generate the migration file, I used sequelize-auto-migrations. This is located here: [sequelize/server/migrations/1-pgguide-migration.js](sequelize/server/migrations/1-pgguide-migration.js).
+
 ### Part 5: Populating the database
 
+I used seeds to populate the database. These files can be found in [sequelize/server/seeders](sequelize/server/seeders).
+
+To apply these, run the command `./node_modules/.bin/sequelize db:seed:all`
+
 ### Part 6: Sequelize endpoints
+
+I re-implemented the endpoints from the massive section, as well as adding the 3 new endpoints for modifying products (adding/updating/deleting).
+
