@@ -17,11 +17,18 @@ module.exports = {
         price: 50,
         quantity:20,
 		state:'Delivered'
+      },{
+	    id:1503,
+		purchase_id:1002,
+		product_id: 23,
+        price: 50,
+        quantity:10,
+		state:'Dispatched'
       }
 	  ], {});
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.bulkDelete('purchase_items', null, {});
+      return queryInterface.bulkDelete('purchase_items', {id: {[Sequelize.Op.in]: [1501,1502,1503]}}, {});
   }
 };

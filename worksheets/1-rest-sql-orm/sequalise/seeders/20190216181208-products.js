@@ -21,6 +21,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.bulkDelete('products', null, {});
+      return queryInterface.bulkDelete('products', {id: {[Sequelize.Op.in]: [23,24]}}, {});
   }
 };
