@@ -171,6 +171,8 @@ app.get('/products', (req, res) => {
                         });
                 
                 */
+
+                
                 /*
                 // STORED PROCEDURE
                 db.getproductbytitle(req.query.name)
