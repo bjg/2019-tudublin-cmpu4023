@@ -46,7 +46,7 @@ massive({
   });
 
   //http://localhost:3000/products/?title=%27Drama%27 to search for drama
-  app.get ('/products/:title', (req, res) => {
+  app.get ('/safe/:title', (req, res) => {
     var title = req.params.title;
     console.log(title.toString());
     instance.products.find({
