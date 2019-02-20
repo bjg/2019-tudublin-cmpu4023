@@ -9,15 +9,15 @@ const sequelize = new Sequelize('pgguide', 'daniel', 'brunomoloney',{
 	dialect: "postgres"})
 
 //6 get /products where name is like title
-app.get('/products', (req, res) => {	
+app.get('/products', function(req, res) {	
 	model.products.findAll({where: {title:{[Sequelize.Op.like]:"%" +req.query.name +"%"}}})
 	.then(data => {
 		res.json(data);
 	});
 });
 
- //6 get /users/:id 
-app.get('/products/:id', (req, res) => {
+ //6 get /products/:id 
+app.get('/products/:id', function(req, res) {
 	model.products.findOne({ where:{ id:req.params.id}})
 	.then(data => {
 		res.json(data);

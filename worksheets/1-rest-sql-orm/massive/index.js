@@ -13,7 +13,7 @@ massive({
 
 //1 get /users in order of recently created
 app.get('/users', function(req, res) {
-    req.app.get("db").query("SELECT email, details FROM users ORDER BY created_at")
+    req.app.get("db").query("SELECT email, details FROM users ORDER BY created_at DESC")
 	.then(data => {
 		res.json(data)
 	});
