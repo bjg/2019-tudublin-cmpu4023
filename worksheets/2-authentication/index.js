@@ -3,7 +3,9 @@ const massive = require('massive');
 const jwt = require('jsonwebtoken');
 const app = express();
 const keypair = require('keypair');
+const cookieParser = require('cookie-parser');
 app.use(express.urlencoded());
+app.use(cookieParser());
 const port = 3000;
 
 const pair = keypair();
@@ -45,7 +47,11 @@ app.post('/login', (req, res) => {
 			payload = {};
 			let token = jwt.sign(payload, pair.private, signOptions);
 			res.status(200);
-			res.set('Authorization', 'Bearer ' + token);
+			console.log(token);
+			res.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
+			res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+			res.cookie('token', token, {httpOnly : false});
+			//req.session.token = token;
 			res.send("\"res\":\"Logged in\"")
 		}
 		else{
@@ -55,22 +61,54 @@ app.post('/login', (req, res) => {
 	.catch(err => {res.status(500); console.log(err);res.send("\"error\":\"Error logging in\"");});
 });
 
-app.get('/video-games', (req, res) => {
-	if(req.headers.authorization == null){
+app.use('/video-games', (req, res, next) => {
+	
+	if(req.cookies.token == null){
 		res.status(401);
 		res.send("\"error\":\"Not Autheticated\"");
 	}
 	else{
-		token = req.headers.authorization.split(' ')[1];
+		let token = req.cookies.token;
 		jwt.verify(token, pair.public, function(err, decoded) {
-			if(err == null){
-				res.status(200);
-				res.send("Hello");
-				console.log(JSON.stringify(decoded));
+			if(err != null){
+				res.status(401);
+				res.send("\"error\":\"Not Autheticated\"");
 				return;
 			}
-		})
+			if(err == null){
+				console.log(JSON.stringify(decoded));
+				
+				if(req.method == 'POST' || req.method == 'PUT'){
+					app.get("db").users.findOne({user_name:decoded.sub})
+					.then(result => {
+						if(result.user_name != null){
+							next();
+						}
+						else{
+							res.status(403);
+							res.send("\"error\":\"Not Permitted\"");
+						}
+					});
+				}
+				else{
+					next();
+				}
+				
+			}
+			else{
+
+			}
+		})	
 	}
+});
+
+app.get('/video-games', (req, res) => {
+	app.get("db").video_games.find({})
+	.then(result => {
+		res.status(200);
+		res.json(result);
+	})
+	.catch(error => {console.log(error);res.send("\"error\":\"No Games\"");});
 });
 
 app.listen(port, () => console.log('Example app listening on port 3000!'));
