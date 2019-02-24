@@ -28,3 +28,22 @@ BEGIN
 END; $$ 
 
 LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE PROCEDURE create_video_game (IN p_title VARCHAR, IN p_rating NUMERIC, IN p_price NUMERIC)
+AS $$
+	DECLARE seq INTEGER;
+BEGIN
+	SELECT nextval('video_games_id_seq') INTO seq ;
+	INSERT INTO video_games VALUES(seq, p_title, p_rating, p_price);
+END; $$ 
+
+LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE PROCEDURE update_keys (IN p_id INTEGER, IN p_access_key VARCHAR, IN p_secret_key VARCHAR)
+AS $$
+	DECLARE seq INTEGER;
+BEGIN
+	UPDATE users SET access_key = p_access_key, secret_key = p_secret_key WHERE id = p_id;
+END; $$ 
+
+LANGUAGE 'plpgsql';

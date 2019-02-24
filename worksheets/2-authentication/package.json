@@ -4,7 +4,8 @@
   "description": "Enterprise App Dev",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "client": "node client.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.4",
@@ -12,7 +13,8 @@
     "jsonwebtoken": "^8.5.0",
     "keypair": "^1.0.1",
     "massive": "^5.7.4",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "request": "^2.88.0"
   },
   "author": "Eoghan Quirke",
   "license": "ISC"
