@@ -1,9 +1,28 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const massive = require('massive');
+const app = express();
+const port = 3000;
 
-app.get('/api/authenticate', (req, res) => {
-    res.send('Hello World!')
-})
+massive({
+    host: '127.0.0.1',
+    port: 5432,
+    database: 'lab3',
+    user: 'postgres',
+    password: ''
+}).then(instance => {
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    app.get('/', (req, res) => {
+        res.send('Hello World!');
+    });
+
+    app.get('/api/authenticate', (req, res) => {
+        res.send('Hello World!');
+    });
+
+    app.get('/api/products', (req, res) => {
+        res.send('Products');
+    });
+    
+    app.listen(port);
+
+});
