@@ -11,20 +11,26 @@ END; $$
 LANGUAGE 'plpgsql';
 
 
-CREATE OR REPLACE FUNCTION verify_user (IN p_user_name VARCHAR, IN p_password VARCHAR) RETURNS BOOLEAN
+CREATE OR REPLACE FUNCTION verify_user (IN p_user_name VARCHAR, IN p_password VARCHAR) RETURNS INTEGER
 AS $$
-DECLARE auth BOOLEAN := false;
+DECLARE v_id INTEGER := NULL;
+DECLARE v_is_auth BOOLEAN := false;
 DECLARE v_password CHARACTER VARYING(255) := NULL;
 BEGIN
-	SELECT password INTO v_password FROM users WHERE user_name = p_user_name;
+	SELECT password, id INTO v_password, v_id FROM users WHERE user_name = p_user_name;
 	
 	IF v_password = NULL THEN
 		RETURN FALSE;
 	END IF;
 	
-	SELECT (password = crypt(p_password, password)) INTO auth FROM users WHERE user_name = p_user_name;
+	SELECT (v_password = crypt(p_password, v_password)) INTO v_is_auth;
 	
-	RETURN auth;
+	IF v_is_auth = false THEN
+		RETURN NULL;
+	ELSE
+		RETURN v_id;
+	END IF;
+	
 END; $$ 
 
 LANGUAGE 'plpgsql';
@@ -39,7 +45,7 @@ END; $$
 
 LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE PROCEDURE update_keys (IN p_id INTEGER, IN p_access_key VARCHAR, IN p_secret_key VARCHAR)
+CREATE OR REPLACE PROCEDURE update_keys (IN p_id INTEGER, IN p_access_key TEXT, IN p_secret_key TEXT)
 AS $$
 	DECLARE seq INTEGER;
 BEGIN
