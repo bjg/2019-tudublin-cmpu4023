@@ -132,7 +132,7 @@ app.post('/hmac-key', (req, res) => {
 		response = {key:server_key.toString('base64')};
 		
 		
-		app.get("db").query("CALL update_keys($1, $2, $3)", [user_id, req.body.key.slice(0,30), server_secret.toString('base64')]).
+		app.get("db").query("CALL update_keys($1, $2, $3)", [user_id, server_key.toString('base64').slice(0,28), server_secret.toString('base64')]).
 		then(result => {
 			console.log("server secret: " + server_secret.toString('base64'));
 			console.log(JSON.stringify(response));
@@ -146,6 +146,50 @@ app.post('/hmac-key', (req, res) => {
 	})
 	.catch(error => {console.log(error);res.send("\"error\":\"Logging in Error\"");});
 
+});
+
+app.post('/hmac-video-games', (req, res) => {
+	console.log(JSON.stringify(req.body));
+	
+	app.get("db").users.findOne({access_key:req.body.access_key})
+	.then(result => {
+		console.log("users.find :");
+		console.log(result);
+		
+		if(result.secret_key == null){
+			res.status(401);
+			res.send("\"error\":\"Invalid Access Key\"");
+			return;
+		}
+		
+		secret = result.secret_key
+		
+		hmac = crypto.createHmac('sha1', secret);
+		console.log("Secret Key: " + secret);
+		console.log("Access_key: " + req.body.access_key);
+		console.log("Title: " + req.body.title);
+		console.log("Price: " + req.body.price);
+		console.log("Rating: " + req.body.rating);
+		
+		hmac.update(req.body.access_key + req.body.title  + req.body.price + req.body.rating);
+		
+		server_side_sig = hmac.digest('base64');
+		console.log("Signature: " + server_side_sig);
+		
+		if(req.body.signature != server_side_sig){
+			res.status(401);
+			res.send("\"error\":\"Invalid Signature\"");
+			return;
+		}
+		
+		res.status(200);
+		res.send("\"Success\":\"Authenticated\"")
+	})
+	.catch(error => {
+		console.log(error); 
+		res.status(401);
+		res.send("\"error\":\"Error, signature Invalid\"");
+	});
 });
 
 app.listen(port, () => console.log('Example app listening on port 3000!'));
