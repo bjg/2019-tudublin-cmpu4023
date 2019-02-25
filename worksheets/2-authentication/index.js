@@ -182,8 +182,12 @@ app.post('/hmac-video-games', (req, res) => {
 			return;
 		}
 		
-		res.status(200);
-		res.send("\"Success\":\"Authenticated\"")
+		app.get("db").query("CALL create_video_game($1, $2, $3)", [req.body.title, parseFloat(req.body.rating), parseFloat(req.body.price)])
+		.then(result => {
+			res.status(201);
+			res.send("\"Success\":\"Created\"");
+		})
+		.catch(error => {console.log(error);res.send("\"error\":\"No Games\"");});
 	})
 	.catch(error => {
 		console.log(error); 
