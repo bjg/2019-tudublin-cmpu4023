@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            padding: 10px;
+        }
+        label{
+            display: block;
+        }
+        input{
+            display: block;
+            margin: 5px 0;
+        }
+
+    </style>
+</head>
+<body>
+<form action="/login" method="post">
+    <label for="username">
+        Username:
+    </label>
+    <input type="text" name="username" id="username">
+    <label for="password">
+        Password:
+    </label>
+    <input type="password" name="password" id="password">
+    <button type="submit">Log In!</button>
+</form>
+</body>
+</html>
