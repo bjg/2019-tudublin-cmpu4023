@@ -1,15 +1,13 @@
 const jwt = require('jsonwebtoken')
 const express = require('express')
+const body_parser = require('body-parser')
 const massive = require('massive')
 const app = express()
 const port = 3000;
 
-app.listen(port, () => console.log(`Successfully listening on port ${port}`))
+app.use(body_parser());
 
-const jwt_header = {
-    "typ": "JWT",
-    "alg": "HS256"
-}
+app.listen(port, () => console.log(`Successfully listening on port ${port}`))
 
 massive({
     host: 'localhost',
@@ -23,21 +21,58 @@ massive({
 app.set('db', instance)
 
     app.get('/', (req, res) => {
-        instance.query('select * from users').then(users => {
-            
-            // var log_in_date = new Date();
-            // var log_in_expire = new Date();
-            // log_in_expire.setDate(log_in_date.getDate() + 1)            
+        res.sendFile('login.html', { root: __dirname });
+    });
 
-            var jwt_payload = {
-                name: users[0].username,
+
+    app.post('/', (req, res) => {
+        if(req.body.username != null && req.body.password != null){
+            var username = req.body.username;
+            var password = req.body.password;
+
+            instance.query(`select * from users where username=${username} and password=${password}`).then(users => {
+                var jwt_payload = {
+                    name: users[0].username
+                }
+    
+                const token = jwt.sign({jwt_payload}, 'secret', {expiresIn: '30s'});
+    
+                console.log(jwt_payload)
+                console.log(token)
+    
+                res.json({
+                    users,
+                    token: token
+                });
+            });
+        }
+        else{
+            res.send("Error")
+        }        
+    });
+
+    app.get('/products', verifyToken, (req, res) => {      
+        jwt.verify(req.token, 'secret', (err, data) => {
+            if(err){
+                res.send(err)
             }
-
-            const token = jwt.sign({jwt_payload}, 'secret', {expiresIn: '24h'});
-            
-            console.log(jwt_payload)
-            console.log(token)
-            res.send(users)
+            else{
+                instance.query('select * from products').then(products => {
+                    res.send(products)
+                });
+            }
         });
     });
+
+    function verifyToken(req, res, next){
+        const bearer_header = req.headers['authorization'];
+        
+        if(typeof bearer_header == 'undefined'){
+            res.sendStatus(403);
+        }
+        else{
+            req.token = bearer_header.split(" ")[1];
+            next();
+        }
+    }
 });
