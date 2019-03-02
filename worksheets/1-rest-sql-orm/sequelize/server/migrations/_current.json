@@ -1,0 +1,174 @@
+{
+    "tables": {
+        "products": {
+            "tableName": "products",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "title": {
+                    "allowNull": true,
+                    "field": "title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "price": {
+                    "allowNull": true,
+                    "field": "price",
+                    "seqType": "Sequelize.DOUBLE PRECISION"
+                },
+                "created_at": {
+                    "allowNull": true,
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deleted_at": {
+                    "allowNull": true,
+                    "field": "deleted_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "tags": {
+                    "allowNull": true,
+                    "field": "tags",
+                    "seqType": "Sequelize.undefined"
+                }
+            },
+            "indexes": []
+        },
+        "purchases": {
+            "tableName": "purchases",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "created_at": {
+                    "allowNull": true,
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "name": {
+                    "allowNull": true,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "address": {
+                    "allowNull": true,
+                    "field": "address",
+                    "seqType": "Sequelize.STRING"
+                },
+                "state": {
+                    "allowNull": true,
+                    "field": "state",
+                    "seqType": "Sequelize.STRING"
+                },
+                "zipcode": {
+                    "allowNull": true,
+                    "field": "zipcode",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "user_id": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "field": "user_id",
+                    "seqType": "Sequelize.INTEGER"
+                }
+            },
+            "indexes": []
+        },
+        "purchase_items": {
+            "tableName": "purchase_items",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "purchase_id": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "purchases",
+                        "key": "id"
+                    },
+                    "field": "purchase_id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "product_id": {
+                    "allowNull": true,
+                    "references": {
+                        "model": "products",
+                        "key": "id"
+                    },
+                    "field": "product_id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "price": {
+                    "allowNull": true,
+                    "field": "price",
+                    "seqType": "Sequelize.DOUBLE PRECISION"
+                },
+                "quantity": {
+                    "allowNull": true,
+                    "field": "quantity",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "state": {
+                    "allowNull": true,
+                    "field": "state",
+                    "seqType": "Sequelize.STRING"
+                }
+            },
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "email": {
+                    "allowNull": true,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "password": {
+                    "allowNull": true,
+                    "field": "password",
+                    "seqType": "Sequelize.STRING"
+                },
+                "details": {
+                    "allowNull": true,
+                    "field": "details",
+                    "seqType": "Sequelize.undefined"
+                },
+                "created_at": {
+                    "allowNull": true,
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "deleted_at": {
+                    "allowNull": true,
+                    "field": "deleted_at",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "revision": 1
+}
