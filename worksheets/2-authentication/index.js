@@ -45,26 +45,50 @@ app.post('/login', function(req,res){
     res.status(401).json({status: res.statusCode, payload: "Enter a username/password"});
   }
   //else if they have entered a username and password verify they exists in that database
-  else{
+  else
+  {
     db.authenticate(email,userPassword)
     .then(userID => {
-      //with the usersID genertae a token for the user to send with requests
-      let token = generateToken(req,userID);
-      //send back a status response with the token
-      res.status(200).json({status: res.statusCode, payload: token});
-    });
-  }
-});
+      if(userID != null){
+        var expires = moment().add(1, 'days');
+        //async call for jwt
+        jwt.sign(
+          {
+            auth:  'magic',
+            agent: req.headers['user-agent'],
+            expiresIn: expires,
+            sub: userID
+          }, app.get('jwtTokenSecret'),
+          (err,token)=>{
+            res.json({
+              "result": "Authentic User",
+              "status": 200,
+              "userid": userID,
+              "expiresIn": expires,
+              token
+            });
+          });
+        }else{
+          res.status(401).json({status: res.statusCode, payload: "Incorrect login details"});
+        }
+      });
+      ////How I generated the token orignally calling a generate funciton
+      //   let token = generateToken(req,userID);
+      //   //send back a status response with the token
+      //   res.status(200).json({status: res.statusCode, userid: userID, expires: token.expires, token});
+      // });
+    }
+  });
 
-// generate the JWT token with 24 hour expiry date, the auth and the userID.
-function generateToken(req, userID){
-  var expires = moment().add(1, 'days');
-  return jwt.sign({
-    auth:  'magic',
-    agent: req.headers['user-agent'],
-    expires: expires,
-    sub: userID
-  }, app.get('jwtTokenSecret'))};
+//// How i orignally generated the JWT token with 24 hour expiry date, the auth and the userID.
+// function generateToken(req, userID){
+//   var expires = moment().add(1, 'days');
+//   return jwt.sign({
+//     auth:  'magic',
+//     agent: req.headers['user-agent'],
+//     expires: expires,
+//     sub: userID
+//   }, app.get('jwtTokenSecret'))};
 
 //products endpoint to test the JWT token authorisation
 app.get('/videogames', function(req,res){
@@ -125,9 +149,9 @@ function validate(req, res) {
 
 //encode endpoint to encode a message and send back a signature for testing the /hmacproducts endpoint. 
 app.get('/encode', function(req,res){
-  
+  let accessKey = req.headers.access;
   let message = req.body.message;
-  db.query("select secretkey from users where email = 'password@example.com';")
+  db.query("select secretkey from users where accesskey ='"+accessKey+"';")
   .then(SK =>{
     let secretK = SK[0].secretkey; 
     let hash = crypto.createHmac('SHA256', secretK).update(message).digest('hex');
