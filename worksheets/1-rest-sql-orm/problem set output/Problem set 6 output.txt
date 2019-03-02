@@ -1,0 +1,33 @@
+#Part 1
+$ curl http://127.0.0.1:3000/products
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3820  100  3820    0     0  30560      0 --:--:-- --:--:-- --:--:-- 30560[{"id":1,"title":"Dictionary","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book"]},{"id":2,"title":"Python Book","price":"29.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Python"]},{"id":3,"title":"Ruby Book","price":"27.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Ruby"]},{"id":4,"title":"Baby Book","price":"7.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Children","Baby"]},{"id":5,"title":"Coloring Book","price":"5.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Children"]},{"id":6,"title":"Desktop Computer","price":"499.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Technology"]},{"id":7,"title":"Laptop Computer","price":"899.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Technology"]},{"id":8,"title":"MP3 Player","price":"108.00","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Technology","Music"]},{"id":9,"title":"42\" LCD TV","price":"499.00","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Technology","TV"]},{"id":10,"title":"42\" Plasma TV","price":"529.00","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Technology","TV"]},{"id":11,"title":"Classical CD","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Music"]},{"id":12,"title":"Holiday CD","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Music"]},{"id":13,"title":"Country CD","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Music"]},{"id":14,"title":"Pop CD","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Music"]},{"id":15,"title":"Electronic CD","price":"9.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Music"]},{"id":16,"title":"Comedy Movie","price":"14.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Movie","Comedy"]},{"id":17,"title":"Documentary","price":"14.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Movie"]},{"id":18,"title":"Romantic","price":"14.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Movie"]},{"id":19,"title":"Drama","price":"14.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Movie"]},{"id":20,"title":"Action","price":"14.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Movie"]},{"id":21,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":22,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":23,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":24,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":25,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":26,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":27,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":28,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":29,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":30,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":31,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":32,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":33,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":34,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null},{"id":35,"title":null,"price":null,"created_at":null,"deleted_at":null,"tags":null}]
+
+#Part 2
+$ curl http://127.0.0.1:3000/products/2
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   143  100   143    0     0   1021      0 --:--:-- --:--:-- --:--:--  1021{"id":2,"title":"Python Book","price":"29.99","created_at":"2011-01-01T20:00:00.000Z","deleted_at":null,"tags":["Book","Programming","Python"]}
+
+
+#Part 3
+$ curl --data "title=example&price=5&created_at=2011-01-01T20:00:00.000Z&deleted_at=2011-01-01T20:00:00.000Z&tags={thing}" http://127.0.0.1:3000/products
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   242  100   136  100   106    871    679 --:--:-- --:--:-- --:--:--  1551{"id":37,"title":"example","price":"5","created_at":"2011-01-01T20:00:00.000Z","deleted_at":"2011-01-01T20:00:00.000Z","tags":["thing"]}
+
+#Part 4
+$ curl -X PUT --data "title=updatedval&price=5&created_at=2011-01-01T20:00:00.000Z&deleted_at=2011-01-01T20:00:00.000Z&tags={thing}" http://127.0.0.1:3000/products/22
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   248  100   139  100   109   1478   1159 --:--:-- --:--:-- --:--:--  2638{"id":22,"title":"updatedval","price":"5","created_at":"2011-01-01T20:00:00.000Z","deleted_at":"2011-01-01T20:00:00.000Z","tags":"{thing}"}
+
+#Part 5
+$ curl -X DELETE http://127.0.0.1:3000/products/28
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100     1  100     1    0     0      6      0 --:--:-- --:--:-- --:--:--     7 1
+
+
+
