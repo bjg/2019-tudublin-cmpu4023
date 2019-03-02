@@ -45,7 +45,7 @@ END; $$
 
 LANGUAGE 'plpgsql';
 
-CREATE OR REPLACE PROCEDURE update_keys (IN p_id INTEGER, IN p_access_key TEXT, IN p_secret_key TEXT)
+CREATE OR REPLACE PROCEDURE update_keys (IN p_id INTEGER, IN p_access_key VARCHAR, IN p_secret_key VARCHAR)
 AS $$
 	DECLARE seq INTEGER;
 BEGIN

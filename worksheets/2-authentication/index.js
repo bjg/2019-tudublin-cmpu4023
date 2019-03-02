@@ -164,12 +164,16 @@ app.post('/hmac-video-games', (req, res) => {
 		
 		secret = Buffer.from(result.secret_key, 'base64');
 		
-		hmac = crypto.createHmac('sha1', secret);
+		
 		console.log("Secret Key: " + secret.toString('base64'));
 		console.log("Access_key: " + req.body.access_key);
 		console.log("Title: " + req.body.title);
 		console.log("Price: " + req.body.price);
 		console.log("Rating: " + req.body.rating);
+		
+		
+		
+		hmac = crypto.createHmac('sha1', secret);
 		
 		hmac.update(Buffer.from(req.body.access_key, 'base64') + req.body.title  + req.body.price + req.body.rating);
 		
