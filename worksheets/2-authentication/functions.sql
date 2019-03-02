@@ -20,7 +20,7 @@ BEGIN
 	SELECT password, id INTO v_password, v_id FROM users WHERE user_name = p_user_name;
 	
 	IF v_password = NULL THEN
-		RETURN FALSE;
+		RETURN NULL;
 	END IF;
 	
 	SELECT (v_password = crypt(p_password, v_password)) INTO v_is_auth;

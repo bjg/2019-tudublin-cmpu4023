@@ -3,8 +3,8 @@ CREATE TABLE users
  id INTEGER NOT NULL,
  user_name CHARACTER VARYING(100),
  password CHARACTER VARYING(255),
- access_key TEXT,
- secret_key TEXT,
+ access_key CHARACTER VARYING(28),
+ secret_key CHARACTER VARYING(56),
  CONSTRAINT users_pk PRIMARY KEY(id)
 );
 
