@@ -4,6 +4,7 @@ const body_parser = require('body-parser')
 const massive = require('massive')
 const app = express()
 const port = 3000;
+var token_value = "";
 
 app.use(body_parser());
 
@@ -26,35 +27,42 @@ app.set('db', instance)
 
 
     app.post('/', (req, res) => {
-        if(req.body.username != null && req.body.password != null){
-            var username = req.body.username;
-            var password = req.body.password;
+        
+        // var username = req.body.username;
+        // var password = req.body.password;
 
-            instance.query(`select * from users where username=${username} and password=${password}`).then(users => {
+        var username = "Finny D";
+        var password = "FOD123";
+
+        console.log("UserName: " + username + " Password: " + password)
+
+        instance.query(`select * from users where username='${username}' and password=crypt('${password}', password)`)
+        .then(users => {
+            console.log(users)
+            const expire_time = '60s';
+
+            if(users.length > 0){
                 var jwt_payload = {
-                    name: users[0].username
+                    id: users[0].userid,
+                    name: users[0].username,
+                    expire_time: expire_time
                 }
     
-                const token = jwt.sign({jwt_payload}, 'secret', {expiresIn: '30s'});
-    
-                console.log(jwt_payload)
-                console.log(token)
-    
-                res.json({
-                    users,
-                    token: token
+                jwt.sign({jwt_payload}, 'secret', {expiresIn: `${expire_time}`}, (err, token) => {                    
+                    res.redirect(`http://localhost:3000/products?token=Bearer ${token}`);
                 });
-            });
-        }
-        else{
-            res.send("Error")
-        }        
+                
+            }
+            else{
+                res.send("No user found")
+            }            
+        });     
     });
 
     app.get('/products', verifyToken, (req, res) => {      
-        jwt.verify(req.token, 'secret', (err, data) => {
-            if(err){
-                res.send(err)
+        jwt.verify(req.token, 'secret', (error, data) => {
+            if(error){
+                res.send(error)
             }
             else{
                 instance.query('select * from products').then(products => {
@@ -65,12 +73,21 @@ app.set('db', instance)
     });
 
     function verifyToken(req, res, next){
-        const bearer_header = req.headers['authorization'];
-        
         if(typeof bearer_header == 'undefined'){
-            res.sendStatus(403);
+            if(req.query.token == null){
+                res.sendStatus(403);
+            }
+            else{
+                req.headers.authorization = req.query.token;
+                const bearer_header = req.headers['authorization'];
+            
+                req.token = bearer_header.split(" ")[1];
+                next();
+            }
         }
         else{
+            const bearer_header = req.headers['authorization'];
+
             req.token = bearer_header.split(" ")[1];
             next();
         }
