@@ -1,0 +1,13 @@
+<h1>User List</h1>
+<table style="width: 500px">
+<tr>
+    <th>Email</th>
+    <th>Details</th>
+</tr>
+{{#each root}}
+    <tr>
+        <td>{{this.email}}</td>
+        <td>{{this.details}}</td>
+    <tr/>
+{{/each}}
+</table>
