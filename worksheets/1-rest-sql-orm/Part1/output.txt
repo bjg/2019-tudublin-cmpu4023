@@ -1,0 +1,497 @@
+Output of part 1
+
+/********************* All Users *********************/
+[
+    {
+        "email": "Romaine.Birdsell@aol.com",
+        "sex": "F"
+    },
+    {
+        "email": "Ivana.Sosnowski@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Cherryl.Tarnowski@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Zita.Luman@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Takako.Gilpatrick@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Derek.Crenshaw@gmail.com",
+        "sex": "F"
+    },
+    {
+        "email": "Jeremiah.Buonocore@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Samatha.Pellegrin@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Danny.Crays@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Shanell.Lichtenstein@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Wynona.Greening@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Carmel.Bulfer@aol.com",
+        "sex": "F"
+    },
+    {
+        "email": "Edmund.Roles@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Cortney.Strayer@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Harrison.Puett@yahoo.com",
+        "sex": "M"
+    },
+    {
+        "email": "Granville.Hedgpeth@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Zita.Breeding@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Claud.Cousineau@gmail.com",
+        "sex": "F"
+    },
+    {
+        "email": "Mauro.Pung@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Eve.Kump@yahoo.com",
+        "sex": "M"
+    },
+    {
+        "email": "Angel.Lessley@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Salvatore.Arends@aol.com",
+        "sex": "F"
+    },
+    {
+        "email": "Humberto.Jonson@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Vivian.Westmoreland@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Wan.Dilks@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Ozella.Roles@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Shanell.Maxson@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Earlean.Bonacci@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Tonette.Alba@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Russ.Mcclain@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Sherilyn.Hamill@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Eleanor.Patnode@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Claud.Westmoreland@aol.com",
+        "sex": null
+    },
+    {
+        "email": "Stacia.Schrack@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Kimi.Mcqueeney@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Ivana.Kurth@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Gudrun.Arends@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Kali.Damore@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Isabel.Breeding@gmail.com",
+        "sex": null
+    },
+    {
+        "email": "Samatha.Hedgpeth@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Ozella.Yoshimura@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Glen.Lanphear@yahoo.com",
+        "sex": null
+    },
+    {
+        "email": "Williams.Upson@gmail.com",
+        "sex": "F"
+    },
+    {
+        "email": "Theresia.Edwin@yahoo.com",
+        "sex": "M"
+    },
+    {
+        "email": "Derek.Knittel@gmail.com",
+        "sex": "F"
+    },
+    {
+        "email": "Graciela.Kubala@yahoo.com",
+        "sex": "F"
+    },
+    {
+        "email": "Quinton.Gilpatrick@yahoo.com",
+        "sex": "M"
+    },
+    {
+        "email": "Layne.Sarver@aol.com",
+        "sex": "M"
+    },
+    {
+        "email": "Evelyn.Patnode@gmail.com",
+        "sex": "M"
+    },
+    {
+        "email": "Shari.Julian@yahoo.com",
+        "sex": "M"
+    }
+]
+
+/********************* User ID = 1 *********************/
+
+
+[
+    {
+        "email": "Earlean.Bonacci@yahoo.com",
+        "sex": null
+    }
+]
+
+
+/********************* All Products *********************/
+
+[
+    {
+        "id": 5,
+        "title": "Coloring Book",
+        "price": "5.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book",
+            "Children"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Baby Book",
+        "price": "7.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book",
+            "Children",
+            "Baby"
+        ]
+    },
+    {
+        "id": 1,
+        "title": "Dictionary",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book"
+        ]
+    },
+    {
+        "id": 11,
+        "title": "Classical CD",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Music"
+        ]
+    },
+    {
+        "id": 12,
+        "title": "Holiday CD",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Music"
+        ]
+    },
+    {
+        "id": 13,
+        "title": "Country CD",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Music"
+        ]
+    },
+    {
+        "id": 14,
+        "title": "Pop CD",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Music"
+        ]
+    },
+    {
+        "id": 15,
+        "title": "Electronic CD",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Music"
+        ]
+    },
+    {
+        "id": 17,
+        "title": "Documentary",
+        "price": "14.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Movie"
+        ]
+    },
+    {
+        "id": 19,
+        "title": "Drama",
+        "price": "14.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Movie"
+        ]
+    },
+    {
+        "id": 20,
+        "title": "Action",
+        "price": "14.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Movie"
+        ]
+    },
+    {
+        "id": 16,
+        "title": "Comedy Movie",
+        "price": "14.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Movie",
+            "Comedy"
+        ]
+    },
+    {
+        "id": 18,
+        "title": "Romantic",
+        "price": "14.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Movie"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Ruby Book",
+        "price": "27.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book",
+            "Programming",
+            "Ruby"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Python Book",
+        "price": "29.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book",
+            "Programming",
+            "Python"
+        ]
+    },
+    {
+        "id": 8,
+        "title": "MP3 Player",
+        "price": "108.00",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Technology",
+            "Music"
+        ]
+    },
+    {
+        "id": 9,
+        "title": "42\" LCD TV",
+        "price": "499.00",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Technology",
+            "TV"
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Desktop Computer",
+        "price": "499.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Technology"
+        ]
+    },
+    {
+        "id": 10,
+        "title": "42\" Plasma TV",
+        "price": "529.00",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Technology",
+            "TV"
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Laptop Computer",
+        "price": "899.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Technology"
+        ]
+    }
+]
+
+/********************* Product ID = 1 *********************/
+
+[
+    {
+        "id": 1,
+        "title": "Dictionary",
+        "price": "9.99",
+        "created_at": "2011-01-01T20:00:00.000Z",
+        "deleted_at": null,
+        "tags": [
+            "Book"
+        ]
+    }
+]
+
+/********************* Purchases (First few - Large response *********************/
+
+[
+    {
+        "price": "899.99",
+        "quantity": 1,
+        "state": "Delivered",
+        "receiver_name": "Letitia Levron",
+        "receiver_address": "5590 50th Ave.",
+        "purchasers_email": "Stacia.Schrack@aol.com"
+    },
+    {
+        "price": "899.99",
+        "quantity": 1,
+        "state": "Delivered",
+        "receiver_name": "Becky Roff",
+        "receiver_address": "9103 46th Ave.",
+        "purchasers_email": "Eleanor.Patnode@yahoo.com"
+    },
+    {
+        "price": "899.99",
+        "quantity": 4,
+        "state": "Delivered",
+        "receiver_name": "Alfonzo Bodkin",
+        "receiver_address": "8330 10th Ave.",
+        "purchasers_email": "Zita.Luman@yahoo.com"
+    }
+]
+
+/********************* Product Name *********************/
+
+[
+	{
+		"id":18,
+		"title":"Python Book",
+		"price":"29.99",
+		"created_at":"2011-01-01 20:00:00+00",
+		"deleted_at":null,
+		"tags":["Book", "Programming", "Python"]
+	}
+]
+		
+		
+		
+		
+		
+		
+		
+		
