@@ -1,0 +1,29 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "Enterprise App Dev",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Naif",
+  "license": "ISC",
+  "dependencies": {
+    "any-db": "^2.2.1",
+    "body-parser": "^1.18.3",
+    "db": "^1.1.1",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "http-server": "^0.11.1",
+    "massive": "^5.7.6",
+    "node-json-db": "^0.10.0",
+    "npm-run": "^5.0.1",
+    "package.json": "^2.0.1",
+    "parcel-plugin-eslint": "^1.0.4",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0",
+    "sqlite3": "^4.0.6"
+  }
+}
