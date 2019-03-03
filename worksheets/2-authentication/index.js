@@ -72,23 +72,9 @@ app.post('/login', function(req,res){
           res.status(401).json({status: res.statusCode, payload: "Incorrect login details"});
         }
       });
-      ////How I generated the token orignally calling a generate funciton
-      //   let token = generateToken(req,userID);
-      //   //send back a status response with the token
-      //   res.status(200).json({status: res.statusCode, userid: userID, expires: token.expires, token});
-      // });
     }
   });
 
-//// How i orignally generated the JWT token with 24 hour expiry date, the auth and the userID.
-// function generateToken(req, userID){
-//   var expires = moment().add(1, 'days');
-//   return jwt.sign({
-//     auth:  'magic',
-//     agent: req.headers['user-agent'],
-//     expires: expires,
-//     sub: userID
-//   }, app.get('jwtTokenSecret'))};
 
 //products endpoint to test the JWT token authorisation
 app.get('/videogames', function(req,res){
@@ -147,20 +133,10 @@ function validate(req, res) {
  //**        PART 4 OF THE LAB    */
 //**                             */
 
-//encode endpoint to encode a message and send back a signature for testing the /hmacproducts endpoint. 
-app.get('/encode', function(req,res){
-  let accessKey = req.headers.access;
-  let message = req.body.message;
-  db.query("select secretkey from users where accesskey ='"+accessKey+"';")
-  .then(SK =>{
-    let secretK = SK[0].secretkey; 
-    let hash = crypto.createHmac('SHA256', secretK).update(message).digest('hex');
-    res.status(200).json({status: res.statusCode, payload: hash});
-  })
-});
-
 ///products endpoint post a product to the products table with passed parameters. 
 app.post('/products', function(req,res){
+  console.log("inside post");
+  console.log(req.body.name);
   let accessKey = req.headers.access;
   db.query("select secretkey from users where accesskey ='"+accessKey+"';")
   .then( SK => {
@@ -168,7 +144,7 @@ app.post('/products', function(req,res){
     let match = verifyHMAC(secretK,req);
     if(match === 200)
     {
-      db.query("INSERT INTO products(name,price) VALUES ($(_name),$(_price))", {_name:req.query.name,_price:req.query.price})
+      db.query("INSERT INTO products(name,price) VALUES ($(_name),$(_price))", {_name:req.body.name,_price:req.body.price})
       .then(item =>{
         res.status(match).json({status: res.statusCode, payload:"Insert successful"});
       })
@@ -197,8 +173,13 @@ app.get('/products', function(req,res){
 //function to verify that the message being sent is correct and hasn't been tampered with
 function verifyHMAC(secretK,req){
   let signature = req.headers.signature;
-  let bodymessage = req.body.message;
+  let AK = req.headers.access;
+  let message = JSON.stringify(req.body);
+  console.log(message);
+  let bodymessage = (AK+message);
+  console.log(bodymessage);
   let comparison = crypto.createHmac('SHA256',secretK).update(bodymessage).digest('hex');
+  console.log(comparison);
   if(signature === comparison)
   {
     return 200;
