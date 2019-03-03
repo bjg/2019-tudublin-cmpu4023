@@ -1,11 +1,13 @@
 let secretkey = "abcdef";
 let accesskey = "12345";
 
-let url = "http://localhost:3000/api/addproduct?id=1";
+//let url = "http://localhost:3000/api/addproduct";
+let url = "http://localhost:3000/api/getproductbyid";
 const crypto = require('crypto');
 const fetch = require('node-fetch');
 
-let signature = generateSignature(accesskey, secretkey, ['Bike', '199.00']);
+//let signature = generateSignature(accesskey, secretkey, ['Bike', '199.00']);
+let signature = generateSignature(accesskey, secretkey, ['1']);
 
 function generateSignature(akey, skey, objects = [''])
 {
@@ -24,13 +26,12 @@ fetch(
         {
                 method: "POST",
                 headers: {"accesskey": accesskey, "signature": signature, "Content-Type": "application/json"},
-                body: JSON.stringify({ title: "Bike", price:"199.00"})
+                //body: JSON.stringify({title: "Bike", price:"199.00"})
+                body: JSON.stringify({id: "1"})
         }
 )
 .then(checkStatus)
 .then(response => response.json()) // convert to json
-//.then(response => console.log(response.message)) // log specific key/value
-//.then(response => console.log(response[0]))  // log whole object
 .then(response => console.log('Success: ', JSON.stringify(response)))
 .catch(error => console.error('Error: ', error));
 

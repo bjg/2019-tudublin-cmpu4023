@@ -5,10 +5,11 @@ const decode = require('jsonwebtoken/decode');
 const crypto = require('crypto');
 const app = express();
 const port = 3000;
+
+// required for parsing request.body objects
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json()); 
-
 
 
 // connect to the DB using Massive JS
@@ -39,12 +40,10 @@ app.get('/api', (req, res) => {
 
 
 /* 
-### LOGIN
-check user is registered in the DB
-verify hashed value of password provided matches hashed value in DB
-if successful, generate a token and return
+### LOGIN with NAME and PASSWORD
+POST : http://localhost:3000/api/login?name=nicola&pw=pword
 
-AUTHENTICATE FUNCTION in Database:
+## AUTHENTICATE FUNCTION in Database:
 CREATE OR REPLACE FUNCTION authenticate(_name TEXT, _password TEXT)
 RETURNS UUID
 AS $$
@@ -52,7 +51,6 @@ AS $$
     NAME = _name AND 
     PASSWORD = crypt(_password, password);
 $$ LANGUAGE SQL STRICT IMMUTABLE;
-
 */
 app.post('/api/login', (req, res) => {
 
@@ -82,7 +80,7 @@ app.post('/api/login', (req, res) => {
                         {expiresIn: '24h'},
                         // create response
                         (err, token) => {
-                                // return results to client
+                                // return results + token value to client
                                 res.json({
                                         "result": "Success",
                                         "status": 200,  
@@ -101,9 +99,10 @@ app.post('/api/login', (req, res) => {
 
 /* 
 ### DISPLAY ALL PRODUCTS - PROTECTED BY JSON WEB TOKEN
+GET : http://localhost:3000/api/products
 */
 
-app.post('/api/products', verifyToken, (req, res) => {
+app.get('/api/products', verifyToken, (req, res) => {
         jwt.verify(req.token, 'secretkey', (err, authData) => {
                 if(err)
                 {
@@ -135,6 +134,7 @@ app.post('/api/products', verifyToken, (req, res) => {
 
 /* 
 ### UPDATE A PRODUCT - PROTECTED BY JSON WEB TOKEN
+PUT : http://localhost:3000/api/products?id=1&title=Magazine&price=4.99
 */
 
 app.put('/api/products', verifyToken, (req, res) => {
@@ -174,6 +174,7 @@ app.put('/api/products', verifyToken, (req, res) => {
 
 /* 
 ### CREATE A NEW PRODUCT - PROTECTED BY HMAC
+OPEN NEW TERMINAL: node client.js
 */
 
 app.post('/api/addproduct', (req, res) => {
@@ -188,7 +189,6 @@ app.post('/api/addproduct', (req, res) => {
 
                         // message body values for checking signature
                         let values = [req.body.title, req.body.price];
-                        console.log(values);
                         
                         // generate the signature using the request values
                         let verified_signature = generateSignature(accesskey, secretkey, values); 
@@ -231,6 +231,62 @@ app.post('/api/addproduct', (req, res) => {
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
                         
         
+});
+
+/* 
+### GET A PRODUCT BY ID - PROTECTED BY HMAC
+OPEN NEW TERMINAL: node client.js
+*/
+
+app.post('/api/getproductbyid', (req, res) => {
+        
+        db.users.find({'accesskey = ' : req.headers.accesskey})
+        .then(items => {
+                if(items[0]['secretkey'] != null)
+                {
+                        // key values for checking signature
+                        let secretkey = items[0]['secretkey'];
+                        let accesskey = req.headers.accesskey;
+
+                        // message body values for checking signature
+                        let values = [req.body.id];
+                        
+                        // generate the signature using the request values
+                        let verified_signature = generateSignature(accesskey, secretkey, values); 
+                        
+                        // check if both signatures match
+                        if (verified_signature == req.headers.signature)
+                        {
+                                console.log("Success: Message Authenticated");
+
+                                // perform the insert of the new product into the DB
+                                db.products.find({
+                                        id: req.body.id
+                                })
+                                // server message
+                                .then(console.log("Product Found"))
+                                // send success response to client
+                                .then(items => res.json(items))     
+                                .catch(error => console.error('Error during Insert of New Product: ', error));
+
+                        }
+                        else
+                        {
+                                // server message
+                                console.log("Failed: Message Not Authenticated");
+                                // send failure response to client
+                                res.send({"message":"Failed - Message Not Authenticated"});
+                                // UNAUTHORISED: if token is not verified successfully
+                                res.sendStatus(401);
+                        }
+                }
+                else    // not an valid accesskey
+                {
+                        // send failure response to client
+                        res.send("Invalid Access Key");
+                }  
+        })
+        .catch(error => console.error('Error in finding valid Secret Key: ', error));
 });
 
 // FUNCTIONS:
