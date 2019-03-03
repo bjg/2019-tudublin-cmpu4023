@@ -18,8 +18,8 @@ const signature  = hmac.digest('hex');
 console.log("access key: " + access_key);
 console.log("message: " + message);
 console.log("Signature: " + signature);
-
+console.log("Response\n");
 request.post("http://localhost:3000/hmac/", {form:{access_key:access_key, message:message, signature:signature}}, (err, res, body)=> {
-    console.log("\nStatusCode: " + res.statusCode);
-    console.log("Response :" + body);
+    console.log("Status: " + res.statusCode);
+    console.log("Message: " + body);
 });
