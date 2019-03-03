@@ -1,0 +1,22 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "Lab2",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "es6-promise": "^4.2.6",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.1.0",
+    "massive": "^5.7.7",
+    "pg-hstore": "^2.3.2",
+    "pg-monitor": "^1.1.0",
+    "pg-promise": "^8.6.0"
+  }
+}
