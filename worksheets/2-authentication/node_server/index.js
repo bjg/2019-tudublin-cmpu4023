@@ -83,16 +83,16 @@ app.post("/user_auth_jwt", (req, res) => {
 		{username:req.body.username, password:req.body.password}
 	).then(result => {
 		if (result.length!=0) {
-			const token = jwt.sign({
+			jwt.sign({
 				iat: (Math.floor(Date.now() / 1000)),
 				exp: (Math.floor(Date.now() / 1000) + (60 * 60 * 24)),
 				id: result[0]["user_id"]
 			}, 
 			req.app.get("jwt_keypair").private, {
 				algorithm:"RS256"
+			}, function(err, token) {
+				res.json({"token": token});
 			});
-
-			res.json({"token": token});
 		}
 		else {
 			res.status(401).json({"error":"No such user"});
@@ -114,26 +114,27 @@ app.get("/products_jwt", (req, res) => {
 
 	if (auth != null) {
 		try {
-			const token = jwt.verify(auth.split(" ")[1], req.app.get("jwt_keypair").public, {algorithm: "RS256"});
-			req.app.get("db").query(
-				user_string,
-				{user_id:token["id"]}
-			).then(result => {
-				if ((token["exp"] > (Math.floor(Date.now() / 1000))) && result.length!=0) {
-					req.app.get("db").products.find({},{
-						exprs: {
-							title: "title",
-							price: "price"
-						}
-					}).then(result => {
-						res.status(200).json(result);
-					});
-				}
-				else {
-					res.status(401).send("Invalid Authorization");
-				}
-			}).catch(error => {
-				res.status(401).send("Authorization Required");
+			jwt.verify(auth.split(" ")[1], req.app.get("jwt_keypair").public, {algorithm: "RS256"}, function(err, token) {
+				req.app.get("db").query(
+					user_string,
+					{user_id:token["id"]}
+				).then(result => {
+					if ((token["exp"] > (Math.floor(Date.now() / 1000))) && result.length!=0) {
+						req.app.get("db").products.find({},{
+							exprs: {
+								title: "title",
+								price: "price"
+							}
+						}).then(result => {
+							res.status(200).json(result);
+						});
+					}
+					else {
+						res.status(401).send("Invalid Authorization");
+					}
+				}).catch(error => {
+					res.status(401).send("Authorization Required");
+				});
 			});
 		}
 		catch(error) {
