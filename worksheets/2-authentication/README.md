@@ -1,6 +1,8 @@
 # Lab Week 2
 # Endpoints and testing
 
+# Json Web Token
+
 ## POST /login
 
 Accepts a user name and password and returns a jsonwebtoken as a cookie
@@ -116,6 +118,8 @@ In this example the signature is invalidated by deleting a few base64 characters
 
 	"error":"Not Autheticated"
 	
+
+# HMAC	
 	
 ## POST /hmac-video-games
 
