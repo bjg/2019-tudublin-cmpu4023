@@ -20,7 +20,7 @@ Like with JWT, I wanted HMAC to be dynamically added to any route. For this it i
 
 
 
-###Routes
+### Routes
 
 **/login/jwt** - POST request that takes the username and password, checks it in the database and then returns a JWT for the user to use on other requests.
 
