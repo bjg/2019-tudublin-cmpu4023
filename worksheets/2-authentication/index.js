@@ -30,24 +30,24 @@ massive ({
 
 // Middleware to verify a JWT.
 function verifyToken(req, res, next) {
-	const token = req.headers.authorization;
-	console.log("Verifying token: " + token);
+	const clientToken = req.headers.authorization;
+	console.log("Verifying token: " + clientToken);
 
 	var verifyOptions = {
 		expiresIn:  "12h",
 		algorithm:  ["RS256"]
 	};
 
-	try {
-		// This throws an exception if the token is malformed or invalid.
-		const verify = jwt.verify(token, pubKey, verifyOptions);
-		console.log("Verification result: " + JSON.stringify(verify));
-		next();
-	} catch {
-		console.log("Verification failed");
-		res.status(401);
-		next("You must be logged in to access this resource");
-	}
+	// Asynchronously verify the client's token.
+	jwt.verify(clientToken, pubKey, verifyOptions, (err, decoded) => {
+		if (err) {
+			console.log("Verification failed");
+			res.status(401);
+			return next("You must be logged in to access this resource");
+		}
+		console.log("Verification result: " + JSON.stringify(decoded));
+		return next();
+	});
 }
 
 // Endpoint to allow a user to login.
@@ -79,14 +79,22 @@ app.post("/login", (req, res) => {
 		const payload = {
 			username: username
 		}
-		const token = jwt.sign(payload, privKey, signOptions);
-		console.log(`Generated signed token for ${username}: ${token}`);
-		res.send(token);
+
+		// Asynchronously sign and return the token.
+		jwt.sign(payload, privKey, signOptions, (err, token) => {
+			if (err) {
+				console.log("Error signing token: " + err);
+				res.status(401).send("Error signing token");
+				return;
+			}
+			console.log(`Generated signed token for ${username}: ${token}`);
+			res.send(token);
+		});
 	});
 });
 
 app.post("/products-jwt", verifyToken, (req, res) => {
-	console.log(`Received /products request`);
+	console.log(`Received /products-jwt request`);
 	const name = req.body.name;
 	const price = req.body.price;
 

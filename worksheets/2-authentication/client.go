@@ -26,13 +26,18 @@ var secretKey = []byte("yo?rW#_$l[v_ZEa],.!UEvqY)0YJr_`)RpXJ%=&6")
 func main() {
 	// Parse product details from arguments.
 	args := os.Args[1:]
-	if len(args) != 2 {
-		fmt.Println("Usage: ./client <name> <price>")
+	if len(args) < 2 {
+		fmt.Println("Usage: ./client <name> <price> [secret_key]")
 		return
 	}
 	price, err := strconv.ParseFloat(args[1], 64)
 	if err != nil {
 		log.Fatal("Second argument must be a float")
+	}
+
+	// Parse secret key if provided.
+	if len(args) == 3 {
+		secretKey = []byte(args[2])
 	}
 
 	// Convert new product to json.

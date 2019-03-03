@@ -1,5 +1,7 @@
 # Lab 2: Authentication
 
+Both parts of this lab are implemented in the same node project, using separate endpoints.
+
 ## Part 1: Database setup
 
 For the first part, the database simply consists of a users table with username and hashed_password, and a products table with product_id, name and price.
@@ -11,6 +13,8 @@ The function also ensures the password is being changed on update, to prevent th
 ## Part 2: JWT
 
 For this part, I implemented two endpoints `/login` and `/products-jwt`. The products endpoint is protected, such that the user must first login and acquire a JWT before being able to access it.
+
+The signing and verifying of the JWT are both performed asynchronously.
 
 ### Login
 
@@ -28,9 +32,11 @@ Two new columns were added to the users table: access_key and secret_key. The ac
 
 I implemented a simple client for this using Go. To run it (after installing Go), use a command following this format:
 
-`go run client.go <name> <price>`
+`go run client.go <name> <price> [secret_key]`
 
 The client creates a hash of the access key, jsonified product details and current timestamp, using the shared private key. This hash, along with the access key, timestamp and product details are then sent via POST request to the server.
+
+By providing the optional secret_key argument, an invalid request can be formed to demonstrate how the server responds to such an event (spoiler: it returns a 401).
 
 ### Server
 
