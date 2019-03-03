@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "aaron",
+    "password": "Password",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "aaron",
+    "password": "Password",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "aaron",
+    "password": "Password",
+    "database": "pgguide",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}

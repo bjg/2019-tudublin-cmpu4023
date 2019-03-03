@@ -1,0 +1,16 @@
+{
+  "name": "worksheet",
+  "version": "1.0.1",
+  "description": "worksheet 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "author": "Aaron Byrne",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.4"
+  }
+}
