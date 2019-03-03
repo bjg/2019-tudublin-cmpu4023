@@ -1,3 +1,12 @@
+/*
+Author : Evgeny Timoshin
+StDNum : C15514003
+
+All of the testing to the API has been performed using Postman.
+I did not create client for testing as this was a much simpler way to test the API and insured completion.
+
+*/
+
 const express = require('express')
 const massive = require('massive')
 const app = express()
@@ -25,17 +34,9 @@ massive({
 }).then(instance => {
 	app.set('db', instance);
 	
-	
-	//THIS IS USED FOR GETTING A SIGNITURE THAT I CAN USE IN POSTMAN TO SEND
-	//ACCESS KEY ssUGTLMjhIa22EtwRuoc7c0d0w2U7QdQicbCYpph
-	//SECRET KEY 6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8
-	//FOR USER1
-	
-	var hmac=crypto.createHmac('sha256', '6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8')
-    hmac.update('{"product_title":"Desktop Computer"}');
-    console.log('Sig: ' + hmac.digest('hex'));
-	
-	////////////////////////////////////////////////
+	/*
+	First two methods used to check if the hashed passwords work and user can register
+	*/
 	
 	app.post('/register', function (req, res) {
 		if (req.body.user && req.body.password) {
@@ -66,7 +67,10 @@ massive({
 		}
 	});
 	
-	//This can be used to verify jwt tokens as middleware
+	
+	//This can be used to verify jwt tokens as middleware instead of invoking a method checkToken() as you will see belllow
+	
+	
 	/*
 	app.use(async (req, res, next) => {
 		//Log the headers that are passed in to server
@@ -86,6 +90,57 @@ massive({
 			return
 		}
 	})
+	*/
+	
+	///////////////////////////////////////////////////////////
+	//JWT STUFFF
+	///////////////////////////////////////
+	
+	/*
+	This is a protected route that requires a hashed password to be cross checked with the data base of users.  Before a JWT can be generated and signed for that user.
+	Once this hashed password that is sent in the request is checked , JWT is geenrated and returned to tghe user with a response containing the token
+	From here thee user has 23 hours to use the token to log back into the database and access some of the other wise protected routes.
+	*/
+	
+	
+	app.get('/authlogin', (req, res) => {
+		if (req.body.user && req.body.password) {
+			//query = "SELECT password = crypt('" + req.body.password + "', password) FROM useraccount WHERE username='" + req.body.user + "';"
+			query = "SELECT id, username FROM useraccount WHERE password = crypt('" + req.body.password + "', password);"
+			req.app.get('db').query(query).then(result => {
+				//Log to server if the connections password matches database
+				console.log(result);
+				//Verify that the hashes password matched
+				if(result[0]['id'] != null) {
+					console.log("USERS INFO")
+					console.log(result[0]['username'])
+					console.log(result[0]['id'])
+					//Create a signed token
+					jwt.sign({id : result[0]['id'] ,username : result[0]['username']}, secret, { expiresIn: '23h' },(err, token) => {
+						//Check if error occurs and log if so
+						if(err) { 
+							console.log(err) 
+						}
+						//Send response in json format, containing the token and a message to the client
+						res.send({id : result[0]['id'] ,username : result[0]['username'],token, message : "User" + req.body.user + " has logged in succesfully"});
+					});
+					
+				} else {
+					res.send('invalid login check the user and password keys in the body of GET');
+				}	
+			});
+
+		} else {
+				res.send('Need a user and password key to login');
+		}
+	});
+	
+	/*
+	The three API calls below /products, /productsdeletefirst , /productsupdatetitle
+	Are protected routes that use the checkToken() method defined at the bottom of the program code.
+	This method runs and makes sure that the request coming in has a valid HTTP autherization header field
+	IF this passes the flow of the program can proceed to the api calls and there the JWT token will be verified.
+	Once this is complete the JWT verify runs async and repsonds to the user appropriatley.
 	*/
 	
 	app.get('/products', checkToken, (req, res) => {
@@ -126,7 +181,7 @@ massive({
 		//console.log("FINISHED EXEC")
 	})
 	
-	app.get('/productsdeletefirst', checkToken, (req, res) => {
+	app.get('/productsupdate', checkToken, (req, res) => {
 		
 		jwt.verify(req.token, secret, async (err, authorizedData) => {
             if(err){
@@ -135,7 +190,7 @@ massive({
                 res.sendStatus(401);
             } else {
                 //If toke verifies get data and wait for repsonse before sending
-				responseData = await req.app.get("db").query("UPDATE userraccount SET product_title = 'UPDATED' WHERE id = '" req.body.title + "';");
+				responseData = await req.app.get("db").query("UPDATE userraccount SET product_title = 'UPDATED' WHERE id = '" + req.body.title + "';");
 				res.status(200).send(responseData);
 				//res.status(200).send(await req.app.get("db").query("select * from products limit 1;"));
                 console.log('SUCCESS');
@@ -146,41 +201,44 @@ massive({
 	})
 	
 	
-	app.get('/authlogin', (req, res) => {
-		if (req.body.user && req.body.password) {
-			//query = "SELECT password = crypt('" + req.body.password + "', password) FROM useraccount WHERE username='" + req.body.user + "';"
-			query = "SELECT id, username FROM useraccount WHERE password = crypt('" + req.body.password + "', password);"
-			req.app.get('db').query(query).then(result => {
-				//Log to server if the connections password matches database
-				console.log(result);
-				//Verify that the hashes password matched
-				if(result[0]['id'] != null) {
-					console.log("USERS INFO")
-					console.log(result[0]['username'])
-					console.log(result[0]['id'])
-					//Create a signed token
-					jwt.sign({id : result[0]['id'] ,username : result[0]['username']}, secret, { expiresIn: '23h' },(err, token) => {
-						//Check if error occurs and log if so
-						if(err) { 
-							console.log(err) 
-						}
-						//Send response in json format, containing the token and a message to the client
-						res.send({id : result[0]['id'] ,username : result[0]['username'],token, message : "User" + req.body.user + " has logged in succesfully"});
-					});
-					
-				} else {
-					res.send('invalid login check the user and password keys in the body of GET');
-				}	
-			});
-
-		} else {
-				res.send('Need a user and password key to login');
-		}
-	});
+	////////////////////////////////////////////////////////////////////
+	//HMAC AUTHENTICATION
+	////////////////////////////////////////////////////////////////////
 	
+	/*
+	To test this API instead of creating a client, I used postman and generated signitures to send locally here. It works perfectly
 	
+	//THIS IS USED FOR GETTING A SIGNITURE THAT I CAN USE IN POSTMAN TO SEND
+	//ACCESS KEY ssUGTLMjhIa22EtwRuoc7c0d0w2U7QdQicbCYpph
+	//SECRET KEY 6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8
+	//FOR USER1
 	
-	app.get('/protected', (req, res) => {
+	////This section below should occur on the clients side that is how the signature is generated and send along with the access key in the request
+	//// First the secret key is hashed then updated with the body of the request
+	
+	var hmac=crypto.createHmac('sha256', '6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8')
+    hmac.update('{"product_title":"Desktop Computer"}');
+    console.log('Sig: ' + hmac.digest('hex'));
+	
+	/////////////////////////////////////////////
+	
+	From postman the request had the following :
+	Headers :
+		Signiture key
+		AccessKey key
+	Body:{"product_title":"Desktop Computer"}
+	
+	In practice and production this could be anything as long as the signature generated on the client side (Which it is simulated here)
+	and the accesskeys are corrent authentication then works!
+	
+	The server recieves the generated signature, accesskey and body of message from the client.
+	The server then checks the database for the secretkey that matches the accesskey of the user.
+	If a match is found the server then computes a Hmac hash from the secret key and the body of the request.
+	If this new hash matches the signature then Authentication is succesful.
+		
+	*/
+	
+	app.get('/protectedRoute', (req, res) => {
                 if (req.headers.accesskey && req.headers.signature && req.body) {
                         query = "SELECT secretkey from useraccount where accesskey='" + req.headers.accesskey + "';";
                         req.app.get('db').query(query).then(result => {
@@ -192,21 +250,21 @@ massive({
                                 localSig = hmac.digest('hex')
                                 if (localSig === req.headers.signature) {
                                         console.log("Connecting users signature matched the databases stored one")
+										 if (req.body.product_title) {
+											query = "SELECT * from products WHERE title='" + req.body.product_title + "';";
+											req.app.get('db').query(query).then(result => {
+											res.status(200).send(JSON.stringify(result));
+										});
+										} else {
+												res.status(401).send('Attach a product title in json format you would like to send')
+										}
                                 }else {
-                                        res.send('Connecting users signature does not match returning!')
+                                        res.status(401).send('Connecting users signature does not match returning!')
                                         return;
                                 }
                         });
-                        if (req.body.product_title) {
-                                query = "SELECT * from products WHERE title='" + req.body.product_title + "';";
-                                req.app.get('db').query(query).then(result => {
-                                        res.send(JSON.stringify(result));
-                        });
-                        } else {
-                                res.send('Attach a product title in json format you would like to send')
-                        }
                 } else {
-                        res.send('Public key, Signature not correct cannot access this protected route');
+                        res.status(401).send('Public key, Signature not correct cannot access this protected route');
                 }
         })
 	
@@ -220,13 +278,15 @@ const checkToken = (req, res, next) => {
 		const header = req.headers['authorization'];
 
 		if(typeof header !== 'undefined') {
+			//splits the header value to find the token
 			const bearer = header.split(' ');
 			const token = bearer[1];
-
+			
+			//Updates the request token to be used for JWT verififcation
 			req.token = token;
 			next();
 		} else {
-			//If header is undefined return Forbidden (403)
+			//If header is undefined return Forbidden (401)
 			res.status(401).send("Invalid token for login")
 			return
 		}
