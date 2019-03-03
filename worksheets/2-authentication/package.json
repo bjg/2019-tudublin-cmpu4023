@@ -1,0 +1,35 @@
+{
+  "name": "lab-1",
+  "version": "1.0.0",
+  "description": "Submission for labratory 1 as per EAD module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ciaran-OBrien/Enterprise-Application-Development.git"
+  },
+  "author": "Ciaran OBrien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ciaran-OBrien/Enterprise-Application-Development/issues"
+  },
+  "homepage": "https://github.com/Ciaran-OBrien/Enterprise-Application-Development#readme",
+  "dependencies": {
+    "bcrpyt": "^2.0.0",
+    "bcrypt": "^3.0.4",
+    "bower": "^1.8.8",
+    "chance": "^1.0.18",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "jssha": "^2.3.1",
+    "jwa": "^1.4.0",
+    "massive": "^5.7.4",
+    "pg": "^7.8.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0"
+  }
+}
