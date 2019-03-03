@@ -1,0 +1,17 @@
+{
+  "name": "token-project",
+  "version": "1.0.0",
+  "description": "Test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashley Fitzgerald",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "hmac-authentication": "^1.0.0",
+    "is-empty": "^1.2.0",
+    "jsonwebtoken": "^8.4.0"
+  }
+}
