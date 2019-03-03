@@ -1,11 +1,31 @@
-# 2019-tudublin-cmpu4023
-Official module repo for CMPU4023 (2019)
+# Lab02 - Authenication
 
-### The work and submission workflow is as follows:
+## node_server
 
-- Before you start working on your lab worksheets for this module you must fork a copy of this official class repo
-- Then clone the forked repo to your development machine
-- For each separate worksheet, make a new branch in your cloned, local repo named as follows: __student-id__-wks-__worksheet-number__ where __student-id__ is something like C12345678 and __worksheet-number__ is 1, 2, 3, etc
-- When you are finished developing your worksheet solution then you must push your local repo to the remote origin for that branch
-- Finally, when you are submitting your solution for grading, you will generate a pull request (PR) requesting that your branc is merged with the remote origin master branch of the official class repo above
-- If you are not sure about any of the described steps here, then take a look at this worked demonstration: https://www.youtube.com/watch?v=FQsBmnZvBdc
+A node directory that runs the backend source of this lab on port 3000. This contains the following endpoints:
+
+* POST - /user_auth_jwt
+	* Logs in a user and generates a JWT token that is signed via a private key which is then fed back to the user.
+* GET - /products_jwt
+	* Returns a list of products if the users Auth Token can be decoded by the public key of the secret that signed the token and that all encoded data is valid (i.e. the token has not expired and the user ID exists)
+* POST - /secret_key
+	* Performs a Diffie Hellman exchange with a client if the clients credentials are valid. Therefore, both the client and server will have a generated 320 bit secret key and a 160 bit accesss key.
+* GET - /products_hmac
+	* The client contructs an auth token with a timestamp, access key and a HTTP header. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and the products are returned.
+* POST - /products_hmac_add
+	* The client contructs an auth token with a timestamp, access key, a HTTP header and the request body. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and new products is added to the database.
+
+## node_client
+
+A node directory that runs the client source that creates a command line interface. This contains the following functions that can be called via the readline menu:
+
+* loginJWT()
+	* Sends user credientials to a server and expects back a token that can be used for future authenications
+* getProducts()
+	* Requests to recieve products via the server with the aid of an auth token.
+* createSecret()
+	* Performs a Diffie Hellman exchange with a server. Therefore, both the client and server will have a generated 320 bit secret key and a 160 bit accesss key with a secret key that is never transmitted.
+* getProductsHMAC()
+	* The client contructs an auth token with a timestamp, access key and a HTTP header. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and a list of products are recieved.
+* postProductsHMAC
+	* The client contructs an auth token with a timestamp, access key, a HTTP header and the request body. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and new product (sent within the POST body) is added to the database.
