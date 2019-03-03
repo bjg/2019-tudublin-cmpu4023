@@ -97,6 +97,11 @@ app.get('/api/login', (req, res) => {
 });
 
 
+// #####################################################################################################
+// ROUTES - PROTECTED BY JSON WEB TOKEN
+// #####################################################################################################
+
+
 /* 
 ### DISPLAY ALL PRODUCTS - PROTECTED BY JSON WEB TOKEN
 GET : http://localhost:3000/api/products
@@ -159,6 +164,10 @@ app.put('/api/products', verifyToken, (req, res) => {
         });
 });
 
+
+// #####################################################################################################
+// ROUTES - PROTECTED BY HMAC
+// #####################################################################################################
 
 
 /* 
@@ -272,7 +281,10 @@ app.get('/api/getproductbyid', (req, res) => {
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
 });
 
-// FUNCTIONS:
+// #####################################################################################################
+// FUNCTIONS - verifyToken, generateSignature
+// #####################################################################################################
+
 
 // Function to verify token provided in request for protected resources
 function verifyToken(req, res, next)
