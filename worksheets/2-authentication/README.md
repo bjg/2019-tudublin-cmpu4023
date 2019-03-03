@@ -43,8 +43,3 @@ The client was written in Python and can be executed from the command line which
 **requireAuth()** - This will get the Bearer token from the request headers by splitting it and getting the value after the "Bearer " word. It will then use the jwt library to verify this. If it is satisfactory then it will continue to the next middleware.
 
 **hmacAuth()** - This is the middleware that will check for a signature and access token, respond appropriately if one or neither exist. It will then get todays date, and will concatenate any body params or query params with it. It will then hash that using the same sha256 algorithm with the secret key and will compare it with the value sent in the Signature header. If they match then the middleware continues to the next one if not it will return an error.
-
-
-
-
-
