@@ -14,8 +14,6 @@ request.post("http://localhost:3000/hmac-key", {form:{key:client_key.toString('b
 	}
 	
 	const secret = client.computeSecret(server_shared.key, 'base64');
-	console.log("secret: " + secret.toString('base64'));
-
 	
 	hmac = crypto.createHmac('sha1', secret);
 	
@@ -33,7 +31,7 @@ request.post("http://localhost:3000/hmac-key", {form:{key:client_key.toString('b
 	hmac.update(Buffer.from(access_key, 'base64') + title + price + rating);
 	
 	let signature  = hmac.digest('base64');
-	
+	console.log("--Successful--")
 	console.log("access key: " + access_key);
 	console.log("title: " + title);
 	console.log("price: " + price);
@@ -42,10 +40,11 @@ request.post("http://localhost:3000/hmac-key", {form:{key:client_key.toString('b
 	
 	//will succeed
 	request.post("http://localhost:3000/hmac-video-games", {form:{access_key:access_key, title:title, price:price, rating:rating, signature:signature}}, (err, res, body)=>{
-		console.log(body);	
+		console.log("\nStatusCode: " + res.statusCode);
+		console.log("ResponseBody :" + body);
 		//Modify price without regenorating hmac, will fail
 		price="54";
-		
+		console.log("\n\n--Modifying values after sign gen--");
 		console.log("access key: " + access_key);
 		console.log("title: " + title);
 		console.log("price: " + price);
@@ -54,28 +53,31 @@ request.post("http://localhost:3000/hmac-key", {form:{key:client_key.toString('b
 		
 
 		request.post("http://localhost:3000/hmac-video-games", {form:{access_key:access_key, title:title, price:price, rating:rating, signature:signature}}, (err, res, body)=>{
-			console.log(body);
+			console.log("\nStatusCode: " + res.statusCode);
+			console.log("ResponseBody :" + body);
+			false_sig = "vasjfbjabfadj"
 			//Wrong signature, will fail
-			signature[1] = 'B';
-			signature[2] = 'C';
+			console.log("\n\n--Incorrect Signature--");
 			console.log("access key: " + access_key);
 			console.log("title: " + title);
 			console.log("price: " + price);
 			console.log("rating: " + rating);
-			console.log("Signature: " + signature);
+			console.log("Signature: " + false_sig);
 			
-			request.post("http://localhost:3000/hmac-video-games", {form:{access_key:access_key, title:title, price:price, rating:rating, signature:signature}}, (err, res, body)=>{
-				console.log(body);
+			request.post("http://localhost:3000/hmac-video-games", {form:{access_key:access_key, title:title, price:price, rating:rating, signature:false_sig}}, (err, res, body)=>{
+				console.log("\nStatusCode: " + res.statusCode);
+				console.log("ResponseBody :" + body);
 				//Wrong access key, will fail
-				access_key[1] = 'B';
-				access_key[2] = 'C';
-				console.log("access key: " + access_key);
+				false_key = "hguhssqfew"
+				console.log("\n\n--Incorrect Access key--");
+				console.log("access key: " + false_key);
 				console.log("title: " + title);
 				console.log("price: " + price);
 				console.log("rating: " + rating);
 				console.log("Signature: " + signature);
-				request.post("http://localhost:3000/hmac-video-games", {form:{access_key:access_key, title:title, price:price, rating:rating, signature:signature}}, (err, res, body)=>{
-						console.log(body);
+				request.post("http://localhost:3000/hmac-video-games", {form:{access_key:false_key, title:title, price:price, rating:rating, signature:signature}}, (err, res, body)=>{
+					console.log("\nStatusCode: " + res.statusCode);
+					console.log("ResponseBody :" + body);
 				})
 			})
 		})
