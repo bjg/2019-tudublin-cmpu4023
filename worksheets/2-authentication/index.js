@@ -28,6 +28,7 @@ massive ({
  * JWT *
  *******/
 
+// Middleware to verify a JWT.
 function verifyToken(req, res, next) {
 	const token = req.headers.authorization;
 	console.log("Verifying token: " + token);
@@ -49,9 +50,11 @@ function verifyToken(req, res, next) {
 	}
 }
 
-app.get("/login", (req, res) => {
-	const username = req.query.username;
-	const password = req.query.password;
+// Endpoint to allow a user to login.
+// Returns a JWT on successful login.
+app.post("/login", (req, res) => {
+	const username = req.body.username;
+	const password = req.body.password;
 	console.log(`Received /login request ${username} ${password}`);
 
 	if (!username || !password) {
@@ -82,15 +85,27 @@ app.get("/login", (req, res) => {
 	});
 });
 
-app.get("/products", verifyToken, (req, res) => {
+app.post("/products-jwt", verifyToken, (req, res) => {
 	console.log(`Received /products request`);
-	res.sendStatus(200);
+	const name = req.body.name;
+	const price = req.body.price;
+
+	req.app.get("db").query(
+		`insert into products(name, price) values('${name}', ${price})`
+	).then(() => {
+		console.log("New product inserted: " + name + " " + price);
+		res.sendStatus(200);
+	}).catch(err => {
+		console.log(err);
+		res.sendStatus(400);
+	});
 });
 
 /********
  * HMAC *
  ********/
 
+// Middleware to verify a HMAC hash.
 function verifyHmac(req, res, next) {
 	const accessKey = req.headers.authorization;
 	const clientHmac = req.headers.hmac;
