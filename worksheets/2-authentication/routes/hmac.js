@@ -3,8 +3,6 @@ const crypto = require('crypto');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    console.log(JSON.stringify(req.body));
-
     req.app.get("db").users.findOne({
         access_key: req.body.access_key
     })
@@ -16,7 +14,7 @@ router.post('/', (req, res) => {
 
             const server_signature = hmac.digest("hex");
             console.log("Server Signature: " + server_signature);
-            console.log("Client Signature: " + req.body.signature);
+            console.log("Client Signature: " + client_signature);
 
             if(client_signature !== server_signature){
                 res.status(401);
