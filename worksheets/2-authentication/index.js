@@ -238,18 +238,20 @@ app.post('/api/addproduct', (req, res) => {
 OPEN NEW TERMINAL: node client.js
 */
 
-app.post('/api/getproductbyid', (req, res) => {
-        
+app.get('/api/getproductbyid', (req, res) => {
+        console.log(req);
         db.users.find({'accesskey = ' : req.headers.accesskey})
         .then(items => {
                 if(items[0]['secretkey'] != null)
                 {
+                        console.log("secretkey is not null");
                         // key values for checking signature
                         let secretkey = items[0]['secretkey'];
                         let accesskey = req.headers.accesskey;
 
                         // message body values for checking signature
-                        let values = [req.body.id];
+                        let values = [req.headers.params];
+                        console.log("headers.params = " + req.headers.params);
                         
                         // generate the signature using the request values
                         let verified_signature = generateSignature(accesskey, secretkey, values); 
@@ -260,14 +262,15 @@ app.post('/api/getproductbyid', (req, res) => {
                                 console.log("Success: Message Authenticated");
 
                                 // perform the insert of the new product into the DB
-                                db.products.find({
-                                        id: req.body.id
-                                })
+                                db.products.find({'id = ' : req.headers.params})
                                 // server message
                                 .then(console.log("Product Found"))
                                 // send success response to client
-                                .then(items => res.json(items))     
-                                .catch(error => console.error('Error during Insert of New Product: ', error));
+                                .then(products => console.log(products))
+                                //.then(products => JSON.parse(products))
+                                .then(products => JSON.stringify(products))     // not working!
+                                .then(products => res.send(products))
+                                .catch(error => console.error('Error while Getting Product: ', error));
 
                         }
                         else
@@ -275,7 +278,7 @@ app.post('/api/getproductbyid', (req, res) => {
                                 // server message
                                 console.log("Failed: Message Not Authenticated");
                                 // send failure response to client
-                                res.send({"message":"Failed - Message Not Authenticated"});
+                                //res.send({"message":"Failed - Message Not Authenticated"});
                                 // UNAUTHORISED: if token is not verified successfully
                                 res.sendStatus(401);
                         }
