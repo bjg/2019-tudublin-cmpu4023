@@ -3,18 +3,29 @@ const https = require('http');
 const crypto = require('crypto');
 const message='Let me in!';
 const param='';
-const requestType = "GET";
+const requestType = "POST";//This variable can be changed to GET OR POST requests
 
+//Keys of a user from our database.
 var keys ={
     access_key: '39d16617c4055a027a31e5993fd18fad2a7ffdfb',
     secret_key: '2bb0c7df3e998ed86770b2ae9399a689d7d73e7184069d42c4ac3eb98b1d009645ade59ed6f295a6'
 };
 
+//Create a cipher to encrypt the message to be sent
+function encrypt(text){
+  var cipher = crypto.createCipher('AES-128-CBC-HMAC-SHA1', keys.secret_key)
+  var crypted = cipher.update(text + Date.now(),'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+//Encrypt message
+let encryptedMessage = encrypt(message);
+
 //Create a valid signature 
 const hmac = crypto.createHmac('sha256', keys.secret_key);
-//If a message is passed in the request of the body 
+//If a message is passed in the request of the body the tyepe of request is done by method: POST
 if(requestType === 'POST'){
-    hmac.update(message);//Adding message to the hash signature (secret_key + message)
+    hmac.update(encryptedMessage);//Adding message to the hash signature (secret_key + message)
   }
 //If a query parameter is passed in the request of the body 
 if(param !== undefined){
@@ -51,7 +62,7 @@ const options = {
   })
   // write data to request body (POST)
   if(requestType === 'POST'){
-    req.write('{"message":'+'"'+message+'"}');
+    req.write('{"message":'+'"'+encryptedMessage+'"}');
   }
   
   req.end()

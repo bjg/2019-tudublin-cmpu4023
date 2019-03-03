@@ -5,7 +5,13 @@ app.use(bodyParser.urlencoded({
 }))
 app.use(bodyParser.json());
 const crypto = require('crypto');
-
+//Function to decrypt the message sent
+function decrypt(text,secret){
+  var decipher = crypto.createDecipher('AES-128-CBC-HMAC-SHA1', secret)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
 let validateSignature = (req, res, next) => {
   let access_key = req.headers['access_key']; //acces_key is passed in the request
   let signature = req.headers['signature'];//signature is passed in the request
@@ -33,7 +39,11 @@ let validateSignature = (req, res, next) => {
               const calculated_signature = hmac.digest('hex');//generate a valid signature
               // console.log("Computed signature: "+calculated_signature);
               //Compare the passed signature in the request with the calculated hash signature by the server
-              if (signature === calculated_signature) {
+              if (signature === calculated_signature){
+                if(message !== undefined){
+                  //Decrypt message sent
+                  console.log('Decrypted message: ' + decrypt(message,secret));
+                }
                 console.log('---------------------');
                 console.log('Valid signature found');
                 console.log('---------------------');
