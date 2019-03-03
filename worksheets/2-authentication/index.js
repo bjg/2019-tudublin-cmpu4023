@@ -174,7 +174,6 @@ OPEN NEW TERMINAL: node client.js
 */
 
 app.post('/api/addproduct', (req, res) => {
-        
         db.users.find({'accesskey = ' : req.headers.accesskey})
         .then(items => {
                 if(items[0]['secretkey'] != null)
@@ -184,7 +183,7 @@ app.post('/api/addproduct', (req, res) => {
                         let accesskey = req.headers.accesskey;
 
                         // message body values for checking signature
-                        let values = [req.body.title, req.body.price];
+                        let values = req.body.msg;
                         
                         // generate the signature using the request values
                         let verified_signature = generateSignature(accesskey, secretkey, values); 
@@ -196,8 +195,8 @@ app.post('/api/addproduct', (req, res) => {
 
                                 // perform the insert of the new product into the DB
                                 db.products.insert({
-                                        title: req.body.title,
-                                        price: req.body.price
+                                        title: req.query.title,
+                                        price: req.query.price
                                 })
                                 // server message
                                 .then(console.log("Product Added Successfully"))
@@ -212,8 +211,7 @@ app.post('/api/addproduct', (req, res) => {
                                 console.log("Failed: Message Not Authenticated");
                                 // send failure response to client
                                 res.send({"message":"Failed - Message Not Authenticated"});
-                                // UNAUTHORISED: if token is not verified successfully
-                                res.sendStatus(401);
+                                //res.sendStatus(401);
                         }
                 }
                 else    // not an valid accesskey
@@ -226,22 +224,25 @@ app.post('/api/addproduct', (req, res) => {
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
 });
 
+
 /* 
 ### GET A PRODUCT BY ID - PROTECTED BY HMAC
 OPEN NEW TERMINAL: node client.js
 */
 
 app.get('/api/getproductbyid', (req, res) => {
+        // find the user whose accesskey has been sent as part of the request
         db.users.find({'accesskey = ' : req.headers.accesskey})
         .then(items => {
+                // if the user's secretkey has been found in the DB
                 if(items[0]['secretkey'] != null)
                 {
-                        // key values for checking signature
+                        // prepare the key values for checking signature
                         let secretkey = items[0]['secretkey'];
                         let accesskey = req.headers.accesskey;
 
-                        // message body values for checking signature
-                        let values = [req.headers.params];
+                        // get req.body message for checking signature
+                        let values = req.headers.msg;
                         
                         // generate the signature using the request values
                         let verified_signature = generateSignature(accesskey, secretkey, values);
@@ -253,7 +254,7 @@ app.get('/api/getproductbyid', (req, res) => {
                                 console.log("Success: Message Authenticated");
 
                                 // perform the insert of the new product into the DB
-                                db.products.find({'id = ' : req.headers.params})
+                                db.products.find({'id = ' : req.query.id})
                                 // send success response to client
                                 .then(products => res.json(products))
                                 // server success message
@@ -264,13 +265,13 @@ app.get('/api/getproductbyid', (req, res) => {
                         }
                         else
                         {
-                                // server message
+                                // server error message
                                 console.log("Failed: Message Not Authenticated");
                                 // UNAUTHORISED: if token is not verified successfully
                                 res.sendStatus(401);
                         }
                 }
-                else    // not an valid accesskey
+                else    // no valid accesskey found in the DB
                 {
                         // send failure response to client
                         res.send("Invalid Access Key");
@@ -279,6 +280,7 @@ app.get('/api/getproductbyid', (req, res) => {
         // server error message
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
 });
+
 
 // #####################################################################################################
 // FUNCTIONS - verifyToken, generateSignature
@@ -312,16 +314,13 @@ function verifyToken(req, res, next)
 }
 
 
-// function to generate the signature with HMAC using (accesskey, secretkey, payload[objects])
-function generateSignature(akey, skey, payload = [''])
+// function to generate the signature with HMAC using (accesskey, secretkey, body.msg)
+function generateSignature(akey, skey, msgBody)
 {
-        // concatenate value for hashing
-        key = akey + skey;
-        payload.forEach(item => {
-                key += item;
-        });
-
-        // generate hash with HMAC
+        // concatenate values for hashing
+        key = akey + skey + msgBody;
+        
+        // generate hash_signature with HMAC
         let hmac = crypto.createHmac('sha256', key);
         return hmac.digest('hex');
 }
