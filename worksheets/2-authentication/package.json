@@ -1,14 +1,20 @@
 {
-  "name": "2-authentication",
+  "name": "lab-1-ead.sequelize",
   "version": "1.0.0",
-  "description": "Add any additional documentation here...",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Jonathan Noble",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "massive": "^5.7.7",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "pg-monitor": "^1.1.0"
   }
 }
