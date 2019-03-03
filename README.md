@@ -29,3 +29,7 @@ A node directory that runs the client source that creates a command line interfa
 	* The client contructs an auth token with a timestamp, access key and a HTTP header. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and a list of products are recieved.
 * postProductsHMAC
 	* The client contructs an auth token with a timestamp, access key, a HTTP header and the request body. This is then encoded via the previously generated secret key. When the server recieves the request, it too will generate a token using the same parameters and secret key as the client. If both tokens match, the user is valid and new product (sent within the POST body) is added to the database.
+
+## db.sql
+
+An SQL script that creates the necessary DB tables for Part 1 and Part 3.
