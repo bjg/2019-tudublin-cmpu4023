@@ -103,7 +103,7 @@ app.post('/login', (req, res) => {
         if(!user[0].length){
             res.sendStatus(401);
         }else{      
-            jwt.sign({user: user[0]}, secret, {expiresIn: '1h'}, (err, token) => {
+            jwt.sign({user: user[0]}, secret, {expiresIn: '1h', issuer: req.body.username}, (err, token) => {
                 getUser(req.body.username, req.body.password)
                     .then((user) => {
 
