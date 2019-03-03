@@ -166,6 +166,7 @@ app.post('/hmac-video-games', (req, res) => {
 });
 
 //exchanges secret without revealing it to observers
+//NOT PART OF ASSIGNMENT, JUST AUTOMATES THE TESING
 app.post('/hmac-key', (req, res) => {
 	let user_id;
 	app.get("db").verify_user(req.body.username, req.body.password)

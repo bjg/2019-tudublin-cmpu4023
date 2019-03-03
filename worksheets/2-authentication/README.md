@@ -8,9 +8,9 @@ if the details are correct.
 
 ### Success
 
-	```bash
-		curl -i --data "username=me&password=mypass" http://localhost:3000/login
-	```
+```bash
+	curl -i --data "username=me&password=mypass" http://localhost:3000/login
+```
 
 	HTTP/1.1 200 OK
 	X-Powered-By: Express
@@ -27,9 +27,9 @@ if the details are correct.
 	
 ### Failure
 	
-	```bash
-		curl -i --data "username=me&password=mypa2" http://localhost:3000/login
-	```	
+```bash
+	curl -i --data "username=me&password=mypa2" http://localhost:3000/login
+```	
 	
 	HTTP/1.1 401 Unauthorized
 	X-Powered-By: Express
@@ -47,9 +47,9 @@ Returns a list of video-games if the client has a valid jwt.
 
 ### Success
 
-	```bash
-		curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUKdyOPuagFA" -X GET http://localhost:3000/video-games
-	```	
+```bash
+	curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUKdyOPuagFA" -X GET http://localhost:3000/video-games
+```	
 	
 	HTTP/1.1 200 OK
 	X-Powered-By: Express
@@ -64,9 +64,9 @@ Returns a list of video-games if the client has a valid jwt.
 	
 ### Failure
 
-	```bash
-		curl -i -H "Accept: application/json" -H "Cookie: token=notreallyajwt" -X GET http://localhost:3000/video-games
-	```	
+```bash
+	curl -i -H "Accept: application/json" -H "Cookie: token=notreallyajwt" -X GET http://localhost:3000/video-games
+```	
 	
 	HTTP/1.1 401 Unauthorized
 	X-Powered-By: Express
@@ -84,9 +84,9 @@ Returns a list of video-games if the client has a valid jwt AND the subject of t
 
 ### Success
 
-	```bash
-		curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUKdyOPuagFA" --data "title=test%20game&rating=5.5&price=25" http://localhost:3000/video-games
-	```	
+```bash
+	curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUKdyOPuagFA" --data "title=test%20game&rating=5.5&price=25" http://localhost:3000/video-games
+```	
 	
 	HTTP/1.1 201 Created
 	X-Powered-By: Express
@@ -102,9 +102,9 @@ Returns a list of video-games if the client has a valid jwt AND the subject of t
 
 In this example the signature is invalidated by deleting a few base64 characters
 
-	```bash
-		curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUK" --data "title=test%20game&rating=5.5&price=25" http://localhost:3000/video-games
-	```	
+```bash
+	curl -i -H "Accept: application/json" -H "Cookie: token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NTE2MTU4NDYsImV4cCI6MTU1MTYxOTQ0NiwiYXVkIjoibG9jYWxob3N0IiwiaXNzIjoibG9jYWxob3N0Iiwic3ViIjoibWUifQ.HRnUItGYHZqyrAp_tqjiDAgpgo8UkyG5B_DWrIkJLqhhxdZn06dPTga2aBynJu_U3VMEDMdHJPpfa-nuQ95SUCbYkdxicA5bxtRVoTZbyzycuMNz-xeQNxMN0oyeAWykc2bqIC2FTHtNHNVR1SbMNiIVOOFjVdh7qqZ12pBrz_L-aRvTjq04tB-ixMhQoPY8JK0yX1fqIzloH5-RjDqrqM0NNcFfjsU48I0sw3dBLyxaVzY0ChFzwao6GBgLXnFDaOzhOKEUnM9fRz6pD2OAXYgaq5x08-25J5vDRGmFZnIl6sWHAaWJ5jJ_6vydYj96-TiDFN3ASjGUK" --data "title=test%20game&rating=5.5&price=25" http://localhost:3000/video-games
+```	
 	
 	HTTP/1.1 401 Unauthorized
 	X-Powered-By: Express
