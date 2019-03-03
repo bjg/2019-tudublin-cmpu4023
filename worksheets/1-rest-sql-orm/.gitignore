@@ -1,0 +1,3 @@
+massiveApp/node_modules/*
+sequelizeApp/node_modules/*
+zmisc/*
