@@ -276,6 +276,7 @@ app.get('/api/getproductbyid', (req, res) => {
                         res.send("Invalid Access Key");
                 }  
         })
+        // server error message
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
 });
 
