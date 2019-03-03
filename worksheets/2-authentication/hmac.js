@@ -1,6 +1,7 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 const massive = require('massive');
+const crypto = require('crypto');
 const app = express();
 const port = 3000;
 
@@ -17,27 +18,26 @@ massive({
 
     app.set('db', instance);
 
-    // authentication endpoint
-    app.post('/api/login', (req, res) => {
+    app.post('/api/products', (req, res) => {
 
-        req.app.get('db').query (
-            "SELECT id, username \
-             FROM \"Users\" \
-             WHERE username = ${username} \
-             AND password = crypt(${password}, password);",
-            {
-                username: req.body.username,
-                password: req.body.password
-            }
-        ).then(users => {
+        const ACCESS_KEY = 'uj&7AK6^A#e|R,Vn[m$A'
+        const SECRET_KEY = 'uj&7AK6^A#e|R,Vn[m$A=^B;aaAb@{c]3@n=pnZW'
 
-            res.send("works");
+        const hash = crypto.createHmac('sha256', ACCESS_KEY).update(SECRET_KEY).digest('hex')
 
-        }); 
+        if(hash === req.headers['authorization']) {
+            
+            req.app.get('db').query (
+                "SELECT * FROM \"Products\""
+            ).then(products => {
+                res.json(products);
+            })
 
-    });
-
-    app.get('/api/products', (req, res) => {
+        } else {
+            res.status(403).json({
+                Status: 'Forbidden'
+            });
+        }
 
     });
     
