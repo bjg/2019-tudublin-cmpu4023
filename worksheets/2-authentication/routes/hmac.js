@@ -2,11 +2,6 @@ const express = require('express');
 const crypto = require('crypto');
 const router = express.Router();
 
-/*
-    access_key = 4313396EE85C7E8466883FE4A39BEDC0F0EE1C44BA123 // 45 length 160 bits
-    secret_key = 1847AB149BB3BDE88F33865DDF5BAEE6C2A0B9261DD2D39D53B1931F03486EEA785783239913FADD // 80 length 320 bits
-*/
-
 router.post('/', (req, res) => {
     console.log(JSON.stringify(req.body));
 

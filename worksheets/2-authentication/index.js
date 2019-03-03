@@ -14,30 +14,6 @@ app.use("/login", require("./routes/login"));
 app.use("/hmac", require("./routes/hmac"));
 
 
-/*
-    use create.sql to setup the db and insert a user with the email [doop@doop.com] and password [password]
-
-    TO VERIFY ROUTE NEEDS KEY:
-    curl -X GET \
-      http://localhost:3000/ \
-      -H 'cache-control: no-cache'
-
-    TO LOGIN:
-        curl -X POST \
-          http://localhost:3000/login/ \
-          -H 'Content-Type: application/x-www-form-urlencoded' \
-          -H 'cache-control: no-cache' \
-          -d 'email=doop%40doop.com&password=password'
-
-    TO VERIFY KEY WORKS:
-    curl -X GET \
-      http://localhost:3000/ \
-      -H 'Authorization: Bearer [KEY GENERATED FROM PREVIOUS REQUEST' \
-      -H 'Content-Type: application/x-www-form-urlencoded' \
-      -H 'cache-control: no-cache'
-
- */
-
 massive({
     host: '127.0.0.1',
     port: 5432,
