@@ -4,10 +4,10 @@ const massive = require("massive");
 const bodyParser = require("body-parser");
 const CryptoJS = require("crypto-js");
 const Base64 = require("crypto-js/enc-base64");
-
 const app = express();
 app.use(bodyParser.json());
 
+//Connect to db
 massive({
     host: '127.0.0.1',
     port: 5432,
@@ -40,7 +40,7 @@ function authenticate(req, res, next) {
     key = header.slice(16,20);
     signature = header.slice(32,);
     console.log(key);
-
+        //Query db to check if a match exists
         instance.query(
             "SELECT public, secret from users where public = '"+key+"';"
         ).then(users => {
@@ -49,15 +49,15 @@ function authenticate(req, res, next) {
             access_key = users[0].public;
             secret_key = users[0].secret;
             yeet = req.body.value;
-
             test = "http://" + req.headers.host + req.url;
 
             const data = `${test}${yeet}${access_key}`;
             const signature = CryptoJS.HmacSHA256(data, secret_key);
-            new_title = `HMAC-SHA256 Key=${access_key} Signature=${Base64.stringify(signature)}`;
+            var test = `HMAC-SHA256 Key=${access_key} Signature=${Base64.stringify(signature)}`;
 
-            if(new_title == req.headers.authorization){
-                console.log(new_title);
+            if(test == req.headers.authorization){
+                console.log(test);
+
                 next();
             }
             else{

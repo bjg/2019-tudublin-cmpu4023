@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 router.use(bodyParser.urlencoded({ extended: false}));
 router.use(bodyParser.json());
-
 const app = express();
 
 massive({
@@ -59,6 +58,7 @@ massive({
     })
     });
 
+    // login to get the jwt token
   app.post("/login", function(req, res){
       var username = req.query.user;
       var password = req.query.pass;
