@@ -1,7 +1,7 @@
 CREATE TABLE users
 (
  id INTEGER NOT NULL,
- user_name CHARACTER VARYING(100),
+ user_name CHARACTER VARYING(100) UNIQUE,
  password CHARACTER VARYING(255),
  -- key stored in base64 where 160 bits can be represented by 28 base64 characters
  access_key CHARACTER VARYING(28),
