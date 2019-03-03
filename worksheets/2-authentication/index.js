@@ -2,6 +2,8 @@ const express = require("express");
 const massive = require("massive");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
+const crypto = require("crypto");
+const bodyParser = require('body-parser');
 
 const privKey  = fs.readFileSync('./id_rsa', 'utf8');
 const pubKey  = fs.readFileSync('./id_rsa.pub', 'utf8');
@@ -9,6 +11,7 @@ const pubKey  = fs.readFileSync('./id_rsa.pub', 'utf8');
 const app = express();
 const port = 3000;
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 massive ({
@@ -20,6 +23,10 @@ massive ({
 }).then(instance => {
 	app.set("db", instance)
 });
+
+/*******
+ * JWT *
+ *******/
 
 function verifyToken(req, res, next) {
 	const token = req.headers.authorization;
@@ -45,7 +52,7 @@ function verifyToken(req, res, next) {
 app.get("/login", (req, res) => {
 	const username = req.query.username;
 	const password = req.query.password;
-	await console.log(`Received /login request ${username} ${password}`);
+	console.log(`Received /login request ${username} ${password}`);
 
 	if (!username || !password) {
 		res.status(400).send("Must provide username and password");
@@ -78,4 +85,52 @@ app.get("/login", (req, res) => {
 app.get("/products", verifyToken, (req, res) => {
 	console.log(`Received /products request`);
 	res.sendStatus(200);
+});
+
+/********
+ * HMAC *
+ ********/
+
+function verifyHmac(req, res, next) {
+	const accessKey = req.headers.authorization;
+	const clientHmac = req.headers.hmac;
+	const timestamp = req.headers.timestamp;
+	const message = req.body.message;
+	console.log("Verifying client hmac: " + clientHmac);
+
+	req.app.get("db").query(
+		`select secret_key from users where access_key='${accessKey}'`
+	).then(users => {
+		const secretKey = users[0].secret_key.toString();
+		// HMAC is performed on a combination of the access key, message and timestamp.
+		const combined = accessKey + message + timestamp;
+		console.log(combined);
+		const serverHmac = crypto.createHmac("sha256", secretKey).update(combined).digest("hex");
+		console.log("Generated server-side hmac: " + serverHmac);
+		if (serverHmac == clientHmac) {
+			return next();
+		}
+		console.log("Failed to verify user");
+		res.status(401);
+		next("HMAC hash did not match");
+	});
+}
+
+// Add a new product.
+// Protected by HMAC.
+app.post("/products-hmac", verifyHmac, (req, res) => {
+	console.log(`Received /products-hmac request`);
+	const message = req.body.message;
+
+	product = JSON.parse(message);
+
+	req.app.get("db").query(
+		`insert into products(name, price) values('${product.name}', ${product.price})`
+	).then(() => {
+		console.log("New product inserted: " + product.name + " " + product.price);
+		res.sendStatus(200);
+	}).catch(err => {
+		console.log(err);
+		res.sendStatus(400);
+	});
 });

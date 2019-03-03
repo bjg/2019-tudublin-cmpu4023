@@ -7,8 +7,10 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS products;
 
 CREATE TABLE users (
-	username PRIMARY KEY TEXT,
-	hashed_password TEXT
+	username TEXT PRIMARY KEY,
+	hashed_password TEXT,
+	access_key bytea,
+	secret_key bytea
 );
 
 CREATE TABLE products (
@@ -40,9 +42,8 @@ ON users
 FOR EACH ROW EXECUTE PROCEDURE hash_password_func();
 
 -- Add some test data.
-INSERT INTO USERS VALUES(101, 'red', 'password');
-INSERT INTO USERS VALUES(102, 'blue', 'otherpassword');
+INSERT INTO USERS VALUES('red', 'password', 'HB^YErkC}1I@x$nPWoj1', 'yo?rW#_$l[v_ZEa],.!UEvqY)0YJr_`)RpXJ%=&6');
+INSERT INTO USERS VALUES('blue', 'otherpassword', 'OsIU}+cjsK;hAG3alLd8', '-aK.2FipjVVz%Gy*e^v,v0P]fP8ns;{9MNmFh!B>');
 
 INSERT INTO PRODUCTS VALUES(201, 'apple', '1.00');
 INSERT INTO PRODUCTS VALUES(202, 'banana', '10.00');
-
