@@ -101,7 +101,6 @@ app.get('/api/login', (req, res) => {
 // ROUTES - PROTECTED BY JSON WEB TOKEN
 // #####################################################################################################
 
-
 /* 
 ### DISPLAY ALL PRODUCTS - PROTECTED BY JSON WEB TOKEN
 GET : http://localhost:3000/api/products
@@ -168,7 +167,6 @@ app.put('/api/products', verifyToken, (req, res) => {
 // #####################################################################################################
 // ROUTES - PROTECTED BY HMAC
 // #####################################################################################################
-
 
 /* 
 ### CREATE A NEW PRODUCT - PROTECTED BY HMAC
@@ -285,8 +283,7 @@ app.get('/api/getproductbyid', (req, res) => {
 // FUNCTIONS - verifyToken, generateSignature
 // #####################################################################################################
 
-
-// Function to verify token provided in request for protected resources
+// function to verify token provided in request for protected resources
 function verifyToken(req, res, next)
 {
         // Note: Format of Token = Authorisation: Bearer <access_token>
@@ -317,11 +314,13 @@ function verifyToken(req, res, next)
 // function to generate the signature with HMAC using (accesskey, secretkey, payload[objects])
 function generateSignature(akey, skey, payload = [''])
 {
+        // concatenate value for hashing
         key = akey + skey;
         payload.forEach(item => {
                 key += item;
         });
 
+        // generate hash with HMAC
         let hmac = crypto.createHmac('sha256', key);
         return hmac.digest('hex');
 }

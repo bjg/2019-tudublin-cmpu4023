@@ -30,11 +30,13 @@ let action = {
 // function to generate the signature with HMAC using (accesskey, secretkey, payload[objects])
 function generateSignature(akey, skey, payload = [''])
 {
+        // concatenate value for hashing
         key = akey + skey;
         payload.forEach(item => {
                 key += item;
         });
 
+        // generate hash with HMAC
         let hmac = crypto.createHmac('sha256', key);
         return hmac.digest('hex');
 }
