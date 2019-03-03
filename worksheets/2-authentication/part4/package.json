@@ -1,0 +1,33 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "hmac": "nodemon server.js",
+    "clienthmac": "nodemon client.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.4",
+    "hjs": "0.0.6",
+    "hogan-middleware": "^0.2.2",
+    "jsonwebtoken": "^8.4.0",
+    "ofuda": "^0.3.1",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "pg-monitor": "^1.1.0",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}
