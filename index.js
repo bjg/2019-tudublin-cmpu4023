@@ -190,7 +190,7 @@ massive({
                 res.sendStatus(401);
             } else {
                 //If toke verifies get data and wait for repsonse before sending
-				responseData = await req.app.get("db").query("UPDATE userraccount SET product_title = 'UPDATED' WHERE id = '" + req.body.title + "';");
+				responseData = await req.app.get("db").query("UPDATE useraccount SET product_title = 'UPDATED' WHERE id = '" + req.body.title + "';");
 				res.status(200).send(responseData);
 				//res.status(200).send(await req.app.get("db").query("select * from products limit 1;"));
                 console.log('SUCCESS');
@@ -208,17 +208,12 @@ massive({
 	/*
 	To test this API instead of creating a client, I used postman and generated signitures to send locally here. It works perfectly
 	
-	//THIS IS USED FOR GETTING A SIGNITURE THAT I CAN USE IN POSTMAN TO SEND
-	//ACCESS KEY ssUGTLMjhIa22EtwRuoc7c0d0w2U7QdQicbCYpph
-	//SECRET KEY 6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8
-	//FOR USER1
-	
 	////This section below should occur on the clients side that is how the signature is generated and send along with the access key in the request
 	//// First the secret key is hashed then updated with the body of the request
 	
-	var hmac=crypto.createHmac('sha256', '6O46qgwzMSkk9n1fQTljIhsOFi8ei5vKdxSnHqwED4FOAQFPUi1pPexGJxyufRaSB0eFNQ70OFbKdip8')
+	var hmac=crypto.createHmac('sha256', secretkey)
     hmac.update('{"product_title":"Desktop Computer"}');
-    console.log('Sig: ' + hmac.digest('hex'));
+    console.log('Signature: ' + hmac.digest('hex'));
 	
 	/////////////////////////////////////////////
 	
@@ -238,15 +233,38 @@ massive({
 		
 	*/
 	
+	//The code below generate and logs the scecret, accesskey and also the signature generated.
+	//This can be used in postman to send a valid request
+	//The database is also updated every time
+	
+	const accesskey = crypto.randomBytes(20);
+	console.log("accesskey :  " + accesskey.toString('hex'));
+	const secretkey = crypto.randomBytes(40);
+	console.log("secret key that is used for hashing :  " + secretkey.toString('hex'));
+	console.log(typeof secretkey.toString('hex'))
+	
+	var hmac=crypto.createHmac('sha256', secretkey.toString('hex'))
+    hmac.update('{"product_title":"Desktop Computer"}');
+    console.log('Signature: ' + hmac.digest('hex'));
+	
+	app.get("db").query("UPDATE useraccount SET accesskey ='" + accesskey.toString('hex') + "', secretkey = '" + secretkey.toString('hex') + "'WHERE id = '" + 1 + "';");
+	
+	
 	app.get('/protectedRoute', (req, res) => {
                 if (req.headers.accesskey && req.headers.signature && req.body) {
                         query = "SELECT secretkey from useraccount where accesskey='" + req.headers.accesskey + "';";
                         req.app.get('db').query(query).then(result => {
                                 console.log(result)
+								
+								if(result[0] == null){
+									res.status(401).send('Error connection insure signature and access key are attached in the header of request')
+									return
+								}
                                 var secret = result[0]['secretkey']
 								secret = secret.trim()
                                 var hmac = crypto.createHmac('sha256', String(secret));
                                 hmac.update(JSON.stringify(req.body));
+								//console.log(JSON.stringify(req.body))
                                 localSig = hmac.digest('hex')
                                 if (localSig === req.headers.signature) {
                                         console.log("Connecting users signature matched the databases stored one")
