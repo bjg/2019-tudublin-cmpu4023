@@ -48,11 +48,12 @@ const hmacAuthentication = (req, res, next) => {
     const access_key = authArray[3].slice(0, -1);
     //Get the message from the body
     const message = req.body.message;
-
+    //Logging just for Debug
     console.log(`Message ${message}`);
     console.log(`Access Key ${access_key}`);
     console.log(`The extracted hmac is ${hmac}`);
-
+    //Get the secret key from the database and create a new HMAC
+    //Compare the new HMAC to the OLD
     massive(config).then(db => {
         db.query(`Select secret_key from Users_extended where access_key = $1;`, [access_key])
             .then(record => {
@@ -69,7 +70,6 @@ const hmacAuthentication = (req, res, next) => {
                 }
             }).catch(err => console.log(err));
     });
-
     next();
 };
 
@@ -78,6 +78,7 @@ app.get('/', (req, res, next) => {
     res.render('client');
 });
 
+//Protected route requireing HMAC Authentication
 app.post("/authenticateMessage", hmacAuthentication, (req, res, next) => {
     res.sendStatus(200);
 });

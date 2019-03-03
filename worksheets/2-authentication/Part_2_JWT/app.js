@@ -1,7 +1,10 @@
-/*
-* I MIGHT HAVE OVERCOMPLICATED THIS A LITTLE BIT
+/*Worksheet 2 - AUTHENTICATION
+*   PART 2 - JSON Web Tokens
+*   Submitted By: Dimiter Dinkov
+*   Student Number: c15334276
+* I MIGHT HAVE OVERCOMPLICATED THIS A BIT
 * */
-/*
+
 //environmental variables
 const {
     PORT = 3000,
@@ -42,9 +45,7 @@ app.set("view engine", "ejs");
 app.use(bp.json());
 app.use(bp.urlencoded({extends: false}));
 
-
-//Configre massive so it connects to the database
-massive({
+const config = {
     host: "127.0.0.1",
     port: 5432,
     database: "worksheet2",
@@ -52,106 +53,78 @@ massive({
     ssl: false,
     poolSize: 10,
     password: "mitkodi123"
-})
-    .then(db => {
-        //Home route - Loads Login page
-        app.get("/", (req, res, next) => {
-            res.render("login");
-        });
-        //Redirect for the user's login authentication
-        app.post("/login", (req, res, next) => {
-            //get the username and password that is being posted
-            const username = req.body.username;
-            const password = req.body.password;
-            //Check if a user with the username and corresponding password exists
-            //return a user object if  the user is found
-            db.query("SELECT * FROM USERS WHERE USERNAME = $1 AND PASSWORD = crypt($2,PASSWORD)", [username, password])
-                .then(user => {
-                    //Check if the user exists
-                    if (Object.keys(user) === 0) {
-                        //If the user is does not exist return 401 error
-                        res.json({
-                            message: "User Not Found",
-                            statusCode: 401
-                        });
-                    } else {
-                        //sign a jwt with the user which expires after 24 hours
-                        jwt.sign({
-                            exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),//set token to expire after 24 hours
-                            user //user object
-                        }, JWTKEY, (err, token) => {
-                            //Redirect the user to the products page
-                            //Passing the jwt token and username through the query string to be authenticated by the products page middleware function
-                            res.redirect(`/products?token=${token}&userID=${username}`);
-                        })
-                    }
-                }).catch(error => {
-                console.log(error);
-            })
-        });
-
-        //Products page displays a list of all the products available
-        //Middle ware authenticateToken function checks if a token exists and if it was created for this user
-        app.get("/products", authenticateToken, (req, res, next) => {
-            db.query("Select * from products").then(products =>{
+};
+//Configre massive so it connects to the database
+massive(config).then(db => {
+    //Home route - Loads Login page
+    app.get("/", (req, res, next) => {
+        res.render("login");
+    });
+    //Redirect for the user's login authentication
+    app.post("/login", (req, res, next) => {
+        //get the username and password that is being posted
+        const username = req.body.username;
+        const password = req.body.password;
+        //Check if a user with the username and corresponding password exists
+        //return a user object if  the user is found
+        db.query("SELECT * FROM USERS WHERE USERNAME = $1 AND PASSWORD = crypt($2,PASSWORD)", [username, password]).then(user => {
+            //Check if the user exists
+            if (Object.keys(user) === 0) {
+                //If the user is does not exist return 401 error
                 res.json({
-                    products
-                })
-            }).catch(err =>{
-                console.log(err);
-            })
-        });
-    })
-    .catch(error => console.log(error));
-
-//Functions to authenticate the JWT token and user
-//because you cannot redirect and pass data directly through the headers I made 2 options for this authentication function
-// Option1: Token and userID are passed through query string
-// Option2: Works with postman and similar API querying tools and extracts token from header field
-const authenticateToken = (req, res, next) => {
-    console.log(`Request Coming in from ${req.url}`);
-    //if a session already exists then just let the user through, otherwise create the session
-    if(typeof req.session.token !== 'undefined' && typeof req.session.userID !=='undefined'){
-        next();
-    }else {
-        //If the query string is not empty that means the token and user ID are passed through the query string
-        if (Object.keys(req.query).length !== 0) {
-            //Check if the token and userID exist
-            if (typeof req.query.token !== 'undefined' || typeof req.query.userID !== 'undefined') {
-                //Decode the JWT token
-                const token = req.query.token.toString();
-                const uname = req.query.userID.toString();
-                jwt.verify(token, JWTKEY, (err, userAuth) => {
-                    if (err) {
-                        res.json({
-                            status: 401,
-                            message: "Error occured when trying to verify the token"
-                        });
-                    } else {
-                        //If the username from the decoded token matches that of the userID create a session
-                        if (userAuth.user[0].username === uname) {
-                            req.session.token = req.query.token;
-                            req.session.userID = req.query.userID;
-                            next();
-                        } else {
-                            res.json({
-                                status: 401,
-                                message: "Token was not signed by the same user"
-                            })
-                        }
-                    }
+                    message: "User Not Found",
+                    statusCode: 401
                 });
             } else {
-                res.json({
-                    status: 401,
-                    message: "Token or user not found"
+                //sign a jwt with the user which expires after 24 hours
+                jwt.sign({
+                    exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),//set token to expire after 24 hours
+                    user //user object
+                }, JWTKEY, (err, token) => {
+                    //Create a session
+                    req.session.token = token;
+                    req.session.userID = username;
+                    //Redirect the user to the products page
+                    res.redirect(`/products`);
                 })
             }
-        } else {
-            //check if header fields exists and if they dont then redirect the user to login
-            if (typeof req.headers['Authorization'] === 'undefined' || typeof req.headers['userID'] === 'undefined') {
-                res.redirect('/');
+        }).catch(error => console.log(error));
+    });
+    //Products page displays a list of all the products available
+    //Middle ware authenticateToken function checks if a token exists and if it was created for this user
+    app.get("/products", authenticateToken, (req, res, next) => {
+        db.query("Select * from products").then(products => {
+            res.json({
+                products
+            })
+        }).catch(err => {
+            console.log(err);
+        })
+    });
+}).catch(error => console.log(error));
+
+//Functions to authenticate the JWT token and user
+// Checks if a session is already made and if it has, then the user is allowed to the /products route
+//If the session is not made, it extracts the authorization token from the header fields and verifies it
+//ALSO Works with postman and similar API querying tools and extracts token from header field
+const authenticateToken = (req, res, next) => {
+    //if a session already exists then just let the user through, otherwise create the session
+    if (typeof req.session.token !== 'undefined' && typeof req.session.userID !== 'undefined') {
+        jwt.verify(req.session.token, JWTKEY, (err, userAuth) => {
+            if (err) {
+                res.json({
+                    status: 401,
+                    message: "Error occured when trying to verify the token"
+                });
+            } else {
+                next();
             }
+        });
+    } else {
+        //check if header fields exists and if they dont then redirect the user to login
+        if (typeof req.headers['Authorization'] === 'undefined' || typeof req.headers['userID'] === 'undefined') {
+            res.redirect('/');
+        } else {
             //extract the bearer token and the username
             const bearerHeader = req.headers['Authorization'];
             const userHeader = req.headers['User'];
@@ -191,12 +164,10 @@ const authenticateToken = (req, res, next) => {
         }
     }
 };
+app.listen(PORT, () => console.log("http://127.0.0.1:3000"));
 
-app.listen(PORT, () => {
-    console.log("http://127.0.0.1:3000");
-});
-*/
-
+/*
+//REALLY SIMPLIFIED VERSION OF THE APP ABOVE
 //modules
 const express = require("express");
 const app = express();
@@ -217,23 +188,23 @@ const user ={
     password:'hello'
 };
 
-massive(config).then(db => {
-    app.get('/',(req,res)=>{
-        res.send("Hello world");
-    });
-    app.get('/getToken',(req,res)=>{
-        jwt.sign({
-            exp:Math.floor(Date.now() / 1000) + (60 * 60 * 24),
-            user
-        },'secret-key',(err,token)=>{
-            console.log(token);
-            res.redirect(`/protected?token=${token}`);
-        })
-    });
-    app.get('/protected',verifyToken,(req,res)=>{
-        res.send('Welcome to protected page');
-    });
-}).catch(err=>console.log(err));
+
+app.get('/',(req,res)=>{
+    res.send("Hello world");
+});
+app.get('/getToken',(req,res)=>{
+    jwt.sign({
+        exp:Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+        user
+    },'secret-key',(err,token)=>{
+        console.log(token);
+        res.redirect(`/protected?token=${token}`);
+    })
+});
+app.get('/protected',verifyToken,(req,res)=>{
+    res.send('Welcome to protected page');
+});
+
 
 const verifyToken= (req,res,next)=>{
     const token = req.query.token;
@@ -248,3 +219,4 @@ const verifyToken= (req,res,next)=>{
 
 app.listen(3000,console.log("http://127.0.0.1:3000"));
 
+*/
