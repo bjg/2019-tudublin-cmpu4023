@@ -239,7 +239,6 @@ OPEN NEW TERMINAL: node client.js
 */
 
 app.get('/api/getproductbyid', (req, res) => {
-        console.log(req);
         db.users.find({'accesskey = ' : req.headers.accesskey})
         .then(items => {
                 if(items[0]['secretkey'] != null)
@@ -254,22 +253,22 @@ app.get('/api/getproductbyid', (req, res) => {
                         console.log("headers.params = " + req.headers.params);
                         
                         // generate the signature using the request values
-                        let verified_signature = generateSignature(accesskey, secretkey, values); 
+                        let verified_signature = generateSignature(accesskey, secretkey, values);
+                        let temp; 
                         
                         // check if both signatures match
                         if (verified_signature == req.headers.signature)
                         {
+                                // server success message
                                 console.log("Success: Message Authenticated");
 
                                 // perform the insert of the new product into the DB
                                 db.products.find({'id = ' : req.headers.params})
-                                // server message
-                                .then(console.log("Product Found"))
                                 // send success response to client
-                                .then(products => console.log(products))
-                                //.then(products => JSON.parse(products))
-                                .then(products => JSON.stringify(products))     // not working!
-                                .then(products => res.send(products))
+                                .then(products => res.json(products))
+                                // server success message
+                                .then(console.log("Product Found"))
+                                // catch db.find errors
                                 .catch(error => console.error('Error while Getting Product: ', error));
 
                         }
