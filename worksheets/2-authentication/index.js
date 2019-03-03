@@ -160,9 +160,11 @@ app.put('/api/products', verifyToken, (req, res) => {
                                         .then(items => {
                                                 res.sendStatus(200);
                                         })
+                                        // server error message
                                         .catch(error => console.error('Error in UPDATING product: ', error));
                                 }
                         })
+                        // server error message
                         .catch(error => console.error('Error in finding product to UPDATE: ', error));
 
                 }
@@ -212,7 +214,7 @@ app.post('/api/addproduct', (req, res) => {
                         }
                         else
                         {
-                                // server message
+                                // server error message
                                 console.log("Failed: Message Not Authenticated");
                                 // send failure response to client
                                 res.send({"message":"Failed - Message Not Authenticated"});
@@ -228,6 +230,7 @@ app.post('/api/addproduct', (req, res) => {
                 }
                 
         })
+        // server error message
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
                         
         
@@ -243,18 +246,15 @@ app.get('/api/getproductbyid', (req, res) => {
         .then(items => {
                 if(items[0]['secretkey'] != null)
                 {
-                        console.log("secretkey is not null");
                         // key values for checking signature
                         let secretkey = items[0]['secretkey'];
                         let accesskey = req.headers.accesskey;
 
                         // message body values for checking signature
                         let values = [req.headers.params];
-                        console.log("headers.params = " + req.headers.params);
                         
                         // generate the signature using the request values
                         let verified_signature = generateSignature(accesskey, secretkey, values);
-                        let temp; 
                         
                         // check if both signatures match
                         if (verified_signature == req.headers.signature)
@@ -267,7 +267,7 @@ app.get('/api/getproductbyid', (req, res) => {
                                 // send success response to client
                                 .then(products => res.json(products))
                                 // server success message
-                                .then(console.log("Product Found"))
+                                .then(products => console.log("Product Found"))
                                 // catch db.find errors
                                 .catch(error => console.error('Error while Getting Product: ', error));
 
@@ -276,8 +276,6 @@ app.get('/api/getproductbyid', (req, res) => {
                         {
                                 // server message
                                 console.log("Failed: Message Not Authenticated");
-                                // send failure response to client
-                                //res.send({"message":"Failed - Message Not Authenticated"});
                                 // UNAUTHORISED: if token is not verified successfully
                                 res.sendStatus(401);
                         }
@@ -298,7 +296,7 @@ function verifyToken(req, res, next)
 {
         // Note: Format of Token = Authorisation: Bearer <access_token>
 
-        // get auth header value
+        // get header authorization value
         const bearerHeader = req.headers['authorization'];
 
         // check if bearer is undefined
@@ -315,6 +313,7 @@ function verifyToken(req, res, next)
         }       
         else
         {
+                // UNAUTHORISED: send failure response to client
                 res.sendStatus(401);
         }
 }
@@ -323,11 +322,13 @@ function verifyToken(req, res, next)
 // function to generate the signature for verification 
 function generateSignature(akey, skey, objects = [''])
 {
+        // concatenate the accesskey, secret, key and each value passed as params  
         key = akey + skey;
         objects.forEach(item => {
                 key += item;
         });
 
+        // hash the key value with HMAC
         let hmac = crypto.createHmac('sha256', key);
         return hmac.digest('hex');
 }
