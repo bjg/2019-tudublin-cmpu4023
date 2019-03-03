@@ -29,15 +29,12 @@ app.set('db', instance)
         var username = req.body.username;
         var password = req.body.password;
 
-        // var username = "Finny D";
-        // var password = "FOD123";
-
         console.log("UserName: " + username + " Password: " + password)
 
         instance.query(`select * from users where username='${username}' and password=crypt('${password}', password)`)
         .then(users => {
             console.log(users)
-            const expire_time = '240s';
+            const expire_time = '24h';
 
             if(users.length > 0){
                 res.redirect(`http://localhost:3000/products`);                    
