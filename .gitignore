@@ -1,2 +1,4 @@
 
 worksheets/1-rest-sql-orm/
+worksheets/2-authentication/HMAC/node_modules
+worksheets/2-authentication/JWT/node_modules
