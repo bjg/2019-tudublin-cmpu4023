@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <style>
+        body {
+            padding: 50px;
+        }
+
+        label, textarea, button {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<label for="message">
+    Input a Message:
+</label>
+<textarea id="message" name="message" rows="10" cols="100" placeholder="Enter your message here....">
+
+</textarea>
+<button id="send" onclick="sendMessage()">Send Message</button>
+</body>
+
+<script>
+    function sendMessage() {
+        const message = document.getElementById('message').value;
+        console.log(message)
+        const token = signToken(message);
+        console.log(token);
+        fetch('http://127.0.0.1:3000/authenticateMessage', {
+            method: 'POST',
+            mode:'cors',
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: JSON.stringify(token),
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify({message}),
+        }).then(res => console.log(res.status))
+            .catch(err => console.log(err));
+    }
+
+    function signToken(data) {
+        const access_key = '7bb1c619f62194792687a86dfc887f879dfe953c';
+        const secret = 'aeef7c9c0d558b264553681467fe2a22821205fc8cb7eaf377dee097a959d613f57683464cb3024ed0b6eb1fe0';
+        data = `${data}${access_key}`;
+        const Authorization = CryptoJS.HmacSHA256(data, secret);
+        console.log(Authorization);
+        return `Bearer ${btoa(Authorization)} Key ${access_key}`;
+    }
+</script>
+</html>
