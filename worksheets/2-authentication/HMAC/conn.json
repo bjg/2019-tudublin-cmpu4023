@@ -1,0 +1,9 @@
+{ 
+    "host":"localhost",
+    "port": "5432",
+    "database": "lab2HMAC",
+    "user": "thezo",
+    "password": "12345",
+    "poolSize": "10",
+    "secret_key": "1234"
+}
