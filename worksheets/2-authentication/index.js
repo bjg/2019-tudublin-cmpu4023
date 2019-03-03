@@ -41,7 +41,7 @@ app.get('/api', (req, res) => {
 
 /* 
 ### LOGIN with NAME and PASSWORD
-POST : http://localhost:3000/api/login?name=nicola&pw=pword
+GET : http://localhost:3000/api/login?name=nicola&pw=pword
 
 ## AUTHENTICATE FUNCTION in Database:
 CREATE OR REPLACE FUNCTION authenticate(_name TEXT, _password TEXT)
@@ -52,7 +52,7 @@ AS $$
     PASSWORD = crypt(_password, password);
 $$ LANGUAGE SQL STRICT IMMUTABLE;
 */
-app.post('/api/login', (req, res) => {
+app.get('/api/login', (req, res) => {
 
         // define query to check for authentic user      
         const query = "SELECT * FROM authenticate($1, $2)";
