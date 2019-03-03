@@ -24,7 +24,7 @@ massive({
         db = instance;
 });
 
-// output connection to console
+// output successful server start
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 
 // #####################################################################################################
@@ -112,24 +112,13 @@ app.get('/api/products', verifyToken, (req, res) => {
                 else
                 {
                         // OK: res.sendStatus(200);
-                        db.products.find({}, {
-                                // order results
-                                order: [
-                                        {
-                                                field: 'price',
-                                                direction: 'asc',
-                                                nulls: 'first'
-                                        }  
-                                ]
-                        })
+                        db.products.find({})
                         // convert results to JSON for the response 
                         .then(items => {
                                 res.json(items);
                         });
-
                 }
-        });
-        
+        });  
 });
 
 /* 
@@ -166,10 +155,8 @@ app.put('/api/products', verifyToken, (req, res) => {
                         })
                         // server error message
                         .catch(error => console.error('Error in finding product to UPDATE: ', error));
-
                 }
         });
-        
 });
 
 
@@ -221,19 +208,15 @@ app.post('/api/addproduct', (req, res) => {
                                 // UNAUTHORISED: if token is not verified successfully
                                 res.sendStatus(401);
                         }
-                        
                 }
                 else    // not an valid accesskey
                 {
                         // send failure response to client
                         res.send("Invalid Access Key");
                 }
-                
         })
         // server error message
         .catch(error => console.error('Error in finding valid Secret Key: ', error));
-                        
-        
 });
 
 /* 
@@ -319,16 +302,14 @@ function verifyToken(req, res, next)
 }
 
 
-// function to generate the signature for verification 
-function generateSignature(akey, skey, objects = [''])
+// function to generate the signature with HMAC using (accesskey, secretkey, payload[objects])
+function generateSignature(akey, skey, payload = [''])
 {
-        // concatenate the accesskey, secret, key and each value passed as params  
         key = akey + skey;
-        objects.forEach(item => {
+        payload.forEach(item => {
                 key += item;
         });
 
-        // hash the key value with HMAC
         let hmac = crypto.createHmac('sha256', key);
         return hmac.digest('hex');
 }
