@@ -4,7 +4,6 @@ const body_parser = require('body-parser')
 const massive = require('massive')
 const app = express()
 const port = 3000;
-var token_value = "";
 
 app.use(body_parser());
 
@@ -27,19 +26,15 @@ app.set('db', instance)
 
 
     app.post('/', (req, res) => {
-        
-        // var username = req.body.username;
-        // var password = req.body.password;
-
-        var username = "Finny D";
-        var password = "FOD123";
+        var username = req.body.username;
+        var password = req.body.password;
 
         console.log("UserName: " + username + " Password: " + password)
 
         instance.query(`select * from users where username='${username}' and password=crypt('${password}', password)`)
         .then(users => {
             console.log(users)
-            const expire_time = '60s';
+            const expire_time = '24h';
 
             if(users.length > 0){
                 var jwt_payload = {
@@ -59,6 +54,36 @@ app.set('db', instance)
         });     
     });
 
+    app.put('/:id', (req, res) => {
+        const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+        var accessKey = "";
+        var secretKey = "";
+
+        for(i=0; i < 20; i++){
+            accessKey = accessKey + char[parseInt(Math.random() * (char.length - 0))]
+        }
+
+        for(i=0; i < 40; i++){
+            secretKey = secretKey + char[parseInt(Math.random() * (char.length - 0))]
+        }
+        instance.query(`SELECT access_key, secret_key from users where userid = ${req.params.id}`).then(userInfo =>{
+           if(userInfo.length > 0){
+                if(userInfo[0].access_key == null || userInfo[0].secret_key == null){
+                    instance.query(`UPDATE users SET access_key = '${accessKey}', secret_key = '${secretKey}' WHERE userid= ${req.params.id}`).then(result =>{
+                            res.send(result);
+                        });
+                }
+                else{
+                    res.send("Already Generated")
+                }
+           }
+           else{
+               res.send("No User Found")
+           }
+                
+        });
+    });
+
     app.get('/products', verifyToken, (req, res) => {      
         jwt.verify(req.token, 'secret', (error, data) => {
             if(error){
@@ -72,8 +97,24 @@ app.set('db', instance)
         });
     });
 
+    app.put('/products/price', verifyToken, (req, res) => {      
+        jwt.verify(req.token, 'secret', (error, data) => {
+            if(error){
+                res.send(error)
+            }
+            else{
+                const { prod_id, price } = req.body;
+
+                instance.query(`UPDATE products SET price = '${price}' WHERE id = ${prod_id}`)
+                .then(result =>{
+                    res.send(result)
+                });
+            }
+        });
+    });
+
     function verifyToken(req, res, next){
-        if(typeof bearer_header == 'undefined'){
+        if(typeof req.headers['authorization'] == 'undefined'){
             if(req.query.token == null){
                 res.sendStatus(403);
             }
