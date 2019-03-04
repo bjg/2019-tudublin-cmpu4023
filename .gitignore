@@ -1,7 +1,1 @@
-elm-stuff
-.DS_Store
 node_modules
-.vscode
-solutions
-.next
-/dist/main.js
