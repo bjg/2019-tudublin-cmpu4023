@@ -78,11 +78,11 @@ massive({
     });
     res.json(result);
     
-  // }  // else { // stored procedure 
-  //   storedproc(req.query.name)
-  //   .then(products => {
-  //     res.send(products);
-  //   })
+  // }  else { // stored procedure 
+  //     app.get('db').storedproc(req.query.name)
+  //     .then(products => {
+  //       res.send(products);
+  //     })
   // }
  }); // attempt of sql injection will be invalid
 
