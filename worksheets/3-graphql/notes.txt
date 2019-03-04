@@ -1,0 +1,10 @@
+Show tables in PSQL:
+\dt default$default.
+
+Prisma Migrations:
+prisma deploy
+prisma generate
+
+
+So from what I can see, my datamodel is what specifies my tables in the database or whatever. My schema.graphql
+then specifies the types and also my queries and migrations that can be used.

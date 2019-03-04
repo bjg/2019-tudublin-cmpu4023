@@ -1,0 +1,15 @@
+{
+  "name": "3-graphql",
+  "version": "1.0.0",
+  "description": "Add any additional documentation here...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Barrett",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-yoga": "^1.17.4",
+    "prisma-client-lib": "^1.27.4"
+  }
+}
