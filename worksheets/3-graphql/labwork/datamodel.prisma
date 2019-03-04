@@ -1,0 +1,54 @@
+type Category{
+  id: ID! @unique
+  categoryname: String!
+}
+
+type Customer{
+  id: ID! @unique
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: String!
+  county: String!
+  region: String!
+  email: String! @unique
+  phone: String! 
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: String
+  username: String! @unique
+  password: String!
+  age: Int
+  income: Float
+  gender: String!
+}
+
+type Products{
+  id: ID! @unique
+  title: String!
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  category: Category
+}
+
+type Orders{
+  id: ID! @unique
+  orderdate: String
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  customer: Customer
+}
+
+
+type Cust_Hist{
+  id: ID! @unique
+  customer: Customer
+  order: Orders
+  product: Products
+}

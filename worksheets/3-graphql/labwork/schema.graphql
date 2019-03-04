@@ -1,0 +1,115 @@
+type Query{
+   getCategoriesEndpoint: [Category!]!
+   getCustomersEndpoint: [Customer!]!
+   getProductsEndpoint: [Products!]!
+   getOrdersEndpoint: [Orders!]!
+   getCust_HistsEndpoint: [Cust_Hist!]!
+}
+
+type Mutation{
+
+  createCategoryEndpoint(
+    categoryname: String!
+  ): Category
+
+  createCustomerEndpoint(
+    firstname: String!
+    lastname: String!
+    address1: String!
+    address2: String!
+    city: String!
+    state: String!
+    zip: String!
+    county: String!
+    region: String!
+    email: String!
+    phone: String! 
+    creditcardtype: String
+    creditcard: String
+    creditcardexpiration: String
+    username: String!
+    password: String!
+    age: Int
+    income: Float
+    gender: String!
+  ): Customer
+
+  createProductsEndpoint(
+  title: String!
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  categoryId: ID!
+  ): Products
+
+  createOrdersEndpoint(
+    orderdate: String
+    netamount: Float!
+    tax: Float!
+    totalamount: Float!
+    customerId: ID!
+  ): Orders
+
+  createCust_HistEndpoint(
+  customerId: ID!
+  orderId: ID!
+  productId: ID!
+  ): Cust_Hist
+
+}
+
+type Category{
+  id: ID!
+  categoryname: String!
+}
+
+type Customer{
+  id: ID!
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: String!
+  county: String!
+  region: String!
+  email: String!
+  phone: String! 
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: String
+  username: String!
+  password: String!
+  age: Int
+  income: Float
+  gender: String!
+}
+
+type Products{
+  id: ID!
+  title: String!
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  category: Category
+ 
+}
+
+type Orders{
+  id: ID!
+  orderdate: String
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  customer: Customer
+}
+
+type Cust_Hist{
+  id: ID!
+  customer: Customer
+  order: Orders
+  product: Products
+}
