@@ -1,0 +1,18 @@
+{
+  "name": "authentication",
+  "version": "1.0.0",
+  "description": "C15398146-wks-2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Malone",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "massive": "^5.7.6",
+    "sequelize": "^4.43.0"
+  }
+}
