@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Import the crypto-js library to be able to encrypt in the front end -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <style>
+        body {
+            padding: 50px;
+        }
+        label, textarea, button {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<label for="message">
+    Enter text to be encrypted:
+</label>
+<textarea id="message" name="message" rows="10" cols="100" placeholder="Enter text here">
+
+</textarea>
+<button id="send" onclick="sendMessage()">Send Encrypted Message</button>
+</body>
+
+<script>
+    function sendMessage() {
+        const message = document.getElementById('message').value;//Get user message
+        const token = signToken(message);//generate HMAC
+        //Send a fetch command to the back end and pass HMAC in the header fields
+        //and the message in the body
+        fetch('http://127.0.0.1:3000/authenticateMessage', {
+            method: 'POST',
+            mode:'cors',
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: JSON.stringify(token),
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify({message}),
+        }).then(res => console.log(res.status))
+            .catch(err => console.log(err));
+    }
+    function signToken(data) {
+        //I am hardcoding the access key and secret key just for the sake of a proof of concept
+        //In real life scenario I would be extracting them from the database
+        const access_key = '63270a5d4770a09a139bcc4b120ccf60e1cc8826';
+        const secret = '5812483e092c28e4d55e903deee1ecd420c7de75905e9699344cebb075ac530abe991d6f8605443ace5e26d64c';
+        //Create a message by concatinating the user message and access key together
+        data = `${data}${access_key}`;
+        //Generate the Authorization HMAC
+        const Authorization = CryptoJS.HmacSHA256(data, secret);
+        console.log(Authorization);//Log for Debug
+        return `Bearer ${btoa(Authorization)} Key ${access_key}`;
+    }
+</script>
+</html>
