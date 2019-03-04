@@ -1,0 +1,22 @@
+{
+  "name": "ls",
+  "version": "1.0.0",
+  "description": "Add any additional documentation here...",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.0",
+    "jwt-claims": "^1.0.1",
+    "massive": "^5.7.7",
+    "parser": "^0.1.4",
+    "pg-monitor": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
