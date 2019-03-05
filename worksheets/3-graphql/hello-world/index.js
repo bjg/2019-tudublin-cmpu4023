@@ -1,4 +1,5 @@
 const { prisma } = require('./generated/prisma-client')
+const { GraphQLServer } = require('graphql-yoga')
 
 // A `main` function so that we can use async/await
 async function main() {
@@ -63,10 +64,77 @@ async function main() {
 	*/
 
 	// Read the previously created user from the database and print their posts to the console
-	const postsByUser = await prisma
+	/*const postsByUser = await prisma
 		.user({ email: "bob@prisma.io" })
 		.posts()
-	console.log(`All posts by that user: ${JSON.stringify(postsByUser)}`)
+	console.log(`All posts by that user: ${JSON.stringify(postsByUser)}`)*/
 }
 
-main().catch(e => console.error(e))
+// -----PART 3-----
+const resolvers = {
+  Query: {
+    publishedPosts(root, args, context) {
+      return context.prisma.posts({ where: { published: true } })
+    },
+    post(root, args, context) {
+      return context.prisma.post({ id: args.postId })
+    },
+    postsByUser(root, args, context) {
+      return context.prisma.user({
+        id: args.userId
+      }).posts()
+    }
+  },
+  Mutation: {
+    createDraft(root, args, context) {
+      return context.prisma.createPost(
+        {
+          title: args.title,
+          author: {
+            connect: { id: args.userId }
+          }
+        },
+
+      )
+    },
+    publish(root, args, context) {
+      return context.prisma.updatePost(
+        {
+          where: { id: args.postId },
+          data: { published: true },
+        },
+
+      )
+    },
+    createUser(root, args, context) {
+      return context.prisma.createUser(
+        { name: args.name },
+      )
+    }
+  },
+  User: {
+    posts(root, args, context) {
+      return context.prisma.user({
+        id: root.id
+      }).posts()
+    }
+  },
+  Post: {
+    author(root, args, context) {
+      return context.prisma.post({
+        id: root.id
+      }).author()
+    }
+  }
+}
+
+const server = new GraphQLServer({
+  typeDefs: './schema.graphql',
+  resolvers,
+  context: {
+    prisma
+  },
+})
+server.start(() => console.log('Server is running on http://localhost:4000'))
+
+//main().catch(e => console.error(e))
