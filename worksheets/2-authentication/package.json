@@ -10,6 +10,7 @@
     "jsonwebtoken": "^8.5.0",
     "jwt-claims": "^1.0.1",
     "massive": "^5.7.7",
+    "package.json": "^2.0.1",
     "parser": "^0.1.4",
     "pg-monitor": "^1.1.0"
   },
