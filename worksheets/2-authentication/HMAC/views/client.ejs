@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client using HMAC</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/enc-base64.js"></script>
+
+</head>
+<body>
+    <form>
+        Your message:<br>
+        <input type="text" id="message" name="message"><br><br>
+        <input type="submit" value="Submit" onClick=sendMsg();>
+    </form>
+
+<script>
+    function sendMsg() {
+        const message = document.getElementById('message').value;
+        const token = signToken(message);
+
+        fetch('http://127.0.0.1:3000/hmacauth', {
+            method: 'POST',
+            mode:'cors',
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: JSON.stringify(token),
+            },
+            redirect: "follow", 
+            referrer: "no-referrer", 
+            body: JSON.stringify({message}),
+        }).then(res => console.log(res.status))
+            .catch(err => console.log(err));
+    }
+
+    function signToken(data) {
+        //use the accesskey and secretkey from here
+        const accesskey = 'accesskey';
+        const secretkey = 'secretkey';
+
+        data = `${data}${accesskey}`;
+
+        const Authorization = CryptoJS.HmacSHA256(data, secretkey);
+        console.log(Authorization);
+        return `Bearer ${btoa(Authorization)} Key ${accesskey}`;
+    }
+</script>
+</html>

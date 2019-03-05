@@ -1,0 +1,23 @@
+  // "test": {
+  //   "username": "root",
+  //   "password": null,
+  //   "database": "database_test",
+  //   "host": "127.0.0.1",
+  //   "dialect": "mysql"
+  // },
+  // "production": {
+  //   "username": "root",
+  //   "password": null,
+  //   "database": "database_production",
+  //   "host": "127.0.0.1",
+  //   "dialect": "mysql"
+  // }
+
+
+node_modules/.bin/sequelize model:create --name Users_Sequelize --attributes "email:string,password:string,details:string"
+
+node_modules/.bin/sequelize model:create --name Products_Sequelize --attributes "title:string,price:numeric,tags:string"
+
+node_modules/.bin/sequelize model:create --name PurchaseItems_Sequelize --attributes "purchase_id:integer,product_id:integer,price:numeric,quantity:integer,state:string"
+
+node_modules/.bin/sequelize model:create --name Purchases_Sequelize --attributes "name:string,address:string,state:string,zipcode:integer,user_id:integer"
