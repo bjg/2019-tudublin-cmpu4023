@@ -3,11 +3,23 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregatePost {
+/* GraphQL */ `type AggregateCategory {
   count: Int!
 }
 
-type AggregateUser {
+type AggregateCustomer {
+  count: Int!
+}
+
+type AggregateOrder {
+  count: Int!
+}
+
+type AggregateOrderLine {
+  count: Int!
+}
+
+type AggregateProduct {
   count: Int!
 }
 
@@ -15,291 +27,34 @@ type BatchPayload {
   count: Long!
 }
 
-scalar Long
-
-type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  deletePost(where: PostWhereUniqueInput!): Post
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-interface Node {
+type Category {
   id: ID!
+  name: String!
 }
 
-type PageInfo {
-  hasNextPage: Boolean!
-  hasPreviousPage: Boolean!
-  startCursor: String
-  endCursor: String
-}
-
-type Post {
-  id: ID!
-  title: String!
-  published: Boolean!
-  author: User
-}
-
-type PostConnection {
+type CategoryConnection {
   pageInfo: PageInfo!
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
 }
 
-input PostCreateInput {
-  title: String!
-  published: Boolean
-  author: UserCreateOneWithoutPostsInput
+input CategoryCreateInput {
+  name: String!
 }
 
-input PostCreateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  connect: [PostWhereUniqueInput!]
+input CategoryCreateOneInput {
+  create: CategoryCreateInput
+  connect: CategoryWhereUniqueInput
 }
 
-input PostCreateWithoutAuthorInput {
-  title: String!
-  published: Boolean
-}
-
-type PostEdge {
-  node: Post!
+type CategoryEdge {
+  node: Category!
   cursor: String!
 }
 
-enum PostOrderByInput {
+enum CategoryOrderByInput {
   id_ASC
   id_DESC
-  title_ASC
-  title_DESC
-  published_ASC
-  published_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type PostPreviousValues {
-  id: ID!
-  title: String!
-  published: Boolean!
-}
-
-input PostScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  AND: [PostScalarWhereInput!]
-  OR: [PostScalarWhereInput!]
-  NOT: [PostScalarWhereInput!]
-}
-
-type PostSubscriptionPayload {
-  mutation: MutationType!
-  node: Post
-  updatedFields: [String!]
-  previousValues: PostPreviousValues
-}
-
-input PostSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: PostWhereInput
-  AND: [PostSubscriptionWhereInput!]
-  OR: [PostSubscriptionWhereInput!]
-  NOT: [PostSubscriptionWhereInput!]
-}
-
-input PostUpdateInput {
-  title: String
-  published: Boolean
-  author: UserUpdateOneWithoutPostsInput
-}
-
-input PostUpdateManyDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyMutationInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateManyWithoutAuthorInput {
-  create: [PostCreateWithoutAuthorInput!]
-  delete: [PostWhereUniqueInput!]
-  connect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  disconnect: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutAuthorInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutAuthorInput!]
-  deleteMany: [PostScalarWhereInput!]
-  updateMany: [PostUpdateManyWithWhereNestedInput!]
-}
-
-input PostUpdateManyWithWhereNestedInput {
-  where: PostScalarWhereInput!
-  data: PostUpdateManyDataInput!
-}
-
-input PostUpdateWithoutAuthorDataInput {
-  title: String
-  published: Boolean
-}
-
-input PostUpdateWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  data: PostUpdateWithoutAuthorDataInput!
-}
-
-input PostUpsertWithWhereUniqueWithoutAuthorInput {
-  where: PostWhereUniqueInput!
-  update: PostUpdateWithoutAuthorDataInput!
-  create: PostCreateWithoutAuthorInput!
-}
-
-input PostWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  title: String
-  title_not: String
-  title_in: [String!]
-  title_not_in: [String!]
-  title_lt: String
-  title_lte: String
-  title_gt: String
-  title_gte: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  published: Boolean
-  published_not: Boolean
-  author: UserWhereInput
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-}
-
-input PostWhereUniqueInput {
-  id: ID
-}
-
-type Query {
-  post(where: PostWhereUniqueInput!): Post
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  node(id: ID!): Node
-}
-
-type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
-  id: ID!
-  email: String
-  name: String!
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
-}
-
-type UserConnection {
-  pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
-}
-
-input UserCreateInput {
-  email: String
-  name: String!
-  posts: PostCreateManyWithoutAuthorInput
-}
-
-input UserCreateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  connect: UserWhereUniqueInput
-}
-
-input UserCreateWithoutPostsInput {
-  email: String
-  name: String!
-}
-
-type UserEdge {
-  node: User!
-  cursor: String!
-}
-
-enum UserOrderByInput {
-  id_ASC
-  id_DESC
-  email_ASC
-  email_DESC
   name_ASC
   name_DESC
   createdAt_ASC
@@ -308,61 +63,54 @@ enum UserOrderByInput {
   updatedAt_DESC
 }
 
-type UserPreviousValues {
+type CategoryPreviousValues {
   id: ID!
-  email: String
   name: String!
 }
 
-type UserSubscriptionPayload {
+type CategorySubscriptionPayload {
   mutation: MutationType!
-  node: User
+  node: Category
   updatedFields: [String!]
-  previousValues: UserPreviousValues
+  previousValues: CategoryPreviousValues
 }
 
-input UserSubscriptionWhereInput {
+input CategorySubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
+  node: CategoryWhereInput
+  AND: [CategorySubscriptionWhereInput!]
+  OR: [CategorySubscriptionWhereInput!]
+  NOT: [CategorySubscriptionWhereInput!]
 }
 
-input UserUpdateInput {
-  email: String
-  name: String
-  posts: PostUpdateManyWithoutAuthorInput
-}
-
-input UserUpdateManyMutationInput {
-  email: String
+input CategoryUpdateDataInput {
   name: String
 }
 
-input UserUpdateOneWithoutPostsInput {
-  create: UserCreateWithoutPostsInput
-  update: UserUpdateWithoutPostsDataInput
-  upsert: UserUpsertWithoutPostsInput
-  delete: Boolean
-  disconnect: Boolean
-  connect: UserWhereUniqueInput
-}
-
-input UserUpdateWithoutPostsDataInput {
-  email: String
+input CategoryUpdateInput {
   name: String
 }
 
-input UserUpsertWithoutPostsInput {
-  update: UserUpdateWithoutPostsDataInput!
-  create: UserCreateWithoutPostsInput!
+input CategoryUpdateManyMutationInput {
+  name: String
 }
 
-input UserWhereInput {
+input CategoryUpdateOneRequiredInput {
+  create: CategoryCreateInput
+  update: CategoryUpdateDataInput
+  upsert: CategoryUpsertNestedInput
+  connect: CategoryWhereUniqueInput
+}
+
+input CategoryUpsertNestedInput {
+  update: CategoryUpdateDataInput!
+  create: CategoryCreateInput!
+}
+
+input CategoryWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -377,20 +125,6 @@ input UserWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -405,17 +139,1051 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
 }
 
-input UserWhereUniqueInput {
+input CategoryWhereUniqueInput {
   id: ID
+}
+
+type Customer {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: Int
   email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String!
+  creditCardExpiration: String!
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String!
+}
+
+type CustomerConnection {
+  pageInfo: PageInfo!
+  edges: [CustomerEdge]!
+  aggregate: AggregateCustomer!
+}
+
+input CustomerCreateInput {
+  firstName: String!
+  lastName: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String!
+  creditCardExpiration: String!
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String!
+}
+
+input CustomerCreateOneInput {
+  create: CustomerCreateInput
+  connect: CustomerWhereUniqueInput
+}
+
+type CustomerEdge {
+  node: Customer!
+  cursor: String!
+}
+
+enum CustomerOrderByInput {
+  id_ASC
+  id_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  address1_ASC
+  address1_DESC
+  address2_ASC
+  address2_DESC
+  city_ASC
+  city_DESC
+  state_ASC
+  state_DESC
+  zip_ASC
+  zip_DESC
+  country_ASC
+  country_DESC
+  region_ASC
+  region_DESC
+  email_ASC
+  email_DESC
+  phone_ASC
+  phone_DESC
+  creditCardType_ASC
+  creditCardType_DESC
+  creditCard_ASC
+  creditCard_DESC
+  creditCardExpiration_ASC
+  creditCardExpiration_DESC
+  username_ASC
+  username_DESC
+  password_ASC
+  password_DESC
+  age_ASC
+  age_DESC
+  income_ASC
+  income_DESC
+  gender_ASC
+  gender_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CustomerPreviousValues {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String!
+  creditCardExpiration: String!
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String!
+}
+
+type CustomerSubscriptionPayload {
+  mutation: MutationType!
+  node: Customer
+  updatedFields: [String!]
+  previousValues: CustomerPreviousValues
+}
+
+input CustomerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CustomerWhereInput
+  AND: [CustomerSubscriptionWhereInput!]
+  OR: [CustomerSubscriptionWhereInput!]
+  NOT: [CustomerSubscriptionWhereInput!]
+}
+
+input CustomerUpdateDataInput {
+  firstName: String
+  lastName: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zip: Int
+  country: String
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String
+  creditCardExpiration: String
+  username: String
+  password: String
+  age: Int
+  income: Int
+  gender: String
+}
+
+input CustomerUpdateInput {
+  firstName: String
+  lastName: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zip: Int
+  country: String
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String
+  creditCardExpiration: String
+  username: String
+  password: String
+  age: Int
+  income: Int
+  gender: String
+}
+
+input CustomerUpdateManyMutationInput {
+  firstName: String
+  lastName: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zip: Int
+  country: String
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String
+  creditCardExpiration: String
+  username: String
+  password: String
+  age: Int
+  income: Int
+  gender: String
+}
+
+input CustomerUpdateOneRequiredInput {
+  create: CustomerCreateInput
+  update: CustomerUpdateDataInput
+  upsert: CustomerUpsertNestedInput
+  connect: CustomerWhereUniqueInput
+}
+
+input CustomerUpsertNestedInput {
+  update: CustomerUpdateDataInput!
+  create: CustomerCreateInput!
+}
+
+input CustomerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  address1: String
+  address1_not: String
+  address1_in: [String!]
+  address1_not_in: [String!]
+  address1_lt: String
+  address1_lte: String
+  address1_gt: String
+  address1_gte: String
+  address1_contains: String
+  address1_not_contains: String
+  address1_starts_with: String
+  address1_not_starts_with: String
+  address1_ends_with: String
+  address1_not_ends_with: String
+  address2: String
+  address2_not: String
+  address2_in: [String!]
+  address2_not_in: [String!]
+  address2_lt: String
+  address2_lte: String
+  address2_gt: String
+  address2_gte: String
+  address2_contains: String
+  address2_not_contains: String
+  address2_starts_with: String
+  address2_not_starts_with: String
+  address2_ends_with: String
+  address2_not_ends_with: String
+  city: String
+  city_not: String
+  city_in: [String!]
+  city_not_in: [String!]
+  city_lt: String
+  city_lte: String
+  city_gt: String
+  city_gte: String
+  city_contains: String
+  city_not_contains: String
+  city_starts_with: String
+  city_not_starts_with: String
+  city_ends_with: String
+  city_not_ends_with: String
+  state: String
+  state_not: String
+  state_in: [String!]
+  state_not_in: [String!]
+  state_lt: String
+  state_lte: String
+  state_gt: String
+  state_gte: String
+  state_contains: String
+  state_not_contains: String
+  state_starts_with: String
+  state_not_starts_with: String
+  state_ends_with: String
+  state_not_ends_with: String
+  zip: Int
+  zip_not: Int
+  zip_in: [Int!]
+  zip_not_in: [Int!]
+  zip_lt: Int
+  zip_lte: Int
+  zip_gt: Int
+  zip_gte: Int
+  country: String
+  country_not: String
+  country_in: [String!]
+  country_not_in: [String!]
+  country_lt: String
+  country_lte: String
+  country_gt: String
+  country_gte: String
+  country_contains: String
+  country_not_contains: String
+  country_starts_with: String
+  country_not_starts_with: String
+  country_ends_with: String
+  country_not_ends_with: String
+  region: Int
+  region_not: Int
+  region_in: [Int!]
+  region_not_in: [Int!]
+  region_lt: Int
+  region_lte: Int
+  region_gt: Int
+  region_gte: Int
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  creditCardType: Int
+  creditCardType_not: Int
+  creditCardType_in: [Int!]
+  creditCardType_not_in: [Int!]
+  creditCardType_lt: Int
+  creditCardType_lte: Int
+  creditCardType_gt: Int
+  creditCardType_gte: Int
+  creditCard: String
+  creditCard_not: String
+  creditCard_in: [String!]
+  creditCard_not_in: [String!]
+  creditCard_lt: String
+  creditCard_lte: String
+  creditCard_gt: String
+  creditCard_gte: String
+  creditCard_contains: String
+  creditCard_not_contains: String
+  creditCard_starts_with: String
+  creditCard_not_starts_with: String
+  creditCard_ends_with: String
+  creditCard_not_ends_with: String
+  creditCardExpiration: String
+  creditCardExpiration_not: String
+  creditCardExpiration_in: [String!]
+  creditCardExpiration_not_in: [String!]
+  creditCardExpiration_lt: String
+  creditCardExpiration_lte: String
+  creditCardExpiration_gt: String
+  creditCardExpiration_gte: String
+  creditCardExpiration_contains: String
+  creditCardExpiration_not_contains: String
+  creditCardExpiration_starts_with: String
+  creditCardExpiration_not_starts_with: String
+  creditCardExpiration_ends_with: String
+  creditCardExpiration_not_ends_with: String
+  username: String
+  username_not: String
+  username_in: [String!]
+  username_not_in: [String!]
+  username_lt: String
+  username_lte: String
+  username_gt: String
+  username_gte: String
+  username_contains: String
+  username_not_contains: String
+  username_starts_with: String
+  username_not_starts_with: String
+  username_ends_with: String
+  username_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  age: Int
+  age_not: Int
+  age_in: [Int!]
+  age_not_in: [Int!]
+  age_lt: Int
+  age_lte: Int
+  age_gt: Int
+  age_gte: Int
+  income: Int
+  income_not: Int
+  income_in: [Int!]
+  income_not_in: [Int!]
+  income_lt: Int
+  income_lte: Int
+  income_gt: Int
+  income_gte: Int
+  gender: String
+  gender_not: String
+  gender_in: [String!]
+  gender_not_in: [String!]
+  gender_lt: String
+  gender_lte: String
+  gender_gt: String
+  gender_gte: String
+  gender_contains: String
+  gender_not_contains: String
+  gender_starts_with: String
+  gender_not_starts_with: String
+  gender_ends_with: String
+  gender_not_ends_with: String
+  AND: [CustomerWhereInput!]
+  OR: [CustomerWhereInput!]
+  NOT: [CustomerWhereInput!]
+}
+
+input CustomerWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+scalar Long
+
+type Mutation {
+  createCategory(data: CategoryCreateInput!): Category!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
+  createCustomer(data: CustomerCreateInput!): Customer!
+  updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
+  updateManyCustomers(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): BatchPayload!
+  upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
+  deleteCustomer(where: CustomerWhereUniqueInput!): Customer
+  deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
+  createOrder(data: OrderCreateInput!): Order!
+  updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
+  updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
+  upsertOrder(where: OrderWhereUniqueInput!, create: OrderCreateInput!, update: OrderUpdateInput!): Order!
+  deleteOrder(where: OrderWhereUniqueInput!): Order
+  deleteManyOrders(where: OrderWhereInput): BatchPayload!
+  createOrderLine(data: OrderLineCreateInput!): OrderLine!
+  updateOrderLine(data: OrderLineUpdateInput!, where: OrderLineWhereUniqueInput!): OrderLine
+  updateManyOrderLines(data: OrderLineUpdateManyMutationInput!, where: OrderLineWhereInput): BatchPayload!
+  upsertOrderLine(where: OrderLineWhereUniqueInput!, create: OrderLineCreateInput!, update: OrderLineUpdateInput!): OrderLine!
+  deleteOrderLine(where: OrderLineWhereUniqueInput!): OrderLine
+  deleteManyOrderLines(where: OrderLineWhereInput): BatchPayload!
+  createProduct(data: ProductCreateInput!): Product!
+  updateProduct(data: ProductUpdateInput!, where: ProductWhereUniqueInput!): Product
+  updateManyProducts(data: ProductUpdateManyMutationInput!, where: ProductWhereInput): BatchPayload!
+  upsertProduct(where: ProductWhereUniqueInput!, create: ProductCreateInput!, update: ProductUpdateInput!): Product!
+  deleteProduct(where: ProductWhereUniqueInput!): Product
+  deleteManyProducts(where: ProductWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type Order {
+  id: ID!
+  orderDate: DateTime!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+  customer: Customer!
+}
+
+type OrderConnection {
+  pageInfo: PageInfo!
+  edges: [OrderEdge]!
+  aggregate: AggregateOrder!
+}
+
+input OrderCreateInput {
+  orderDate: DateTime!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+  customer: CustomerCreateOneInput!
+}
+
+input OrderCreateOneInput {
+  create: OrderCreateInput
+  connect: OrderWhereUniqueInput
+}
+
+type OrderEdge {
+  node: Order!
+  cursor: String!
+}
+
+type OrderLine {
+  lineId: ID!
+  quantity: Int!
+  orderDate: DateTime!
+  product: Product!
+  order: Order!
+}
+
+type OrderLineConnection {
+  pageInfo: PageInfo!
+  edges: [OrderLineEdge]!
+  aggregate: AggregateOrderLine!
+}
+
+input OrderLineCreateInput {
+  lineId: ID!
+  quantity: Int!
+  orderDate: DateTime!
+  product: ProductCreateOneInput!
+  order: OrderCreateOneInput!
+}
+
+type OrderLineEdge {
+  node: OrderLine!
+  cursor: String!
+}
+
+enum OrderLineOrderByInput {
+  lineId_ASC
+  lineId_DESC
+  quantity_ASC
+  quantity_DESC
+  orderDate_ASC
+  orderDate_DESC
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type OrderLinePreviousValues {
+  lineId: ID!
+  quantity: Int!
+  orderDate: DateTime!
+}
+
+type OrderLineSubscriptionPayload {
+  mutation: MutationType!
+  node: OrderLine
+  updatedFields: [String!]
+  previousValues: OrderLinePreviousValues
+}
+
+input OrderLineSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OrderLineWhereInput
+  AND: [OrderLineSubscriptionWhereInput!]
+  OR: [OrderLineSubscriptionWhereInput!]
+  NOT: [OrderLineSubscriptionWhereInput!]
+}
+
+input OrderLineUpdateInput {
+  lineId: ID
+  quantity: Int
+  orderDate: DateTime
+  product: ProductUpdateOneRequiredInput
+  order: OrderUpdateOneRequiredInput
+}
+
+input OrderLineUpdateManyMutationInput {
+  lineId: ID
+  quantity: Int
+  orderDate: DateTime
+}
+
+input OrderLineWhereInput {
+  lineId: ID
+  lineId_not: ID
+  lineId_in: [ID!]
+  lineId_not_in: [ID!]
+  lineId_lt: ID
+  lineId_lte: ID
+  lineId_gt: ID
+  lineId_gte: ID
+  lineId_contains: ID
+  lineId_not_contains: ID
+  lineId_starts_with: ID
+  lineId_not_starts_with: ID
+  lineId_ends_with: ID
+  lineId_not_ends_with: ID
+  quantity: Int
+  quantity_not: Int
+  quantity_in: [Int!]
+  quantity_not_in: [Int!]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
+  orderDate: DateTime
+  orderDate_not: DateTime
+  orderDate_in: [DateTime!]
+  orderDate_not_in: [DateTime!]
+  orderDate_lt: DateTime
+  orderDate_lte: DateTime
+  orderDate_gt: DateTime
+  orderDate_gte: DateTime
+  product: ProductWhereInput
+  order: OrderWhereInput
+  AND: [OrderLineWhereInput!]
+  OR: [OrderLineWhereInput!]
+  NOT: [OrderLineWhereInput!]
+}
+
+input OrderLineWhereUniqueInput {
+  lineId: ID
+}
+
+enum OrderOrderByInput {
+  id_ASC
+  id_DESC
+  orderDate_ASC
+  orderDate_DESC
+  netAmount_ASC
+  netAmount_DESC
+  tax_ASC
+  tax_DESC
+  totalAmount_ASC
+  totalAmount_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type OrderPreviousValues {
+  id: ID!
+  orderDate: DateTime!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+}
+
+type OrderSubscriptionPayload {
+  mutation: MutationType!
+  node: Order
+  updatedFields: [String!]
+  previousValues: OrderPreviousValues
+}
+
+input OrderSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OrderWhereInput
+  AND: [OrderSubscriptionWhereInput!]
+  OR: [OrderSubscriptionWhereInput!]
+  NOT: [OrderSubscriptionWhereInput!]
+}
+
+input OrderUpdateDataInput {
+  orderDate: DateTime
+  netAmount: Float
+  tax: Float
+  totalAmount: Float
+  customer: CustomerUpdateOneRequiredInput
+}
+
+input OrderUpdateInput {
+  orderDate: DateTime
+  netAmount: Float
+  tax: Float
+  totalAmount: Float
+  customer: CustomerUpdateOneRequiredInput
+}
+
+input OrderUpdateManyMutationInput {
+  orderDate: DateTime
+  netAmount: Float
+  tax: Float
+  totalAmount: Float
+}
+
+input OrderUpdateOneRequiredInput {
+  create: OrderCreateInput
+  update: OrderUpdateDataInput
+  upsert: OrderUpsertNestedInput
+  connect: OrderWhereUniqueInput
+}
+
+input OrderUpsertNestedInput {
+  update: OrderUpdateDataInput!
+  create: OrderCreateInput!
+}
+
+input OrderWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  orderDate: DateTime
+  orderDate_not: DateTime
+  orderDate_in: [DateTime!]
+  orderDate_not_in: [DateTime!]
+  orderDate_lt: DateTime
+  orderDate_lte: DateTime
+  orderDate_gt: DateTime
+  orderDate_gte: DateTime
+  netAmount: Float
+  netAmount_not: Float
+  netAmount_in: [Float!]
+  netAmount_not_in: [Float!]
+  netAmount_lt: Float
+  netAmount_lte: Float
+  netAmount_gt: Float
+  netAmount_gte: Float
+  tax: Float
+  tax_not: Float
+  tax_in: [Float!]
+  tax_not_in: [Float!]
+  tax_lt: Float
+  tax_lte: Float
+  tax_gt: Float
+  tax_gte: Float
+  totalAmount: Float
+  totalAmount_not: Float
+  totalAmount_in: [Float!]
+  totalAmount_not_in: [Float!]
+  totalAmount_lt: Float
+  totalAmount_lte: Float
+  totalAmount_gt: Float
+  totalAmount_gte: Float
+  customer: CustomerWhereInput
+  AND: [OrderWhereInput!]
+  OR: [OrderWhereInput!]
+  NOT: [OrderWhereInput!]
+}
+
+input OrderWhereUniqueInput {
+  id: ID
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Product {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int
+  category: Category!
+}
+
+type ProductConnection {
+  pageInfo: PageInfo!
+  edges: [ProductEdge]!
+  aggregate: AggregateProduct!
+}
+
+input ProductCreateInput {
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int
+  category: CategoryCreateOneInput!
+}
+
+input ProductCreateOneInput {
+  create: ProductCreateInput
+  connect: ProductWhereUniqueInput
+}
+
+type ProductEdge {
+  node: Product!
+  cursor: String!
+}
+
+enum ProductOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  actor_ASC
+  actor_DESC
+  price_ASC
+  price_DESC
+  special_ASC
+  special_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ProductPreviousValues {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int
+}
+
+type ProductSubscriptionPayload {
+  mutation: MutationType!
+  node: Product
+  updatedFields: [String!]
+  previousValues: ProductPreviousValues
+}
+
+input ProductSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ProductWhereInput
+  AND: [ProductSubscriptionWhereInput!]
+  OR: [ProductSubscriptionWhereInput!]
+  NOT: [ProductSubscriptionWhereInput!]
+}
+
+input ProductUpdateDataInput {
+  title: String
+  actor: String
+  price: Float
+  special: Int
+  category: CategoryUpdateOneRequiredInput
+}
+
+input ProductUpdateInput {
+  title: String
+  actor: String
+  price: Float
+  special: Int
+  category: CategoryUpdateOneRequiredInput
+}
+
+input ProductUpdateManyMutationInput {
+  title: String
+  actor: String
+  price: Float
+  special: Int
+}
+
+input ProductUpdateOneRequiredInput {
+  create: ProductCreateInput
+  update: ProductUpdateDataInput
+  upsert: ProductUpsertNestedInput
+  connect: ProductWhereUniqueInput
+}
+
+input ProductUpsertNestedInput {
+  update: ProductUpdateDataInput!
+  create: ProductCreateInput!
+}
+
+input ProductWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  actor: String
+  actor_not: String
+  actor_in: [String!]
+  actor_not_in: [String!]
+  actor_lt: String
+  actor_lte: String
+  actor_gt: String
+  actor_gte: String
+  actor_contains: String
+  actor_not_contains: String
+  actor_starts_with: String
+  actor_not_starts_with: String
+  actor_ends_with: String
+  actor_not_ends_with: String
+  price: Float
+  price_not: Float
+  price_in: [Float!]
+  price_not_in: [Float!]
+  price_lt: Float
+  price_lte: Float
+  price_gt: Float
+  price_gte: Float
+  special: Int
+  special_not: Int
+  special_in: [Int!]
+  special_not_in: [Int!]
+  special_lt: Int
+  special_lte: Int
+  special_gt: Int
+  special_gte: Int
+  category: CategoryWhereInput
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+}
+
+input ProductWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  category(where: CategoryWhereUniqueInput!): Category
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
+  customer(where: CustomerWhereUniqueInput!): Customer
+  customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
+  customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
+  order(where: OrderWhereUniqueInput!): Order
+  orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
+  ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
+  orderLine(where: OrderLineWhereUniqueInput!): OrderLine
+  orderLines(where: OrderLineWhereInput, orderBy: OrderLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [OrderLine]!
+  orderLinesConnection(where: OrderLineWhereInput, orderBy: OrderLineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderLineConnection!
+  product(where: ProductWhereUniqueInput!): Product
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product]!
+  productsConnection(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProductConnection!
+  node(id: ID!): Node
+}
+
+type Subscription {
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
+  customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
+  order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
+  orderLine(where: OrderLineSubscriptionWhereInput): OrderLineSubscriptionPayload
+  product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload
 }
 `
       }

@@ -1,14 +1,68 @@
+type Customer {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    address1: String!
+    address2: String
+    city: String!
+    state: String
+    zip: Int
+    country: String!
+    region: Int
+    email: String
+    phone: String
+    creditCardType: Int
+    creditCard: String!
+    creditCardExpiration: String!
+    username: String!
+    password: String!
+    age: Int
+    income: Int
+    gender: String!
+    orders: [Order!]!
+}
+
+
+type Order {
+  id: ID!
+  orderDate: String!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+  lineItems: [OrderLine!]!
+}
+
+type OrderLine {
+  lineId: ID!
+  quantity: Int!
+  orderDate: String!
+  product: Product!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int
+}
+
 type Query {
-  publishedPosts: [Post!]!
-  post(postId: ID!): Post
-  postsByUser(userId: ID!): [Post!]!
-  users: [User!]!
+  categories: [Category!]!
+  customers: [Customer!]!
 }
 
 type Mutation {
-  createUser(name: String!): User
-  createDraft(title: String!, userId: ID!): Post
-  publish(postId: ID!): Post
+  createCategory(name: String!): Category
+  createProduct(title: String!, actor: String!, price: Float!, special: Int, category: ID!): Product
+  createCustomer(firstName: String!, lastName: String!, address1: String!, address2: String, city: String!, state: String, zip: Int, country: String!, region: Int, email: String, phone: String, creditCardType: Int, creditCard: String!, creditCardExpiration: String!, username: String!, password: String!, age: Int, income: Int, gender: String!): Customer
+  createOrder(orderDate: String!, netAmount: Float! tax: Float!, totalAmount: Float!, customer: ID!): Order
 }
 
 type User {

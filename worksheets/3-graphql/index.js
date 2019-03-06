@@ -1,6 +1,79 @@
 const { prisma } = require('./generated/prisma-client')
 const { GraphQLServer } = require('graphql-yoga')
 
+// Define the GraphQL Resolvers
+const resolvers = {
+    Query: {
+        // Part 2: Resolver that returns the categories
+        categories(root, args, context) {
+            return context.prisma.categories();
+        },
+        customers(root, args, context) {
+            return context.prisma.customers();
+        },
+    },
+    Mutation: {
+        createCategory(root, args, context) {
+            return context.prisma.createCategory(
+                {
+                    name: args.name
+                }
+            )
+        },
+        createProduct(root, args, context) {
+            return context.prisma.createProduct(
+                {
+                    title: args.title,
+                    actor: args.actor,
+                    price: args.price,
+                    special: args.special,
+                    category: {
+                        connect: { id: args.category }
+                    }
+                }
+            )
+        },
+        createCustomer(root, args, context) {
+            return context.prisma.createCustomer(
+                {
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                    address1: args.address1,
+                    address2: args.address2,
+                    city: args.city,
+                    state: args.state,
+                    zip: args.zip,
+                    country: args.country,
+                    region: args.int,
+                    email: args.int, 
+                    phone: args.phone,
+                    creditCardType: args.creditCardType,
+                    creditCard: args.creditCard,
+                    creditCardExpiration: args.creditCardExpiration,
+                    username: args.username,
+                    password: args.password,
+                    age: args.age,
+                    income: args.income,
+                    gender: args.gender
+                }
+            )
+        },
+        createOrder(root, args, context) {
+            return context.prisma.createOrder(
+                {
+                    orderDate: args.orderDate,
+                    netAmount: args.netAmount,
+                    tax: args.tax,
+                    totalAmount: args.totalAmount,
+                    customer: {
+                        connect: { id: args.customer }
+                    }
+                }
+            )
+        }
+    }
+}
+/*
 const resolvers = {
     Query: {
         publishedPosts(root, args, context) {
@@ -60,6 +133,7 @@ const resolvers = {
         }
     }
 }
+*/
 
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',
