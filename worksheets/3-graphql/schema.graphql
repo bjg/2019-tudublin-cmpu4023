@@ -22,14 +22,13 @@ type Customer {
     orders: [Order!]!
 }
 
-
 type Order {
   id: ID!
   orderDate: String!
   netAmount: Float!
   tax: Float!
   totalAmount: Float!
-  lineItems: [OrderLine!]!
+  customer: Customer!
 }
 
 type OrderLine {

@@ -169,6 +169,7 @@ type Customer {
   age: Int
   income: Int
   gender: String!
+  orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
 }
 
 type CustomerConnection {
@@ -197,11 +198,34 @@ input CustomerCreateInput {
   age: Int
   income: Int
   gender: String!
+  orders: OrderCreateManyWithoutCustomerInput
 }
 
-input CustomerCreateOneInput {
-  create: CustomerCreateInput
+input CustomerCreateOneWithoutOrdersInput {
+  create: CustomerCreateWithoutOrdersInput
   connect: CustomerWhereUniqueInput
+}
+
+input CustomerCreateWithoutOrdersInput {
+  firstName: String!
+  lastName: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String!
+  creditCardExpiration: String!
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String!
 }
 
 type CustomerEdge {
@@ -297,28 +321,6 @@ input CustomerSubscriptionWhereInput {
   NOT: [CustomerSubscriptionWhereInput!]
 }
 
-input CustomerUpdateDataInput {
-  firstName: String
-  lastName: String
-  address1: String
-  address2: String
-  city: String
-  state: String
-  zip: Int
-  country: String
-  region: Int
-  email: String
-  phone: String
-  creditCardType: Int
-  creditCard: String
-  creditCardExpiration: String
-  username: String
-  password: String
-  age: Int
-  income: Int
-  gender: String
-}
-
 input CustomerUpdateInput {
   firstName: String
   lastName: String
@@ -339,6 +341,7 @@ input CustomerUpdateInput {
   age: Int
   income: Int
   gender: String
+  orders: OrderUpdateManyWithoutCustomerInput
 }
 
 input CustomerUpdateManyMutationInput {
@@ -363,16 +366,38 @@ input CustomerUpdateManyMutationInput {
   gender: String
 }
 
-input CustomerUpdateOneRequiredInput {
-  create: CustomerCreateInput
-  update: CustomerUpdateDataInput
-  upsert: CustomerUpsertNestedInput
+input CustomerUpdateOneRequiredWithoutOrdersInput {
+  create: CustomerCreateWithoutOrdersInput
+  update: CustomerUpdateWithoutOrdersDataInput
+  upsert: CustomerUpsertWithoutOrdersInput
   connect: CustomerWhereUniqueInput
 }
 
-input CustomerUpsertNestedInput {
-  update: CustomerUpdateDataInput!
-  create: CustomerCreateInput!
+input CustomerUpdateWithoutOrdersDataInput {
+  firstName: String
+  lastName: String
+  address1: String
+  address2: String
+  city: String
+  state: String
+  zip: Int
+  country: String
+  region: Int
+  email: String
+  phone: String
+  creditCardType: Int
+  creditCard: String
+  creditCardExpiration: String
+  username: String
+  password: String
+  age: Int
+  income: Int
+  gender: String
+}
+
+input CustomerUpsertWithoutOrdersInput {
+  update: CustomerUpdateWithoutOrdersDataInput!
+  create: CustomerCreateWithoutOrdersInput!
 }
 
 input CustomerWhereInput {
@@ -626,6 +651,9 @@ input CustomerWhereInput {
   gender_not_starts_with: String
   gender_ends_with: String
   gender_not_ends_with: String
+  orders_every: OrderWhereInput
+  orders_some: OrderWhereInput
+  orders_none: OrderWhereInput
   AND: [CustomerWhereInput!]
   OR: [CustomerWhereInput!]
   NOT: [CustomerWhereInput!]
@@ -702,12 +730,24 @@ input OrderCreateInput {
   netAmount: Float!
   tax: Float!
   totalAmount: Float!
-  customer: CustomerCreateOneInput!
+  customer: CustomerCreateOneWithoutOrdersInput!
+}
+
+input OrderCreateManyWithoutCustomerInput {
+  create: [OrderCreateWithoutCustomerInput!]
+  connect: [OrderWhereUniqueInput!]
 }
 
 input OrderCreateOneInput {
   create: OrderCreateInput
   connect: OrderWhereUniqueInput
+}
+
+input OrderCreateWithoutCustomerInput {
+  orderDate: DateTime!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
 }
 
 type OrderEdge {
@@ -862,6 +902,58 @@ type OrderPreviousValues {
   totalAmount: Float!
 }
 
+input OrderScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  orderDate: DateTime
+  orderDate_not: DateTime
+  orderDate_in: [DateTime!]
+  orderDate_not_in: [DateTime!]
+  orderDate_lt: DateTime
+  orderDate_lte: DateTime
+  orderDate_gt: DateTime
+  orderDate_gte: DateTime
+  netAmount: Float
+  netAmount_not: Float
+  netAmount_in: [Float!]
+  netAmount_not_in: [Float!]
+  netAmount_lt: Float
+  netAmount_lte: Float
+  netAmount_gt: Float
+  netAmount_gte: Float
+  tax: Float
+  tax_not: Float
+  tax_in: [Float!]
+  tax_not_in: [Float!]
+  tax_lt: Float
+  tax_lte: Float
+  tax_gt: Float
+  tax_gte: Float
+  totalAmount: Float
+  totalAmount_not: Float
+  totalAmount_in: [Float!]
+  totalAmount_not_in: [Float!]
+  totalAmount_lt: Float
+  totalAmount_lte: Float
+  totalAmount_gt: Float
+  totalAmount_gte: Float
+  AND: [OrderScalarWhereInput!]
+  OR: [OrderScalarWhereInput!]
+  NOT: [OrderScalarWhereInput!]
+}
+
 type OrderSubscriptionPayload {
   mutation: MutationType!
   node: Order
@@ -885,7 +977,7 @@ input OrderUpdateDataInput {
   netAmount: Float
   tax: Float
   totalAmount: Float
-  customer: CustomerUpdateOneRequiredInput
+  customer: CustomerUpdateOneRequiredWithoutOrdersInput
 }
 
 input OrderUpdateInput {
@@ -893,7 +985,14 @@ input OrderUpdateInput {
   netAmount: Float
   tax: Float
   totalAmount: Float
-  customer: CustomerUpdateOneRequiredInput
+  customer: CustomerUpdateOneRequiredWithoutOrdersInput
+}
+
+input OrderUpdateManyDataInput {
+  orderDate: DateTime
+  netAmount: Float
+  tax: Float
+  totalAmount: Float
 }
 
 input OrderUpdateManyMutationInput {
@@ -903,6 +1002,23 @@ input OrderUpdateManyMutationInput {
   totalAmount: Float
 }
 
+input OrderUpdateManyWithoutCustomerInput {
+  create: [OrderCreateWithoutCustomerInput!]
+  delete: [OrderWhereUniqueInput!]
+  connect: [OrderWhereUniqueInput!]
+  set: [OrderWhereUniqueInput!]
+  disconnect: [OrderWhereUniqueInput!]
+  update: [OrderUpdateWithWhereUniqueWithoutCustomerInput!]
+  upsert: [OrderUpsertWithWhereUniqueWithoutCustomerInput!]
+  deleteMany: [OrderScalarWhereInput!]
+  updateMany: [OrderUpdateManyWithWhereNestedInput!]
+}
+
+input OrderUpdateManyWithWhereNestedInput {
+  where: OrderScalarWhereInput!
+  data: OrderUpdateManyDataInput!
+}
+
 input OrderUpdateOneRequiredInput {
   create: OrderCreateInput
   update: OrderUpdateDataInput
@@ -910,9 +1026,27 @@ input OrderUpdateOneRequiredInput {
   connect: OrderWhereUniqueInput
 }
 
+input OrderUpdateWithoutCustomerDataInput {
+  orderDate: DateTime
+  netAmount: Float
+  tax: Float
+  totalAmount: Float
+}
+
+input OrderUpdateWithWhereUniqueWithoutCustomerInput {
+  where: OrderWhereUniqueInput!
+  data: OrderUpdateWithoutCustomerDataInput!
+}
+
 input OrderUpsertNestedInput {
   update: OrderUpdateDataInput!
   create: OrderCreateInput!
+}
+
+input OrderUpsertWithWhereUniqueWithoutCustomerInput {
+  where: OrderWhereUniqueInput!
+  update: OrderUpdateWithoutCustomerDataInput!
+  create: OrderCreateWithoutCustomerInput!
 }
 
 input OrderWhereInput {

@@ -11,6 +11,18 @@ const resolvers = {
         customers(root, args, context) {
             return context.prisma.customers();
         },
+        /*customer(root, args, context) {
+            return context.prisma.customer({
+                id: args.id
+            }).order();
+        }*/
+    },
+    Customer: {
+        orders(parent) {
+            return prisma.customer({
+                id: parent.id
+            }).orders();
+        }
     },
     Mutation: {
         createCategory(root, args, context) {

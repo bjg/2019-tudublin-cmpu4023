@@ -19,6 +19,7 @@ type Customer {
   age: Int
   income: Int
   gender: String!
+  orders: [Order!]!
 }
 
 type Order {
