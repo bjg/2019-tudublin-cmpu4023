@@ -1,3 +1,10 @@
+/*
+Name: Aodhan Brown
+Student number: C15346551
+Lab2
+*/
+
+
 // node imports
 const express = require('express');
 const jwt = require('jsonwebtoken');
