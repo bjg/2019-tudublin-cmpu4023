@@ -5,15 +5,15 @@ const {
   GraphQLServer
 } = require('graphql-yoga')
 
-function update(context,args){
+function update(context, args) {
   console.log('Updating the inventory quantity')
 
   return context.prisma.updateInventory({
     data: {
-      quantity_in_stock:15,
-      sales:1,
+      quantity_in_stock: 15,
+      sales: 1,
       testupdate: "UPDATED!"
-    },   
+    },
     where: {
       id: args.inventoryId
     }
@@ -135,7 +135,7 @@ const resolvers = {
       })
     },
 
-    createInventoryEndpoint(root, args, context){
+    createInventoryEndpoint(root, args, context) {
       console.log('-------- INSERTING INVENTORY ------------')
       console.log(args)
 
@@ -148,8 +148,8 @@ const resolvers = {
             id: args.productId
           }
         }
-      
-      } )
+
+      })
 
     },
 
@@ -209,13 +209,13 @@ The query in this case would be a good example of a transactional relational sys
       //when orderlines created - take the quatity, and subtract this from the inventory quantity of that product
       console.log('------ You are ordering ' + args.quantity + ' of product:' + args.productId)
 
-      let check = update(context,args);
-      check.then(data=>{
+      let check = update(context, args);
+      check.then(data => {
         console.log(data.quantity_in_stock)
       })
 
       console.log('---------- INVENTORY QUANTITY UPDATED FOR PRODUCT :' + args.productId)
-      
+
       return context.prisma.createOrderlines({
         product: {
           connect: {
@@ -284,20 +284,20 @@ Return:
     },
   },
 
-  Inventory:{
+  Inventory: {
     product(root, args, context) {
-        return context.prisma.inventory({
-          id: root.id
-        }).product()
+      return context.prisma.inventory({
+        id: root.id
+      }).product()
     }
   },
 
 
-  Orderlines:{
+  Orderlines: {
     product(root, args, context) {
-        return context.prisma.orderlines({
-          id: root.id
-        }).product()
+      return context.prisma.orderlines({
+        id: root.id
+      }).product()
     },
     order(root, args, context) {
       return context.prisma.orderlines({
