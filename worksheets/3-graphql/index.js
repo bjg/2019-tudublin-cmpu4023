@@ -4,7 +4,10 @@ const { GraphQLServer } = require('graphql-yoga')
 // Define the GraphQL Resolvers
 const resolvers = {
     Query: {
-        // Part 2: Resolver that returns the categories
+        // Part 2: Resovler that returns attributes from a single
+        // relation.
+        // Multiple resolvers were made here so I could access my data
+        // for testing purposes.
         categories(root, args, context) {
             return context.prisma.categories();
         },
@@ -20,12 +23,11 @@ const resolvers = {
         customers(root, args, context) {
             return context.prisma.customers();
         },
-        /*customer(root, args, context) {
-            return context.prisma.customer({
-                id: args.id
-            }).order();
-        }*/
     },
+    // Part 3: Resolver that returns nesting 2 deep from 3 joined database relations
+    // This is the resolver that will be called for each customer that will
+    // return it's orders and will filter it so that the only the orders
+    // for that customer are returned.
     Customer: {
         orders(parent) {
             return prisma.customer({
@@ -33,14 +35,22 @@ const resolvers = {
             }).orders();
         }
     },
+    // This resolver will be called for each order and will get the orderLines,
+    // but it will filter them so that they only match the parent order.
     Order: {
         orderLines(parent) {
             console.log(parent)
             return prisma.orderLines({
-                order: parent.id
+                where: {
+                    order: {
+                        id: parent.id
+                    }
+                }
             });
         }
     },
+    // Mutations. I added more than one just so that I could easily add
+    // test data for the schemas I defined.
     Mutation: {
         createCategory(root, args, context) {
             return context.prisma.createCategory(
