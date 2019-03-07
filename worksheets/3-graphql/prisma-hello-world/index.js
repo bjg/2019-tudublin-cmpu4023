@@ -42,23 +42,27 @@ const resolvers = {
       )
     }
   },
-  User: {
-    posts(root, args, context) {
-      return context.prisma.user({
-        id: root.id
-      }).posts()
-    }
-  },
+  // User: {
+  //   posts(root, args, context) {
+  //     return context.prisma.user({
+  //       id: root.id
+  //     }).posts()
+  //   }
+  // },
+
+
+
   Post: {
-    author(root, args, context) {
+    author1(root, args, context) {
       return context.prisma.post({
         id: root.id
       }).author()
     }
   }
+
+
 }
 
-//graphQL server
 const server = new GraphQLServer({
   typeDefs: './schema.graphql',
   resolvers,

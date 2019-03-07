@@ -15,6 +15,14 @@ type AggregateCustomer {
   count: Int!
 }
 
+type AggregateInventory {
+  count: Int!
+}
+
+type AggregateOrderlines {
+  count: Int!
+}
+
 type AggregateOrders {
   count: Int!
 }
@@ -747,6 +755,142 @@ input CustomerWhereUniqueInput {
   username: String
 }
 
+scalar DateTime
+
+type Inventory {
+  id: ID!
+  quantity_in_stock: Int!
+  sales: Int!
+  product: Products
+  testupdate: String
+}
+
+type InventoryConnection {
+  pageInfo: PageInfo!
+  edges: [InventoryEdge]!
+  aggregate: AggregateInventory!
+}
+
+input InventoryCreateInput {
+  quantity_in_stock: Int!
+  sales: Int!
+  product: ProductsCreateOneInput
+  testupdate: String
+}
+
+type InventoryEdge {
+  node: Inventory!
+  cursor: String!
+}
+
+enum InventoryOrderByInput {
+  id_ASC
+  id_DESC
+  quantity_in_stock_ASC
+  quantity_in_stock_DESC
+  sales_ASC
+  sales_DESC
+  testupdate_ASC
+  testupdate_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type InventoryPreviousValues {
+  id: ID!
+  quantity_in_stock: Int!
+  sales: Int!
+  testupdate: String
+}
+
+type InventorySubscriptionPayload {
+  mutation: MutationType!
+  node: Inventory
+  updatedFields: [String!]
+  previousValues: InventoryPreviousValues
+}
+
+input InventorySubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: InventoryWhereInput
+  AND: [InventorySubscriptionWhereInput!]
+  OR: [InventorySubscriptionWhereInput!]
+  NOT: [InventorySubscriptionWhereInput!]
+}
+
+input InventoryUpdateInput {
+  quantity_in_stock: Int
+  sales: Int
+  product: ProductsUpdateOneInput
+  testupdate: String
+}
+
+input InventoryUpdateManyMutationInput {
+  quantity_in_stock: Int
+  sales: Int
+  testupdate: String
+}
+
+input InventoryWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  quantity_in_stock: Int
+  quantity_in_stock_not: Int
+  quantity_in_stock_in: [Int!]
+  quantity_in_stock_not_in: [Int!]
+  quantity_in_stock_lt: Int
+  quantity_in_stock_lte: Int
+  quantity_in_stock_gt: Int
+  quantity_in_stock_gte: Int
+  sales: Int
+  sales_not: Int
+  sales_in: [Int!]
+  sales_not_in: [Int!]
+  sales_lt: Int
+  sales_lte: Int
+  sales_gt: Int
+  sales_gte: Int
+  product: ProductsWhereInput
+  testupdate: String
+  testupdate_not: String
+  testupdate_in: [String!]
+  testupdate_not_in: [String!]
+  testupdate_lt: String
+  testupdate_lte: String
+  testupdate_gt: String
+  testupdate_gte: String
+  testupdate_contains: String
+  testupdate_not_contains: String
+  testupdate_starts_with: String
+  testupdate_not_starts_with: String
+  testupdate_ends_with: String
+  testupdate_not_ends_with: String
+  AND: [InventoryWhereInput!]
+  OR: [InventoryWhereInput!]
+  NOT: [InventoryWhereInput!]
+}
+
+input InventoryWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
@@ -767,6 +911,18 @@ type Mutation {
   upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
   deleteCustomer(where: CustomerWhereUniqueInput!): Customer
   deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
+  createInventory(data: InventoryCreateInput!): Inventory!
+  updateInventory(data: InventoryUpdateInput!, where: InventoryWhereUniqueInput!): Inventory
+  updateManyInventories(data: InventoryUpdateManyMutationInput!, where: InventoryWhereInput): BatchPayload!
+  upsertInventory(where: InventoryWhereUniqueInput!, create: InventoryCreateInput!, update: InventoryUpdateInput!): Inventory!
+  deleteInventory(where: InventoryWhereUniqueInput!): Inventory
+  deleteManyInventories(where: InventoryWhereInput): BatchPayload!
+  createOrderlines(data: OrderlinesCreateInput!): Orderlines!
+  updateOrderlines(data: OrderlinesUpdateInput!, where: OrderlinesWhereUniqueInput!): Orderlines
+  updateManyOrderlineses(data: OrderlinesUpdateManyMutationInput!, where: OrderlinesWhereInput): BatchPayload!
+  upsertOrderlines(where: OrderlinesWhereUniqueInput!, create: OrderlinesCreateInput!, update: OrderlinesUpdateInput!): Orderlines!
+  deleteOrderlines(where: OrderlinesWhereUniqueInput!): Orderlines
+  deleteManyOrderlineses(where: OrderlinesWhereInput): BatchPayload!
   createOrders(data: OrdersCreateInput!): Orders!
   updateOrders(data: OrdersUpdateInput!, where: OrdersWhereUniqueInput!): Orders
   updateManyOrderses(data: OrdersUpdateManyMutationInput!, where: OrdersWhereInput): BatchPayload!
@@ -789,6 +945,144 @@ enum MutationType {
 
 interface Node {
   id: ID!
+}
+
+type Orderlines {
+  id: ID!
+  product: Products
+  order: Orders
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+type OrderlinesConnection {
+  pageInfo: PageInfo!
+  edges: [OrderlinesEdge]!
+  aggregate: AggregateOrderlines!
+}
+
+input OrderlinesCreateInput {
+  product: ProductsCreateOneInput
+  order: OrdersCreateOneInput
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+type OrderlinesEdge {
+  node: Orderlines!
+  cursor: String!
+}
+
+enum OrderlinesOrderByInput {
+  id_ASC
+  id_DESC
+  quantity_ASC
+  quantity_DESC
+  orderdate_ASC
+  orderdate_DESC
+  inventoryId_ASC
+  inventoryId_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type OrderlinesPreviousValues {
+  id: ID!
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+type OrderlinesSubscriptionPayload {
+  mutation: MutationType!
+  node: Orderlines
+  updatedFields: [String!]
+  previousValues: OrderlinesPreviousValues
+}
+
+input OrderlinesSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: OrderlinesWhereInput
+  AND: [OrderlinesSubscriptionWhereInput!]
+  OR: [OrderlinesSubscriptionWhereInput!]
+  NOT: [OrderlinesSubscriptionWhereInput!]
+}
+
+input OrderlinesUpdateInput {
+  product: ProductsUpdateOneInput
+  order: OrdersUpdateOneInput
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+input OrderlinesUpdateManyMutationInput {
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+input OrderlinesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  product: ProductsWhereInput
+  order: OrdersWhereInput
+  quantity: Int
+  quantity_not: Int
+  quantity_in: [Int!]
+  quantity_not_in: [Int!]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
+  orderdate: DateTime
+  orderdate_not: DateTime
+  orderdate_in: [DateTime!]
+  orderdate_not_in: [DateTime!]
+  orderdate_lt: DateTime
+  orderdate_lte: DateTime
+  orderdate_gt: DateTime
+  orderdate_gte: DateTime
+  inventoryId: String
+  inventoryId_not: String
+  inventoryId_in: [String!]
+  inventoryId_not_in: [String!]
+  inventoryId_lt: String
+  inventoryId_lte: String
+  inventoryId_gt: String
+  inventoryId_gte: String
+  inventoryId_contains: String
+  inventoryId_not_contains: String
+  inventoryId_starts_with: String
+  inventoryId_not_starts_with: String
+  inventoryId_ends_with: String
+  inventoryId_not_ends_with: String
+  AND: [OrderlinesWhereInput!]
+  OR: [OrderlinesWhereInput!]
+  NOT: [OrderlinesWhereInput!]
+}
+
+input OrderlinesWhereUniqueInput {
+  id: ID
 }
 
 type Orders {
@@ -976,9 +1270,9 @@ type PageInfo {
 
 type Products {
   id: ID!
-  title: String!
+  title: String
   actor: String
-  price: Float!
+  price: Float
   special: Float
   common_prod_id: Int
   category: Category
@@ -991,9 +1285,9 @@ type ProductsConnection {
 }
 
 input ProductsCreateInput {
-  title: String!
+  title: String
   actor: String
-  price: Float!
+  price: Float
   special: Float
   common_prod_id: Int
   category: CategoryCreateOneInput
@@ -1030,9 +1324,9 @@ enum ProductsOrderByInput {
 
 type ProductsPreviousValues {
   id: ID!
-  title: String!
+  title: String
   actor: String
-  price: Float!
+  price: Float
   special: Float
   common_prod_id: Int
 }
@@ -1182,6 +1476,12 @@ type Query {
   customer(where: CustomerWhereUniqueInput!): Customer
   customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
   customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
+  inventory(where: InventoryWhereUniqueInput!): Inventory
+  inventories(where: InventoryWhereInput, orderBy: InventoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Inventory]!
+  inventoriesConnection(where: InventoryWhereInput, orderBy: InventoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InventoryConnection!
+  orderlines(where: OrderlinesWhereUniqueInput!): Orderlines
+  orderlineses(where: OrderlinesWhereInput, orderBy: OrderlinesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Orderlines]!
+  orderlinesesConnection(where: OrderlinesWhereInput, orderBy: OrderlinesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderlinesConnection!
   orders(where: OrdersWhereUniqueInput!): Orders
   orderses(where: OrdersWhereInput, orderBy: OrdersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Orders]!
   ordersesConnection(where: OrdersWhereInput, orderBy: OrdersOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrdersConnection!
@@ -1195,6 +1495,8 @@ type Subscription {
   category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   cust_Hist(where: Cust_HistSubscriptionWhereInput): Cust_HistSubscriptionPayload
   customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
+  inventory(where: InventorySubscriptionWhereInput): InventorySubscriptionPayload
+  orderlines(where: OrderlinesSubscriptionWhereInput): OrderlinesSubscriptionPayload
   orders(where: OrdersSubscriptionWhereInput): OrdersSubscriptionPayload
   products(where: ProductsSubscriptionWhereInput): ProductsSubscriptionPayload
 }

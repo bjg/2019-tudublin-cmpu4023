@@ -89,7 +89,7 @@ export interface Prisma {
    * Mutations
    */
 
-  createPost: (data: PostCreateInput) => PostPromise;
+  createPost: (data: PostCreateInput) => {PostPromise};
   updatePost: (
     args: { data: PostUpdateInput; where: PostWhereUniqueInput }
   ) => PostPromise;

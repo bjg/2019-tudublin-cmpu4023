@@ -28,12 +28,12 @@ type Customer{
 
 type Products{
   id: ID! @unique
-  title: String!
+  title: String
   actor: String
-  price: Float!
+  price: Float
   special: Float
   common_prod_id: Int
-  category: Category
+  category: Category @relation(name:"ProductCat")
 }
 
 type Orders{
@@ -45,10 +45,29 @@ type Orders{
   customer: Customer
 }
 
-
 type Cust_Hist{
   id: ID! @unique
   customer: Customer
   order: Orders
   product: Products
 }
+
+type Inventory{
+  id: ID! @unique
+  quantity_in_stock: Int!
+  sales: Int!
+  product: Products
+  testupdate: String
+}
+
+
+type Orderlines{
+  id: ID! @unique
+  product: Products
+  order: Orders
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
+
+
