@@ -8,6 +8,15 @@ const resolvers = {
         categories(root, args, context) {
             return context.prisma.categories();
         },
+        products(root, args, context) {
+            return context.prisma.products();
+        },
+        orderLines(root, args, context) {
+            return context.prisma.orderLines();
+        },
+        orders(root, args, context) {
+            return context.prisma.orders();
+        },
         customers(root, args, context) {
             return context.prisma.customers();
         },
@@ -22,6 +31,14 @@ const resolvers = {
             return prisma.customer({
                 id: parent.id
             }).orders();
+        }
+    },
+    Order: {
+        orderLines(parent) {
+            console.log(parent)
+            return prisma.orderLines({
+                order: parent.id
+            });
         }
     },
     Mutation: {
@@ -40,7 +57,27 @@ const resolvers = {
                     price: args.price,
                     special: args.special,
                     category: {
-                        connect: { id: args.category }
+                        connect: { 
+                            id: args.category 
+                        }
+                    }
+                }
+            )
+        },
+        createOrderLine(root, args, context) {
+            return context.prisma.createOrderLine(
+                {
+                    quantity: args.quantity,
+                    orderDate: args.orderDate,
+                    product: {
+                        connect: {
+                            id: args.product
+                        }
+                    },
+                    order: {
+                        connect: {
+                            id: args.order
+                        }
                     }
                 }
             )
@@ -78,7 +115,9 @@ const resolvers = {
                     tax: args.tax,
                     totalAmount: args.totalAmount,
                     customer: {
-                        connect: { id: args.customer }
+                        connect: { 
+                            id: args.customer 
+                        }
                     }
                 }
             )

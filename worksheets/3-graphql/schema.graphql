@@ -29,13 +29,15 @@ type Order {
   tax: Float!
   totalAmount: Float!
   customer: Customer!
+  orderLines: [OrderLine!]
 }
 
 type OrderLine {
-  lineId: ID!
+  id: ID!
   quantity: Int!
   orderDate: String!
   product: Product!
+  order: Order!
 }
 
 type Category {
@@ -54,7 +56,10 @@ type Product {
 
 type Query {
   categories: [Category!]!
+  products: [Product]!
+  orders: [Order!]!
   customers: [Customer!]!
+  orderLines: [OrderLine]!
 }
 
 type Mutation {
@@ -62,6 +67,7 @@ type Mutation {
   createProduct(title: String!, actor: String!, price: Float!, special: Int, category: ID!): Product
   createCustomer(firstName: String!, lastName: String!, address1: String!, address2: String, city: String!, state: String, zip: Int, country: String!, region: Int, email: String, phone: String, creditCardType: Int, creditCard: String!, creditCardExpiration: String!, username: String!, password: String!, age: Int, income: Int, gender: String!): Customer
   createOrder(orderDate: String!, netAmount: Float! tax: Float!, totalAmount: Float!, customer: ID!): Order
+  createOrderLine(quantity: Int!, orderDate: String!, product: ID!, order: ID!): OrderLine
 }
 
 type User {

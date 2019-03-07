@@ -756,7 +756,7 @@ type OrderEdge {
 }
 
 type OrderLine {
-  lineId: ID!
+  id: ID!
   quantity: Int!
   orderDate: DateTime!
   product: Product!
@@ -770,7 +770,6 @@ type OrderLineConnection {
 }
 
 input OrderLineCreateInput {
-  lineId: ID!
   quantity: Int!
   orderDate: DateTime!
   product: ProductCreateOneInput!
@@ -783,14 +782,12 @@ type OrderLineEdge {
 }
 
 enum OrderLineOrderByInput {
-  lineId_ASC
-  lineId_DESC
+  id_ASC
+  id_DESC
   quantity_ASC
   quantity_DESC
   orderDate_ASC
   orderDate_DESC
-  id_ASC
-  id_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -798,7 +795,7 @@ enum OrderLineOrderByInput {
 }
 
 type OrderLinePreviousValues {
-  lineId: ID!
+  id: ID!
   quantity: Int!
   orderDate: DateTime!
 }
@@ -822,7 +819,6 @@ input OrderLineSubscriptionWhereInput {
 }
 
 input OrderLineUpdateInput {
-  lineId: ID
   quantity: Int
   orderDate: DateTime
   product: ProductUpdateOneRequiredInput
@@ -830,26 +826,25 @@ input OrderLineUpdateInput {
 }
 
 input OrderLineUpdateManyMutationInput {
-  lineId: ID
   quantity: Int
   orderDate: DateTime
 }
 
 input OrderLineWhereInput {
-  lineId: ID
-  lineId_not: ID
-  lineId_in: [ID!]
-  lineId_not_in: [ID!]
-  lineId_lt: ID
-  lineId_lte: ID
-  lineId_gt: ID
-  lineId_gte: ID
-  lineId_contains: ID
-  lineId_not_contains: ID
-  lineId_starts_with: ID
-  lineId_not_starts_with: ID
-  lineId_ends_with: ID
-  lineId_not_ends_with: ID
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
   quantity: Int
   quantity_not: Int
   quantity_in: [Int!]
@@ -874,7 +869,7 @@ input OrderLineWhereInput {
 }
 
 input OrderLineWhereUniqueInput {
-  lineId: ID
+  id: ID
 }
 
 enum OrderOrderByInput {

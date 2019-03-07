@@ -32,7 +32,7 @@ type Order {
 }
 
 type OrderLine {
-  lineId: ID! @unique
+  id: ID! @unique
   quantity: Int!
   orderDate: DateTime!
   product: Product!

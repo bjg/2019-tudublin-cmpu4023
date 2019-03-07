@@ -351,14 +351,12 @@ export type CategoryOrderByInput =
   | "updatedAt_DESC";
 
 export type OrderLineOrderByInput =
-  | "lineId_ASC"
-  | "lineId_DESC"
+  | "id_ASC"
+  | "id_DESC"
   | "quantity_ASC"
   | "quantity_DESC"
   | "orderDate_ASC"
   | "orderDate_DESC"
-  | "id_ASC"
-  | "id_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -484,7 +482,6 @@ export interface CustomerSubscriptionWhereInput {
 }
 
 export interface OrderLineCreateInput {
-  lineId: ID_Input;
   quantity: Int;
   orderDate: DateTimeInput;
   product: ProductCreateOneInput;
@@ -811,20 +808,20 @@ export interface CustomerUpsertWithoutOrdersInput {
 }
 
 export interface OrderLineWhereInput {
-  lineId?: ID_Input;
-  lineId_not?: ID_Input;
-  lineId_in?: ID_Input[] | ID_Input;
-  lineId_not_in?: ID_Input[] | ID_Input;
-  lineId_lt?: ID_Input;
-  lineId_lte?: ID_Input;
-  lineId_gt?: ID_Input;
-  lineId_gte?: ID_Input;
-  lineId_contains?: ID_Input;
-  lineId_not_contains?: ID_Input;
-  lineId_starts_with?: ID_Input;
-  lineId_not_starts_with?: ID_Input;
-  lineId_ends_with?: ID_Input;
-  lineId_not_ends_with?: ID_Input;
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
   quantity?: Int;
   quantity_not?: Int;
   quantity_in?: Int[] | Int;
@@ -911,7 +908,6 @@ export interface OrderCreateManyWithoutCustomerInput {
 }
 
 export interface OrderLineUpdateInput {
-  lineId?: ID_Input;
   quantity?: Int;
   orderDate?: DateTimeInput;
   product?: ProductUpdateOneRequiredInput;
@@ -981,7 +977,6 @@ export interface OrderUpdateManyWithoutCustomerInput {
 }
 
 export interface OrderLineUpdateManyMutationInput {
-  lineId?: ID_Input;
   quantity?: Int;
   orderDate?: DateTimeInput;
 }
@@ -1003,7 +998,7 @@ export interface OrderUpdateWithoutCustomerDataInput {
 }
 
 export type OrderLineWhereUniqueInput = AtLeastOne<{
-  lineId: ID_Input;
+  id: ID_Input;
 }>;
 
 export interface CustomerUpdateOneRequiredWithoutOrdersInput {
@@ -1454,7 +1449,7 @@ export interface BatchPayloadSubscription
 }
 
 export interface OrderLinePreviousValues {
-  lineId: ID_Output;
+  id: ID_Output;
   quantity: Int;
   orderDate: DateTimeOutput;
 }
@@ -1462,7 +1457,7 @@ export interface OrderLinePreviousValues {
 export interface OrderLinePreviousValuesPromise
   extends Promise<OrderLinePreviousValues>,
     Fragmentable {
-  lineId: () => Promise<ID_Output>;
+  id: () => Promise<ID_Output>;
   quantity: () => Promise<Int>;
   orderDate: () => Promise<DateTimeOutput>;
 }
@@ -1470,7 +1465,7 @@ export interface OrderLinePreviousValuesPromise
 export interface OrderLinePreviousValuesSubscription
   extends Promise<AsyncIterator<OrderLinePreviousValues>>,
     Fragmentable {
-  lineId: () => Promise<AsyncIterator<ID_Output>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
   quantity: () => Promise<AsyncIterator<Int>>;
   orderDate: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1779,13 +1774,13 @@ export interface AggregateOrderLineSubscription
 }
 
 export interface OrderLine {
-  lineId: ID_Output;
+  id: ID_Output;
   quantity: Int;
   orderDate: DateTimeOutput;
 }
 
 export interface OrderLinePromise extends Promise<OrderLine>, Fragmentable {
-  lineId: () => Promise<ID_Output>;
+  id: () => Promise<ID_Output>;
   quantity: () => Promise<Int>;
   orderDate: () => Promise<DateTimeOutput>;
   product: <T = ProductPromise>() => T;
@@ -1795,7 +1790,7 @@ export interface OrderLinePromise extends Promise<OrderLine>, Fragmentable {
 export interface OrderLineSubscription
   extends Promise<AsyncIterator<OrderLine>>,
     Fragmentable {
-  lineId: () => Promise<AsyncIterator<ID_Output>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
   quantity: () => Promise<AsyncIterator<Int>>;
   orderDate: () => Promise<AsyncIterator<DateTimeOutput>>;
   product: <T = ProductSubscription>() => T;
