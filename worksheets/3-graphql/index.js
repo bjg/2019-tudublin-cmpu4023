@@ -39,7 +39,6 @@ const resolvers = {
     // but it will filter them so that they only match the parent order.
     Order: {
         orderLines(parent) {
-            console.log(parent)
             return prisma.orderLines({
                 where: {
                     order: {
@@ -75,6 +74,7 @@ const resolvers = {
             )
         },
         createOrderLine(root, args, context) {
+            console.log(args);
             return context.prisma.createOrderLine(
                 {
                     quantity: args.quantity,
@@ -85,8 +85,16 @@ const resolvers = {
                         }
                     },
                     order: {
-                        connect: {
-                            id: args.order
+                        create: {
+                            orderDate: args.order.orderDate,
+                            netAmount: args.order.netAmount,
+                            tax: args.order.tax,
+                            totalAmount: args.order.totalAmount,
+                            customer: {
+                                connect: {
+                                    id: args.order.customer
+                                }
+                            }
                         }
                     }
                 }
