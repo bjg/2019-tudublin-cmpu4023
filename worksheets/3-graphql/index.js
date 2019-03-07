@@ -73,6 +73,16 @@ const resolvers = {
                 }
             )
         },
+        // Part 4. The requirement was to add to one and update or add to a second.
+        // For this mutator, it will create an OrderLine and it will link it to a particular
+        // product. It will then also create an order for that order line and it will also
+        // link that order to a particular customer.
+        // Example:
+        // An application for this query would be for generating a new order for a customer
+        // by a billing application. If there is not current order, create an order line which 
+        // will handle taking care of the first order line and also the order itself.
+        // If there are already order lines present, then the billing application could just update
+        // by adding another but by just linking it to the particular order.
         createOrderLine(root, args, context) {
             console.log(args);
             return context.prisma.createOrderLine(
