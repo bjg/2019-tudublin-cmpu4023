@@ -171,8 +171,11 @@ const resolvers = {
 
     //part 4. Briefly, describe an application of the query you have chosen to write as a comment in your resolver code
     /*
-        This query would work for a manytomany example. We could link all the orders, and products to a customer. we could also link all the products to the categories while doing so.
-        This would be very common on a ecommerce website like amazon, showing all of the orders and products by a customer
+     
+Application example:
+The query in this case would be a good example of a transactional relational system. When a customer purchases an item the inventory stock is affected. This can be modified to have triggers to alert the manager to order more stock or automate this process. This type of query is very common with ecommerce websites such as amazon, tesco, river island etc.. 
+
+
     */
 
     createCust_HistEndpoint(root, args, context) {
