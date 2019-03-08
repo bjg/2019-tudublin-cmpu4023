@@ -1,0 +1,72 @@
+const express = require("express");
+const http = require("http");
+const massive = require("massive");
+const bodyParser = require("body-parser");
+const CryptoJS = require("crypto-js");
+const Base64 = require("crypto-js/enc-base64");
+const app = express();
+app.use(bodyParser.json());
+
+massive({
+    host: 'localhost',
+    port: 5432,
+    database: 'lab2',
+    user: 'postgres',
+    password: 'postgres',
+    enhancedFunctions: true
+  }).then(instance => {
+    app.set('db', instance);
+
+    app.get('/', (req, res) => {
+        res.send("workshett 2 HMAC");
+    });
+
+   
+   
+    app.post("/products", authenticate, (req, res) => {
+        instance.query(
+		
+		
+            "select * from products;"
+        ).then(products => {
+			
+			
+			
+            //returns product table
+            res.status(200).send(products); 
+        }) 
+    });
+
+	
+// middle ware authentication
+	function authenticate(req, res, next) {
+		//pull key and sig from the client header
+		header = req.headers.authorization;
+		key = header.slice(16,26);
+		signature = header.slice(37,);
+		
+
+  db.query(
+            `SELECT public_key, private_key FROM USERS WHERE public_key = '${key}';`
+        ).then(users => {
+            public_key = users[0].public_key;
+            private_key = users[0].private_key;
+            url = "http://"+req.headers.host+req.url;
+            body_data = req.body.value;
+
+            const data = `${url}${body_data}${public_key}`;
+            const signature = CryptoJS.HmacSHA256(data, private_key);
+            newheader = `HMAC-SHA256 Key=${public_key} Signature=${Base64.stringify(signature)}`;
+
+            //if the new header matches client to continue
+            if(newheader == req.headers.authorization){
+                next();
+            }
+            else{
+                res.status(401).send("Authentication failed")
+            }  
+        })
+    }
+	
+});
+app.listen(port, () => console.log(`app listening port ${port}!`))
