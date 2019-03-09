@@ -1,0 +1,191 @@
+customer mutation
+mutation {
+    createCustomerEndpoint(
+        firstname: "Eric",
+        lastname: "Strong"
+        address1: "11 village green, "
+        address2: "kilbreck"
+        city: "stamullen"
+        state: "meath"
+        zip: "01"
+        county: "Meath"
+        region: "Leinster"
+        username: "es1989"
+        email: "c15708709@mydit.ie"
+        phone: "+353851077975"
+        creditcardtype: "visa"
+        creditcard: "12345"
+        gender: "male"
+        creditcardexpiration: "02-03-2020"
+        password: "password1"
+        age: 30 income: 65000.00
+    ) {
+        firstname
+        lastname id
+    }
+}
+Customer query
+query {
+    getCustomersEndpoint {
+        id
+        firstname
+        username creditcardexpiration
+    }
+}
+Categories Mutation
+mutation {
+    createCategoryEndpoint() {
+        id
+    }
+}
+categoryname: "ComputerScienceBooks"
+categoryname
+Categories Query
+query {
+    getCategoriesEndpoint {
+        id
+        categoryname
+    }
+}
+Products Mutation
+mutation {
+    createProductsEndpoint(
+        title: "Python 101"
+        actor: "book"
+        price: 9.99 special: 5.00 common_prod_id: 1 categoryId: "cjsvmwdgg00i10a04vn2tagrd") {
+        id
+        title
+        price
+        actor
+        special
+        category {
+            id
+            categoryname
+        }
+    }
+}
+Products Query
+query {
+    getProductsEndpoint {
+        id
+        title
+        price
+        category {
+            id
+            categoryname
+        }
+    }
+
+}
+Orders Mutation
+mutation {
+    createOrdersEndpoint(
+        orderdate: "05-03-2019", netamount: 9.99,
+        tax: 2.50, totalamount: 12.49,
+        customerId: "cjsvmuxu500hv0a0475f0reww"
+    ) {
+        id
+        customer {
+            id
+            firstname
+        }
+    }
+}
+Orders Query
+query {
+    getOrdersEndpoint {
+        id totalamount customer {
+            id
+        }
+    }
+}
+Cust_Hist Mutation
+mutation {
+    createCust_HistEndpoint(
+        customerId: "cjsvmuxu500hv0a0475f0reww"
+        orderId: "cjsvn0nwl00ii0a04il07uv6y"
+        productId: "cjsvmy8dy00i80a040t71hlza") {
+        id
+        customer {
+            id
+            firstname
+        }
+        product {
+            id
+            title
+            category {
+                id
+                categoryname
+            }
+        }
+        order {
+            id
+            orderdate
+        }
+    }
+}
+
+Cust_Hist Query
+query {
+    getCust_HistsEndpoint {
+        id product {
+            id
+        }
+        customer {
+            id
+            firstname
+        }
+        order {
+            id
+        }
+    }
+}
+Inventory Mutation
+mutation {
+    createInventoryEndpoint(
+        quantity_in_stock: 10 sales: 0 productId: "cjsyqrjod00be0a994jh6j48j"
+    ) {
+        id
+        quantity_in_stock sales
+        product {
+            id
+            title
+            price
+        }
+    }
+}
+Inventory Query
+query {
+    getInventoryEndpoint {
+        id
+        sales quantity_in_stock testupdate
+        product {
+            id
+            title
+            price
+        }
+    }
+}
+Orderlines Mutation
+mutation {
+    createOrderlinesEndpoint(
+        productId: "cjsyqrjod00be0a994jh6j48j", orderId: "cjsyqt4j800bu0a99tg5vxekm",
+        quantity: 5,
+        orderdate: "06-03-19", inventoryId: "cjsyqsf1300bm0a99kzemwtpg"
+    ) {
+        id
+    }
+}
+Orderlines Query
+query {
+    getOrderlinesEndpoint {
+        id product {
+            id
+            title
+        }
+        order {
+            id
+            tax
+        }
+    }
+}
