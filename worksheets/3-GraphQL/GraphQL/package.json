@@ -1,0 +1,17 @@
+{
+  "name": "3-graphql",
+  "version": "1.0.0",
+  "description": "Lab 3 Enterprise Application Development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Ward (c12404762)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "nodemon": "^1.18.10",
+    "prisma-client-lib": "^1.28.2"
+  }
+}
