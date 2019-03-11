@@ -1,0 +1,20 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "graphql lab3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "eric strong c15708709",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-yoga": "^1.17.4",
+    "nodemon": "^1.18.10",
+    "prisma-client-lib": "^1.27.4",
+    "request": "^2.88.0"
+  }
+}
