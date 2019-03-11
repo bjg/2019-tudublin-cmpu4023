@@ -1,0 +1,77 @@
+type Reorder{
+  id: ID! @unique
+  date_low: DateTime!
+  quan_low: Int!
+  date_reordered: DateTime!
+  quan_reordered: Int!
+  date_expected: DateTime!
+  product: Product
+}
+
+type Inventory{
+  id: ID! @unique
+  product: Product
+  quan_in_stock: Int!
+  sales: Int!
+}
+
+type Orderline{
+  id: ID! @unique
+  order: Order
+  product: Product
+  quantity: Int!
+  order_date: DateTime!
+}
+
+type CustomerHistory{
+  id: ID! @unique
+  customer: Customer
+  order: Order
+  product:Product
+}
+
+type Order{
+  id: ID! @unique
+  order_date: DateTime!
+  customer: Customer
+  net_amount: Float!
+  tax: Float!
+  total_amount: Float!
+}
+
+type Customer{  
+  id: ID! @unique
+  firstname: String!
+  lastname: String!
+  address: String!
+  city: String!
+  zip: Int!
+  country: String!
+  region: Int!
+  email: String!
+  phone: String!
+  credit_card_type: Int!
+  credit_card: String!
+  credit_card_expiration: String!
+  username: String!
+  passowrd: String!
+  age: Int!
+  income: Int!
+  gender: ID
+}
+
+
+type Product{
+  id: ID! @unique
+  category: Int!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int!
+  common_prod_id: Int!
+}
+
+type Catergory{
+  id: ID! @unique
+  category_name: String!
+}

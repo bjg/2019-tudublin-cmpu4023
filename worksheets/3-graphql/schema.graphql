@@ -1,0 +1,17 @@
+type Query{
+    product(productId: ID!): Product
+}
+
+type Mutation{
+    createProduct(category: Int!,title:String!,actor:String!,price: Float!,special: Int!,common_prod_id: Int!): Product
+}
+
+type Product{
+  id: ID! 
+  category: Int!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int!
+  common_prod_id: Int!
+}
