@@ -91,7 +91,7 @@ const resolvers = {
    *  ( Part 3 )
    *  These methods allow for nested queries to be performed on all tables
    *  These methods are required for the relationships between the tables to be accessible 
-   *  The get order by id endpoint can now be used to to return all information about an order including
+   *  For example getOrderById endpoint can now be used to to return all information about an order including
    *  The customer the ordeline the product and the category. The type of nested querying can be accomplished 
    *  For all tables that have relations
    */
@@ -159,8 +159,8 @@ const resolvers = {
      * Part (4)
      * Method to pupulate the inventory of a product when it is created
      * This is how any back end stock managment system works, new products are added
-     * to the system and at the same time the quantity of the product is added with a seperate
-     * transaction used to update the quantity from then on. 
+     * to the system and at the same time the quantity of the product is added. A seperate
+     * transaction can used to update the quantity from then on. 
      */
     createProduct(root, args, context) {
       console.log('Creating products entry....')
@@ -205,10 +205,7 @@ const resolvers = {
         },
         netamount: args.netamount,
         tax: args.tax,
-        totalamount: args.totalamount,
-        orderline: { 
-          connect: { id: args.orderlineId }
-        },
+        totalamount: args.totalamount
       })
     },
 
@@ -238,6 +235,8 @@ const resolvers = {
     },
   },
 }
+
+// Pat (5) Set up and run a graphql server
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',
     resolvers,
