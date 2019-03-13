@@ -1,13 +1,64 @@
-type User {
+type Category{
   id: ID! @unique
-  email: String @unique
-  name: String!
-  posts: [Post!]!
+  categoryname: String!
 }
 
-type Post {
+type Product {
   id: ID! @unique
+  category: Category
   title: String!
-  published: Boolean! @default(value: "false")
-  author: User
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  inventory: Inventory
+}
+
+type Inventory {
+  id: ID! @unique
+  product: Product
+  stock_quantity: Int
+  sales: Int
+}
+
+type Orderline {
+  id: ID! @unique
+  order: Order
+  product: Product
+  quantity: Int
+  orderdate: DateTime
+}
+
+type Order {
+  id: ID! @unique
+  orderdate: DateTime
+  customer: Customer
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  orderline: Orderline
+}
+
+type Customer {
+  id: ID! @unique
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: Int!
+  country: String!
+  region: String!
+  email: String!
+  phone: String!
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: DateTime
+  username: String!
+  password: String!
+  age: Int!
+  income: Float
+  gender: String!
+  order: [Order!]
 }

@@ -1,25 +1,140 @@
+scalar DateTime
+
 type Query {
-  publishedPosts: [Post!]!
-  post(postId: ID!): Post
-  postsByUser(userId: ID!): [Post!]!
+  getCategories: [Category!]!
+  getProducts: [Product!]!
+  getOrderlines: [Orderline!]!
+  getOrders: [Order!]!
+  getCustomers: [Customer!]!
+  getInventories: [Inventory!]!
+  
+  getCategoryById(id: ID!): Category!
+  getProductById(id: ID!): Product!
+  getOrderlineById(id: ID!): Orderline!
+  getOrderById(id: ID!): Order!
+  getCustomerById(id: ID!): Customer!
+  getInventoryById(id: ID!): Inventory!
 }
 
 type Mutation {
-  createUser(name: String!): User
-  createDraft(title: String!, userId: ID!): Post
-  publish(postId: ID!): Post
+  createCategory(
+    categoryname: String!
+  ): Category
+
+  createProduct(
+    categoryId: ID!,
+    title: String!,
+    actor: String,
+    price: Float!,
+    special: Float,
+    common_prod_id: Int
+    stock_quantity: Int 
+  ): Product
+
+  createInventory(
+    productId: ID!
+    stock_quantity: Int
+    sales: Int
+  ): Inventory
+
+  createOrderline(
+    orderId: ID!,
+    productId: ID!,
+    quantity: Int,
+    orderdate: DateTime
+  ): Orderline
+
+  createOrder(
+    orderdate: DateTime,
+    customerId: ID!,
+    netamount: Float!,
+    tax: Float!,
+    totalamount: Float!
+  ): Order
+
+  createCustomer(
+    firstname: String!,
+    lastname: String!,
+    address1: String!,
+    address2: String!,
+    city: String!,
+    state: String!,
+    zip: Int!,
+    country: String!,
+    region: String!,
+    email: String!,
+    phone: String!,
+    creditcardtype: String,
+    creditcard: String,
+    creditcardexpiration: DateTime,
+    username: String!,
+    password: String!,
+    age: Int!,
+    income: Float,
+    gender: String!
+  ): Customer
 }
 
-type User {
+type Category {
   id: ID!
-  email: String
-  name: String!
-  posts: [Post!]!
+  categoryname: String!
 }
 
-type Post {
+type Product {
   id: ID!
+  category: Category
   title: String!
-  published: Boolean!
-  author: User
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  inventory: Inventory
+}
+
+type Inventory {
+  id: ID!
+  product: Product
+  stock_quantity: Int
+  sales: Int
+}
+
+type Orderline {
+  id: ID!
+  order: Order
+  product: Product
+  quantity: Int
+  orderdate: DateTime
+}
+
+type Order {
+  id: ID!
+  orderdate: DateTime
+  customer: Customer
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  orderline: Orderline
+}
+
+type Customer {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: Int!
+  country: String!
+  region: String!
+  email: String!
+  phone: String!
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: DateTime
+  username: String!
+  password: String!
+  age: Int!
+  income: Float
+  gender: String!
 }
