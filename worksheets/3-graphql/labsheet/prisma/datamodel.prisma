@@ -1,0 +1,42 @@
+type Product {
+  id: ID! @unique
+  name: String!
+  description: String!
+  price: Float!
+}
+
+type Customer {
+  id: ID! @unique
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: String!
+  email: String
+  phone: String
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String
+}
+
+type Order {
+  id: ID! @unique
+  order_date: DateTime!
+  customer: [Customer!]!
+  net_amount: Float!
+  tax: Float!
+  total_amount: Float!
+}
+
+type OrderLine {
+  id: ID! @unique
+  order: [Order!]!
+  product: [Product!]!
+  quantity: Int!
+}
