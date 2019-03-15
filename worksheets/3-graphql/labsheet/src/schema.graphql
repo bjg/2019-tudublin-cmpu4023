@@ -5,6 +5,10 @@ type Query {
   orderLinesByCustomer(customerUsername: String!): [OrderLine]!
 }
 
+type Mutation {
+  addOrderLine(orderId: ID!, productId: ID!, quantity: Int!): OrderLine!
+}
+
 type Product {
   id: ID!
   name: String!

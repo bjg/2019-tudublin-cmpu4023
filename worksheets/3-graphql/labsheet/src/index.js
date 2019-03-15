@@ -1,6 +1,37 @@
 const { prisma } = require('./generated/prisma-client')
 const { GraphQLServer } = require('graphql-yoga')
 
+async function getProductPrice(productId) {
+  let product = await prisma
+    .product({
+      id: productId
+    })
+  return product.price;
+  console.log("Product Price: " + product);
+}
+
+async function getOrder(orderId) {
+  let order = await prisma
+    .order({
+      id: orderId
+    })
+  return order;
+  console.log("Order:\n" + order);
+}
+
+async function updateOrderPrice(orderId, newTotal) {
+  let order = await prisma
+    .updateOrder({
+      data: {
+        total_amount: newTotal
+      },
+      where: {
+        id: orderId
+      }
+    })
+  console.log("New Order:\n" + order);
+}
+
 const resolvers = {
   Query: {
     /* 
@@ -28,6 +59,41 @@ const resolvers = {
       })
     }
 
+  },
+
+  Mutation: {
+    addOrderLine(root, args, context) {
+
+     let newTotal;
+
+      // Retrieve product price and begin promis chaining
+      getProductPrice(args.productId)
+        .then(price => {
+          // Retrieve specific order in which orderline is being added to
+          getOrder(args.orderId)
+            .then(order => {
+              // Calculate the new total_amount value of the order and parse to float
+              newTotal = parseFloat((order.total_amount + (args.quantity * price)).toFixed(2));
+              // Update order
+              updateOrderPrice(args.orderId, newTotal);
+            })
+        })
+
+      return context.prisma.createOrderLine({
+        order: {
+          connect: {
+	    id: args.orderId
+	  }
+	},
+	product: {
+	  connect: {
+	    id: args.productId
+	  }
+	},
+	quantity: args.quantity
+      })
+
+    }
   },
 
   // Creates connection between related tables to allow nested queries
