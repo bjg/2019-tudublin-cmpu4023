@@ -445,4 +445,4 @@ async function insertData() {
   })
 }
 
-//insertData().catch(e => console.error(e))
+insertData().catch(e => console.error(e))
