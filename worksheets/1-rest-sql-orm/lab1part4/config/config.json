@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "7512",
+    "database": "pgguide",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "postgres",
+    "password": "7512",
+    "database": "pgguide",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "postgres",
+    "password": "7512",
+    "database": "pgguide",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
