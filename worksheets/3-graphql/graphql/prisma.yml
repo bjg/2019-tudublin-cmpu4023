@@ -6,3 +6,5 @@ generate:
 hooks:
   post-deploy:
     - prisma generate
+    - graphql get-schema --endpoint http://localhost:4466 --output schema.graphql
+    - graphql prepare
