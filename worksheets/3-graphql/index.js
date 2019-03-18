@@ -18,9 +18,11 @@ const resolvers = {
 		orderlines(root, args, context) {
 			return context.prisma.orderlines()
 		},
-		orderlineById(root, args, context) {
-			return context.prisma.orderline({ id: args.OLId }).product().category()
-        }
+		async orderlineById(root, args, context) {
+			const o = await context.prisma.orderline({id: args.olid}).product()
+			console.log(o);
+			return o
+        	}
 	},
 	Mutation: {
 		/*
@@ -119,10 +121,10 @@ const resolvers = {
 		Create a new category by providing its name
 		 */
 		createCategory(root, args, context) {
-			return context.prisma.createCategory({
-				name: args.name
-			})
-		},
+                        return context.prisma.createCategory({
+                                name: args.name
+                        })
+                },	
 
 		/*
 		mutation createOrderline{
@@ -193,7 +195,6 @@ const resolvers = {
 			})
 		}
 	},
-	// These are used for creating and getting relationships in the mutations/queries
 	Product: {
 		category(root, args, context) {
 			return context.prisma.product({

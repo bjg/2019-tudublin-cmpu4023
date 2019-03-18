@@ -6,5 +6,3 @@ generate:
 hooks:
   post-deploy:
     - prisma generate
-    - prisma reset -f 
-    - node inserts.js

@@ -6,6 +6,7 @@ type Query {
   categories: [Category!]!
   orders: [Order!]!
   orderlines: [Orderline!]!
+  orderlineById(olid: ID!) : Orderline
 }
 
 type Mutation {
@@ -18,7 +19,7 @@ type Mutation {
 
 type Product {
   id: ID!
-  category: [Category!]!
+  category: Category!
   title: String!
   price: Float!
   special: Int!
@@ -31,8 +32,8 @@ type Category {
 
 type Orderline {
   id: ID!
-  order: [Order!]!
-  product: [Product!]!
+  order: Order!
+  product: Product!
   quantity: Int!
   date: DateTime!
 }
@@ -40,7 +41,7 @@ type Orderline {
 type Order {
   id: ID!
   date: DateTime!
-  customer: [Customer!]!
+  customer: Customer!
   netamount: Float!
   tax: Float!
   totalamount: Float!

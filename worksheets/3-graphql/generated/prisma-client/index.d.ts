@@ -316,6 +316,18 @@ export type OrderOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
+export type OrderlineOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "quantity_ASC"
+  | "quantity_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
 export type ProductOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -325,18 +337,6 @@ export type ProductOrderByInput =
   | "price_DESC"
   | "special_ASC"
   | "special_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type OrderlineOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "quantity_ASC"
-  | "quantity_DESC"
-  | "date_ASC"
-  | "date_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -461,9 +461,7 @@ export interface OrderWhereInput {
   date_lte?: DateTimeInput;
   date_gt?: DateTimeInput;
   date_gte?: DateTimeInput;
-  customer_every?: CustomerWhereInput;
-  customer_some?: CustomerWhereInput;
-  customer_none?: CustomerWhereInput;
+  customer?: CustomerWhereInput;
   netamount?: Float;
   netamount_not?: Float;
   netamount_in?: Float[] | Float;
@@ -497,6 +495,44 @@ export type OrderlineWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
 
+export interface OrderlineWhereInput {
+  id?: ID_Input;
+  id_not?: ID_Input;
+  id_in?: ID_Input[] | ID_Input;
+  id_not_in?: ID_Input[] | ID_Input;
+  id_lt?: ID_Input;
+  id_lte?: ID_Input;
+  id_gt?: ID_Input;
+  id_gte?: ID_Input;
+  id_contains?: ID_Input;
+  id_not_contains?: ID_Input;
+  id_starts_with?: ID_Input;
+  id_not_starts_with?: ID_Input;
+  id_ends_with?: ID_Input;
+  id_not_ends_with?: ID_Input;
+  order?: OrderWhereInput;
+  product?: ProductWhereInput;
+  quantity?: Int;
+  quantity_not?: Int;
+  quantity_in?: Int[] | Int;
+  quantity_not_in?: Int[] | Int;
+  quantity_lt?: Int;
+  quantity_lte?: Int;
+  quantity_gt?: Int;
+  quantity_gte?: Int;
+  date?: DateTimeInput;
+  date_not?: DateTimeInput;
+  date_in?: DateTimeInput[] | DateTimeInput;
+  date_not_in?: DateTimeInput[] | DateTimeInput;
+  date_lt?: DateTimeInput;
+  date_lte?: DateTimeInput;
+  date_gt?: DateTimeInput;
+  date_gte?: DateTimeInput;
+  AND?: OrderlineWhereInput[] | OrderlineWhereInput;
+  OR?: OrderlineWhereInput[] | OrderlineWhereInput;
+  NOT?: OrderlineWhereInput[] | OrderlineWhereInput;
+}
+
 export interface ProductWhereInput {
   id?: ID_Input;
   id_not?: ID_Input;
@@ -512,9 +548,7 @@ export interface ProductWhereInput {
   id_not_starts_with?: ID_Input;
   id_ends_with?: ID_Input;
   id_not_ends_with?: ID_Input;
-  category_every?: CategoryWhereInput;
-  category_some?: CategoryWhereInput;
-  category_none?: CategoryWhereInput;
+  category?: CategoryWhereInput;
   title?: String;
   title_not?: String;
   title_in?: String[] | String;
@@ -550,48 +584,6 @@ export interface ProductWhereInput {
   NOT?: ProductWhereInput[] | ProductWhereInput;
 }
 
-export interface OrderlineWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  order_every?: OrderWhereInput;
-  order_some?: OrderWhereInput;
-  order_none?: OrderWhereInput;
-  product_every?: ProductWhereInput;
-  product_some?: ProductWhereInput;
-  product_none?: ProductWhereInput;
-  quantity?: Int;
-  quantity_not?: Int;
-  quantity_in?: Int[] | Int;
-  quantity_not_in?: Int[] | Int;
-  quantity_lt?: Int;
-  quantity_lte?: Int;
-  quantity_gt?: Int;
-  quantity_gte?: Int;
-  date?: DateTimeInput;
-  date_not?: DateTimeInput;
-  date_in?: DateTimeInput[] | DateTimeInput;
-  date_not_in?: DateTimeInput[] | DateTimeInput;
-  date_lt?: DateTimeInput;
-  date_lte?: DateTimeInput;
-  date_gt?: DateTimeInput;
-  date_gte?: DateTimeInput;
-  AND?: OrderlineWhereInput[] | OrderlineWhereInput;
-  OR?: OrderlineWhereInput[] | OrderlineWhereInput;
-  NOT?: OrderlineWhereInput[] | OrderlineWhereInput;
-}
-
 export type ProductWhereUniqueInput = AtLeastOne<{
   id: ID_Input;
 }>;
@@ -625,46 +617,30 @@ export interface CustomerUpdateManyMutationInput {
 
 export interface OrderCreateInput {
   date: DateTimeInput;
-  customer?: CustomerCreateManyInput;
+  customer: CustomerCreateOneInput;
   netamount: Float;
   tax: Float;
   totalamount: Float;
 }
 
-export interface CustomerCreateManyInput {
-  create?: CustomerCreateInput[] | CustomerCreateInput;
-  connect?: CustomerWhereUniqueInput[] | CustomerWhereUniqueInput;
+export interface CustomerCreateOneInput {
+  create?: CustomerCreateInput;
+  connect?: CustomerWhereUniqueInput;
 }
 
 export interface OrderUpdateInput {
   date?: DateTimeInput;
-  customer?: CustomerUpdateManyInput;
+  customer?: CustomerUpdateOneRequiredInput;
   netamount?: Float;
   tax?: Float;
   totalamount?: Float;
 }
 
-export interface CustomerUpdateManyInput {
-  create?: CustomerCreateInput[] | CustomerCreateInput;
-  update?:
-    | CustomerUpdateWithWhereUniqueNestedInput[]
-    | CustomerUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CustomerUpsertWithWhereUniqueNestedInput[]
-    | CustomerUpsertWithWhereUniqueNestedInput;
-  delete?: CustomerWhereUniqueInput[] | CustomerWhereUniqueInput;
-  connect?: CustomerWhereUniqueInput[] | CustomerWhereUniqueInput;
-  set?: CustomerWhereUniqueInput[] | CustomerWhereUniqueInput;
-  disconnect?: CustomerWhereUniqueInput[] | CustomerWhereUniqueInput;
-  deleteMany?: CustomerScalarWhereInput[] | CustomerScalarWhereInput;
-  updateMany?:
-    | CustomerUpdateManyWithWhereNestedInput[]
-    | CustomerUpdateManyWithWhereNestedInput;
-}
-
-export interface CustomerUpdateWithWhereUniqueNestedInput {
-  where: CustomerWhereUniqueInput;
-  data: CustomerUpdateDataInput;
+export interface CustomerUpdateOneRequiredInput {
+  create?: CustomerCreateInput;
+  update?: CustomerUpdateDataInput;
+  upsert?: CustomerUpsertNestedInput;
+  connect?: CustomerWhereUniqueInput;
 }
 
 export interface CustomerUpdateDataInput {
@@ -672,68 +648,9 @@ export interface CustomerUpdateDataInput {
   lastname?: String;
 }
 
-export interface CustomerUpsertWithWhereUniqueNestedInput {
-  where: CustomerWhereUniqueInput;
+export interface CustomerUpsertNestedInput {
   update: CustomerUpdateDataInput;
   create: CustomerCreateInput;
-}
-
-export interface CustomerScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  firstname?: String;
-  firstname_not?: String;
-  firstname_in?: String[] | String;
-  firstname_not_in?: String[] | String;
-  firstname_lt?: String;
-  firstname_lte?: String;
-  firstname_gt?: String;
-  firstname_gte?: String;
-  firstname_contains?: String;
-  firstname_not_contains?: String;
-  firstname_starts_with?: String;
-  firstname_not_starts_with?: String;
-  firstname_ends_with?: String;
-  firstname_not_ends_with?: String;
-  lastname?: String;
-  lastname_not?: String;
-  lastname_in?: String[] | String;
-  lastname_not_in?: String[] | String;
-  lastname_lt?: String;
-  lastname_lte?: String;
-  lastname_gt?: String;
-  lastname_gte?: String;
-  lastname_contains?: String;
-  lastname_not_contains?: String;
-  lastname_starts_with?: String;
-  lastname_not_starts_with?: String;
-  lastname_ends_with?: String;
-  lastname_not_ends_with?: String;
-  AND?: CustomerScalarWhereInput[] | CustomerScalarWhereInput;
-  OR?: CustomerScalarWhereInput[] | CustomerScalarWhereInput;
-  NOT?: CustomerScalarWhereInput[] | CustomerScalarWhereInput;
-}
-
-export interface CustomerUpdateManyWithWhereNestedInput {
-  where: CustomerScalarWhereInput;
-  data: CustomerUpdateManyDataInput;
-}
-
-export interface CustomerUpdateManyDataInput {
-  firstname?: String;
-  lastname?: String;
 }
 
 export interface OrderUpdateManyMutationInput {
@@ -744,313 +661,94 @@ export interface OrderUpdateManyMutationInput {
 }
 
 export interface OrderlineCreateInput {
-  order?: OrderCreateManyInput;
-  product?: ProductCreateManyInput;
+  order: OrderCreateOneInput;
+  product: ProductCreateOneInput;
   quantity: Int;
   date: DateTimeInput;
 }
 
-export interface OrderCreateManyInput {
-  create?: OrderCreateInput[] | OrderCreateInput;
-  connect?: OrderWhereUniqueInput[] | OrderWhereUniqueInput;
+export interface OrderCreateOneInput {
+  create?: OrderCreateInput;
+  connect?: OrderWhereUniqueInput;
 }
 
-export interface ProductCreateManyInput {
-  create?: ProductCreateInput[] | ProductCreateInput;
-  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
+export interface ProductCreateOneInput {
+  create?: ProductCreateInput;
+  connect?: ProductWhereUniqueInput;
 }
 
 export interface ProductCreateInput {
-  category?: CategoryCreateManyInput;
+  category: CategoryCreateOneInput;
   title: String;
   price: Float;
   special: Int;
 }
 
-export interface CategoryCreateManyInput {
-  create?: CategoryCreateInput[] | CategoryCreateInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
+export interface CategoryCreateOneInput {
+  create?: CategoryCreateInput;
+  connect?: CategoryWhereUniqueInput;
 }
 
 export interface OrderlineUpdateInput {
-  order?: OrderUpdateManyInput;
-  product?: ProductUpdateManyInput;
+  order?: OrderUpdateOneRequiredInput;
+  product?: ProductUpdateOneRequiredInput;
   quantity?: Int;
   date?: DateTimeInput;
 }
 
-export interface OrderUpdateManyInput {
-  create?: OrderCreateInput[] | OrderCreateInput;
-  update?:
-    | OrderUpdateWithWhereUniqueNestedInput[]
-    | OrderUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | OrderUpsertWithWhereUniqueNestedInput[]
-    | OrderUpsertWithWhereUniqueNestedInput;
-  delete?: OrderWhereUniqueInput[] | OrderWhereUniqueInput;
-  connect?: OrderWhereUniqueInput[] | OrderWhereUniqueInput;
-  set?: OrderWhereUniqueInput[] | OrderWhereUniqueInput;
-  disconnect?: OrderWhereUniqueInput[] | OrderWhereUniqueInput;
-  deleteMany?: OrderScalarWhereInput[] | OrderScalarWhereInput;
-  updateMany?:
-    | OrderUpdateManyWithWhereNestedInput[]
-    | OrderUpdateManyWithWhereNestedInput;
-}
-
-export interface OrderUpdateWithWhereUniqueNestedInput {
-  where: OrderWhereUniqueInput;
-  data: OrderUpdateDataInput;
+export interface OrderUpdateOneRequiredInput {
+  create?: OrderCreateInput;
+  update?: OrderUpdateDataInput;
+  upsert?: OrderUpsertNestedInput;
+  connect?: OrderWhereUniqueInput;
 }
 
 export interface OrderUpdateDataInput {
   date?: DateTimeInput;
-  customer?: CustomerUpdateManyInput;
+  customer?: CustomerUpdateOneRequiredInput;
   netamount?: Float;
   tax?: Float;
   totalamount?: Float;
 }
 
-export interface OrderUpsertWithWhereUniqueNestedInput {
-  where: OrderWhereUniqueInput;
+export interface OrderUpsertNestedInput {
   update: OrderUpdateDataInput;
   create: OrderCreateInput;
 }
 
-export interface OrderScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  date?: DateTimeInput;
-  date_not?: DateTimeInput;
-  date_in?: DateTimeInput[] | DateTimeInput;
-  date_not_in?: DateTimeInput[] | DateTimeInput;
-  date_lt?: DateTimeInput;
-  date_lte?: DateTimeInput;
-  date_gt?: DateTimeInput;
-  date_gte?: DateTimeInput;
-  netamount?: Float;
-  netamount_not?: Float;
-  netamount_in?: Float[] | Float;
-  netamount_not_in?: Float[] | Float;
-  netamount_lt?: Float;
-  netamount_lte?: Float;
-  netamount_gt?: Float;
-  netamount_gte?: Float;
-  tax?: Float;
-  tax_not?: Float;
-  tax_in?: Float[] | Float;
-  tax_not_in?: Float[] | Float;
-  tax_lt?: Float;
-  tax_lte?: Float;
-  tax_gt?: Float;
-  tax_gte?: Float;
-  totalamount?: Float;
-  totalamount_not?: Float;
-  totalamount_in?: Float[] | Float;
-  totalamount_not_in?: Float[] | Float;
-  totalamount_lt?: Float;
-  totalamount_lte?: Float;
-  totalamount_gt?: Float;
-  totalamount_gte?: Float;
-  AND?: OrderScalarWhereInput[] | OrderScalarWhereInput;
-  OR?: OrderScalarWhereInput[] | OrderScalarWhereInput;
-  NOT?: OrderScalarWhereInput[] | OrderScalarWhereInput;
-}
-
-export interface OrderUpdateManyWithWhereNestedInput {
-  where: OrderScalarWhereInput;
-  data: OrderUpdateManyDataInput;
-}
-
-export interface OrderUpdateManyDataInput {
-  date?: DateTimeInput;
-  netamount?: Float;
-  tax?: Float;
-  totalamount?: Float;
-}
-
-export interface ProductUpdateManyInput {
-  create?: ProductCreateInput[] | ProductCreateInput;
-  update?:
-    | ProductUpdateWithWhereUniqueNestedInput[]
-    | ProductUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | ProductUpsertWithWhereUniqueNestedInput[]
-    | ProductUpsertWithWhereUniqueNestedInput;
-  delete?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  connect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  set?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  disconnect?: ProductWhereUniqueInput[] | ProductWhereUniqueInput;
-  deleteMany?: ProductScalarWhereInput[] | ProductScalarWhereInput;
-  updateMany?:
-    | ProductUpdateManyWithWhereNestedInput[]
-    | ProductUpdateManyWithWhereNestedInput;
-}
-
-export interface ProductUpdateWithWhereUniqueNestedInput {
-  where: ProductWhereUniqueInput;
-  data: ProductUpdateDataInput;
+export interface ProductUpdateOneRequiredInput {
+  create?: ProductCreateInput;
+  update?: ProductUpdateDataInput;
+  upsert?: ProductUpsertNestedInput;
+  connect?: ProductWhereUniqueInput;
 }
 
 export interface ProductUpdateDataInput {
-  category?: CategoryUpdateManyInput;
+  category?: CategoryUpdateOneRequiredInput;
   title?: String;
   price?: Float;
   special?: Int;
 }
 
-export interface CategoryUpdateManyInput {
-  create?: CategoryCreateInput[] | CategoryCreateInput;
-  update?:
-    | CategoryUpdateWithWhereUniqueNestedInput[]
-    | CategoryUpdateWithWhereUniqueNestedInput;
-  upsert?:
-    | CategoryUpsertWithWhereUniqueNestedInput[]
-    | CategoryUpsertWithWhereUniqueNestedInput;
-  delete?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  connect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  set?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  disconnect?: CategoryWhereUniqueInput[] | CategoryWhereUniqueInput;
-  deleteMany?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
-  updateMany?:
-    | CategoryUpdateManyWithWhereNestedInput[]
-    | CategoryUpdateManyWithWhereNestedInput;
-}
-
-export interface CategoryUpdateWithWhereUniqueNestedInput {
-  where: CategoryWhereUniqueInput;
-  data: CategoryUpdateDataInput;
+export interface CategoryUpdateOneRequiredInput {
+  create?: CategoryCreateInput;
+  update?: CategoryUpdateDataInput;
+  upsert?: CategoryUpsertNestedInput;
+  connect?: CategoryWhereUniqueInput;
 }
 
 export interface CategoryUpdateDataInput {
   name?: String;
 }
 
-export interface CategoryUpsertWithWhereUniqueNestedInput {
-  where: CategoryWhereUniqueInput;
+export interface CategoryUpsertNestedInput {
   update: CategoryUpdateDataInput;
   create: CategoryCreateInput;
 }
 
-export interface CategoryScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  name?: String;
-  name_not?: String;
-  name_in?: String[] | String;
-  name_not_in?: String[] | String;
-  name_lt?: String;
-  name_lte?: String;
-  name_gt?: String;
-  name_gte?: String;
-  name_contains?: String;
-  name_not_contains?: String;
-  name_starts_with?: String;
-  name_not_starts_with?: String;
-  name_ends_with?: String;
-  name_not_ends_with?: String;
-  AND?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
-  OR?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
-  NOT?: CategoryScalarWhereInput[] | CategoryScalarWhereInput;
-}
-
-export interface CategoryUpdateManyWithWhereNestedInput {
-  where: CategoryScalarWhereInput;
-  data: CategoryUpdateManyDataInput;
-}
-
-export interface CategoryUpdateManyDataInput {
-  name?: String;
-}
-
-export interface ProductUpsertWithWhereUniqueNestedInput {
-  where: ProductWhereUniqueInput;
+export interface ProductUpsertNestedInput {
   update: ProductUpdateDataInput;
   create: ProductCreateInput;
-}
-
-export interface ProductScalarWhereInput {
-  id?: ID_Input;
-  id_not?: ID_Input;
-  id_in?: ID_Input[] | ID_Input;
-  id_not_in?: ID_Input[] | ID_Input;
-  id_lt?: ID_Input;
-  id_lte?: ID_Input;
-  id_gt?: ID_Input;
-  id_gte?: ID_Input;
-  id_contains?: ID_Input;
-  id_not_contains?: ID_Input;
-  id_starts_with?: ID_Input;
-  id_not_starts_with?: ID_Input;
-  id_ends_with?: ID_Input;
-  id_not_ends_with?: ID_Input;
-  title?: String;
-  title_not?: String;
-  title_in?: String[] | String;
-  title_not_in?: String[] | String;
-  title_lt?: String;
-  title_lte?: String;
-  title_gt?: String;
-  title_gte?: String;
-  title_contains?: String;
-  title_not_contains?: String;
-  title_starts_with?: String;
-  title_not_starts_with?: String;
-  title_ends_with?: String;
-  title_not_ends_with?: String;
-  price?: Float;
-  price_not?: Float;
-  price_in?: Float[] | Float;
-  price_not_in?: Float[] | Float;
-  price_lt?: Float;
-  price_lte?: Float;
-  price_gt?: Float;
-  price_gte?: Float;
-  special?: Int;
-  special_not?: Int;
-  special_in?: Int[] | Int;
-  special_not_in?: Int[] | Int;
-  special_lt?: Int;
-  special_lte?: Int;
-  special_gt?: Int;
-  special_gte?: Int;
-  AND?: ProductScalarWhereInput[] | ProductScalarWhereInput;
-  OR?: ProductScalarWhereInput[] | ProductScalarWhereInput;
-  NOT?: ProductScalarWhereInput[] | ProductScalarWhereInput;
-}
-
-export interface ProductUpdateManyWithWhereNestedInput {
-  where: ProductScalarWhereInput;
-  data: ProductUpdateManyDataInput;
-}
-
-export interface ProductUpdateManyDataInput {
-  title?: String;
-  price?: Float;
-  special?: Int;
 }
 
 export interface OrderlineUpdateManyMutationInput {
@@ -1059,7 +757,7 @@ export interface OrderlineUpdateManyMutationInput {
 }
 
 export interface ProductUpdateInput {
-  category?: CategoryUpdateManyInput;
+  category?: CategoryUpdateOneRequiredInput;
   title?: String;
   price?: Float;
   special?: Int;
@@ -1313,17 +1011,7 @@ export interface Order {
 export interface OrderPromise extends Promise<Order>, Fragmentable {
   id: () => Promise<ID_Output>;
   date: () => Promise<DateTimeOutput>;
-  customer: <T = FragmentableArray<Customer>>(
-    args?: {
-      where?: CustomerWhereInput;
-      orderBy?: CustomerOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  customer: <T = CustomerPromise>() => T;
   netamount: () => Promise<Float>;
   tax: () => Promise<Float>;
   totalamount: () => Promise<Float>;
@@ -1334,17 +1022,7 @@ export interface OrderSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   date: () => Promise<AsyncIterator<DateTimeOutput>>;
-  customer: <T = Promise<AsyncIterator<CustomerSubscription>>>(
-    args?: {
-      where?: CustomerWhereInput;
-      orderBy?: CustomerOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  customer: <T = CustomerSubscription>() => T;
   netamount: () => Promise<AsyncIterator<Float>>;
   tax: () => Promise<AsyncIterator<Float>>;
   totalamount: () => Promise<AsyncIterator<Float>>;
@@ -1412,28 +1090,8 @@ export interface Orderline {
 
 export interface OrderlinePromise extends Promise<Orderline>, Fragmentable {
   id: () => Promise<ID_Output>;
-  order: <T = FragmentableArray<Order>>(
-    args?: {
-      where?: OrderWhereInput;
-      orderBy?: OrderOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  product: <T = FragmentableArray<Product>>(
-    args?: {
-      where?: ProductWhereInput;
-      orderBy?: ProductOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  order: <T = OrderPromise>() => T;
+  product: <T = ProductPromise>() => T;
   quantity: () => Promise<Int>;
   date: () => Promise<DateTimeOutput>;
 }
@@ -1442,28 +1100,8 @@ export interface OrderlineSubscription
   extends Promise<AsyncIterator<Orderline>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  order: <T = Promise<AsyncIterator<OrderSubscription>>>(
-    args?: {
-      where?: OrderWhereInput;
-      orderBy?: OrderOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
-  product: <T = Promise<AsyncIterator<ProductSubscription>>>(
-    args?: {
-      where?: ProductWhereInput;
-      orderBy?: ProductOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  order: <T = OrderSubscription>() => T;
+  product: <T = ProductSubscription>() => T;
   quantity: () => Promise<AsyncIterator<Int>>;
   date: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
@@ -1477,17 +1115,7 @@ export interface Product {
 
 export interface ProductPromise extends Promise<Product>, Fragmentable {
   id: () => Promise<ID_Output>;
-  category: <T = FragmentableArray<Category>>(
-    args?: {
-      where?: CategoryWhereInput;
-      orderBy?: CategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  category: <T = CategoryPromise>() => T;
   title: () => Promise<String>;
   price: () => Promise<Float>;
   special: () => Promise<Int>;
@@ -1497,17 +1125,7 @@ export interface ProductSubscription
   extends Promise<AsyncIterator<Product>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  category: <T = Promise<AsyncIterator<CategorySubscription>>>(
-    args?: {
-      where?: CategoryWhereInput;
-      orderBy?: CategoryOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => T;
+  category: <T = CategorySubscription>() => T;
   title: () => Promise<AsyncIterator<String>>;
   price: () => Promise<AsyncIterator<Float>>;
   special: () => Promise<AsyncIterator<Int>>;
