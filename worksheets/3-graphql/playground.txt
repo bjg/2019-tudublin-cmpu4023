@@ -1,0 +1,111 @@
+query allIDs{
+  products {
+    id
+  },
+  customers {
+    id
+  },
+  categories {
+  	id
+  },
+  orders {
+  	id
+  }
+}
+
+mutation createCustomer{
+  createCustomer(
+    firstname: "John"
+    lastname: "Cena"
+  ){
+    id
+    firstname
+    lastname
+  }
+}
+
+mutation createCategory{
+  createCategory(
+    name: "Entertainment"
+  ){
+    id
+    name
+  }
+}
+
+mutation createLaptop{
+  createProduct(
+    title: "Laptop"
+    catId: "__CATEGORY_ID__"
+    price: 800
+    special: 0
+  ){
+    id
+    title
+    price
+    special
+  }
+}
+
+mutation createHeadphones {
+  createProduct(
+    title: "Headphones"
+    catId: "__CATEGORY_ID__"
+    price: 150
+    special: 10
+  ){
+    id
+    title
+    price
+    special
+  }
+}
+
+mutation createOrder {
+  createOrder(
+  	custId: "__CUSTOMER_ID__"
+  	netamount: 30
+  	tax: 20
+  ){
+  	id
+  	customer {
+  		id
+  		firstname
+  		lastname
+  	}
+  	date
+  	netamount
+  	tax
+  	totalamount
+  }
+}
+
+mutation createOrderline{
+  createOrderline(
+    custId: "__CUSTOMER_ID__",
+    productId:"__PRODUCT_ID__",
+    quantity: 1
+  ){
+    id
+    quantity
+    date
+    product {
+      id
+      title
+      price
+      special
+    }
+		order {
+      id
+      customer {
+        id
+        firstname
+        lastname
+      }
+      date
+      netamount
+      tax
+      totalamount
+    }
+  }
+}

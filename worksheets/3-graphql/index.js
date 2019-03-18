@@ -17,8 +17,10 @@ const resolvers = {
 		},
 		orderlines(root, args, context) {
 			return context.prisma.orderlines()
-		}
-		
+		},
+		orderlineById(root, args, context) {
+			return context.prisma.orderline({ id: args.OLId }).product().category()
+        }
 	},
 	Mutation: {
 		/*
@@ -50,7 +52,26 @@ const resolvers = {
 		},
 
 		/*
- 		
+ 		mutation createOrder {
+		  createOrder(
+			custId: "__CUSTOMER_ID__"
+			netamount: 30
+		  ){
+			id
+			customer {
+				id
+				firstname
+				lastname
+			}
+			date
+			netamount
+			tax
+			totalamount
+		  }
+		}
+
+		Create an order by providing the customers id, and netamount
+		Tax for the country of daniel has been set at 20%
 		*/
 		createOrder(root, args, context) {
 			const date = new Date(); 
@@ -64,21 +85,91 @@ const resolvers = {
 				totalamount: args.netamount + (args.netamount * (20 / 100))
 			})
 		},
+		/*
+		mutation createCustomer{
+		  createCustomer(
+			firstname: "John"
+			lastname: "Cena"
+		  ){
+			id
+			firstname
+			lastname
+		  }
+		}
+
+		Create a customer by providing a first and last name
+		 */
 		createCustomer(root, args, context) {
 			return context.prisma.createCustomer({
 				firstname: args.first,
 				lastname: args.last
 			})
 		},
+
+		/*
+		mutation createCategory{
+		  createCategory(
+			name: "Entertainment"
+		  ){
+			id
+			name
+		  }
+		}
+
+		Create a new category by providing its name
+		 */
 		createCategory(root, args, context) {
 			return context.prisma.createCategory({
 				name: args.name
 			})
 		},
+
+		/*
+		mutation createOrderline{
+		  createOrderline(
+			custId: "__CUSTOMER_ID__",
+			productId:"__PRODUCT_ID__",
+			quantity: 1
+		  ){
+			id
+			quantity
+			date
+			product {
+			  id
+			  title
+			  price
+			  special
+			}
+				order {
+			  id
+			  customer {
+				id
+				firstname
+				lastname
+			  }
+			  date
+			  netamount
+			  tax
+			  totalamount
+			}
+		  }
+		}
+
+		Create orderline will create an orderline row and an order row.
+		It accepts the customers id, a product id, and a quantity
+
+		It will retrieve the product from the database by the product id
+		then it calculate the netamount by factoring in its special (sale amount)
+		and how many of the items are to be purchased.
+		Then we create the order using the calculated netamount, the customers id,
+		and the total amount which factors in the country of Daniels tax rate which is 20%
+
+		Once this is all done, it then creates the orderline using the new orders id, and the products id.
+		 */
 		async createOrderline(root, args, context) {
 			const date = new Date();
-			const p = await context.prisma.product({ id: args.productId })
-			const netamount = (p.price - (p.price * (p.special / 100))) * args.quantity
+			const p = await context.prisma.product({ id: args.productId });
+			const netamount = (p.price - (p.price * (p.special / 100))) * args.quantity;
 			const o = await context.prisma.createOrder({ 
 				customer: {
 					connect: { id: args.custId } 
@@ -87,7 +178,7 @@ const resolvers = {
 				netamount: netamount,
 				tax: 20,
 				totalamount: netamount + (netamount * (20 / 100))
-			})
+			});
 			console.log(p.price);
 			
 			return context.prisma.createOrderline({
@@ -102,6 +193,7 @@ const resolvers = {
 			})
 		}
 	},
+	// These are used for creating and getting relationships in the mutations/queries
 	Product: {
 		category(root, args, context) {
 			return context.prisma.product({
@@ -128,7 +220,7 @@ const resolvers = {
 			}).product()
 		}
 	}
-}
+};
 
 const server = new GraphQLServer({
   	typeDefs: './schema.graphql',
