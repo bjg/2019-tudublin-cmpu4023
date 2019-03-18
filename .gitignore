@@ -1,5 +1,5 @@
 *.iml
 .idea
-
+*.swo
 node_modules/
 package-lock.json
