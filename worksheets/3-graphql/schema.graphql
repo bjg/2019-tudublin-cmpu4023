@@ -1,10 +1,26 @@
+type Query{
+	products: [Product!]!
+	categories: [Category!]!
+	orderlines:[Orderline!]!
+	orders: [Order!]!
+}
+
+type Mutation{
+	createOrder(orderlines:[ID!]!): Order
+	createOrderline(prod:ID!, quantity: Int!): Orderline
+	createProduct(title: String!, price: Float!, category:ID!): Product
+	createCategory(categoryname:String!): Category
+}
+
+scalar DateTime
+
 type Category{
-  id:ID! @unique
+  id:ID!
   categoryname: String!
 }
 
 type Product {
-  id:ID! @unique
+  id:ID!
   category: Category!
   title: String!
   actor: String
@@ -13,20 +29,20 @@ type Product {
 }
 
 type Inventory {
-  id:ID! @unique
+  id:ID!
   product: Product!
   quan_in_stock: Int!
   sales: Int!
 }
 
 type Orderline {
-  id:ID! @unique
+  id:ID!
   product: Product!
   quantity: Int!
 }
 
 type Order {
-  id:ID! @unique
+  id:ID!
   quantity: Int
   net_amount: Float
   tax: Float
@@ -34,4 +50,3 @@ type Order {
   orderdate: DateTime
   orderlines: [Orderline!]!
 }
-
