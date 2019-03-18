@@ -41,30 +41,32 @@ const resolvers = {
       )
     },
     createOrder(root, args, context) {
-      return context.prisma.createOrderline(
-        { orderlines: { connect:{id:args.orderlines}}}
+      var ids = [];
+      id:args.orderlines.forEach(orderline => {ids.push({id:orderline})})
+      return context.prisma.createOrder(
+        { orderlines: { connect:ids}}
       )
     }
   },
   Order: {
     orderlines(root, args, context) {
-      return context.prisma.orderlines({
+      return context.prisma.order({
         id: root.id
-      })
+      }).orderlines()
     }
   },
   Orderline: {
     product(root, args, context) {
-      return context.prisma.product({
+      return context.prisma.orderline({
         id: root.id
-      })
+      }).product()
     }
   },
   Product: {
     category(root, args, context) {
-      return context.prisma.category({
+      return context.prisma.product({
         id: root.id
-      })
+      }).category()
     }
   }
 }

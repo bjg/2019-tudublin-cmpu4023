@@ -7,7 +7,7 @@ type Query{
 
 type Mutation{
 	createOrder(orderlines:[ID!]!): Order
-	createOrderline(prod:ID!, quantity: Int!): Orderline
+	createOrderline(product:ID!, quantity: Int!): Orderline
 	createProduct(title: String!, price: Float!, category:ID!): Product
 	createCategory(categoryname:String!): Category
 }
