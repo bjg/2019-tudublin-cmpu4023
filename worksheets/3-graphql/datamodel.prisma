@@ -1,10 +1,10 @@
 type Reorder{
   id: ID! @unique
-  date_low: DateTime!
+  date_low: String!
   quan_low: Int!
-  date_reordered: DateTime!
+  date_reordered: String!
   quan_reordered: Int!
-  date_expected: DateTime!
+  date_expected: String!
   product: Product
 }
 
@@ -18,9 +18,9 @@ type Inventory{
 type Orderline{
   id: ID! @unique
   order: Order
-  product: Product
+  products: [Product!]!
   quantity: Int!
-  order_date: DateTime!
+  order_date: String!
 }
 
 type CustomerHistory{
@@ -32,7 +32,7 @@ type CustomerHistory{
 
 type Order{
   id: ID! @unique
-  order_date: DateTime!
+  order_date: String!
   customer: Customer
   net_amount: Float!
   tax: Float!
@@ -49,15 +49,6 @@ type Customer{
   country: String!
   region: Int!
   email: String!
-  phone: String!
-  credit_card_type: Int!
-  credit_card: String!
-  credit_card_expiration: String!
-  username: String!
-  passowrd: String!
-  age: Int!
-  income: Int!
-  gender: ID
 }
 
 

@@ -1,9 +1,16 @@
 type Query{
+    customers: [Customer!]!
     product(productId: ID!): Product
+    getOrderedLineProducts(orderLineId: Int!): [Product!]!
 }
+
+
 
 type Mutation{
     createProduct(category: Int!,title:String!,actor:String!,price: Float!,special: Int!,common_prod_id: Int!): Product
+    createCustomer(firstname:String,lastname:String,address:String,city:String,zip:Int,country:String,region:Int,email:String): Customer
+    createOrder(order_date: String, customer:String, net_amount:Float, tax:Float, total_amount:Float): Order
+    createOrderline(order_id: String, product_id: String, quantity: Int, order_date: String): Orderline
 }
 
 type Product{
@@ -15,3 +22,35 @@ type Product{
   special: Int!
   common_prod_id: Int!
 }
+
+type Orderline{
+  id: ID! 
+  order: Order
+  products: [Product!]!
+  quantity: Int!
+  order_date: String!
+}
+
+type Order{
+  id: ID!
+  order_date: String!
+  customer: Customer
+  net_amount: Float!
+  tax: Float!
+  total_amount: Float!
+}
+
+type Customer{  
+  id: ID! 
+  firstname: String!
+  lastname: String!
+  address: String!
+  city: String!
+  zip: Int!
+  country: String!
+  region: Int!
+  email: String!
+}
+
+
+scalar String
