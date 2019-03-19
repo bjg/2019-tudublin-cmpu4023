@@ -1,0 +1,22 @@
+query{
+  getCategories{
+    id
+    categoryname
+  }
+}
+
+
+{
+  "data": {
+    "getCategories": [
+      {
+        "id": "cjteo9bxn04h10730p6c06not",
+        "categoryname": "Soap"
+      },
+      {
+        "id": "cjteowdt304hf0730b835mp84",
+        "categoryname": "Soap"
+      }
+    ]
+  }
+}

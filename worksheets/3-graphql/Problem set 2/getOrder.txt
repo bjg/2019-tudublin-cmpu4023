@@ -1,0 +1,32 @@
+query{
+  getOrders{
+    id
+    customer{
+      firstname
+      lastname
+      
+    }
+    netamount
+   	tax
+    totalamount
+  }
+}
+
+
+
+{
+  "data": {
+    "getOrders": [
+      {
+        "id": "cjtep3pm504hl07305cwz2gnv",
+        "customer": {
+          "firstname": "Cathal",
+          "lastname": "aherne"
+        },
+        "netamount": 100.99,
+        "tax": 0,
+        "totalamount": 100.99
+      }
+    ]
+  }
+}

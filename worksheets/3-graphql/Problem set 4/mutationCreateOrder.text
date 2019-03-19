@@ -1,0 +1,31 @@
+mutation{
+  createOrder(
+    orderdate:"2019-1-1"
+    customerId:"cjteor6zy04ha07303wjfi23x"
+    netamount:100.99
+    tax:0.00
+    totalamount:100.99
+  ){
+    id
+    orderdate
+    customer{
+      id
+      firstname
+      
+    }
+
+  }
+}
+
+{
+  "data": {
+    "createOrder": {
+      "id": "cjtep3pm504hl07305cwz2gnv",
+      "orderdate": "2019-01-01T00:00:00.000Z",
+      "customer": {
+        "id": "cjteor6zy04ha07303wjfi23x",
+        "firstname": "Cathal"
+      }
+    }
+  }
+}

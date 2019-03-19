@@ -1,0 +1,16 @@
+mutation{
+  createCategory(categoryname:"Soap"){
+    id
+    categoryname
+
+  }
+}
+
+{
+  "data": {
+    "createCategory": {
+      "id": "cjteowdt304hf0730b835mp84",
+      "categoryname": "Soap"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+query{
+  getProductById(
+    id:"cjtepdw8y04hu0730adals094"
+  ){
+    id
+    title
+  }
+}
+
+
+{
+  "data": {
+    "getProductById": {
+      "id": "cjtepdw8y04hu0730adals094",
+      "title": "Dove"
+    }
+  }
+}

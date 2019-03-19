@@ -1,0 +1,47 @@
+query{
+  getOrderById(
+    id:"cjtep3pm504hl07305cwz2gnv")
+	{
+    id
+    customer{
+      firstname
+      lastname
+    }
+    netamount
+    tax
+    totalamount
+    orderdate
+    orderline{
+      product{
+        title
+        category{
+          categoryname
+        }
+      }
+    }
+  }
+}
+
+{
+  "data": {
+    "getOrderById": {
+      "id": "cjtep3pm504hl07305cwz2gnv",
+      "customer": {
+        "firstname": "Cathal",
+        "lastname": "aherne"
+      },
+      "netamount": 100.99,
+      "tax": 0,
+      "totalamount": 100.99,
+      "orderdate": "2019-01-01T00:00:00.000Z",
+      "orderline": {
+        "product": {
+          "title": "Dove",
+          "category": {
+            "categoryname": "Soap"
+          }
+        }
+      }
+    }
+  }
+}
