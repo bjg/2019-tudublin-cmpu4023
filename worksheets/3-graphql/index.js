@@ -9,11 +9,15 @@ const resolvers = {
     category(root, args, context) {
       return context.prisma.category({ id: args.id })
     },
+	//What it does: Displays a detailed breakdown of a product in the system, including it's name, price, category, amount currently in stock and amount sold.
+	//Resolver for query that deals with two relations
     inventoryInfo(root, args, context) {
       return context.prisma.inventory({ id: args.id })
     },
   },
   Mutation: {
+	//What it does: Makes it possible to generate a reorder in the system when quantities become too low and associate it with a product.
+	//Order table was not selected so this mutator deals with creating a reorder instead, the reorder details are updated with dates, quantities and the connection to the products table.
     placeReorder(root, args, context) {
       return context.prisma.createReorder(
         {
