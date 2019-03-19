@@ -2,6 +2,8 @@
 
 The implementation for the resolvers can be found in [index.js](index.js).
 
+The database was initialised with the dummy data in [db-init.js](db-init.js) before running the queries below.
+
 ## Tutorial Code
 
 The tutorial code can be found in the [tutorial-code](tutorial-code) directory.
@@ -48,7 +50,7 @@ Resultant output:
 
 ## Part 3: Complex query resolver
 
-For this, I implemented a resolver, ordersForCategory, that can display the amount spent in each order that contains at least one product from a specific category.
+For this, I implemented a resolver, ordersForCategory(), that can display the amount spent in each order that contains at least one product from a specific category.
 
 Example query, this time for the drinks category:
 
