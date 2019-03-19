@@ -1,4 +1,5 @@
-### Introduction
+Last part of the lab explanation:
+## Introduction
 For this lab I setup Prisma and Docker so that I could use it to interact with my Postgres database. Note that I added a number of resolvers and mutations just so I could add some test data. These can be ignored for the most part however for part 2 of the lab, one of these can be used.
 
 ### Part 1
@@ -21,7 +22,7 @@ The **Order** object then takes for each order the orderLines and applies a more
 
 To highlight this, the following GraphQL query can be used to return the data.
 
-```json
+```graphql
 query {
   customers {
     id
@@ -43,6 +44,8 @@ query {
 }
 ```
 
+![alt text](https://raw.githubusercontent.com/mark-barrett/2019-tudublin-cmpu4023/C15409432-wks-3/worksheets/3-graphql/part3-query.png)
+
 ### Part 4:
 The task for this was to create a mutation that would add to one and update or add to another table. For this my proposed mutation will create an OrderLine and it will link it to a particular product. It will then also create an order for that order line and it will also link that order to a particular customer.
 
@@ -52,7 +55,7 @@ by a billing application. If there is not current order, create an order line wh
 
 **Example GraphQL query to create this above:**
 
-```json
+```graphql
 mutation {
   createOrderLine(
     quantity:1,
@@ -70,3 +73,5 @@ mutation {
   }
 }
 ```
+
+![alt text](https://raw.githubusercontent.com/mark-barrett/2019-tudublin-cmpu4023/C15409432-wks-3/worksheets/3-graphql/part4-mutation.png)
