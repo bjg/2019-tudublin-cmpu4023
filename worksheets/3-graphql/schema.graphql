@@ -1,6 +1,6 @@
 type Query {
     productsByCategory(categoryName: String!): [Product!]!
-    orderlineByCategory(categoryName: String!): Category!
+    ordersForCategory(categoryName: String!): Category!
 }
 
 type Mutation {
