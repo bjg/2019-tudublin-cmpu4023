@@ -3,10 +3,11 @@ type Query{
 	categories: [Category!]!
 	orderlines:[Orderline!]!
 	orders: [Order!]!
+	order(id:ID!): [Order!]
 }
 
 type Mutation{
-	createOrder(orderlines:[ID!]!): Order
+	createOrder(order: OrderInput!): Order
 	createOrderline(product:ID!, quantity: Int!): Orderline
 	createProduct(title: String!, price: Float!, category:ID!): Product
 	createCategory(categoryname:String!): Category
@@ -47,6 +48,17 @@ type Order {
   net_amount: Float
   tax: Float
   total_amount:Float
-  orderdate: DateTime
+  orderdate: String
   orderlines: [Orderline!]!
 }
+
+input OrderlineInput{
+  product: ID!
+  quantity: Int!
+}
+
+input OrderInput{
+	orderdate: String
+	orderlines: [OrderlineInput!]!
+}
+

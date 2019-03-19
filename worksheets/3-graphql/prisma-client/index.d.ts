@@ -567,14 +567,20 @@ export interface OrderWhereInput {
   total_amount_lte?: Float;
   total_amount_gt?: Float;
   total_amount_gte?: Float;
-  orderdate?: DateTimeInput;
-  orderdate_not?: DateTimeInput;
-  orderdate_in?: DateTimeInput[] | DateTimeInput;
-  orderdate_not_in?: DateTimeInput[] | DateTimeInput;
-  orderdate_lt?: DateTimeInput;
-  orderdate_lte?: DateTimeInput;
-  orderdate_gt?: DateTimeInput;
-  orderdate_gte?: DateTimeInput;
+  orderdate?: String;
+  orderdate_not?: String;
+  orderdate_in?: String[] | String;
+  orderdate_not_in?: String[] | String;
+  orderdate_lt?: String;
+  orderdate_lte?: String;
+  orderdate_gt?: String;
+  orderdate_gte?: String;
+  orderdate_contains?: String;
+  orderdate_not_contains?: String;
+  orderdate_starts_with?: String;
+  orderdate_not_starts_with?: String;
+  orderdate_ends_with?: String;
+  orderdate_not_ends_with?: String;
   orderlines_every?: OrderlineWhereInput;
   orderlines_some?: OrderlineWhereInput;
   orderlines_none?: OrderlineWhereInput;
@@ -679,7 +685,7 @@ export interface OrderCreateInput {
   net_amount?: Float;
   tax?: Float;
   total_amount?: Float;
-  orderdate?: DateTimeInput;
+  orderdate?: String;
   orderlines?: OrderlineCreateManyInput;
 }
 
@@ -698,7 +704,7 @@ export interface OrderUpdateInput {
   net_amount?: Float;
   tax?: Float;
   total_amount?: Float;
-  orderdate?: DateTimeInput;
+  orderdate?: String;
   orderlines?: OrderlineUpdateManyInput;
 }
 
@@ -778,7 +784,7 @@ export interface OrderUpdateManyMutationInput {
   net_amount?: Float;
   tax?: Float;
   total_amount?: Float;
-  orderdate?: DateTimeInput;
+  orderdate?: String;
 }
 
 export interface OrderlineUpdateInput {
@@ -1072,7 +1078,7 @@ export interface Order {
   net_amount?: Float;
   tax?: Float;
   total_amount?: Float;
-  orderdate?: DateTimeOutput;
+  orderdate?: String;
 }
 
 export interface OrderPromise extends Promise<Order>, Fragmentable {
@@ -1081,7 +1087,7 @@ export interface OrderPromise extends Promise<Order>, Fragmentable {
   net_amount: () => Promise<Float>;
   tax: () => Promise<Float>;
   total_amount: () => Promise<Float>;
-  orderdate: () => Promise<DateTimeOutput>;
+  orderdate: () => Promise<String>;
   orderlines: <T = FragmentableArray<Orderline>>(
     args?: {
       where?: OrderlineWhereInput;
@@ -1103,7 +1109,7 @@ export interface OrderSubscription
   net_amount: () => Promise<AsyncIterator<Float>>;
   tax: () => Promise<AsyncIterator<Float>>;
   total_amount: () => Promise<AsyncIterator<Float>>;
-  orderdate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  orderdate: () => Promise<AsyncIterator<String>>;
   orderlines: <T = Promise<AsyncIterator<OrderlineSubscription>>>(
     args?: {
       where?: OrderlineWhereInput;
@@ -1438,7 +1444,7 @@ export interface OrderPreviousValues {
   net_amount?: Float;
   tax?: Float;
   total_amount?: Float;
-  orderdate?: DateTimeOutput;
+  orderdate?: String;
 }
 
 export interface OrderPreviousValuesPromise
@@ -1449,7 +1455,7 @@ export interface OrderPreviousValuesPromise
   net_amount: () => Promise<Float>;
   tax: () => Promise<Float>;
   total_amount: () => Promise<Float>;
-  orderdate: () => Promise<DateTimeOutput>;
+  orderdate: () => Promise<String>;
 }
 
 export interface OrderPreviousValuesSubscription
@@ -1460,7 +1466,7 @@ export interface OrderPreviousValuesSubscription
   net_amount: () => Promise<AsyncIterator<Float>>;
   tax: () => Promise<AsyncIterator<Float>>;
   total_amount: () => Promise<AsyncIterator<Float>>;
-  orderdate: () => Promise<AsyncIterator<DateTimeOutput>>;
+  orderdate: () => Promise<AsyncIterator<String>>;
 }
 
 export interface OrderlineSubscriptionPayload {
@@ -1585,16 +1591,6 @@ export type Boolean = boolean;
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). 
 */
 export type Float = number;
-
-/*
-DateTime scalar input type, allowing Date
-*/
-export type DateTimeInput = Date | string;
-
-/*
-DateTime scalar output type, which is always a string
-*/
-export type DateTimeOutput = string;
 
 export type Long = string;
 

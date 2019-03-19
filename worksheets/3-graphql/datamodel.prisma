@@ -31,7 +31,7 @@ type Order {
   net_amount: Float
   tax: Float
   total_amount:Float
-  orderdate: DateTime
+  orderdate: String
   orderlines: [Orderline!]!
 }
 

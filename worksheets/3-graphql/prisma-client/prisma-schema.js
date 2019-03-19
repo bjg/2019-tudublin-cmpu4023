@@ -148,8 +148,6 @@ input CategoryWhereUniqueInput {
   id: ID
 }
 
-scalar DateTime
-
 type Inventory {
   id: ID!
   product: Product!
@@ -314,7 +312,7 @@ type Order {
   net_amount: Float
   tax: Float
   total_amount: Float
-  orderdate: DateTime
+  orderdate: String
   orderlines(where: OrderlineWhereInput, orderBy: OrderlineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Orderline!]
 }
 
@@ -329,7 +327,7 @@ input OrderCreateInput {
   net_amount: Float
   tax: Float
   total_amount: Float
-  orderdate: DateTime
+  orderdate: String
   orderlines: OrderlineCreateManyInput
 }
 
@@ -531,7 +529,7 @@ type OrderPreviousValues {
   net_amount: Float
   tax: Float
   total_amount: Float
-  orderdate: DateTime
+  orderdate: String
 }
 
 type OrderSubscriptionPayload {
@@ -557,7 +555,7 @@ input OrderUpdateInput {
   net_amount: Float
   tax: Float
   total_amount: Float
-  orderdate: DateTime
+  orderdate: String
   orderlines: OrderlineUpdateManyInput
 }
 
@@ -566,7 +564,7 @@ input OrderUpdateManyMutationInput {
   net_amount: Float
   tax: Float
   total_amount: Float
-  orderdate: DateTime
+  orderdate: String
 }
 
 input OrderWhereInput {
@@ -616,14 +614,20 @@ input OrderWhereInput {
   total_amount_lte: Float
   total_amount_gt: Float
   total_amount_gte: Float
-  orderdate: DateTime
-  orderdate_not: DateTime
-  orderdate_in: [DateTime!]
-  orderdate_not_in: [DateTime!]
-  orderdate_lt: DateTime
-  orderdate_lte: DateTime
-  orderdate_gt: DateTime
-  orderdate_gte: DateTime
+  orderdate: String
+  orderdate_not: String
+  orderdate_in: [String!]
+  orderdate_not_in: [String!]
+  orderdate_lt: String
+  orderdate_lte: String
+  orderdate_gt: String
+  orderdate_gte: String
+  orderdate_contains: String
+  orderdate_not_contains: String
+  orderdate_starts_with: String
+  orderdate_not_starts_with: String
+  orderdate_ends_with: String
+  orderdate_not_ends_with: String
   orderlines_every: OrderlineWhereInput
   orderlines_some: OrderlineWhereInput
   orderlines_none: OrderlineWhereInput
