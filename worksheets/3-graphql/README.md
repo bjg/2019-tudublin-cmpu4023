@@ -1,3 +1,5 @@
+![Alt text](resultImages/1 Tables implemented.png)
+
 # Lab 3 - GraphQL
 
 ### Part 1
