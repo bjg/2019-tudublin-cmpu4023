@@ -3,6 +3,8 @@
 ### Part 1
 ![Alt text](images/1 Tables implemented.png)
 
+![Alt text](images/1tablesImplemented.png)
+
 ![Alt text](3.jpg)
 
 ![Alt text](images/5 5.jpg)
