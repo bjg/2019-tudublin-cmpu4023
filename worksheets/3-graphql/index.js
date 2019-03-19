@@ -3,15 +3,16 @@ const { GraphQLServer } = require('graphql-yoga')
 
 const resolvers = {
     Query: {
-        // Part 1
+        // Part 2
         // This is a simple query resolver that returns the products within a specified category.
         productsByCategory(root, args, context) {
             return context.prisma.category({ name: args.categoryName }).products()
         },
 
-        // Part 2
+        // Part 3
         // This query resolver, along with resolvers defined below on each type,
         // can be combined to pose a more complex query to the database.
+        //
         // An example for what this can be used is to display the total amount
         // spent on each order in which an item from a specific category was purchased.
         ordersForCategory(root, args, context) {
@@ -20,7 +21,7 @@ const resolvers = {
     },
 
     Mutation: {
-        // Part 3
+        // Part 4
         // Creates a new product and links it with the provided category.
         // If the category doesn't exist it is created, if it does exist,
         // the product is linked with the existing category instead.
@@ -29,7 +30,7 @@ const resolvers = {
         // new product to the database, but being unsure if its category
         // already exists. The category can be provided, and this will
         // take care or either linking to or creating the category.
-        async createProductWithNewCategory(root, args, context) {
+        async createProductWithCategory(root, args, context) {
             const category = await context.prisma.category({
                 name: args.categoryName
             });
@@ -68,7 +69,12 @@ const resolvers = {
             return context.prisma.product({
                 id: root.id
             }).orderlines()
-        }
+        },
+        category(root, args, context) {
+            return context.prisma.product({
+                id: root.id
+            }).category()
+        },
     },
 
     Orderline: {
