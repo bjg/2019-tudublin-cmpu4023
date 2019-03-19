@@ -1,0 +1,96 @@
+type Query {
+  orders: [Order!]!
+  orderLines: [OrderLine!]!
+  customers: [Customer!]!
+  products: [Product!]!
+  categories: [Category!]!
+}
+
+input OrderInput {
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  customerid: ID!
+}
+
+type Mutation {
+	createCustomer(firstname: String!, lastname: String!, address1: String!,
+		address2: String, city: String!, zip: Int!, country: String!,
+		email: String!,creditcardtype: Int!, creditcard: String!,
+		creditcardexpiration: String!, username: String!, password: String!): Customer
+	
+	createProduct(title: String!, price: Float!, categoryid: ID!): Product
+
+	createCategory(categoryname: String!): Category
+
+	createOrder(netamount: Float!, tax: Float!, totalamount: Float!, customerid: ID!): Order
+
+	createOrderLine(quantity: Int!, orderdate: String, productid: ID!, order: OrderInput!): OrderLine
+}
+
+type User {
+  id: ID!
+  email: String
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  published: Boolean!
+  author: User
+}
+
+type Order {
+  id: ID!
+  orderdate: String
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  customer: Customer
+  orderLines: [OrderLine!]!
+}
+
+type Customer {
+	id: ID!
+	firstname: String!
+	lastname: String!
+	address1: String!
+	city: String!
+	state: String
+	zip: Int!
+	country: String!
+	region: String
+	email: String!
+	username: String!
+	age: Int
+	income: Int
+	gender: Boolean
+	orders: [Order!]!
+}
+
+type Category {
+  id: ID!
+  categoryname: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: ID!
+  title: String!
+  actor: String
+  price: Float!
+  special: Int
+  common_prod_id: Int
+  category: Category
+  productorderlines: [OrderLine!]!
+}
+
+type OrderLine {
+  id: ID!
+  quantity: Int!
+  orderdate: String
+  product: Product!
+  order: Order!
+}
