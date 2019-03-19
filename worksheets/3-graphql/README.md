@@ -16,7 +16,7 @@ Resolver for basic query
 ![Alt text](resultImages/2 Resolver.PNG?raw=true "Title")
 
 Query returns a number of attributes
-![Alt text](resultImages/2 Output.PNG?raw=true "Title")
+![Alt text](resultImages/2 Output.PNG)
 
 
 ### Part 3
