@@ -1,0 +1,45 @@
+scalar DateTime
+
+type Query {
+  categorys: [Category!]!
+  category(id: ID!): Category
+  inventoryInfo(id: ID!): Inventory
+}
+
+type Mutation {
+  createCategory(name: String!): Category
+  createProduct(categoryId: ID!, title: String!, price: Float!): Product
+  placeReorder(productId: ID!, date_low: DateTime!, quan_low: Int!): Reorder
+  createInventory(productId: ID!, quantity_in_stock: Int!, sales: Int!): Inventory
+}
+
+type Product {
+  id: ID!
+  category: Category!
+  title: String!
+  actor: String
+  price: Float!
+  special: Int
+}
+
+type Category {
+  id: ID!
+  name: String!
+}
+
+type Inventory {
+  id: ID!
+  product: Product!
+  quantity_in_stock: Int!
+  sales: Int!
+}
+
+type Reorder {
+  id: ID!
+  product: Product!
+  date_low: DateTime!
+  quan_low: Int!
+  date_reordered: DateTime
+  quan_reordered: Int
+  dateExpected: DateTime
+}
