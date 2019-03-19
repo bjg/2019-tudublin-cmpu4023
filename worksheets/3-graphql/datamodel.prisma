@@ -1,14 +1,5 @@
-type Customer {
-    id: ID! @unique
-    email: String @unique
-    name: String!
-    orders: [Order!]!
-}
-
 type Order {
     id: ID! @unique
-    date: DateTime!
-    buyer: Customer!
     amount: Float!
     orderlines: [Orderline!]!
 }
@@ -17,7 +8,14 @@ type Product {
     id: ID! @unique
     title: String!
     price: Float!
+    category: Category!
     orderlines: [Orderline!]!
+}
+
+type Category {
+    id: ID! @unique
+    name: String! @unique
+    products: [Product!]!
 }
 
 type Orderline {

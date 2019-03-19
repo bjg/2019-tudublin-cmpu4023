@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateCustomer {
+/* GraphQL */ `type AggregateCategory {
   count: Int!
 }
 
@@ -23,45 +23,40 @@ type BatchPayload {
   count: Long!
 }
 
-type Customer {
+type Category {
   id: ID!
-  email: String
   name: String!
-  orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order!]
+  products(where: ProductWhereInput, orderBy: ProductOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Product!]
 }
 
-type CustomerConnection {
+type CategoryConnection {
   pageInfo: PageInfo!
-  edges: [CustomerEdge]!
-  aggregate: AggregateCustomer!
+  edges: [CategoryEdge]!
+  aggregate: AggregateCategory!
 }
 
-input CustomerCreateInput {
-  email: String
+input CategoryCreateInput {
   name: String!
-  orders: OrderCreateManyWithoutBuyerInput
+  products: ProductCreateManyWithoutCategoryInput
 }
 
-input CustomerCreateOneWithoutOrdersInput {
-  create: CustomerCreateWithoutOrdersInput
-  connect: CustomerWhereUniqueInput
+input CategoryCreateOneWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput
+  connect: CategoryWhereUniqueInput
 }
 
-input CustomerCreateWithoutOrdersInput {
-  email: String
+input CategoryCreateWithoutProductsInput {
   name: String!
 }
 
-type CustomerEdge {
-  node: Customer!
+type CategoryEdge {
+  node: Category!
   cursor: String!
 }
 
-enum CustomerOrderByInput {
+enum CategoryOrderByInput {
   id_ASC
   id_DESC
-  email_ASC
-  email_DESC
   name_ASC
   name_DESC
   createdAt_ASC
@@ -70,59 +65,55 @@ enum CustomerOrderByInput {
   updatedAt_DESC
 }
 
-type CustomerPreviousValues {
+type CategoryPreviousValues {
   id: ID!
-  email: String
   name: String!
 }
 
-type CustomerSubscriptionPayload {
+type CategorySubscriptionPayload {
   mutation: MutationType!
-  node: Customer
+  node: Category
   updatedFields: [String!]
-  previousValues: CustomerPreviousValues
+  previousValues: CategoryPreviousValues
 }
 
-input CustomerSubscriptionWhereInput {
+input CategorySubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: CustomerWhereInput
-  AND: [CustomerSubscriptionWhereInput!]
-  OR: [CustomerSubscriptionWhereInput!]
-  NOT: [CustomerSubscriptionWhereInput!]
+  node: CategoryWhereInput
+  AND: [CategorySubscriptionWhereInput!]
+  OR: [CategorySubscriptionWhereInput!]
+  NOT: [CategorySubscriptionWhereInput!]
 }
 
-input CustomerUpdateInput {
-  email: String
+input CategoryUpdateInput {
   name: String
-  orders: OrderUpdateManyWithoutBuyerInput
+  products: ProductUpdateManyWithoutCategoryInput
 }
 
-input CustomerUpdateManyMutationInput {
-  email: String
+input CategoryUpdateManyMutationInput {
   name: String
 }
 
-input CustomerUpdateOneRequiredWithoutOrdersInput {
-  create: CustomerCreateWithoutOrdersInput
-  update: CustomerUpdateWithoutOrdersDataInput
-  upsert: CustomerUpsertWithoutOrdersInput
-  connect: CustomerWhereUniqueInput
+input CategoryUpdateOneRequiredWithoutProductsInput {
+  create: CategoryCreateWithoutProductsInput
+  update: CategoryUpdateWithoutProductsDataInput
+  upsert: CategoryUpsertWithoutProductsInput
+  connect: CategoryWhereUniqueInput
 }
 
-input CustomerUpdateWithoutOrdersDataInput {
-  email: String
+input CategoryUpdateWithoutProductsDataInput {
   name: String
 }
 
-input CustomerUpsertWithoutOrdersInput {
-  update: CustomerUpdateWithoutOrdersDataInput!
-  create: CustomerCreateWithoutOrdersInput!
+input CategoryUpsertWithoutProductsInput {
+  update: CategoryUpdateWithoutProductsDataInput!
+  create: CategoryCreateWithoutProductsInput!
 }
 
-input CustomerWhereInput {
+input CategoryWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -137,20 +128,6 @@ input CustomerWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  email: String
-  email_not: String
-  email_in: [String!]
-  email_not_in: [String!]
-  email_lt: String
-  email_lte: String
-  email_gt: String
-  email_gte: String
-  email_contains: String
-  email_not_contains: String
-  email_starts_with: String
-  email_not_starts_with: String
-  email_ends_with: String
-  email_not_ends_with: String
   name: String
   name_not: String
   name_in: [String!]
@@ -165,30 +142,28 @@ input CustomerWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  orders_every: OrderWhereInput
-  orders_some: OrderWhereInput
-  orders_none: OrderWhereInput
-  AND: [CustomerWhereInput!]
-  OR: [CustomerWhereInput!]
-  NOT: [CustomerWhereInput!]
+  products_every: ProductWhereInput
+  products_some: ProductWhereInput
+  products_none: ProductWhereInput
+  AND: [CategoryWhereInput!]
+  OR: [CategoryWhereInput!]
+  NOT: [CategoryWhereInput!]
 }
 
-input CustomerWhereUniqueInput {
+input CategoryWhereUniqueInput {
   id: ID
-  email: String
+  name: String
 }
-
-scalar DateTime
 
 scalar Long
 
 type Mutation {
-  createCustomer(data: CustomerCreateInput!): Customer!
-  updateCustomer(data: CustomerUpdateInput!, where: CustomerWhereUniqueInput!): Customer
-  updateManyCustomers(data: CustomerUpdateManyMutationInput!, where: CustomerWhereInput): BatchPayload!
-  upsertCustomer(where: CustomerWhereUniqueInput!, create: CustomerCreateInput!, update: CustomerUpdateInput!): Customer!
-  deleteCustomer(where: CustomerWhereUniqueInput!): Customer
-  deleteManyCustomers(where: CustomerWhereInput): BatchPayload!
+  createCategory(data: CategoryCreateInput!): Category!
+  updateCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
+  updateManyCategories(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): BatchPayload!
+  upsertCategory(where: CategoryWhereUniqueInput!, create: CategoryCreateInput!, update: CategoryUpdateInput!): Category!
+  deleteCategory(where: CategoryWhereUniqueInput!): Category
+  deleteManyCategories(where: CategoryWhereInput): BatchPayload!
   createOrder(data: OrderCreateInput!): Order!
   updateOrder(data: OrderUpdateInput!, where: OrderWhereUniqueInput!): Order
   updateManyOrders(data: OrderUpdateManyMutationInput!, where: OrderWhereInput): BatchPayload!
@@ -221,8 +196,6 @@ interface Node {
 
 type Order {
   id: ID!
-  date: DateTime!
-  buyer: Customer!
   amount: Float!
   orderlines(where: OrderlineWhereInput, orderBy: OrderlineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Orderline!]
 }
@@ -234,15 +207,8 @@ type OrderConnection {
 }
 
 input OrderCreateInput {
-  date: DateTime!
-  buyer: CustomerCreateOneWithoutOrdersInput!
   amount: Float!
   orderlines: OrderlineCreateManyWithoutOrderInput
-}
-
-input OrderCreateManyWithoutBuyerInput {
-  create: [OrderCreateWithoutBuyerInput!]
-  connect: [OrderWhereUniqueInput!]
 }
 
 input OrderCreateOneWithoutOrderlinesInput {
@@ -250,15 +216,7 @@ input OrderCreateOneWithoutOrderlinesInput {
   connect: OrderWhereUniqueInput
 }
 
-input OrderCreateWithoutBuyerInput {
-  date: DateTime!
-  amount: Float!
-  orderlines: OrderlineCreateManyWithoutOrderInput
-}
-
 input OrderCreateWithoutOrderlinesInput {
-  date: DateTime!
-  buyer: CustomerCreateOneWithoutOrdersInput!
   amount: Float!
 }
 
@@ -485,8 +443,6 @@ input OrderlineWhereUniqueInput {
 enum OrderOrderByInput {
   id_ASC
   id_DESC
-  date_ASC
-  date_DESC
   amount_ASC
   amount_DESC
   createdAt_ASC
@@ -497,44 +453,7 @@ enum OrderOrderByInput {
 
 type OrderPreviousValues {
   id: ID!
-  date: DateTime!
   amount: Float!
-}
-
-input OrderScalarWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  date: DateTime
-  date_not: DateTime
-  date_in: [DateTime!]
-  date_not_in: [DateTime!]
-  date_lt: DateTime
-  date_lte: DateTime
-  date_gt: DateTime
-  date_gte: DateTime
-  amount: Float
-  amount_not: Float
-  amount_in: [Float!]
-  amount_not_in: [Float!]
-  amount_lt: Float
-  amount_lte: Float
-  amount_gt: Float
-  amount_gte: Float
-  AND: [OrderScalarWhereInput!]
-  OR: [OrderScalarWhereInput!]
-  NOT: [OrderScalarWhereInput!]
 }
 
 type OrderSubscriptionPayload {
@@ -556,37 +475,12 @@ input OrderSubscriptionWhereInput {
 }
 
 input OrderUpdateInput {
-  date: DateTime
-  buyer: CustomerUpdateOneRequiredWithoutOrdersInput
   amount: Float
   orderlines: OrderlineUpdateManyWithoutOrderInput
 }
 
-input OrderUpdateManyDataInput {
-  date: DateTime
-  amount: Float
-}
-
 input OrderUpdateManyMutationInput {
-  date: DateTime
   amount: Float
-}
-
-input OrderUpdateManyWithoutBuyerInput {
-  create: [OrderCreateWithoutBuyerInput!]
-  delete: [OrderWhereUniqueInput!]
-  connect: [OrderWhereUniqueInput!]
-  set: [OrderWhereUniqueInput!]
-  disconnect: [OrderWhereUniqueInput!]
-  update: [OrderUpdateWithWhereUniqueWithoutBuyerInput!]
-  upsert: [OrderUpsertWithWhereUniqueWithoutBuyerInput!]
-  deleteMany: [OrderScalarWhereInput!]
-  updateMany: [OrderUpdateManyWithWhereNestedInput!]
-}
-
-input OrderUpdateManyWithWhereNestedInput {
-  where: OrderScalarWhereInput!
-  data: OrderUpdateManyDataInput!
 }
 
 input OrderUpdateOneRequiredWithoutOrderlinesInput {
@@ -596,32 +490,13 @@ input OrderUpdateOneRequiredWithoutOrderlinesInput {
   connect: OrderWhereUniqueInput
 }
 
-input OrderUpdateWithoutBuyerDataInput {
-  date: DateTime
-  amount: Float
-  orderlines: OrderlineUpdateManyWithoutOrderInput
-}
-
 input OrderUpdateWithoutOrderlinesDataInput {
-  date: DateTime
-  buyer: CustomerUpdateOneRequiredWithoutOrdersInput
   amount: Float
-}
-
-input OrderUpdateWithWhereUniqueWithoutBuyerInput {
-  where: OrderWhereUniqueInput!
-  data: OrderUpdateWithoutBuyerDataInput!
 }
 
 input OrderUpsertWithoutOrderlinesInput {
   update: OrderUpdateWithoutOrderlinesDataInput!
   create: OrderCreateWithoutOrderlinesInput!
-}
-
-input OrderUpsertWithWhereUniqueWithoutBuyerInput {
-  where: OrderWhereUniqueInput!
-  update: OrderUpdateWithoutBuyerDataInput!
-  create: OrderCreateWithoutBuyerInput!
 }
 
 input OrderWhereInput {
@@ -639,15 +514,6 @@ input OrderWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  date: DateTime
-  date_not: DateTime
-  date_in: [DateTime!]
-  date_not_in: [DateTime!]
-  date_lt: DateTime
-  date_lte: DateTime
-  date_gt: DateTime
-  date_gte: DateTime
-  buyer: CustomerWhereInput
   amount: Float
   amount_not: Float
   amount_in: [Float!]
@@ -679,6 +545,7 @@ type Product {
   id: ID!
   title: String!
   price: Float!
+  category: Category!
   orderlines(where: OrderlineWhereInput, orderBy: OrderlineOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Orderline!]
 }
 
@@ -691,7 +558,13 @@ type ProductConnection {
 input ProductCreateInput {
   title: String!
   price: Float!
+  category: CategoryCreateOneWithoutProductsInput!
   orderlines: OrderlineCreateManyWithoutProductInput
+}
+
+input ProductCreateManyWithoutCategoryInput {
+  create: [ProductCreateWithoutCategoryInput!]
+  connect: [ProductWhereUniqueInput!]
 }
 
 input ProductCreateOneWithoutOrderlinesInput {
@@ -699,9 +572,16 @@ input ProductCreateOneWithoutOrderlinesInput {
   connect: ProductWhereUniqueInput
 }
 
+input ProductCreateWithoutCategoryInput {
+  title: String!
+  price: Float!
+  orderlines: OrderlineCreateManyWithoutProductInput
+}
+
 input ProductCreateWithoutOrderlinesInput {
   title: String!
   price: Float!
+  category: CategoryCreateOneWithoutProductsInput!
 }
 
 type ProductEdge {
@@ -728,6 +608,48 @@ type ProductPreviousValues {
   price: Float!
 }
 
+input ProductScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  price: Float
+  price_not: Float
+  price_in: [Float!]
+  price_not_in: [Float!]
+  price_lt: Float
+  price_lte: Float
+  price_gt: Float
+  price_gte: Float
+  AND: [ProductScalarWhereInput!]
+  OR: [ProductScalarWhereInput!]
+  NOT: [ProductScalarWhereInput!]
+}
+
 type ProductSubscriptionPayload {
   mutation: MutationType!
   node: Product
@@ -749,12 +671,35 @@ input ProductSubscriptionWhereInput {
 input ProductUpdateInput {
   title: String
   price: Float
+  category: CategoryUpdateOneRequiredWithoutProductsInput
   orderlines: OrderlineUpdateManyWithoutProductInput
+}
+
+input ProductUpdateManyDataInput {
+  title: String
+  price: Float
 }
 
 input ProductUpdateManyMutationInput {
   title: String
   price: Float
+}
+
+input ProductUpdateManyWithoutCategoryInput {
+  create: [ProductCreateWithoutCategoryInput!]
+  delete: [ProductWhereUniqueInput!]
+  connect: [ProductWhereUniqueInput!]
+  set: [ProductWhereUniqueInput!]
+  disconnect: [ProductWhereUniqueInput!]
+  update: [ProductUpdateWithWhereUniqueWithoutCategoryInput!]
+  upsert: [ProductUpsertWithWhereUniqueWithoutCategoryInput!]
+  deleteMany: [ProductScalarWhereInput!]
+  updateMany: [ProductUpdateManyWithWhereNestedInput!]
+}
+
+input ProductUpdateManyWithWhereNestedInput {
+  where: ProductScalarWhereInput!
+  data: ProductUpdateManyDataInput!
 }
 
 input ProductUpdateOneRequiredWithoutOrderlinesInput {
@@ -764,14 +709,32 @@ input ProductUpdateOneRequiredWithoutOrderlinesInput {
   connect: ProductWhereUniqueInput
 }
 
+input ProductUpdateWithoutCategoryDataInput {
+  title: String
+  price: Float
+  orderlines: OrderlineUpdateManyWithoutProductInput
+}
+
 input ProductUpdateWithoutOrderlinesDataInput {
   title: String
   price: Float
+  category: CategoryUpdateOneRequiredWithoutProductsInput
+}
+
+input ProductUpdateWithWhereUniqueWithoutCategoryInput {
+  where: ProductWhereUniqueInput!
+  data: ProductUpdateWithoutCategoryDataInput!
 }
 
 input ProductUpsertWithoutOrderlinesInput {
   update: ProductUpdateWithoutOrderlinesDataInput!
   create: ProductCreateWithoutOrderlinesInput!
+}
+
+input ProductUpsertWithWhereUniqueWithoutCategoryInput {
+  where: ProductWhereUniqueInput!
+  update: ProductUpdateWithoutCategoryDataInput!
+  create: ProductCreateWithoutCategoryInput!
 }
 
 input ProductWhereInput {
@@ -811,6 +774,7 @@ input ProductWhereInput {
   price_lte: Float
   price_gt: Float
   price_gte: Float
+  category: CategoryWhereInput
   orderlines_every: OrderlineWhereInput
   orderlines_some: OrderlineWhereInput
   orderlines_none: OrderlineWhereInput
@@ -824,9 +788,9 @@ input ProductWhereUniqueInput {
 }
 
 type Query {
-  customer(where: CustomerWhereUniqueInput!): Customer
-  customers(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Customer]!
-  customersConnection(where: CustomerWhereInput, orderBy: CustomerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomerConnection!
+  category(where: CategoryWhereUniqueInput!): Category
+  categories(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Category]!
+  categoriesConnection(where: CategoryWhereInput, orderBy: CategoryOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CategoryConnection!
   order(where: OrderWhereUniqueInput!): Order
   orders(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Order]!
   ordersConnection(where: OrderWhereInput, orderBy: OrderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): OrderConnection!
@@ -840,7 +804,7 @@ type Query {
 }
 
 type Subscription {
-  customer(where: CustomerSubscriptionWhereInput): CustomerSubscriptionPayload
+  category(where: CategorySubscriptionWhereInput): CategorySubscriptionPayload
   order(where: OrderSubscriptionWhereInput): OrderSubscriptionPayload
   orderline(where: OrderlineSubscriptionWhereInput): OrderlineSubscriptionPayload
   product(where: ProductSubscriptionWhereInput): ProductSubscriptionPayload

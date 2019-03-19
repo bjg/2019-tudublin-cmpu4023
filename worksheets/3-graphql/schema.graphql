@@ -1,25 +1,36 @@
 type Query {
-  publishedPosts: [Post!]!
-  post(postId: ID!): Post
-  postsByUser(userId: ID!): [Post!]!
+    productsByCategory(categoryName: String!): [Product!]!
+    orderlineByCategory(categoryName: String!): Category!
 }
 
 type Mutation {
-  createUser(name: String!): User
-  createDraft(title: String!, userId: ID!): Post
-  publish(postId: ID!): Post
+    createProductWithNewCategory(title: String!, price: Float!, categoryName: String!): Product
 }
 
-type User {
-  id: ID!
-  email: String
-  name: String!
-  posts: [Post!]!
+type Order {
+    id: ID!
+    amount: Float!
+    orderlines: [Orderline!]!
 }
 
-type Post {
-  id: ID!
-  title: String!
-  published: Boolean!
-  author: User
+type Product {
+    id: ID!
+    title: String!
+    price: Float!
+    category: Category!
+    orderlines: [Orderline!]!
 }
+
+type Category {
+    id: ID!
+    name: String!
+    products: [Product!]!
+}
+
+type Orderline {
+    id: ID!
+    quantity: Int!
+    product: Product!
+    order: Order!
+}
+
