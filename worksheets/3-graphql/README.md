@@ -2,7 +2,9 @@
 
 ![Alt text](3.jpg)
 
-![Alt text](8.jpg)
+![Alt text](resultImages/5.jpg)
+
+![Alt text](resultImages/8.jpg)
 
 # Lab 3 - GraphQL
 
