@@ -23,7 +23,7 @@ massive({
         // This website has a good tutorial on authorising a table with credentials: https://tinyurl.com/y4utgzxg
     app.post('/users', (req, res) => {
         let query
-        query = req.app.get('db').createUser([req.body.username, req.body.password],
+        query = req.app.get('db').createUser([req.query.username, req.query.password],
             function(err, result) { if (err) { return next(err); } });
         return query.then(username => res.json(username))
     });
