@@ -1,0 +1,90 @@
+scalar DateTime
+
+type Query{
+   getCategory: [Category!]!
+   getProducts: [Products!]!
+   getReorder: [Reorder!]!
+   getInventory: [Inventory!]!
+   getProductsWithCategory(category_id: ID!): Products!
+}
+
+type Mutation{
+
+  addCategory(
+    categoryname: String!
+  ): Category
+
+  addProduct(
+    title: String!
+    actor: String!
+    price: Float!
+    special: Float
+    common_prod_id: Int
+    category_id: ID!
+    reorder_id: ID
+    #inventory: Inventory!
+  ): Products
+
+  addReorder(
+    date_low: DateTime!
+    quan_low: Float!
+    date_reordered: DateTime!
+    quan_reordered: Float!
+    date_expected: DateTime!
+    prod_id: ID!
+  ): Reorder
+
+  addInventory(
+    quan_in_stock: Float!
+    sales: Float!
+    prod_id: ID!
+  ): Inventory
+
+}
+
+type Category {
+  id: ID!
+  categoryname: String!
+  #products: [Products!]!
+}
+
+type Products {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  category: Category
+  reorder: Reorder
+  #inventory: [Inventory!]!
+
+}
+
+type Reorder {
+  id: ID!
+  date_low: DateTime!
+  quan_low: Float!
+  date_reordered: DateTime!
+  quan_reordered: Float!
+  date_expected: DateTime!
+  product: Products!
+}
+
+type Inventory {
+  id: ID!
+  quan_in_stock: Float!
+  sales: Float!
+  product: Products!
+}
+
+
+
+    
+
+
+
+
+
+
+

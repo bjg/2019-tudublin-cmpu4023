@@ -1,0 +1,50 @@
+CREATE EXTENSION pgcrypto;
+
+CREATE TABLE userData (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE productsSafe (
+  id SERIAL PRIMARY KEY,
+  productName TEXT NOT NULL UNIQUE,
+  productDescription TEXT NOT NULL,
+  productPrice TEXT NOT NULL
+);
+
+
+INSERT INTO userData (username, password) VALUES (
+  'JackMc',
+  crypt('jackmc', gen_salt('bf'))
+);
+
+INSERT INTO productsSafe (productName, productDescription, productPrice) VALUES (
+  'Toy Car',
+  'Small toy car for children',
+  '€100'
+);
+
+INSERT INTO productsSafe (productName, productDescription, productPrice) VALUES (
+  'Action Man',
+  'Small toy Action figurine for people of all ages',
+  '€15'
+);
+
+\list
+
+select * FROM userData;
+
+SELECT * FROM userdata WHERE username = 'JackMc' AND
+                          password = crypt('jackmc', password);
+
+						  
+CREATE TABLE userDataSafe (
+  id SERIAL PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+  accessKey TEXT NOT NULL UNIQUE,
+  secretKey TEXT NOPT NULL UNIQUE
+);
+						  
+
