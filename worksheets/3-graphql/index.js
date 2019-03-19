@@ -24,10 +24,16 @@ const resolvers = {
             return context.prisma.customers();
         },
     },
-    // Part 3: Resolver that returns nesting 2 deep from 3 joined database relations
-    // This is the resolver that will be called for each customer that will
-    // return it's orders and will filter it so that the only the orders
-    // for that customer are returned.
+    /* Part 3: Resolver that returns nesting 2 deep from 3 joined database relations
+    This is the resolver that will be called for each customer that will
+    return it's orders and will filter it so that the only the orders
+    for that customer are returned.
+    Example:
+    An application of this resolver would be to allow an application to get each customer and for
+    each customer their orders and for each order, their order lines. This would be useful
+    for an invoicing application or something similar that would be able to report on all information
+    regarding orders and order lines purchased. It could be used by a business to potenitally calculate
+    order totals for accounts or reporting. */
     Customer: {
         orders(parent) {
             return prisma.customer({
@@ -35,8 +41,8 @@ const resolvers = {
             }).orders();
         }
     },
-    // This resolver will be called for each order and will get the orderLines,
-    // but it will filter them so that they only match the parent order.
+    /* This resolver will be called for each order and will get the orderLines,
+    but it will filter them so that they only match the parent order. */
     Order: {
         orderLines(parent) {
             return prisma.orderLines({
@@ -48,8 +54,8 @@ const resolvers = {
             });
         }
     },
-    // Mutations. I added more than one just so that I could easily add
-    // test data for the schemas I defined.
+    /* Mutations. I added more than one just so that I could easily add
+    test data for the schemas I defined. */
     Mutation: {
         createCategory(root, args, context) {
             return context.prisma.createCategory(
@@ -73,16 +79,16 @@ const resolvers = {
                 }
             )
         },
-        // Part 4. The requirement was to add to one and update or add to a second.
-        // For this mutator, it will create an OrderLine and it will link it to a particular
-        // product. It will then also create an order for that order line and it will also
-        // link that order to a particular customer.
-        // Example:
-        // An application for this query would be for generating a new order for a customer
-        // by a billing application. If there is not current order, create an order line which 
-        // will handle taking care of the first order line and also the order itself.
-        // If there are already order lines present, then the billing application could just update
-        // by adding another but by just linking it to the particular order.
+        /* Part 4. The requirement was to add to one and update or add to a second.
+        For this mutator, it will create an OrderLine and it will link it to a particular
+        product. It will then also create an order for that order line and it will also
+        link that order to a particular customer.
+        Example:
+        An application for this query would be for generating a new order for a customer
+        by a billing application. If there is no current order, create an order line which 
+        will handle taking care of the first order line and also the order itself.
+        If there are already order lines present, then the billing application could just update
+        by adding another but by just linking it to the particular order created by this mutation. */
         createOrderLine(root, args, context) {
             console.log(args);
             return context.prisma.createOrderLine(
@@ -110,6 +116,7 @@ const resolvers = {
                 }
             )
         },
+        // Other Mutations for testing and adding data.
         createCustomer(root, args, context) {
             return context.prisma.createCustomer(
                 {
@@ -152,67 +159,6 @@ const resolvers = {
         }
     }
 }
-/*
-const resolvers = {
-    Query: {
-        publishedPosts(root, args, context) {
-            return context.prisma.posts({ where: { published: true } })
-        },
-        post(root, args, context) {
-            return context.prisma.post({ id: args.postId })
-        },
-        postsByUser(root, args, context) {
-            return context.prisma.user({
-                id: args.userId
-            }).posts()
-        },
-        users(root, args, context) {
-            return context.prisma.users();
-        }
-    },
-    Mutation: {
-        createDraft(root, args, context) {
-            return context.prisma.createPost(
-                {
-                    title: args.title,
-                    author: {
-                        connect: { id: args.userId }
-                    }
-                },
-
-            )
-        },
-        publish(root, args, context) {
-            return context.prisma.updatePost(
-                {
-                    where: { id: args.postId },
-                    data: { published: true },
-                },
-
-            )
-        },
-        createUser(root, args, context) {
-            return context.prisma.createUser(
-                { name: args.name },
-            )
-        }
-    },
-    User: {
-        posts(root, args, context) {
-            return context.prisma.user({
-                id: root.id
-            }).posts()
-        }
-    },
-    Post: {
-        author(root, args, context) {
-            return context.prisma.post({
-                id: root.id
-            }).author()
-        }
-    }
-}
-*/
 
 const server = new GraphQLServer({
     typeDefs: './schema.graphql',
