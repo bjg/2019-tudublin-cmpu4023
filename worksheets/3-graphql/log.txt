@@ -1,0 +1,106 @@
+---------------------
+CATEGORY
+---------------------
+mutation {
+  createNewCategory(
+    categorynames: "PC Games"
+  )
+  {
+    categoryname
+    id
+  }
+}
+-----
+query {
+  getExistingCategories {
+    id
+    categoryname
+  }
+}
+---------------------
+PRODUCTS
+---------------------
+mutation {
+  createNewProduct(
+    title: "Harry Potter and the Chamber of Secrets"
+    actor: "Book"
+    price: 10.99
+    special:8.99
+    common_prod_id: 1
+    categoryId: "cjtbpcr4h00o707932hulx0xv"
+		stock_quantity: 100
+  ){
+    id
+    title
+    category{
+      id
+      categoryname
+    }
+    inventory{
+      id
+      sales
+      quan_in_stock
+    }
+  }
+}
+-----
+query {
+  getExistingProducts {
+    id
+    title
+    price
+    category{id}
+    inventory{
+      id
+      sales
+      quan_in_stock
+    }
+  }
+}
+
+----------
+INVENTORY
+----------
+query {
+  getExistingInventory {
+    id
+    quan_in_stock
+    sales
+  }
+}
+-------------
+ORDER
+-------------
+mutation {
+ createOrders(
+  	customer_name: "Victor"
+  	orderdate: "12-12-19"	
+    netamount: 399
+    tax: 21.50
+    totalamount: 500
+    
+  )
+  {
+  id
+  customer
+  orderdate
+  totalamount
+ 	tax
+  orderline{id}
+  }
+}
+query {
+  getExistingOrders {
+  id
+  customer
+  orderdate
+  totalamount
+ 	tax
+  orderline{
+    id
+    quantity
+    orderdate
+    
+  }
+  }
+}

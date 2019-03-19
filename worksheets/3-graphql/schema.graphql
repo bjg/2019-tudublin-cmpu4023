@@ -1,0 +1,92 @@
+# Import DateTime
+scalar DateTime
+
+type Query {
+  getExistingCategories: [Category!]!
+  getExistingProducts: [Product!]!
+  getExistingInventory: [Inventory!]!
+  getExistingOrders: [Order!]!
+  getExistingOrderLines: [OrderLines!]!
+
+  getCategoryByID(catId: ID!): [Category!]!
+  getProductByID(prodId: ID!): [Product!]!
+  
+}
+
+type Mutation {
+  # Add a new category
+  createNewCategory(
+    categorynames: String!
+  ): Category
+
+  # Add a new product
+  createNewProduct(
+    title: String!,
+    actor: String,
+    price: Float!,
+    special: Float,
+    common_prod_id: Int,
+    categoryId: ID,
+    stock_quantity: Int 
+  ): Product
+
+  #Add a new product in the inventory
+  createNewInventory(
+    prod_id: ID
+    quan_in_stock: Int!
+    sales: Int!
+  ): Inventory
+
+   #Add a new Order
+  createNewOrder(
+    orderdate: DateTime,
+    customer_name: String
+    netamount: Float!,
+    tax: Float!,
+    totalamount: Float!
+    product_id: ID,
+    quantity:Int
+  ): Order
+  
+}
+
+type Category {
+  id: ID! 
+  categoryname: String!
+}
+type Product{
+  id: ID! 
+  title: String
+  actor: String
+  price: Float
+  special: Float
+  common_prod_id: Int
+  category: Category 
+  inventory: Inventory
+}
+
+type Inventory {
+  id: ID!
+  prod_id: Product
+  quan_in_stock: Int!
+  sales: Int!
+}
+
+type OrderLines {
+  id: ID! 
+  product: Product
+  order: Order
+  quantity: Int
+  orderdate: DateTime!
+}
+
+type Order {
+  id: ID!
+  customer: String
+  orderdate: DateTime
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  orderline: OrderLines
+}
+
