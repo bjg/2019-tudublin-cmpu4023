@@ -1,0 +1,36 @@
+type Query {
+    productsByCategory(categoryName: String!): [Product!]!
+    ordersForCategory(categoryName: String!): Category!
+}
+
+type Mutation {
+    createProductWithCategory(title: String!, price: Float!, categoryName: String!): Product
+}
+
+type Order {
+    id: ID!
+    amount: Float!
+    orderlines: [Orderline!]!
+}
+
+type Product {
+    id: ID!
+    title: String!
+    price: Float!
+    category: Category!
+    orderlines: [Orderline!]!
+}
+
+type Category {
+    id: ID!
+    name: String!
+    products: [Product!]!
+}
+
+type Orderline {
+    id: ID!
+    quantity: Int!
+    product: Product!
+    order: Order!
+}
+
