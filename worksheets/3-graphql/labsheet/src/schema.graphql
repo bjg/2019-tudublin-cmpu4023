@@ -1,0 +1,53 @@
+scalar DateTime
+
+type Query {
+  allProducts: [Product!]!
+  orderLinesByCustomer(customerUsername: String!): [OrderLine]!
+}
+
+type Mutation {
+  addOrderLine(orderId: ID!, productId: ID!, quantity: Int!): OrderLine!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String!
+  price: Float!
+}
+
+type Customer {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String
+  zip: Int
+  country: String!
+  region: String!
+  email: String
+  phone: String
+  username: String!
+  password: String!
+  age: Int
+  income: Int
+  gender: String
+}
+
+type Order {
+  id: ID!
+  order_date: DateTime!
+  customer: [Customer!]!
+  net_amount: Float!
+  tax: Float!
+  total_amount: Float!
+}
+
+type OrderLine {
+  id: ID!
+  order: [Order!]!
+  product: [Product!]!
+  quantity: Int!
+}
