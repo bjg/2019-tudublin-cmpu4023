@@ -1,0 +1,78 @@
+//add new inventory
+mutation {
+  createInventory(
+    product: "cjterxq7m01re0785dbw1uja4",
+    quan_in_stock: 10,
+    sales: 10
+  ){
+    sales
+    quan_in_stock
+  }
+}
+
+//add new product
+mutation {
+  createProduct(
+    title: "Totally New Product",
+    category: "cjtejc2fa00zw07857i3yut3p",
+    actor: "Test Actor",
+    price: 15.00,
+    special: 2,
+    common_prod_id: 2
+  ){
+    id
+  }
+}
+
+//update inventory stock
+mutation{
+  updateInventory(
+    data: {
+      quan_in_stock: 10,
+    },
+    where: {
+      id: "cjteonxt401pl0785i34ft6cd"
+    }
+  ){
+    quan_in_stock
+  }
+}
+
+//query to get all products and return their id and category name
+query {
+  products {
+    id
+    category {
+      categoryname
+    }
+  }
+}
+
+//get inventory for product via id, works for part 3
+query {
+  inventoryForProducts(
+    id: "cjtek9yxe01k50785imcqctgr"
+  ){
+    quan_in_stock
+    product {
+      title
+      category {
+        categoryname
+      }
+    }
+  }
+}
+
+//mutation to create reorder, works for part 4
+mutation{
+  createReorder(
+    prod_id: "cjtek9yxe01k50785imcqctgr",
+    date_low: "2019-07-03",
+    quan_low: 1,
+    date_reordered: "2019-07-07",
+    quan_reordered: 1,
+    date_expected: "2019-07-08"
+  ){
+    id
+  }
+}
