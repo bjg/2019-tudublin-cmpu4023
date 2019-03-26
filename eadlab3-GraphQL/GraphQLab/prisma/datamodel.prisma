@@ -23,6 +23,6 @@ type Inventory {
     sales: Int!
 }
 type Categories {
-  category: ID! @unique
+  category: ID! 
   categoryname: String!
 }

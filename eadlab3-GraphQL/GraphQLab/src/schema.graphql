@@ -1,9 +1,12 @@
 scalar DateTime
 
-type Query { 
-    category: [Categories!]!
-    title: String! 
+type Query{
+   getProducts: [Products!]!
+   getReorder: [Reorder!]!
+   getInventory: [Inventory!]!
+   getCategories: [Categories!]!
 }
+
 type Products {
   prod_id: ID!
   category: [Categories!]!
