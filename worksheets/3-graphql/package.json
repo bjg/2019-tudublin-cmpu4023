@@ -1,0 +1,19 @@
+{
+  "name": "3-graphql",
+  "version": "1.0.0",
+  "description": "Add any additional documentation here...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-yoga": "^1.17.4",
+    "nodemon": "^1.18.10",
+    "prisma-client-lib": "^1.28.3"
+  }
+}
