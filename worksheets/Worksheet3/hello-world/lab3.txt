@@ -1,0 +1,90 @@
+mutation {
+  createNewCategory(
+    categorynames: "Films"
+  )
+  {
+    categoryname
+    id
+  }
+}
+query {
+  getExistingCategories {
+    id
+    categoryname
+  }
+}
+mutation {
+  createNewProduct(
+    title: "Drive"
+    actor: "Ryan Gosling"
+    price: 15.00
+    special: 10.00
+    common_prod_id: 1
+    categoryId: "efteph1ge01xw17857i3yut2d"
+		stock_quantity: 50
+  ){
+    id
+    title
+    category{
+      id
+      categoryname
+    }
+    inventory{
+      id
+      sales
+      stock_quan
+    }
+  }
+}
+query {
+  getExistingProducts {
+    id
+	category{id}
+    title
+    price
+    inventory{
+      id
+      sales
+      stock_quan
+    }
+  }
+}
+query {
+  getExistingInventory {
+    id
+    stock_quan
+    sales
+  }
+}
+mutation {
+ createOrders(
+  	customer_name: "Test"
+  	orderdate: "01-01-19"	
+    price_net: 100
+    tax: 23.00
+    price_tot: 123
+  )
+  {
+  id
+  customer
+  orderdate
+  price_tot
+ 	tax
+  orderline{id}
+  }
+}
+query {
+  getExistingOrders {
+  id
+  customer
+  orderdate
+  price_tot
+ 	tax
+  orderline{
+    id
+    quantity
+    orderdate
+
+  }
+  }
+}

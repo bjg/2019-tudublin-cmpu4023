@@ -1,0 +1,8 @@
+endpoint: https://eu1.prisma.sh/c15469842-6f853f/hello-world/dev/_admin
+datamodel: datamodel.prisma
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
+hooks:
+  post-deploy:
+    - prisma generate 
