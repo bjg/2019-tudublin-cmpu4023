@@ -1,0 +1,17 @@
+{
+  "name": "lab3",
+  "version": "1.0.0",
+  "description": "Lab 3 : GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Gabriel Grimberg",
+  "license": "ISC",
+  "dependencies": {
+    "graphql-iso-date": "^3.6.1",
+    "graphql-yoga": "^1.17.4",
+    "prisma-client-lib": "^1.28.2"
+  }
+}

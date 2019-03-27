@@ -1,0 +1,437 @@
+/***
+ *	Name: Gabriel Grimberg
+ *	Module: Enterprise Application Development
+ *	Lab: 3
+ *	Questions: All
+ *	Type: Queries."
+ ***/
+
+
+###
+#
+# Creating a Customer
+#
+###
+mutation {
+	createCustomer(
+		firstname: "Gabriel"
+		lastname: "Grimberg"
+		address1: "Address 1"
+		address2: "Address 2"
+		city: "Some City"
+		state: "Some State"
+		zip: "zip1010"
+		country: "Ireland"
+		region: "Some Region"
+		email: "email2@email.com"
+		phone: "0833333333"
+		creditcardtype: "CC Type"
+		creditcard: "CC"
+		creditcardexpiration:"08/19"
+		username: "eadlab3"
+		password: "e3kj4rewdnergjkn"
+		age: 21
+		income: 100000.00
+		gender: "Male"
+	) {
+		id
+		firstname
+		lastname
+		address1
+		address2
+		city
+		state
+		zip
+		country
+		region
+		email
+		phone
+		creditcardtype
+		creditcard
+		creditcardexpiration
+		username
+		password
+		age
+		income
+		gender
+	}
+}
+
+
+###
+#
+# View All Customers
+#
+###
+query {
+	allCustomers {
+		id
+		firstname
+		lastname
+		username
+		email
+	}
+}
+
+
+###
+#
+# View a Specific Customer by ID
+#
+###
+query {
+  specificCustomers(customersId: "cjtexggou00m00771s954gjbb") {
+    id
+		firstname
+		lastname
+		address1
+		address2
+		city
+		state
+		zip
+		country
+		region
+		email
+		phone
+		creditcardtype
+		creditcard
+		creditcardexpiration
+		username
+		password
+		age
+		income
+		gender
+  }
+}
+
+
+###
+#
+# Creating an Order (Linked with Customer)
+#
+###
+mutation {
+	createOrder(
+		orderdate: "22017-07-27T12:00:00.000Z"
+		netamount: 200.00
+		tax: 40.00
+		totalamount: 240.00
+		customersId: "cjtexggou00m00771s954gjbb"
+	) {
+		id
+		customers {
+			id
+			firstname
+      		lastname
+      		username
+		}
+	}
+}
+
+
+###
+#
+# View All Orders
+#
+###
+query {
+	allOrders {
+		id
+		orderdate
+		totalamount
+		customers {
+			id
+			firstname
+			lastname
+			username
+		}
+	}
+}
+
+
+###
+#
+# Creating a Category
+#
+###
+mutation{
+	createCategory(
+		categoryname: "Games"
+	) {
+		id
+		categoryname
+	}
+}
+
+
+###
+#
+# View All Categories
+#
+###
+query {
+	allCategories {
+		id
+		categoryname
+	}
+}
+
+
+###
+#
+# Creating a Product (Linked with Categories and Inventory)
+#
+###
+mutation {
+	createProduct(
+		title: "Apex Legends"
+		actor: "Respawn Entertainment"
+		price: 0.00
+		special: true
+		common_prod_id: 700
+		categoryname: "PC"
+    	quan_in_stock: 10000
+	) {
+		id
+		title
+		actor
+		price
+		special
+		common_prod_id
+		categories {
+			id
+			categoryname
+		}
+	    inventory {
+	      id
+	      quan_in_stock
+	      sales
+	    }
+	}
+}
+
+
+###
+#
+# View All Products
+#
+###
+query {
+	allProducts {
+		id
+		title
+		actor
+		price
+		special
+		common_prod_id
+		categories {
+			id
+			categoryname
+		}
+	}
+}
+
+
+###
+#
+# Creating a Reorder (Linked with Products)
+#
+###
+mutation {
+	createReorders(
+		date_low: "22017-07-27T12:00:00.000Z"
+		quan_low: 10
+		date_reordered: "22017-07-27T12:00:00.000Z"
+		quan_reordered: 5
+		date_expected: "Next Tuesday"
+		productsId: "cjtepisja00h30771mj3y3ur4"
+	) {
+		id
+		date_low
+		quan_low
+		date_reordered
+		quan_reordered
+		date_expected
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# View All Re-Orders
+#
+###
+query {
+	allReorders {
+		id
+		date_low
+		quan_low
+		date_reordered
+		quan_reordered
+		date_expected
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# Creating Inventory (Linked with Products)
+#
+###
+mutation {
+	createInventory(
+		quan_in_stock: 2000
+		sales: 100
+		productsId: "cjtepisja00h30771mj3y3ur4"
+	) {
+		id
+		quan_in_stock
+		sales
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# View All Inventories
+#
+###
+query {
+	allInventory {
+		id
+		quan_in_stock
+		sales
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+###
+#
+# Creating Order Lines (Linked with Orders and Products)
+#
+###
+mutation {
+	createOrderline(
+		quantity: 200
+		orderdate: "22017-07-27T12:00:00.000Z"
+		ordersId: "cjteijvp7001807718phg1ht5"
+		productsId: "cjtepisja00h30771mj3y3ur4"
+	) {
+		id
+		quantity
+		orderdate
+		orders {
+			id
+			orderdate
+			totalamount
+		}
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# View All Order Lines
+#
+###
+query {
+	allOrderLines {
+		id
+		quantity
+		orderdate
+		orders {
+			id
+			orderdate
+			totalamount
+		}
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# Creating Customer Histroy (Linked with Customers, Orders and Products)
+#
+###
+mutation {
+	createCustomerHistory(
+		customersId: "cjtc7dfh900430805g4lh9v5e"
+		ordersId: "cjtfzvun4002t0805k6v9avad"
+		productsId: "cjtfuky0p00230805c5x4qodk"
+	) {
+		id
+		customers {
+			id
+			firstname
+      		lastname
+      		username
+		}
+		orders {
+			id
+			orderdate
+			totalamount
+		}
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
+
+
+###
+#
+# View All Customer History
+#
+###
+query {
+	allCustomerHistory {
+		id
+		customers {
+			id
+			firstname
+      		lastname
+      		username
+		}
+		orders {
+			id
+			orderdate
+			totalamount
+		}
+		products {
+			id
+			title
+			actor
+		}
+	}
+}
