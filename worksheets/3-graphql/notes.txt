@@ -1,0 +1,61 @@
+Show tables in PSQL:
+\dt default$default.
+
+Prisma Migrations:
+prisma deploy
+prisma generate
+
+
+So from what I can see, my datamodel is what specifies my tables in the database or whatever. My schema.graphql
+then specifies the types and also my queries and migrations that can be used.
+
+
+Other Stuff:
+String => String type
+String! => Required String
+ID! => Auto generates global ID
+
+Order
+	Products
+		Category
+
+		mutation {
+  createProduct(
+    title:"MacBook Pro",
+    actor:"Unknow",
+    price:20.00,
+    special:1,
+  ) {
+    id
+    title
+  }
+}
+
+cjsuefuv3006207922rk5zsxv - Laptops (Category)
+cjsxfbsq3000x08928vp2k97s - Phones (Category)
+cjsxgw4xs00270892k73bewmn - Mark (Customer)
+cjsxhcg1100300892o4xupvu6 - Order
+cjsxfyzfu001k0892og289md3 - MacBook Pro (Product)
+cjsxgx18v002d0892i67160gx - Order
+
+mutation {
+  createOrder(
+    orderDate:"2019-03-06"
+    netAmount:300.00
+    tax:20.00
+    customer
+  )
+}
+
+query {
+  orders {
+    id
+    orderDate
+    netAmount
+    tax
+    totalAmount
+    customer {
+      id
+    }
+  }
+}

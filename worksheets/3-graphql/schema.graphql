@@ -1,0 +1,93 @@
+type Customer {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    address1: String!
+    address2: String
+    city: String!
+    state: String
+    zip: Int
+    country: String!
+    region: Int
+    email: String
+    phone: String
+    creditCardType: Int
+    creditCard: String!
+    creditCardExpiration: String!
+    username: String!
+    password: String!
+    age: Int
+    income: Int
+    gender: String!
+    orders: [Order!]!
+}
+
+type Order {
+  id: ID!
+  orderDate: String!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+  customer: Customer!
+  orderLines: [OrderLine!]
+}
+
+input OrderInput {
+  orderDate: String!
+  netAmount: Float!
+  tax: Float!
+  totalAmount: Float!
+  customer: ID!
+}
+
+type OrderLine {
+  id: ID!
+  quantity: Int!
+  orderDate: String!
+  product: Product!
+  order: Order!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int
+}
+
+type Query {
+  categories: [Category!]!
+  products: [Product]!
+  orders: [Order!]!
+  customers: [Customer!]!
+  orderLines: [OrderLine]!
+}
+
+type Mutation {
+  createCategory(name: String!): Category
+  createProduct(title: String!, actor: String!, price: Float!, special: Int, category: ID!): Product
+  createCustomer(firstName: String!, lastName: String!, address1: String!, address2: String, city: String!, state: String, zip: Int, country: String!, region: Int, email: String, phone: String, creditCardType: Int, creditCard: String!, creditCardExpiration: String!, username: String!, password: String!, age: Int, income: Int, gender: String!): Customer
+  createOrder(orderDate: String!, netAmount: Float! tax: Float!, totalAmount: Float!, customer: ID!): Order
+  createOrderLine(quantity: Int!, orderDate: String!, product: ID!, order: OrderInput!): OrderLine
+}
+
+type User {
+  id: ID!
+  email: String
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  published: Boolean!
+  author: User
+}
