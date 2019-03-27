@@ -114,11 +114,22 @@ const resolvers = {
           }
         },
     }).then(
-      // get the inventory ID (for updateInventory function later) 
+      // get the inventory ID (to updateInventory later) 
       data => {
         inventory = data[0]['id'];
       }
     )
+
+    // update the inventory levels for the product 
+    // to the new stock level - identified during manual stock check
+    await context.prisma.updateInventory({
+      data: {
+        quan_in_stock: stock,
+      }, 
+      where: {
+        id: inventory
+      }
+    })
 
     // as the product is low in stock and we are ordering more
     // we discount the low stock to clear it out before 
@@ -144,17 +155,6 @@ const resolvers = {
       },
       where: {
         id: args.product
-      }
-    })
-
-    // update the inventory levels for the product 
-    // to the new stock level - identified during manual stock check
-    await context.prisma.updateInventory({
-      data: {
-        quan_in_stock: stock,
-      }, 
-      where: {
-        id: inventory
       }
     })
 
