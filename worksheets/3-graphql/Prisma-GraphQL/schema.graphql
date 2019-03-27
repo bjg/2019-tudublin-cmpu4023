@@ -1,0 +1,240 @@
+###
+# Name: Gabriel Grimberg
+# Module: Enterprise Application Development
+# Lab: 3
+# Questions: All
+# Type: Schema GraphQL (API)
+###
+
+# Question (1) - Needed for All Questions
+# Using using graphql-yoga and the ERD below
+# construct a graphql schema using any four relations​ of your choice 
+# having the relationships depicted.
+
+###
+# SCALAR
+###
+
+scalar DateTime
+
+###
+# QUERY
+###
+
+# Querying the Database
+type Query {
+
+  # Customers
+  allCustomers: [Customers!]!                               # Retrieve all Customers
+  specificCustomers(customersId: ID!): [Customers!]!        # Retrieve Specific Customer by ID
+
+  # Orders
+  allOrders: [Orders!]!                                     # Retrieve all Orders
+  specificOrders(ordersId: ID!): [Orders!]!                 # Retrieve Specific Order by ID
+
+  # Categories
+  allCategories: [Categories!]!                             # Retrieve all Categories
+  specificCategories(categoriesId: ID!): [Categories!]!     # Retrieve Specific Category by ID
+
+  # Products
+  allProducts: [Products!]!                                 # Retrieve all Products
+  specificProducts(productsId: ID!): [Products!]!           # Retrieve Specific Product by ID
+
+  # Reorder
+  allReorders: [Reorder!]!                                  # Retrieve all Reorders
+  specificReorders(reordersId: ID!): [Reorder!]!            # Retrieve Specific Reorder by ID
+
+  # Inventory
+  allInventory: [Inventory!]!                               # Retrieve all Inventory
+  specificInventory(inventoryId: ID!): [Inventory!]!        # Retrieve Specific Inventory by ID
+
+  # Orderlines
+  allOrderLines: [Orderlines!]!                             # Retrieve all Order Lines
+  specificOrderLines(orderlinesId: ID!): [Orderlines!]!     # Retrieve Specific Order Line by ID
+
+  # Cust_hist
+  allCustomerHistory: [Cust_hist!]!                         # Retrieve all Customer History
+  specificCustomerHistory(cust_histId: ID!): [Cust_hist!]!  # Retrieve Specific Customer History by ID
+
+}
+
+###
+# MUTATION
+###
+
+# Adding to Database
+type Mutation {
+
+  # Create Customer
+  createCustomer(
+    firstname: String!,
+    lastname: String!,
+    address1: String!,
+    address2: String,
+    city: String!,
+    state: String!,
+    zip: String,
+    country: String!,
+    region: String,
+    email: String!,
+    phone: String,
+    creditcardtype: String,
+    creditcard: String,
+    creditcardexpiration: String,
+    username: String!,
+    password: String!,
+    age: Int!,
+    income: Float,
+    gender: String!
+  ) : Customers
+
+  # Create Order
+  createOrder(
+    orderdate: DateTime!,
+    netamount: Float!,
+    tax: Float!,
+    totalamount: Float!,
+    customersId: ID!
+  ) : Orders
+    
+  # Create Category
+  createCategory(
+    categoryname: String!
+  ) : Categories
+
+  # Create Product
+  createProduct(
+    title: String,
+    actor: String,
+    price: Float,
+    special: Boolean,
+    common_prod_id: Int,
+    # categoriesId: ID,
+    categoryname: String,
+    quan_in_stock: Int
+  ) : Products
+
+  # Create Re-order
+  createReorders(
+    date_low: DateTime!,
+    quan_low: Int,
+    date_reordered: DateTime!,
+    quan_reordered: Int,
+    date_expected: String,
+    productsId: ID!,
+  ) : Reorder
+
+  # Create Inventory
+  createInventory(
+    quan_in_stock: Int,
+    sales: Int,
+    productsId: ID!
+  ) : Inventory
+
+  # Create Order Line
+  createOrderline(
+    quantity: Int,
+    orderdate: DateTime!,
+    ordersId: ID!,
+    productsId: ID!
+  ) : Orderlines
+
+  # Create Customer History
+  createCustomerHistory(
+    customersId: ID!,
+    ordersId: ID!,
+    productsId: ID
+  ) : Cust_hist
+}
+
+###
+# TYPES
+###
+
+# Customers Table
+type Customers {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String
+  city: String!
+  state: String!
+  zip: String
+  country: String!
+  region: String
+  email: String!
+  phone: Int
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: String
+  username: String!
+  password: String!
+  age: Int!
+  income: Float
+  gender: String!
+}
+
+# Orders Table
+type Orders {
+  id: ID!
+  orderdate: DateTime!
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  customers: Customers 
+}
+
+# Categories Table
+type Categories {
+  id: ID! 
+  categoryname: String!
+}
+
+# Products Table
+type Products {
+  id: ID!
+  title: String
+  actor: String
+  price: Float
+  special: Boolean
+  common_prod_id: Int
+  categories: Categories
+  inventory: Inventory
+}
+
+# Re-order Table
+type Reorder {
+  id: ID!
+  date_low: DateTime!
+  quan_low: Int
+  date_reordered: DateTime!
+  quan_reordered: Int
+  date_expected: String
+  products: Products
+}
+
+# Inventory Table
+type Inventory {
+  id: ID!
+  quan_in_stock: Int
+  sales: Int
+  products: Products
+}
+
+# Order Lines Table
+type Orderlines {
+  id: ID!
+  quantity: Int
+  orderdate: DateTime!
+  orders: Orders
+  products: Products
+}
+
+# Customer History Table
+type Cust_hist {
+  id: ID!
+  customers: Customers
+  orders: Orders
+  products: Products
+}
