@@ -1,0 +1,33 @@
+scalar DateTime
+
+type Recorder{
+  recorder_id: ID!
+  date_low: DateTime!
+  quan_low: Int!
+  date_recorded: DateTime!
+  quan_recorded: Int!
+  date_expected: DateTime!
+  product: Product!
+}
+
+type Inventory{
+  inventory_id: ID!
+  quan_in_stock: Int!
+  sales: Int!
+  product: Product!
+}
+
+type Product{
+  prod_id: ID!
+  category: Category!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int!
+  common_prod_id: Int!
+}
+
+type Category{
+  category: ID!
+  categoryname: String!
+}
