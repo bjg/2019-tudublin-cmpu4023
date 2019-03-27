@@ -82,6 +82,7 @@ const resolvers = {
 
             })
 
+            //add order to orderline table
             return context.prisma.createOrderline({
                 orderlineid,
                 quantity,
