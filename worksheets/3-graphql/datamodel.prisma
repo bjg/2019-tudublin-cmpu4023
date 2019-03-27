@@ -1,0 +1,29 @@
+type Inventory {
+  id: ID! @unique
+  product: Product!
+  quan_in_stock: Int!
+  sales: Int!
+}
+
+type Product {
+  prod_id: ID! @unique
+  category: Category!
+  title: String!
+  actor: String!
+  price: Float!
+}
+
+type Category {
+  category: ID! @unique
+  categoryname: String!
+}
+
+type Orderline {
+  orderlineid: ID! @unique
+  product: Product!
+  quantity: Int!
+  orderdate: DateTime!
+}
+
+
+
