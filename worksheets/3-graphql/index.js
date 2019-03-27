@@ -78,13 +78,13 @@ const resolvers = {
       })
     },
   },
-  // Product: {
-  //   category(root, args, context)  {
-  //     return context.prisma.product({
-  //       id: root.id
-  //     }).category()
-  //   },
-  // },
+  Product: {
+    category(root, args, context)  {
+      return context.prisma.product({
+        id: root.id
+      }).category()
+    },
+  },
   Inventory: {
     product(root, args, context)  {
       return context.prisma.inventory({
