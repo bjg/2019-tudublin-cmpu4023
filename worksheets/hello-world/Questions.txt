@@ -1,0 +1,95 @@
+#mutations
+
+mutation{
+  createCategory( 
+    categoryname: "vegetables"
+  )
+  {
+    categoryname
+    id
+  }
+}
+
+mutation {
+  createProduct(
+    title: "carrot",
+    category: "cjtqesbyk003w0860c1j6h51z",
+    actor: "actor1",
+    price: 0.55,
+    special: 1,
+    common_prod_id: 4
+  ){
+    id
+  }
+}
+
+mutation{
+  createInventory(
+    product: "cjtqf87dx00480860s5qmuaqn"
+    quan_in_stock: 5
+    sales: 2
+    
+  )
+  {
+    sales
+    id
+    quan_in_stock
+    
+  }
+
+# Questions 2 -5
+
+# Question 2 query return the id of all products along with the correspomding category name
+query {
+  products {
+    id
+    category {
+      categoryname
+    }
+  }
+}
+
+# Question 3 query return the inventory for a product from the product id
+query {
+  productByInventory(
+    id: "cjtqf87dx00480860s5qmuaqn"
+  ){
+    quan_in_stock
+    product {
+      title
+      category {
+        categoryname
+      }
+    }
+  }
+}
+
+
+# Question 4 mutation that updates product price and quantity
+
+mutation{
+  createReorder(
+    product: "cjtqf87dx00480860s5qmuaqn",
+    date_low: "2019-03-01",
+    quan_low: 3,
+    date_reordered: "2019-03-02",
+    quan_reordered: 2,
+    date_expected: "2019-03-03"
+  ){
+    id
+  }
+}
+
+
+# Q5 graphql server connection
+
+const server = new GraphQLServer({
+  typeDefs: './schema.graphql',
+  resolvers,
+  context: {
+    prisma
+  },
+})
+server.start(() => console.log('Server is running on http://localhost:4000')) 
+
+
