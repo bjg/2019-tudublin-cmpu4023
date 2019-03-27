@@ -1,0 +1,77 @@
+scalar DateTime
+
+type Query {
+    products: [Product!]!
+    categories: [Category!]!
+    inventories: [Inventory!]!
+    recorders: [Recorder!]!
+    getProductById(id:ID!):Product!
+    getInventoryByProductId(id:ID!):[Inventory!]!
+    getProductByCategoryId(id:ID!):[Product!]!
+}
+
+type Mutation {
+    createCategory(
+        category: ID,
+        categoryname: String!
+    ): Category
+
+    createProduct(
+        prod_id: ID!,
+        category: ID!,
+        title: String!,
+        actor: String!,
+        price: Float!,
+        special: Int!,
+        common_prod_id: Int!
+    ): Product
+
+    createInventory(
+        inventory_id: ID!,
+        quan_in_stock: Int!,
+        sales: Int!,
+        product: ID!
+    ) : Inventory
+
+    createRecorder(
+        recorder_id:ID!,
+        date_low: DateTime!,
+        quan_low: Int!,
+        date_reordered: DateTime!,
+        quan_reordered: Int!,
+        date_expected: DateTime!
+        prod_id: ID!
+    ) : Recorder
+}
+
+type Recorder{
+    recorder_id: ID!
+    date_low: DateTime!
+    quan_low: Int!
+    date_recorded: DateTime!
+    quan_recorded: Int!
+    date_expected: DateTime!
+    product: Product!
+}
+
+type Inventory{
+    inventory_id: ID!
+    quan_in_stock: Int!
+    sales: Int!
+    product: Product!
+}
+
+type Product{
+    prod_id: ID!
+    category: Category!
+    title: String!
+    actor: String!
+    price: Float!
+    special: Int!
+    common_prod_id: Int!
+}
+
+type Category{
+    category: ID!
+    categoryname: String!
+}

@@ -1,0 +1,59 @@
+------ New category ------
+mutation {
+  createCategory(
+    categoryname: "New Category"
+  ){
+    category
+    categoryname
+  }
+}
+
+------ Get Category ------
+query {
+  categories {
+    category
+    categoryname
+  }
+}
+
+------ New Product ------
+mutation {
+  createProduct(
+    title: "New Product",
+    category: __CategoryId__,
+    actor: "John",
+    price: 55.90,
+    special: 1,
+    common_prod_id: 1
+  ){
+    prod_id
+  }
+}
+
+------ Get Products ------
+query {
+  products{
+    id
+    category {
+      categoryname
+    }
+  }
+}
+
+------ Get Inventory using ProductId ------
+query {
+  getInventoryByProductId(
+    id: __ProductId__
+  ){
+    quan_in_stock
+    product {
+      title
+      category {
+        categoryname
+      }
+    }
+  }
+}
+
+
+
