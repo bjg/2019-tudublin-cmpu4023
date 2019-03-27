@@ -45,10 +45,17 @@ mutation{
 ###If order is successful the sales and quan_in_stock fields will be updated for the inventory of that product
 ###and the order will then be placed in orderline table.
 mutation {
-  createOrderline(orderlineid: 109, quantity: 1, prod_id: 1){
+  createOrderline(
+    orderlineid: 112,
+    quantity: 1,
+    prod_id: 1) {
     orderdate
     product {
       title
+      price
+      category{
+        categoryname
+      }
     }
   }
 }

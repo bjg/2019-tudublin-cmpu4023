@@ -64,9 +64,9 @@ const resolvers = {
             })
 
             //If user wants more quantity than what is available then throw error
-            if (quantity > currentInventory[0].quan_in_stock){
-                throw new Error('Not enough quantity. You requested ' + quantity + ' of product but only ' + currentInventory.quan_in_stock + ' is in stock.');
-            }
+            // if (quantity > currentInventory[0].quan_in_stock){
+            //     throw new Error('Not enough quantity. You requested ' + quantity + ' of product but only ' + currentInventory.quan_in_stock + ' is in stock.');
+            // }
 
             //adjust current quantity and sales in inventory for the product being ordered
             const newQuantity = currentInventory[0].quan_in_stock - quantity
