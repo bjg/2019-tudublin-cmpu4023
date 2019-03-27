@@ -11,7 +11,7 @@ type Products {
   actor: String!
   price: Float!
   special: Int!
-  common_prod_id: Int!
+  common_prod_id: ID!
 
   # relations
   reorder: Reorder
@@ -58,5 +58,5 @@ type Query {
 }
 
 type Mutation {
-  createdProdcuts(prod_id: ID!): Products
+  createProdcuts(prod_id: ID!, category:ID!, title:String!, actor:String!,price:Float!, special:int, common_prod_id:ID! ): Products
 }
