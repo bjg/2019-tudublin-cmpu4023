@@ -1,0 +1,134 @@
+scalar DateTime
+
+type Query {
+  getCategories: [Category!]!
+  getProducts: [Product!]!
+  getOrderlines: [Orderline!]!
+  getOrders: [Order!]!
+  getCustomers: [Customer!]!
+  getInventories: [Inventory!]!
+}
+
+type Mutation {
+
+  createCategory(
+    categoryname: String!
+  ): Category
+
+  createInventory(
+    productId: ID!
+    quan_in_stock: Int
+    sales: Int
+  ): Inventory
+
+  createProduct(
+    categoryId: ID!,
+    title: String!,
+    actor: String,
+    price: Float!,
+    special: Float,
+    common_prod_id: Int
+    quan_in_stock: Int 
+  ): Product
+
+  createOrderline(
+    orderId: ID!,
+    productId: ID!,
+    quantity: Int,
+    orderdate: DateTime
+  ): Orderline
+
+  createOrder(
+    orderdate: DateTime,
+    customerId: ID!,
+    netamount: Float!,
+    tax: Float!,
+    totalamount: Float!
+  ): Order
+
+  createCustomer(
+    firstname: String!,
+    lastname: String!,
+    address1: String!,
+    address2: String!,
+    city: String!,
+    state: String!,
+    zip: String!,
+    country: String!,
+    region: String!,
+    email: String!,
+    phone: String!,
+    creditcardtype: String,
+    creditcard: String,
+    creditcardexpiration: DateTime,
+    username: String!,
+    password: String!,
+    age: Int!,
+    income: Float,
+    gender: String!
+  ): Customer
+}
+
+type Category {
+  id: ID!
+  categoryname: String!
+}
+
+type Inventory {
+  id: ID!
+  product: Product
+  quan_in_stock: Int
+  sales: Int
+}
+
+type Product {
+  id: ID!
+  category: Category
+  title: String!
+  actor: String
+  price: Float!
+  special: Int
+  common_prod_id: Int
+  inventory: Inventory
+}
+
+type Orderline {
+  id: ID!
+  order: Order
+  product: Product
+  quantity: Int
+  orderdate: DateTime
+}
+
+type Order {
+  id: ID!
+  orderdate: DateTime
+  customer: Customer
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+  orderline: Orderline
+}
+
+type Customer {
+  id: ID!
+  firstname: String!
+  lastname: String!
+  address1: String!
+  address2: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
+  region: String!
+  email: String!
+  phone: String!
+  creditcardtype: String
+  creditcard: String
+  creditcardexpiration: DateTime
+  username: String!
+  password: String!
+  age: Int!
+  income: Float
+  gender: String!
+}

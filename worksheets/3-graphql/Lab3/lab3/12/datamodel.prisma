@@ -1,0 +1,33 @@
+
+type Products{
+  id: ID! @unique
+  title: String
+  actor: String
+  price: Float
+  special: Float
+  common_prod_id: Int
+  category: Category @relation(name:"ProductCat")
+}
+
+type Categories{
+  id: ID! @unique
+  categoryname: String!
+}
+
+
+type Inventory{
+  id: ID! @unique
+  quantity_in_stock: Int!
+  sales: Int!
+  product: Products
+  testupdate: String
+}
+
+type Orderlines{
+  id: ID! @unique
+  product: Products
+  order: Orders
+  quantity: Int
+  orderdate: DateTime
+  inventoryId: String
+}
