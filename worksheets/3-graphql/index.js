@@ -4,7 +4,7 @@ const {GraphQLServer} = require('graphql-yoga')
 const resolvers = {
 
   Query: {
-    /*part 1*/
+    //Q2
 
     getCategories(root, args, context) {
       console.log('Getting Categories')
