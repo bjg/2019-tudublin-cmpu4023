@@ -1,0 +1,40 @@
+type Category {
+  id: ID! @unique
+  categoryname: String!
+}
+type Products{
+  id: ID! @unique
+  title: String
+  actor: String
+  price: Float
+  special: Float
+  common_prod_id: Int
+  category: Category
+  inventory: Inventory
+}
+
+type Inventory {
+  id: ID! @unique
+  prod_id: Products
+  stock_quan: Int!
+  sales: Int!
+}
+
+type Orderlines {
+  id: ID! @unique
+  Products: Products
+  order: Order
+  quantity: Int
+  orderdate: DateTime!
+}
+
+type Order {
+  id: ID! @unique
+  customer: String
+  orderdate: DateTime
+  price_net: Float!
+  tax: Float!
+  price_tot: Float!
+  orderline: Orderlines
+}
+
