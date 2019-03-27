@@ -1,6 +1,6 @@
 type Products {
   prod_id: Int! @unique
-  category: Int!
+  category: Int! @unique
   title: String!
   actor: String!
   price: Float!
@@ -14,14 +14,12 @@ type Products {
 
 }
 
-
-
 type Reorder {
   prod_id: Int! @unique
   date_low: DateTime!
   quan_low: Int!
   date_reordered: DateTime!
-  quan_reordered: DateTime!
+  quan_reordered: Int!
   date_expected: DateTime!
 
   # relations

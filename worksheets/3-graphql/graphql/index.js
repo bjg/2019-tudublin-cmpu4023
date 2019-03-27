@@ -1,61 +1,53 @@
+const { GraphQLScalarType }= require('graphql')
+const { Kind } = require('graphql/language')
 const { prisma } = require('./generated/prisma-client')
 const { GraphQLServer } = require('graphql-yoga')
 
 const resolvers = {
   Query: {
-    publishedPosts(root, args, context) {
-      return context.prisma.posts({ where: { published: true } })
-    },
-    post(root, args, context) {
-      return context.prisma.post({ id: args.postId })
-    },
-    postsByUser(root, args, context) {
-      return context.prisma.user({
-        id: args.userId
-      }).posts()
-    }
+    // put querys here
   },
   Mutation: {
-    createDraft(root, args, context) {
-      return context.prisma.createPost(
-        {
-          title: args.title,
-          author: {
-            connect: { id: args.userId }
-          }
-        },
+    products(root, args, context) {
 
-      )
     },
-    publish(root, args, context) {
-      return context.prisma.updatePost(
-        {
-          where: { id: args.postId },
-          data: { published: true },
-        },
+    reorder(root, args, context) {
 
-      )
     },
-    createUser(root, args, context) {
-      return context.prisma.createUser(
-        { name: args.name },
-      )
-    }
+    inventory(root, args, context) {
+
+    },
+    categories(root, args, content){
+
+    },
+
+
   },
-  User: {
-    posts(root, args, context) {
-      return context.prisma.user({
-        id: root.id
-      }).posts()
-    }
+  // end mutation
+  Products: {
   },
-  Post: {
-    author(root, args, context) {
-      return context.prisma.post({
-        id: root.id
-      }).author()
-    }
-  }
+  Reorder: {
+  },
+  Inventory: {
+  },
+  Categories: {
+  },
+  Date: new GraphQLScalarType({
+    name: 'DateTime',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return new Date(ast.value) // ast value is always in string format
+      }
+      return null;
+    },
+  })
 }
 
 const server = new GraphQLServer({
