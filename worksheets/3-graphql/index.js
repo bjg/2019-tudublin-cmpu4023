@@ -84,7 +84,7 @@ const resolvers = {
     },
     /*Part 4: The following mutation creates a product which is assigned to a category. 
     As a result of this it also creates a new record in the inventory table which is link to this product. 
-    This query is useful to keep control of the stock of products are to the database.*/
+    This query is useful to keep control of the stock of products that in the database.It also set an initial quantity of stock for the created product*/
     createNewProduct(root, args, context) {
       return context.prisma.createProduct({
         title: args.title,
@@ -107,10 +107,11 @@ const resolvers = {
     },
     /*This mutation creates a customer's order in the database. 
     It also creates a link from the product table to the order table through the orderlines table 
-    which stores the primary of both of the (product ID and order ID) and some other fields.*/
-    createNewOrder(root, args, context) {
-      console.log(args)
-      return context.prisma.createOrder({
+    which stores the primary of both of the (product ID and order ID) and some other fields. The quantity in stock fiel of the 
+    inventory table is updated. This is calculated by substracting the quantity bought from the current stock in the inventory*/
+    async createNewOrder(root, args, context) {
+      var stock, inventory_id;
+      const orders= context.prisma.createOrder({
         orderdate: args.orderdate,
         customer: args.customer_name,
         netamount: args.netamount,
@@ -127,8 +128,31 @@ const resolvers = {
             orderdate: args.orderdate
           }
         }
-      }, )
-    },
+      });
+      
+      //Search for the inventory id and stock of the product. This is required to update the inventory table.
+      await context.prisma.inventories({
+          where: {
+              prod_id: {
+                  id: args.product_id
+              }
+          },
+      }).then(output => {
+          inventory_id = output[0]['id']
+          stock = output[0]['quan_in_stock']
+      });
+      //Update the inventory that corresponds to the product bought by a user.
+      await context.prisma.updateInventory({
+        data: {
+            quan_in_stock: stock - args.quantity
+        },
+        where: {
+          id: inventory_id
+        }
+      })
+     
+      return orders;
+    }
 
   }//end of mutations
 
