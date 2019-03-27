@@ -79,7 +79,7 @@ const resolvers = {
     },
   },
   Product: {
-    category(root, args, context)  {
+    categories(root, args, context)  {
       return context.prisma.product({
         id: root.id
       }).category()
