@@ -1,0 +1,43 @@
+scalar DateTime
+
+type Query {
+  getProducts: [Product!]!
+  getInventories: [Inventory!]!
+  getCategories: [Category!]!
+  getOrderlines: [Orderline!]!
+  getProductsByCategory(category: ID!): [Product!]!
+}
+
+type Mutation {
+  createProduct(prod_id: ID!, title: String!, actor: String!, price: Float!, categoryId: ID!): Product
+  createInventory(sales: Int!, quan_in_stock: Int!, prod_id: ID!): Inventory
+  createCategory(category: ID!, categoryname: String!): Category
+  createOrderline(orderlineid: ID!, quantity: Int!, prod_id: ID!): Orderline
+}
+
+type Category {
+  category: ID
+  categoryname: String
+}
+
+type Product {
+  prod_id: ID
+  category: Category
+  title: String
+  actor: String
+  price: Float
+}
+
+type Inventory {
+  id: ID
+  product: Product
+  quan_in_stock: Int
+  sales: Int
+}
+
+type Orderline {
+  orderlineid: ID!
+  product: Product!
+  quantity: Int!
+  orderdate: DateTime!
+}

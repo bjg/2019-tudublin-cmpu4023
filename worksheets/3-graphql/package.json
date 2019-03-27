@@ -1,0 +1,26 @@
+{
+  "name": "3-graphql",
+  "version": "1.0.0",
+  "description": "Add any additional documentation here...",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index2.ts",
+    "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "graphql": "^14.1.1",
+    "graphql-yoga": "^1.17.4",
+    "nexus": "^0.11.5",
+    "nexus-prisma": "^0.3.5",
+    "prisma-client-lib": "^1.28.5"
+  },
+  "devDependencies": {
+    "ts-node": "^8.0.3",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.3.3333"
+  }
+}
