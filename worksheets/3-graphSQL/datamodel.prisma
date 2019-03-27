@@ -1,13 +1,29 @@
-type User {
-  id: ID! @unique
-  email: String @unique
-  name: String!
-  posts: [Post!]!
+type Categories {
+  category: ID! @unique
+  categoryname: String!
 }
 
-type Post {
-  id: ID! @unique
+type Products {
+  prod_id: ID! @unique
   title: String!
-  published: Boolean! @default(value: "false")
-  author: User
+  actor: String
+  price: Float!
+  special: Float
+  common_prod_id: Int
+  category: Categories!
+}
+
+type Reorder {
+  prod_id: Products! @unique
+  date_low: DateTime
+  quan_low: Int
+  date_reordered: DateTime
+  quan_reordered: Int
+  date_expected: DateTime
+}
+
+type Inventory {
+  prod_id: Products! @unique
+  quan_in_stock: Int!
+  sales: Int!
 }

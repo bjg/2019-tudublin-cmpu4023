@@ -3,6 +3,6 @@ datamodel: datamodel.prisma
 hooks:
   post-deploy:
     - prisma generate
-generate:
-- generator: javascript-client
-  output: ./generated/prisma-client/
+  generate:
+    - generator: javascript-client
+      output: ./generated/prisma-client/
