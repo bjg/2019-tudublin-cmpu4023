@@ -1,0 +1,54 @@
+scalar DateTime
+
+type Query {
+  customers: [Customer!]!
+  products: [Product!]!
+  categories: [Category!]!
+  orders: [Order!]!
+  orderlines: [Orderline!]!
+  orderlineById(olid: ID!) : Orderline
+}
+
+type Mutation {
+  createProduct(catId: ID!, title: String!, price: Float!, special: Int!) : Product
+  createOrder(custId: ID!, netamount: Float!) : Order
+  createCustomer(first: String!, last: String!) : Customer
+  createCategory(name: String!): Category
+  createOrderline(productId: ID!, custId: ID!, quantity: Int!) : Orderline
+}
+
+type Product {
+  id: ID!
+  category: Category!
+  title: String!
+  price: Float!
+  special: Int!
+}
+
+type Category {
+  id: ID!
+  name: String!
+}
+
+type Orderline {
+  id: ID!
+  order: Order!
+  product: Product!
+  quantity: Int!
+  date: DateTime!
+}
+
+type Order {
+  id: ID!
+  date: DateTime!
+  customer: Customer!
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+}
+
+type Customer {
+  id: ID!
+  firstname: String!
+  lastname: String!
+}

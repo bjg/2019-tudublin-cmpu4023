@@ -1,0 +1,36 @@
+type Product {
+  id: ID! @unique
+  category: Category!
+  title: String!
+  price: Float!
+  special: Int!
+}
+
+type Category {
+  id: ID! @unique
+  name: String!
+}
+
+type Orderline { 
+  id: ID! @unique
+  order: Order!
+  product: Product!
+  quantity: Int!
+  date: DateTime!
+}
+
+type Order {
+  id: ID! @unique
+  date: DateTime!
+  customer: Customer!
+  netamount: Float!
+  tax: Float!
+  totalamount: Float!
+}
+
+type Customer {
+  id: ID! @unique
+  firstname: String!
+  lastname: String!
+}
+
