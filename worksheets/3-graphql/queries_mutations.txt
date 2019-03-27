@@ -1,0 +1,171 @@
+// create a category by passing the new category name
+mutation {
+  createCategory(categoryname: "Romance") {
+    id
+    categoryname
+  }{
+    id
+    categoryname
+  }
+}
+
+// get details of all categories from the DB
+query {
+  getCategories {
+    id
+    categoryname
+  }
+}
+
+// create a new product in the product table and assign to a category 
+mutation {
+  createProduct(
+    title: "The Game",
+    category: "cjtoedtjr00br072089kwtgiz",
+    actor: "Michael Douglas",
+    price: 19.99,
+  ){
+    id
+    title
+    category{
+      categoryname
+    }
+    actor
+    price
+  }
+}
+
+// get details about a specific product by it's ID - The Saint
+query {
+  getProductById(
+    id: "cjtoej8c800cc07208rt3zfa4"
+  ){
+      title
+      category {
+        categoryname
+      }
+      actor
+      price
+    }
+}
+
+// create inventory for a product - Raiders of the Lost Ark
+mutation {
+  createInventory(
+    product: "cjtq8pfwm004g07203ddfobt7",
+    quan_in_stock: 35,
+    sales: 15
+  ){
+    id
+    sales
+    quan_in_stock
+  }
+}
+
+// get inventories for each product
+query{
+  getInventories{
+    id
+    product{
+      title
+    }
+    quan_in_stock
+    sales
+  }
+}
+
+/* PART 2: Query resolver which returns some set of the the attributes from
+a single database relation i.e. Product
+
+*/
+
+// get all products
+query {
+  getProducts {
+    id
+    category {
+      categoryname
+    }
+    title
+    actor
+    price
+  }
+}
+
+
+/* PART 3: Query resolver which returns the attributes from 3 joined
+database relations having 2 levels of nesting in the resultant output 
+
+> 3 database relations: Inventory, Product, Category
+> 2 levels of nesting: (Product) title, (Category) categoryname
+
+This query uses the product ID to return the inventory details for that product.
+Including details about the product and it's category. 
+ID = Forest Gump
+
+*/ 
+
+query {
+  getInventoryByProduct(
+    id: "cjtq847dc000l07206s6d8wtw"
+  ){
+    quan_in_stock
+    product {
+      title
+      category {
+        categoryname
+      }
+    }
+  }
+}
+
+/* PART 4: Create a mutation resolver to add data the database,
+updating at least two relations.
+
+> mutation resolver: createReorder 
+> updated relations: Reorder, Inventory, Product
+
+This query assumes that a stock check has occured in normal business practice. 
+The product "Forest Gump" has been identified as low in stock (quan_low = 5) 
+A reorder is placed on that product to replenish stock levels (quan_reordered = 50)
+
+The reorder involves: 
+1. finding the inventory for the product using the product ID 
+2. from that extracting the inventory ID (to update the inventory later)
+3. then we use the product ID to get the price for the product from the products table
+4. we calculate a discounted sale price based on the original price
+5. then we call updateProduct to update the product with the new sale price (parsing to control decimal formatting)
+6. finally we call updateInventory to update the inventory to change the stock level to that identified in the stock check
+    
+Product ID: Forest Gump
+
+*/ 
+
+mutation{
+  createReorder(
+    product: "cjtq847dc000l07206s6d8wtw",
+    date_low: "2019-03-01",
+    quan_low: 5,
+    date_reordered: "2019-03-01",
+    quan_reordered: 50,
+    date_expected: "2019-03-31"
+  ){
+    id
+    }
+  }
+}
+
+// get list of reorders relating to each product
+query{
+  getReorders{
+    id
+    product{
+      title
+    }
+    date_low
+    quan_low
+    date_reordered
+    quan_reordered
+    date_expected
+  }
+}
