@@ -1,0 +1,38 @@
+type Query {
+  catagories(catid: ID!) [Categories!]!
+  orderlines(olid: ID!) [Orderlines!]!
+  orders(ordid: ID!) [Orders!]!
+  products(prodid: ID!) [Products!]!
+}
+
+type Mutation {
+  createCategories(catname: String!, catProd: [Products!]!) : Categories
+  createOrderlines(oltitle: String!) : Orderlines
+  createOrders(ordtax: Int!, ordorderlines: [Orderlines!]!) : Orders
+  createProducts(prodcategory: String!, prodtitle: String!, prodprice: Int!, prodorderlines: [Orderlines!]!) : Products
+}
+
+type Categories {
+  catid: ID!
+  catname: String
+  catProd: [Products!]!
+}
+
+type Orderlines {
+  olid: ID!
+  oltitle: String!
+}
+
+type Orders {
+  ordid: ID!
+  ordtax: Int!
+  ordorderlines: [Orderlines!]!
+}
+
+type Products {
+  prodid: ID!
+  prodcategory: String!
+  prodtitle: String!
+  prodprice: Int!
+  prodorderlines: [Orderlines!]!
+}
