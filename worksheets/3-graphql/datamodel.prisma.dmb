@@ -1,0 +1,51 @@
+
+type Products {
+  prod_id: ID! @unique
+  cat_id :Int
+  title: String!
+  actor:String!
+  price:Float!
+  special: Int
+}
+
+ type Orders{
+ order_id:ID! @unique
+ orderdate: DateTime
+ customer_id: Customers
+ netamount: Float!
+ tax: Float!
+ totalAmount: Float!
+}
+
+type Orderlines{
+
+orderline_id: ID! @unique
+order_id: Orders!
+product_id: Products!
+quantity: Int!
+orderdate: DateTime!
+}
+
+type Customers{
+cust_id: ID! @unique
+firstname: String!
+lastname: String!
+address1: String!
+address2: String
+city: String!
+state: String
+zip: String
+country: String!
+region: String!
+email: String
+phone: String
+creditcardtype: String!
+creditcard: String!
+creditcardexpiry: String!
+username: String!
+password: String!
+age: Int
+income: Float
+gender: String
+
+}

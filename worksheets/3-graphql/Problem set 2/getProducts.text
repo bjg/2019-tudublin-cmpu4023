@@ -1,0 +1,28 @@
+query{
+  getProducts{
+    id
+    title
+    price
+    category{
+      id
+      categoryname
+    }
+  }
+}
+
+
+{
+  "data": {
+    "getProducts": [
+      {
+        "id": "cjtepdw8y04hu0730adals094",
+        "title": "Dove",
+        "price": 10,
+        "category": {
+          "id": "cjteowdt304hf0730b835mp84",
+          "categoryname": "Soap"
+        }
+      }
+    ]
+  }
+}

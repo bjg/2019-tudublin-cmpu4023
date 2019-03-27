@@ -1,0 +1,38 @@
+mutation{
+  createCustomer(
+    firstname:"Cathal"
+    lastname:"aherne"
+    address1:"3a patrick square"
+    address2:"newbridge"
+    city:"kildare"
+    state:"ireland"
+    zip:12345
+    country:"ireland"
+    region:"europe"
+    email:"cathal@gmail.com"
+    phone:"0857273745"
+    creditcardtype:"Visa"
+    creditcard:"123456789"
+    creditcardexpiration:"2019-03"
+    username:"cathal"
+    password:"pasword"
+    age:21
+    income:50000
+    gender:"Male"
+  ){
+    id
+    firstname
+    lastname
+
+  }
+}
+
+{
+  "data": {
+    "createCustomer": {
+      "id": "cjteor6zy04ha07303wjfi23x",
+      "firstname": "Cathal",
+      "lastname": "aherne"
+    }
+  }
+}

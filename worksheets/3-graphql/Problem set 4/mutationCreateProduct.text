@@ -1,0 +1,43 @@
+mutation{
+  createProduct(
+    categoryId:"cjteowdt304hf0730b835mp84"
+    title:"Dove"
+    actor:"Unileve"
+    price:10.00
+    special:5.00
+    common_prod_id:1
+    stock_quantity:100
+  ){
+    id
+    title
+    category{
+      id
+      categoryname      
+    }
+    inventory{
+      id
+      stock_quantity
+      sales
+    }
+
+  }
+}
+
+
+{
+  "data": {
+    "createProduct": {
+      "id": "cjtepdw8y04hu0730adals094",
+      "title": "Dove",
+      "category": {
+        "id": "cjteowdt304hf0730b835mp84",
+        "categoryname": "Soap"
+      },
+      "inventory": {
+        "id": "cjtepdw9e04hv0730y3ynmoef",
+        "stock_quantity": 100,
+        "sales": 0
+      }
+    }
+  }
+}
