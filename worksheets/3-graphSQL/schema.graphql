@@ -3,7 +3,26 @@ type Query {
 }
 
 type Mutation {
-  createCategory(categoryname: String!): Categories
+  # Add a new category
+  createNewCategory(categorynames: String!): Categories
+
+  # Add a new product
+  createNewProduct(
+    title: String!,
+    actor: String,
+    price: Float!,
+    special: Float,
+    common_prod_id: Int,
+    category: ID
+  ): Products
+
+  #Add a new product in the inventory
+  createNewInventory(
+    prod_id: ID
+    quan_in_stock: Int!
+    sales: Int!
+  ): Inventory
+
 }
 
 type Categories {

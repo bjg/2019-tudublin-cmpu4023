@@ -4,14 +4,34 @@ const { GraphQLServer } = require('graphql-yoga')
 const resolvers = {
   Query: {
     product(root, args, context) {
-      return context.prisma.product({ id: args.productId })
+      return context.prisma.products({ id: args.productId })
     }
   },
   Mutation: {
-    createCategory(root, args, context) {
-      return context.prisma.createCategory(
-        { categoryname: args.categoryname },
-        )
+    createNewCategory(root, args, context) {
+      return context.prisma.createCategories({
+        categoryname: args.categorynames
+        })
+    },
+    createNewProduct(root, args, context) {
+      return context.prisma.createProducts({
+        title: args.title,
+        actor: args.actor,
+        price: args.price,
+        special: args.special,
+        common_prod_id: args.common_prod_id,
+        category: {
+          connect: {
+            id: args.categoryId
+          }
+        },
+        inventory: {
+          create: {
+            quan_in_stock: args.stock_quantity,
+            sales: 0
+          }
+        }
+      })
     },
   }
 }
