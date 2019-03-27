@@ -1,126 +1,159 @@
 # Question 1:
-## (1.0) - GET /users
-### Code
-app.get('/users', (req, res) => {req.app.get("db").query('select email, details from users order by created_at desc;').then(items => {
-res.json(items);});});
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q1.0.PNG)
+Chose the 4 relations reorder, inventory, products and categories.
+I then created these relationships (see datamodel.prisma) in graphql and populated them with the following values.
 
-## (1.1) - GET /users/:id
-### Code
-app.get('/users/:id', (req, res) => {
-	var id = req.params.id;
-	req.app.get("db").query('select email, details from users where id = ${id} order by created_at desc;',
-		{id : req.params.id}).then(items => {
-res.json(items);});});
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q1.1.PNG)
+## Categories
+mutation {
+  createCategory(categoryname: "Mops") {
+    id
+  }
+}
+### Returns with:
+{
+  "data": {
+    "createCategory": {
+      "id": "cjtrlitla00ow0745zm0fi5lv"
+    }
+  }
+}
 
-## (1.2) - GET /products
-### Code
-app.get('/products', (req, res) => {req.app.get("db").query('select * from products order by price asc;').then(items => {
-res.json(items);});});
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q1.2.PNG)
+## Products
+mutation {
+  createProduct(title: "Wowomop",actor:"he", price:9.50,
+  category:"cjtrj13if00og0745fmdfop1b" {
+    id
+  }
+}
+### Returns with:
+{
+  "data": {
+    "createProduct": {
+      "id": "cjtrk82a100ol07458tz4ts9m"
+    }
+  }
+}
 
-## (1.3) - GET /products/:id
-### Code
-app.get('/products/:id', (req, res) => {
-	var id = req.params.id;
-	req.app.get("db").query('select * from products where id = ${id} order by price asc;',
-		{id : req.params.id}).then(items => {
-res.json(items);});});
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q1.3.PNG)
+## Inventory
+mutation {
+  createInventory(quan_in_stock: 10, sales:1,
+  prod_id:"cjtrk82a100ol07458tz4ts9m") {
+	id
+  }
+}
+### Returns with:
+{
+  "data": {
+    "createInventory": {
+      "id": "cjtrlm17h00p60745jup299ev"
+    }
+  }
+}
 
-## (1.4) - GET /purchases
-### Code
-app.get('/purchases', (req, res) => {req.app.get("db").query('select name, address, email, price, quantity, p.state from purchases join users on user_id=users.id join purchase_items p on purchases.id = purchase_id order by price desc;').then(items => {
-res.json(items);});});
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q1.4.PNG)
+## Reorder
+mutation {
+  createReorder(quan_low: 10, quan_reordered: 10
+  prod_id:"cjtrk82a100ol07458tz4ts9m") {
+	id
+  }
+}
+### Returns with:
+{
+  "data": {
+    "createReorder": {
+      "id": "cjtrlouza00pb0745bzrgselx"
+    }
+  }
+}
 
+# Question 2 - Return set of attributes from single relation:
+## Query for id, title, actor & price attributes from Products relation
+query {
+    Products {
+        id
+        title
+	actor
+	price
+    }
+}
+### Returns with:
+  "data": {
+    "Products":[
+		{
+		  "id": "cjtrk82a100ol07458tz4ts9m",
+		  "title": "Wowomop",
+		  "actor": "he",
+		  "price": 9.50
+		}
+	  ]
+	}
+# Question 3 - Query with 3 relation joins and atleast two-levels of nesting: 
+## This query will use the products relation to join with the category and inventory relation. The real world application of this query is the following:
+#### This allows a product to have their category name displayed along with the amount of sales for that product and quantity in stock. It would be beneficial to use to see how well certain categories of products are doing in terms of sales, or if too much stock has been purchased for certain categories.
+query {
+    Products {
+        id
+        title
+	actor
+	price
+        category {
+            id
+            categoryname
+        }
+	inventory {
+            id
+            quan_in_stock
+	    sales
+        }
+    }
+}
 
-## (2.0) - SQL injection
-### Weak exploitable code
-![Image](worksheets/1-rest-sql-orm/screenshots/q2_code.PNG)
-### Injection
-![Image](worksheets/1-rest-sql-orm/screenshots/q2_injection.PNG)
-### Table after sql injection (id=1 from table products has been deleted)
-![Image](worksheets/1-rest-sql-orm/screenshots/q2_table_rows_after_injection.PNG)
+### Returns with:
+  "data": {
+    "Products":[ 
+		{
+		  "id": "cjtrk82a100ol07458tz4ts9m",
+		  "title": "Wowomop",
+		  "actor":"he",
+		  "price":9.50,
+		  "category":[
+			{
+				"id": "cjtrj13if00og0745fmdfop1b",
+				"categoryname": "Mops"
+			}
+		  ],
+		  "inventory":[
+			{
+				"id": "cjtrlm17h00p60745jup299ev",
+				"quan_in_stock": 10,
+				"sales":1
+			}
+		  ]
+		}
+	]
+  }
+  
+  # Question 4
+  ## This resolver adds data to the inventory & category relations. The real world application of this resolver is the following:
+  #### It allows for when a new product is added with a new category, this new category value can be added alongside the stock & sales of the new product. An example could be a new Gadget that doesn't have a defined category yet, this resolver could create the new category of the product with the stock of the item. The resolver eliminates the middleman in a potential edge case of a new product which does not belong to an aleady defined category. Eg of such a case:
+  mutation{
+	  createInventoryCategory(
+		quan_in_stock:3,
+		sales: 2,
+		prod_id:"cjtrk82a100ol07458tz4ts9m",
+		Category:{
+			categoryname: "NewCategory"
+		}){		
+			id
+		}
+	}
+### Returns with:
+{
+  "data": {
+    "createInventoryCategory": {
+      "id": "cjtro8jml00pj0745xjwyge5u"
+    }
+  }
+}	
 
-## (3.0) - Solution to injects
-### Injection to test solutions
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_sql_inject.PNG)
-### Solution 1 - parameterisation
-#### Code
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_solution1_parameterisation_code.PNG)
-#### After inject (no deletion)
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_solution1_parameterisation_after_inject.PNG)
-
-### Solution 2 - stored procedure
-#### Procedure
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_solution2_storedprocedure.PNG)
-#### Code
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_solution2_storedprocedure_code.PNG)
-#### After inject (no deletion)
-![Image](worksheets/1-rest-sql-orm/screenshots/q3_solution1_parameterisation_after_inject.PNG)
-
-## (4.0) - Database migration
-#### Code for migration of purchases table (see migrations folder in sequelize part for all migrations)
-![Image](worksheets/1-rest-sql-orm/screenshots/q4_purchase_items_migration_code.PNG)
-
-## (5.0) - Population of databases useing JS code (seeds used, see seeds folder in sequelize part for all seeds)
-#### Code for seed for users table insertion (inserts an email and password)
-![Image](worksheets/1-rest-sql-orm/screenshots/q5_seed_insert_users_code.PNG)
-### Insertion shown in table
-![Image](worksheets/1-rest-sql-orm/screenshots/q5_seed_insert_users.PNG)
-
-## (6.0) - GET /products[?name=string]
-### Code
-app.get('/products', (req, res) => {	
-		Model.products.findAll({where:{title:{[Sequelize.Op.like]:"%"+req.query.name+"%"}}})
-		.then(results => {
-			res.json(results);})})
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.0.PNG)
-
-## (6.1) - GET /products/:id
-### Code
-app.get('/products/:id', (req, res) => {
-		Model.products.findOne({where:{id:req.params.id}})
-		.then(results => {
-			res.json(results);})})
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.1.PNG)
-
-## (6.2) - POST /products
-### Code
-app.post('/products', (req, res) => {
-	Model.products.create({title:req.body.title, price:req.body.price, tags: req.body.tags})
-	.then(results => {
-		res.json(results);})})
-### Output 
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.2.PNG)
-### After Insert
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.2_after_insert.PNG)
-## (6.3) - PUT /products/:id
-### Code
-app.put('/products/:id', (req, res) => {
-	Model.products.update({title: req.body.title, price: req.body.price, tags: req.body.tags},
-	{where:{id:req.params.id}})
-	.then(results => {
-		res.json(results);})})
-### Output (shows that the update has been carried out with new values)
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.3.PNG)
-
-## (6.4) - DELETE /products/:id
-### Code
-app.delete('/products/:id', (req, res) => {
-	Model.products.destroy({where:{id:req.params.id}})
-	.then((results) =>{
-		res.json(results)})})
-### Output
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.4.PNG)
-## After deteletion
-![Image](worksheets/1-rest-sql-orm/screenshots/q6.4_after_deletion.PNG)
+# Question 5
+## Done, will demonstrate in the lab.
