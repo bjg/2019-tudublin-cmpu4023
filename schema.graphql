@@ -1,0 +1,44 @@
+type Query {
+  categories: [Category!]!
+  products: [Product]!
+  reorder: [Reorder]!
+  inventory: [Inventory]!
+}
+
+type Category {
+  id: ID!
+  name: String!
+}
+
+type Product {
+  id: ID!
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int!
+  common_prod_id: Int!
+
+  #Relations
+  category: [Category!]!
+}
+
+type Reorder {
+  id: [Product!]!
+  date_low: String!
+  quan_low: Int!
+  date_reordered: String!
+  quan_reordered: Int!
+  date_expected: String!
+
+  #Relations
+  product: [Product!]!
+}
+
+type Inventory {
+  id: ID!
+  quan_in_stock: Int!
+  sales: Int!
+
+  #Relations
+  product: [Product!]!
+}
