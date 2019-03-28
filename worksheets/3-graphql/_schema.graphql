@@ -1,0 +1,56 @@
+type Query {
+  publishedPosts: [Post!]!
+  post(postId: ID!): Post
+  postsByUser(userId: ID!): [Post!]!
+}
+
+type Mutation {
+  createUser(name: String!): User
+  createDraft(title: String!, userId: ID!): Post
+  publish(postId: ID!): Post
+  createCategory(category_name: String!): Category
+}
+
+type User {
+  id: ID!
+  email: String
+  name: String!
+  posts: [Post!]!
+}
+
+type Post {
+  id: ID!
+  title: String!
+  published: Boolean!
+  author: User
+}
+
+type Reorder {
+    product: Product!
+    date_low: DateTime!
+    quan_low: Int!
+    date_reordered: DateTime!
+    quan_reordered: Int!
+    date_expected: DateTime!
+}
+
+type Inventory {
+    product: Product!
+    quan_in_stock: Int!
+    sales: Int!
+}
+
+type Product {
+    id: ID! @unique
+    category: Category!
+    title: String!
+    actor: String
+    price: Float!
+    special: Int
+    common_products: [Product!]
+}
+
+type Category {
+    category: ID! @unique
+    category_name: String! @unique
+}
