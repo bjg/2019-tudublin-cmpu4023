@@ -1,0 +1,48 @@
+scalar DateTime
+
+type Query {
+  category(categoryId: ID!): Category
+  product(productId: ID!): Product
+  inventory(productId: ID!): Inventory
+  allCategories: [Category!]!
+  allProducts: [Product!]!
+  productsForCategory(categoryName: String): [Product!]
+  totalInventoryValueForCategory(categoryId: ID!): Int
+}
+
+type Mutation {
+  createCategory(name: String!): Category
+  createProduct(title: String!, categoryId: ID!, price: Float!, actor: String, special: Int): Product
+  createInventory(productId: ID!, quantityInStock: Int!, sales: Int): Inventory
+  addProductWithInventory(title: String!, categoryId: ID!, price: Float!, actor: String, special: Int, quantityInStock: Int) : Product
+}
+
+type Reorder {
+    product: Product!
+    date_low: DateTime!
+    quan_low: Int!
+    date_reordered: DateTime!
+    quan_reordered: Int!
+    date_expected: DateTime!
+}
+
+type Inventory {
+    product: Product!
+    quan_in_stock: Int!
+    sales: Int
+}
+
+type Product {
+    id: ID! 
+    category: Category
+    title: String!
+    actor: String
+    price: Float!
+    special: Int
+    common_products: [Product!]
+}
+
+type Category {
+    id: ID! 
+    name: String! 
+}
