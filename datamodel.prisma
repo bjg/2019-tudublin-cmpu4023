@@ -1,0 +1,37 @@
+type Category {
+  id: ID! @unique
+  name: String!
+}
+
+type Product {
+  id: ID! @unique
+  title: String!
+  actor: String!
+  price: Float!
+  special: Int!
+  common_prod_id: Int!
+
+  #Relations
+  category: Category!
+}
+
+type Reorder {
+  id: ID! @unique
+  date_low: String!
+  quan_low: Int!
+  date_reordered: String!
+  quan_reordered: Int!
+  date_expected: String!
+
+  #Relations
+  product: Product!
+}
+
+type Inventory {
+  id: ID! @unique
+  quan_in_stock: Int!
+  sales: Int!
+
+  #Relations
+  product: Product!
+}

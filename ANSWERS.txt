@@ -1,0 +1,54 @@
+Q1. ERD Diagram.
+See "ERD.png"
+
+
+
+Q2. Query resolver.
+Query: {
+	products(root, args, context) {
+		return context.prisma.products();
+	},
+
+
+
+Q3. Query resolver with 3 joined database relations having 2 levels of nesting.
+Query: {
+	productByCategory(root, args, context) {
+			return context.prisma.products({
+				where: {
+				   category: {
+						id: args.id
+	   }
+	},
+
+
+
+Q4. Mutation resolver to add data.
+Mutation: {
+	createProduct(root, args, context) {
+		return context.prisma.createProduct({
+			title: args.title,
+			actor: args.actor,
+			price: args.price,
+			special: args.special,
+			common_prod_id: args.common_prod_id,
+			category: {
+				connect: { 
+					id: args.category
+					}
+				},
+			},
+		)
+	},
+}
+
+
+
+Q5. Server Connection
+const server = new GraphQLServer({
+    typeDefs: './schema.graphql',
+    resolvers,
+    context: {
+        prisma
+    },
+})
