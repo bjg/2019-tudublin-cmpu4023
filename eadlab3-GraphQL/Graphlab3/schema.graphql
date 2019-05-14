@@ -1,0 +1,68 @@
+scalar DateTime
+
+type Query{
+   getProducts: [Products!]!
+   getReorder: [Reorder!]!
+   getInventory: [Inventory!]!
+   getCategories: [Categories!]!
+}
+
+type Mutation {
+  createProducts(
+    title: String!
+    category: ID
+    actor: String!
+    price: Int!
+    special: Int!
+    common_prod_id: Int
+  ):Products
+
+  createReorder (
+    prod_id: ID 
+    date_low: DateTime!
+    quan_low: Int!
+    date_reordered: DateTime!
+    quan_reordered: Int!
+    date_expected: DateTime!
+  ):Reorder
+
+  createInventory (
+    prod_id: ID
+    quan_in_stock: Int!
+    sales: Int!
+  ):Inventory
+
+  createCategories (
+    categoryname: String!
+  ):Categories
+}
+
+type Products {
+  id: ID!
+  category: Categories
+  title: String!
+  actor: String!
+  price: Int!
+  special: Int!
+  common_prod_id: Int
+}
+
+type Reorder {
+    prod_id: Products
+    date_low: DateTime!
+    quan_low: Int!
+    date_reordered: DateTime!
+    quan_reordered: Int!
+    date_expected: DateTime!
+}
+
+type Inventory {
+    prod_id: Products
+    quan_in_stock: Int!
+    sales: Int!
+}
+
+type Categories {
+  id: ID!
+  categoryname: String!
+}
