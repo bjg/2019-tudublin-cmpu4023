@@ -1,0 +1,16 @@
+{
+  "name": "massive-section",
+  "version": "1.0.0",
+  "description": "The following package fulfills the massive questions associated with the lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Robert Vaughan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.5"
+  }
+}
