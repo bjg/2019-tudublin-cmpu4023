@@ -1,0 +1,22 @@
+{
+  "name": "lab1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.5",
+    "npm": "^6.8.0",
+    "pg": "^6.4.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "Hello",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
