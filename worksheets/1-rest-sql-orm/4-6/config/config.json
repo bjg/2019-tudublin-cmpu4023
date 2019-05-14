@@ -1,0 +1,11 @@
+{
+    "development": {
+      "username": "pgguide_user",
+      "password": "123",
+      "database": "pgguide",
+      "host": "127.0.0.1",
+      "dialect": "postgres",
+      "operatorsAliases": false
+    }
+}
+  
