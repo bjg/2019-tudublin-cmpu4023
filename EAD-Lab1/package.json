@@ -1,0 +1,21 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "EAD_2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stephen Bradley",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "massive": "^5.7.4",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "save": "^2.3.3",
+    "sequelize": "^4.42.0"
+  },
+  "devDependencies": {}
+}
