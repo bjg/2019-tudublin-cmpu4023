@@ -1,0 +1,23 @@
+{
+  "name": "sequilize",
+  "version": "1.0.0",
+  "description": "Sequilize segment of the lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Daniel Moloney",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.6",
+    "pg": "^7.8.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.42.0",
+    "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {
+    "gulp-sequelize": "0.0.2"
+  }
+}

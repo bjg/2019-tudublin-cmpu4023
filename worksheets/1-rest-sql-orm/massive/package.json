@@ -1,0 +1,17 @@
+{
+  "name": "firstlab",
+  "version": "1.0.0",
+  "description": "Daniel First lab (late)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Daniel Moloney",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "massive": "^5.7.6",
+    "pg": "^7.8.0",
+  }
+}
