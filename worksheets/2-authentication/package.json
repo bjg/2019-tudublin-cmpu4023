@@ -1,0 +1,25 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "bookshelf": "^0.14.2",
+    "bookshelf-secure-password": "^3.1.0",
+    "dotenv": "^6.2.0",
+    "jsonwebtoken": "^8.5.0",
+    "knex": "^0.16.3",
+    "nodemon": "^1.18.10",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "pg": "^7.8.1"
+  }
+}
