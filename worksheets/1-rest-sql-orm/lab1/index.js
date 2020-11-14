@@ -8,7 +8,7 @@ massive({
     host: 'localhost',
     port: 5432,
     database: 'pgguide',
-    user: 'admin1',
+    user: 'admin',
     password: 'password',
     ssl: false,
     poolSize: 10,
